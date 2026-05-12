@@ -41,7 +41,7 @@ let products = [
         id: 1,
         name: "Source Kode Downloader",
         description: "Source kode untuk web, desain simple, dan harga murah.",
-        price: 2000,
+        price: 2000000,
         image: "https://files.catbox.moe/re7iam.jpg",
         category: "digital",
         type: "none"  // hot / rekomendasi / none / new
