@@ -68,7 +68,7 @@ let products = [
         image: "https://files.catbox.moe/a8q4wa.jpg",
         category: "jasa",
         isNegotiable: true,
-        type: "none"
+        type: "coming_soon"
     },
     {
         id: 4,
