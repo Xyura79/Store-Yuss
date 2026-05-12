@@ -1,7 +1,7 @@
 {
-  "name": "Toko Digital YussXy",
-  "short_name": "Toko Digital YussXy",
-  "description": "Toko Digital YussXy",
+  "name": "YussXy",
+  "short_name": "YussXy",
+  "description": "Toko Digital YussXy - Source Code, Jasa Website, Bot WhatsApp & Telegram",
   "start_url": "/Store-Yuss/",
   "scope": "/Store-Yuss/",
   "display": "standalone",
@@ -22,4 +22,4 @@
       "purpose": "any maskable"
     }
   ]
-}
+} 
