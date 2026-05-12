@@ -262,21 +262,33 @@
     
     
     
-    
-      
-    
     <script>
-  // Register Service Worker
+  // Register Service Worker + Auto Update
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
       navigator.serviceWorker.register('/sw.js').then(function(registration) {
         console.log('ServiceWorker registration successful');
+        
+        // Update otomatis tanpa install ulang
+        registration.update();
+        
+        // Reload otomatis jika ada service worker baru
+        let refreshing = false;
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+          if (refreshing) return;
+          refreshing = true;
+          window.location.reload();
+        });
+        
       }, function(err) {
         console.log('ServiceWorker registration failed: ', err);
       });
     });
   }
-</script>  
+    </script>
+      
+    
+    
     
     
     
