@@ -382,28 +382,36 @@ body {
    ================================================ */
 .product-buttons {
     display: flex;
+    flex-direction: column;
     gap: 6px;
     margin-top: 6px;
 }
+
+
+
 
 /* ================================================
    BAGIAN DESAIN TOMBOL BELI SEKARANG - START
    ================================================ */
 .btn-buy-now {
-    flex: 1;
-    padding: 6px 4px;
+    width: 100%;
+    padding: 10px 4px;
     background: linear-gradient(90deg, var(--accent), var(--accent-hover));
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     color: white;
-    font-size: 9px;
-    font-weight: 600;
+    font-size: 12px;
+    font-weight: 700;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 4px;
+    gap: 6px;
+    transition: transform 0.1s;
 }
+
+
+
 
 .btn-buy-now:active {
     transform: scale(0.95);
@@ -416,20 +424,22 @@ body {
    BAGIAN DESAIN TOMBOL MASUKAN KERANJANG - START
    ================================================ */
 .btn-add-cart {
-    flex: 1;
-    padding: 6px 4px;
+    width: 100%;
+    padding: 10px 4px;
     background: var(--bg-secondary);
     border: 1px solid var(--border);
-    border-radius: 8px;
+    border-radius: 10px;
     color: var(--text-primary);
-    font-size: 9px;
-    font-weight: 600;
+    font-size: 12px;
+    font-weight: 700;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 4px;
+    gap: 6px;
+    transition: all 0.1s;
 }
+
 
 .btn-add-cart:active {
     transform: scale(0.95);
