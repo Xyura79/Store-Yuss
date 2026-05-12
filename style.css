@@ -5,18 +5,30 @@
 
 
 
+    
+    
+    
+    
+    
+    
+.modal.closing {
+    animation: modalFadeOut 0.2s ease forwards;
+}
 
+@keyframes modalFadeOut {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+}
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
+/*😏🤗😏🤗😏🤗*/   
 /* BADGE SOLD OUT (HABIS) */
 .badge-sold {
     background: #6b7280;
