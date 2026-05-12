@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Cara Pembelian - YussXy Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f0f0f;
+            --bg-secondary: #1a1a1a;
+            --bg-card: #1e1e1e;
+            --text-primary: #ffffff;
+            --text-secondary: #9ca3af;
+            --accent: #ef4444;
+            --accent-hover: #dc2626;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --border: #2a2a2a;
+            --radius-sm: 12px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        /* ================================================
+           APP CONTAINER
+        ================================================ */
+        .app-container {
+            max-width: 480px;
+            margin: 0 auto;
+            min-height: 100vh;
+            background: var(--bg-primary);
+            position: relative;
+            padding-bottom: 70px;
+        }
+
+        /* ================================================
+           HEADER SECTION
+        ================================================ */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 16px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .logo-text {
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .logo-text span {
+            color: var(--accent);
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .icon-btn {
+            background: rgba(255,255,255,0.05);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .icon-btn:active {
+            transform: scale(0.95);
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* ================================================
+           MAIN CONTENT
+        ================================================ */
+        .main-content {
+            padding: 20px 16px;
+            min-height: calc(100vh - 130px);
+        }
+
+        .page-header {
+            margin-bottom: 24px;
+        }
+
+        .page-header h2 {
+            font-size: 20px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .page-header h2 i {
+            font-size: 28px;
+            color: var(--accent);
+        }
+
+        .page-header p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 6px;
+        }
+
+        /* ================================================
+           HOW TO BUY CONTAINER
+        ================================================ */
+        .how-to-buy-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* ================================================
+           STEP CARD
+        ================================================ */
+        .step-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(239,68,68,0.1), rgba(239,68,68,0.05));
+            border-bottom: 1px solid var(--border);
+        }
+
+        .step-number {
+            width: 44px;
+            height: 44px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: 800;
+            color: white;
+        }
+
+        .step-title {
+            flex: 1;
+        }
+
+        .step-title h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .step-title p {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .step-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(239,68,68,0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--accent);
+        }
+
+        .step-body {
+            padding: 20px;
+        }
+
+        .step-desc {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .step-list {
+            list-style: none;
+            margin-top: 12px;
+        }
+
+        .step-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 13px;
+        }
+
+        .step-list li:last-child {
+            border-bottom: none;
+        }
+
+        .step-list li i {
+            width: 22px;
+            color: var(--accent);
+            font-size: 16px;
+        }
+
+        .step-note {
+            background: rgba(245,158,11,0.1);
+            border-left: 3px solid var(--warning);
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            margin-top: 16px;
+            font-size: 12px;
+            color: var(--warning);
+        }
+
+        /* ================================================
+           FLOW DIAGRAM
+        ================================================ */
+        .flow-container {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 24px 20px;
+            margin-top: 10px;
+        }
+
+        .flow-title {
+            text-align: center;
+            margin-bottom: 24px;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .flow-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .flow-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 16px;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-md);
+            margin-bottom: 8px;
+        }
+
+        .flow-item .flow-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--bg-card);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .flow-item .flow-text {
+            flex: 1;
+            font-weight: 600;
+        }
+
+        .flow-arrow {
+            text-align: center;
+            color: var(--accent);
+            font-size: 20px;
+            margin: -5px 0;
+        }
+
+        /* ================================================
+           CONTACT BUTTONS
+        ================================================ */
+        .contact-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .btn-primary {
+            flex: 1;
+            padding: 14px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+            border: none;
+            border-radius: var(--radius-md);
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-primary:active {
+            transform: scale(0.97);
+        }
+
+        .btn-wa {
+            background: #25D366;
+        }
+
+        .btn-store {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+        }
+
+        /* ================================================
+           INFO CARD
+        ================================================ */
+        .info-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .info-card h4 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-card p {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* ================================================
+           BOTTOM NAVIGATION
+        ================================================ */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            max-width: 480px;
+            margin: 0 auto;
+            background: var(--bg-secondary);
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .nav-item {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .nav-item i {
+            font-size: 22px;
+        }
+
+        .nav-item.active {
+            color: var(--accent);
+        }
+
+        .nav-item:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- ==================== HEADER ==================== -->
+        <div class="header">
+            <div class="logo-area">
+                <img src="https://files.catbox.moe/s6tjs1.jpg" alt="Logo" class="logo-img">
+                <div class="logo-text">YussXy<span>Store</span></div>
+            </div>
+            <div class="header-icons">
+                <a href="index.html" class="icon-btn">
+                    <i class="ri-store-line"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- ==================== MAIN CONTENT ==================== -->
+        <div class="main-content">
+            <div class="page-header">
+                <h2>
+                    <i class="ri-shopping-bag-line"></i>
+                    Cara Pembelian
+                </h2>
+                <p>Panduan lengkap belanja di YussXy Store</p>
+            </div>
+
+            <!-- ==================== STEP 1: Pilih Produk ==================== -->
+            <div class="step-card">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <h3>Pilih Produk</h3>
+                        <p>Step pertama</p>
+                    </div>
+                    <div class="step-icon">
+                        <i class="ri-store-line"></i>
+                    </div>
+                </div>
+                <div class="step-body">
+                    <div class="step-desc">
+                        Pilih produk yang kamu inginkan dari daftar produk yang tersedia.
+                    </div>
+                    <ul class="step-list">
+                        <li><i class="ri-search-line"></i> Cari produk yang diinginkan</li>
+                        <li><i class="ri-information-line"></i> Klik produk untuk lihat detail lengkap</li>
+                        <li><i class="ri-shopping-cart-line"></i> Tekan tombol "Beli" atau "Keranjang"</li>
+                        <li><i class="ri-question-line"></i> Jika ada pertanyaan, bisa chat owner dulu</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ==================== STEP 2: Bayar ==================== -->
+            <div class="step-card">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">
+                        <h3>Lakukan Pembayaran</h3>
+                        <p>Step kedua</p>
+                    </div>
+                    <div class="step-icon">
+                        <i class="ri-qr-code-line"></i>
+                    </div>
+                </div>
+                <div class="step-body">
+                    <div class="step-desc">
+                        Lakukan pembayaran sesuai total belanja melalui:
+                    </div>
+                    <ul class="step-list">
+                        <li><i class="ri-qr-code-line"></i> Scan QRIS yang tersedia</li>
+                        <li><i class="ri-bank-card-line"></i> Transfer ke rekening yang tertera</li>
+                        <li><i class="ri-wallet-line"></i> E-wallet (Dana, OVO, Gopay)</li>
+                    </ul>
+                    <div class="step-note">
+                        <i class="ri-information-line"></i> Simpan bukti pembayaran (screenshot) untuk konfirmasi
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== STEP 3: Konfirmasi ==================== -->
+            <div class="step-card">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        <h3>Konfirmasi pembayaran</h3>
+                        <p>Step ketiga</p>
+                    </div>
+                    <div class="step-icon">
+                        <i class="ri-whatsapp-line"></i>
+                    </div>
+                </div>
+                <div class="step-body">
+                    <div class="step-desc">
+                        Konfirmasikan pembayaran ke owner via WhatsApp dengan mengirimkan:
+                    </div>
+                    <ul class="step-list">
+                        <li><i class="ri-image-line"></i> Screenshot/bukti transfer</li>
+                        <li><i class="ri-file-copy-line"></i> Nama produk yang dibeli</li>
+                        <li><i class="ri-user-line"></i> Nama lengkap</li>
+                    </ul>
+                    <div class="contact-buttons">
+                        <a href="https://wa.me/6283183469343" target="_blank" class="btn-primary btn-wa">
+                            <i class="ri-whatsapp-line"></i> Konfirmasi via WA
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== STEP 4: Produk Dikirim ==================== -->
+            <div class="step-card">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <h3>Produk dikirim</h3>
+                        <p>Step keempat</p>
+                    </div>
+                    <div class="step-icon">
+                        <i class="ri-mail-send-line"></i>
+                    </div>
+                </div>
+                <div class="step-body">
+                    <div class="step-desc">
+                        Setelah konfirmasi, owner akan mengirimkan produk ke kamu.
+                    </div>
+                    <ul class="step-list">
+                        <li><i class="ri-time-line"></i> Proses maksimal 1x24 jam</li>
+                        <li><i class="ri-file-download-line"></i> Produk digital dikirim via WhatsApp</li>
+                        <li><i class="ri-customer-service-line"></i> Garansi dan support tersedia</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ==================== FLOW DIAGRAM ==================== -->
+            <div class="flow-container">
+                <div class="flow-title">📋 Alur Pembelian</div>
+                <div class="flow-steps">
+                    <div class="flow-item">
+                        <div class="flow-icon"><i class="ri-store-line"></i></div>
+                        <div class="flow-text">Pilih Produk</div>
+                    </div>
+                    <div class="flow-arrow"><i class="ri-arrow-down-line"></i></div>
+                    <div class="flow-item">
+                        <div class="flow-icon"><i class="ri-qr-code-line"></i></div>
+                        <div class="flow-text">Bayar via QRIS</div>
+                    </div>
+                    <div class="flow-arrow"><i class="ri-arrow-down-line"></i></div>
+                    <div class="flow-item">
+                        <div class="flow-icon"><i class="ri-whatsapp-line"></i></div>
+                        <div class="flow-text">Konfirmasi & Kirim Bukti</div>
+                    </div>
+                    <div class="flow-arrow"><i class="ri-arrow-down-line"></i></div>
+                    <div class="flow-item">
+                        <div class="flow-icon"><i class="ri-mail-send-line"></i></div>
+                        <div class="flow-text">Owner Kirim Produk</div>
+                    </div>
+                    <div class="flow-arrow"><i class="ri-arrow-down-line"></i></div>
+                    <div class="flow-item">
+                        <div class="flow-icon"><i class="ri-checkbox-circle-line"></i></div>
+                        <div class="flow-text">Selesai! Produk Diterima</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== INFO PENTING ==================== -->
+            <div class="info-card">
+                <h4><i class="ri-information-line" style="color: var(--accent);"></i> Info Penting</h4>
+                <p>• Pastikan kamu sudah membaca deskripsi produk sebelum membeli</p>
+              
+                <p>• Jika ada kendala, segera hubungi owner via WhatsApp</p>
+                <p>• Produk digital akan dikirim dalam bentuk link/File</p>
+            </div>
+
+            <!-- ==================== TOMBOL BACK TO STORE ==================== -->
+            <div class="contact-buttons" style="margin-top: 10px; margin-bottom: 30px;">
+                <a href="index.html" class="btn-primary btn-store">
+                    <i class="ri-store-line"></i> Kembali ke Toko
+                </a>
+                <a href="https://wa.me/6283183469343" target="_blank" class="btn-primary btn-wa">
+                    <i class="ri-whatsapp-line"></i> Chat Owner
+                </a>
+            </div>
+        </div>
+
+        <!-- ==================== BOTTOM NAVIGATION ==================== -->
+        <div class="bottom-nav">
+            <a href="index.html" class="nav-item">
+                <i class="ri-store-line"></i>
+                <span>Toko</span>
+            </a>
+            <a href="cara-pembelian.html" class="nav-item active">
+                <i class="ri-shopping-bag-line"></i>
+                <span>Cara Beli</span>
+            </a>
+            <a href="#" class="nav-item" id="whatsappNav">
+                <i class="ri-whatsapp-line"></i>
+                <span>Owner</span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // WhatsApp button di bottom nav
+        document.getElementById('whatsappNav')?.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.open('https://wa.me/6283183469343', '_blank');
+        });
+    </script>
+</body>
+</html>

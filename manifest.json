@@ -1,0 +1,25 @@
+{
+  "name": "YussXy Store",
+  "short_name": "YussXy",
+  "description": "Toko Digital YussXy - Source Code, Jasa Website, Bot WhatsApp & Telegram",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0f0f0f",
+  "theme_color": "#ef4444",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://files.catbox.moe/s6tjs1.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://files.catbox.moe/s6tjs1.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ]
+}

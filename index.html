@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>YussXy Store - Belanja Online</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <!-- PWA Support -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ef4444">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="YussXy Store">
+<link rel="apple-touch-icon" href="https://files.catbox.moe/s6tjs1.jpg"> 
+    
+</head>
+<body>
+    <div class="app-container">
+        <!-- ==================== HEADER ==================== -->
+        <div class="header">
+            <div class="logo-area">
+                <img src="https://files.catbox.moe/s6tjs1.jpg" alt="Logo" class="logo-img">
+                <div class="logo-text">YussXy<span>Store</span></div>
+            </div>
+            <div class="header-icons">
+                <button class="icon-btn" id="cartIcon">
+                    <i class="ri-shopping-cart-line"></i>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </button>
+                <button class="icon-btn" id="menuIcon">
+                    <i class="ri-menu-3-line"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- ==================== SIDEBAR MENU ==================== -->
+        <div class="sidebar-overlay" id="sidebarOverlay">
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <img src="https://files.catbox.moe/s6tjs1.jpg" alt="Profile" class="sidebar-profile-img">
+                    <h3>YussXy Store</h3>
+                    <p>Online Shop</p>
+                    <button class="close-sidebar" id="closeSidebar"><i class="ri-close-line"></i></button>
+                </div>
+                <div class="sidebar-menu">
+                    <button class="sidebar-item active" data-page="products">
+                        <i class="ri-store-line"></i> Produk
+                    </button>
+                    <button class="sidebar-item" data-page="cart">
+                        <i class="ri-shopping-cart-line"></i> Keranjang
+                        <span class="sidebar-cart-count" id="sidebarCartCount">0</span>
+                    </button>
+                    <button class="sidebar-item" data-page="info">
+                        <i class="ri-information-line"></i> Info
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== MAIN CONTENT ==================== -->
+        <div class="main-content" id="mainContent">
+            <!-- Halaman Produk -->
+            <div class="page active" id="productsPage">
+                <div class="page-header">
+                    
+           <h2>
+    <i class="ri-shopping-bag-line icon-large"></i> 
+    Produk Kami
+           </h2>
+                    
+                    <p>Pilih produk yang ingin kamu beli</p>
+                </div>
+                
+                <!-- ==================== BANNER REKOMENDASI HOT ==================== -->
+                <div class="hot-banner" id="hotBanner" style="display: none;">
+                    <div class="hot-banner-content">
+                        <i class="ri-fire-line"></i>
+                        <span>HOT SALE! Produk Rekomendasi Minggu Ini</span>
+                        <i class="ri-fire-line"></i>
+                    </div>
+                </div>
+                
+                <div class="products-grid" id="productsGrid">
+                    <!-- Produk akan diisi oleh JavaScript -->
+                </div>
+            </div>
+
+            <!-- Halaman Keranjang -->
+            <div class="page" id="cartPage">
+                <div class="page-header">
+                    <h2><i class="ri-shopping-cart-line icon-large"></i> Keranjang Belanja</h2>
+                    
+                    
+                    <p>Review pesanan kamu sebelum checkout</p>
+                </div>
+                <div class="cart-container" id="cartContainer">
+                    <!-- Keranjang akan diisi oleh JavaScript -->
+                </div>
+            </div>
+
+            <!-- Halaman Info -->
+            <div class="page" id="infoPage">
+                <div class="page-header">
+                    <h2>
+    <i class="ri-information-line icon-large"></i> 
+    Info Toko
+</h2>
+                    
+                    
+                    <p>Informasi tentang YussXy Store</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-item">
+                        <i class="ri-code-line"></i>
+                        <div>
+                            <h4>Versi Web</h4>
+                            <p>1.0.0</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="ri-shopping-bag-line"></i>
+                        <div>
+                            <h4>Jumlah Produk</h4>
+                            <p id="totalProducts">0</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="ri-whatsapp-line"></i>
+                        <div>
+                            
+                            <button class="channel-btn" id="channelBtn">
+                                <i class="ri-whatsapp-line"></i> Gabung Saluran
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-card">
+                   <h2>Tentang Kami</h2><br>
+<p style="color: #e5e7eb; line-height: 1.7;">
+    <b style="color: #ffffff;">YussXy Store</b> adalah layanan digital yang menyediakan berbagai kebutuhan modern mulai dari 
+    <span style="color: #60a5fa; font-weight: bold;">produk digital</span> hingga jasa 
+    <span style="color: #34d399; font-weight: bold;">pembuatan website</span>, 
+    <span style="color: #facc15; font-weight: bold;">bot WhatsApp</span>, dan 
+    <span style="color: #c084fc; font-weight: bold;">bot Telegram</span>.
+</p>
+
+<p style="margin-top: 12px; color: #d1d5db; line-height: 1.7;">
+    Kami berkomitmen memberikan layanan yang 
+    <b style="color: #22c55e;">cepat</b>, 
+    <b style="color: #38bdf8;">aman</b>, serta hasil berkualitas sesuai keinginan pembeli, dengan harga yang tetap 
+    <span style="color: #f97316; font-weight: bold;">terjangkau</span>. 
+    Cocok untuk kebutuhan pribadi, bisnis, maupun project online Anda.
+</p>
+
+<p style="margin-top: 12px; color: #d1d5db; line-height: 1.7;">
+    Kepuasan pelanggan adalah 
+    <span style="color: #f43f5e; font-weight: bold;">prioritas utama</span> kami dengan pelayanan ramah dan support yang siap membantu.
+</p>
+
+                    
+   <p style="margin-top: 16px; color: #ffffff; font-weight: bold; text-align: center;">
+    Untuk informasi lebih lanjut atau pemesanan, silakan hubungi owner melalui WhatsApp.
+</p>                 
+                    
+<div style="margin-top: 16px; text-align: center;">
+    <a href="carabuy.html" style="display: inline-block; background: #f97316; color: white; padding: 10px 20px; border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 14px;">
+        <i class="ri-shopping-bag-line"></i> Cara Pembelian
+    </a>
+</div>
+
+
+                    
+
+
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== BOTTOM NAVIGATION ==================== -->
+        <div class="bottom-nav">
+            <button class="nav-item active" data-page="products">
+                <i class="ri-store-line"></i>
+                <span>Produk</span>
+            </button>
+            <button class="nav-item" data-page="cart">
+                <i class="ri-shopping-cart-line"></i>
+                <span>Keranjang</span>
+                <span class="nav-badge" id="navBadge">0</span>
+            </button>
+            <button class="nav-item" data-page="info">
+                <i class="ri-information-line"></i>
+                <span>Info</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL PRODUK DETAIL ==================== -->
+    <div class="modal" id="productModal">
+        <div class="modal-content product-modal">
+            <div class="modal-header">
+                <h3 id="modalProductName">Detail Produk</h3>
+                <button class="modal-close" id="closeProductModal"><i class="ri-close-line"></i></button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Detail produk akan diisi JS -->
+            </div>
+        </div>
+    </div>
+
+    
+    
+    
+    
+    <!-- ==================== MODAL VARIAN RAM (UNTUK PANEL PTERODACTLY) ==================== -->
+<div class="modal" id="variantModal">
+    <div class="modal-content variant-modal">
+        <div class="modal-header">
+            <h3 id="variantProductName">Pilih Varian Produk</h3>
+            <button class="modal-close" id="closeVariantModal"><i class="ri-close-line"></i></button>
+        </div>
+        <div class="modal-body" id="variantBody">
+           
+        </div>
+    </div>
+</div>
+    
+    
+    
+    
+    
+    
+    
+    <!-- ==================== QRIS MODAL ==================== -->
+    <div class="modal" id="qrisModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Scan QRIS untuk Pembayaran</h3>
+                <button class="modal-close" id="closeModal"><i class="ri-close-line"></i></button>
+            </div>
+            <div class="modal-body">
+                <img src="https://files.catbox.moe/053qg6.jpg" alt="QRIS" class="qris-image">
+                <p class="qr-total">Total: <span id="qrTotal">Rp 0</span></p>
+                <p class="qr-instruction">Scan QRIS di atas menggunakan aplikasi mobile banking atau e-wallet favoritmu.</p>
+                <button class="confirm-payment-btn" id="confirmPaymentBtn">
+                    <i class="ri-whatsapp-line"></i> Konfirmasi Pembayaran
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    
+    
+    <!-- ==================== FLOATING CHAT OWNER BUTTON ==================== -->
+<button class="chat-owner-btn" id="chatOwnerBtn">
+    <i class="ri-whatsapp-line"></i>
+    <span class="chat-tooltip">Chat Owner</span>
+</button>
+    
+    
+    
+    
+    
+    
+    
+    
+    <script>
+  // Register Service Worker
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/sw.js').then(function(registration) {
+        console.log('ServiceWorker registration successful');
+      }, function(err) {
+        console.log('ServiceWorker registration failed: ', err);
+      });
+    });
+  }
+</script>
+    
+    
+
+    <script src="script.js"></script>
+</body>
+</html>
