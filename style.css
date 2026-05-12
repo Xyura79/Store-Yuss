@@ -2,9 +2,52 @@
 
 
 
+
+
+
+
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+/* BADGE SOLD OUT (HABIS) */
+.badge-sold {
+    background: #6b7280;
+    color: white;
+}
+
+/* BADGE COMING SOON (SEGERA) */
+.badge-coming {
+    background: #f59e0b;
+    color: white;
+}
+
+/* PRODUK DISABLED (TIDAK BISA DIKLIK) */
+.product-disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.product-disabled .btn-buy-now,
+.product-disabled .btn-add-cart {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.product-disabled:active {
+    transform: none;
+}
 
 
+/*😆👇🤗👇🤗👇🤗🤗👇🤗*/
 /* ========== ANIMASI TOOLS ========== */
 .tools-grid,
 .tool-detail {
