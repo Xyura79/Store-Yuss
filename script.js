@@ -44,7 +44,7 @@ let products = [
         price: 2000,
         image: "https://files.catbox.moe/re7iam.jpg",
         category: "digital",
-        type: "none"  // hot / rekomendasi / none / new
+        type: "none"  // hot / rekomendasi / none / new / sold_out / coming_soon
     },
     {
         id: 2,
@@ -271,11 +271,8 @@ function contactOwner(product) {
 // RENDER FUNCTIONS
 // ================================================
 
-// ================================================
-// BAGIAN RENDER PRODUK - START
-// Fungsi untuk menampilkan produk ke dalam grid
-// 3 produk per baris (grid-template-columns: repeat(3, 1fr))
-// ================================================
+
+
 
 function renderProducts() {
     const productsGrid = document.getElementById('productsGrid');
@@ -283,16 +280,31 @@ function renderProducts() {
     
     productsGrid.innerHTML = products.map(product => {
         let badgeHtml = '';
+        let disabledClass = '';
+        let disabledBuy = '';
+        let disabledCart = '';
+        
+        // Tentukan badge dan status
         if (product.type === 'hot') {
             badgeHtml = '<div class="product-badge badge-hot"><i class="ri-fire-line"></i> HOT</div>';
         } else if (product.type === 'rekomendasi') {
             badgeHtml = '<div class="product-badge badge-rekomendasi"><i class="ri-star-line"></i> REKOMENDASI</div>';
         } else if (product.type === 'new') {
             badgeHtml = '<div class="product-badge badge-new"><i class="ri-flashlight-line"></i> NEW</div>';
+        } else if (product.type === 'sold_out') {
+            badgeHtml = '<div class="product-badge badge-sold"><i class="ri-close-circle-line"></i> HABIS</div>';
+            disabledClass = 'product-disabled';
+            disabledBuy = 'disabled';
+            disabledCart = 'disabled';
+        } else if (product.type === 'coming_soon') {
+            badgeHtml = '<div class="product-badge badge-coming"><i class="ri-time-line"></i> SEGERA</div>';
+            disabledClass = 'product-disabled';
+            disabledBuy = 'disabled';
+            disabledCart = 'disabled';
         }
         
         return `
-            <div class="product-card" data-product-id="${product.id}">
+            <div class="product-card ${disabledClass}" data-product-id="${product.id}">
                 <div class="product-image-wrapper">
                     ${badgeHtml}
                     <img src="${product.image}" alt="${product.name}" class="product-image" onerror="this.src='https://placehold.co/300x300/333/white?text=Error'">
@@ -301,10 +313,10 @@ function renderProducts() {
                     <div class="product-name">${product.name}</div>
                     <div class="product-price">${getDisplayPrice(product)}</div>
                     <div class="product-buttons">
-                        <button class="btn-buy-now" onclick="event.stopPropagation(); buyNow(${product.id})">
+                        <button class="btn-buy-now" onclick="event.stopPropagation(); ${product.type === 'sold_out' ? 'showSoldOutMessage(' + product.id + ')' : (product.type === 'coming_soon' ? 'showComingSoonMessage(' + product.id + ')' : 'buyNow(' + product.id + ')')}" ${disabledBuy}>
                             <i class="ri-flashlight-line"></i> Beli
                         </button>
-                        <button class="btn-add-cart" onclick="event.stopPropagation(); addToCart(${product.id})">
+                        <button class="btn-add-cart" onclick="event.stopPropagation(); ${product.type === 'sold_out' ? 'showSoldOutMessage(' + product.id + ')' : (product.type === 'coming_soon' ? 'showComingSoonMessage(' + product.id + ')' : 'addToCart(' + product.id + ')')}" ${disabledCart}>
                             <i class="ri-shopping-cart-line"></i> Keranjang
                         </button>
                     </div>
@@ -313,20 +325,38 @@ function renderProducts() {
         `;
     }).join('');
     
-    // Tambah event klik untuk menampilkan modal detail
-    document.querySelectorAll('.product-card').forEach(card => {
+    // Event klik untuk menampilkan modal detail
+    document.querySelectorAll('.product-card:not(.product-disabled)').forEach(card => {
         card.addEventListener('click', (e) => {
             const productId = parseInt(card.dataset.productId);
             showProductDetail(productId);
         });
     });
     
-    // Update total produk di halaman info
     const totalProductsElem = document.getElementById('totalProducts');
     if (totalProductsElem) totalProductsElem.textContent = products.length;
     
-    // Cek dan tampilkan banner hot/rekomendasi/new
     checkAndShowHotBanner();
+}
+
+// Fungsi untuk produk habis
+function showSoldOutMessage(productId) {
+    const product = products.find(p => p.id === productId);
+    if (product && product.soldOutMessage) {
+        showToast(product.soldOutMessage, true);
+    } else {
+        showToast('Maaf, produk ini sedang habis. Akan tersedia lagi dalam beberapa hari.', true);
+    }
+}
+
+// Fungsi untuk produk belum tersedia
+function showComingSoonMessage(productId) {
+    const product = products.find(p => p.id === productId);
+    if (product && product.comingSoonMessage) {
+        showToast(product.comingSoonMessage, true);
+    } else {
+        showToast('Fitur ini akan segera hadir! Tunggu update selanjutnya ya.', true);
+    }
 }
 
 // ================================================
