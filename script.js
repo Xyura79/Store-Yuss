@@ -1,3 +1,4 @@
+
 // ================================================
 // DATA PRODUK
 // ================================================
@@ -111,8 +112,50 @@ let products = [
         image: "https://files.catbox.moe/lt9rg5.jpg",
         category: "jasa",
         isNegotiable: false ,
+        type: "rekomendasi"
+},
+{
+        id: 7,
+        name: "Viu Premium",
+        description: "Aplikasi Viu Premium",
+        price: "Rp 5.000",
+        image: "https://files.catbox.moe/dhoyx1.jpg",
+        category: "digital",
+        isNegotiable: false,
+        type: "new"
+},
+{
+        id: 8,
+        name: "Alight Motion Premium",
+        description: "Am Premium 1 tahun (Expired 7 Januari 2027)",
+        price: "Rp 5.000",
+        image: "https://files.catbox.moe/0o1hmt.jpg",
+        category: "digital",
+        isNegotiable:true ,
+        type: "new"
+},
+{
+        id: 9,
+        name: "Canva Premium",
+        description: "Canva premium permanen",
+        price: "Rp 25.000",
+        image: "https://files.catbox.moe/evbhw1.jpg",
+        category: "digital",
+        isNegotiable: true,
         type: "new"
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1036,6 +1079,23 @@ function closeTool() {
     document.getElementById('toolDetailArea').style.display = 'none';
 }
 
+
+
+const closeVariantModalBtn = document.getElementById('closeVariantModal');
+if (closeVariantModalBtn) {
+    closeVariantModalBtn.addEventListener('click', function() {
+        const modal = document.getElementById('variantModal');
+        if (modal) {
+            modal.classList.add('closing');
+            setTimeout(() => {
+                modal.classList.remove('active');
+                modal.classList.remove('closing');
+            }, 200);
+        }
+        selectedVariantProduct = null;
+        selectedVariantCallback = null;
+    });
+}
 
 
 //😊😊😉😎😉😎😎😉
