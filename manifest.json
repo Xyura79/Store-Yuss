@@ -1,9 +1,10 @@
+
 {
-  "name": "YussXy Store",
-  "short_name": "YussXy || Penyedia layanan digital",
+  "name": "YussXy",
+  "short_name": "YussXy",
   "description": "Toko Digital YussXy - Source Code, Jasa Website, Bot WhatsApp & Telegram",
-  "start_url": "/",
-  "scope": "/",
+  "start_url": "/Store-Yuss/",
+  "scope": "/Store-Yuss/",
   "display": "standalone",
   "background_color": "#0f0f0f",
   "theme_color": "#ef4444",
