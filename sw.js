@@ -1,16 +1,17 @@
+// GANTI INI DENGAN NAMA REPO GITHUB KAMU
 var CACHE_NAME = 'yussxy-store-v1';
 var urlsToCache = [
   '/',
   '/index.html',
-  '/carabuy.html',
   '/style.css',
   '/script.js',
-  '/manifest.json',
+  '/carabuy.html',
   'https://files.catbox.moe/s6tjs1.jpg',
   'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap',
   'https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css'
 ];
 
+// Install Service Worker - cache file penting
 self.addEventListener('install', function(event) {
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -20,6 +21,7 @@ self.addEventListener('install', function(event) {
   );
 });
 
+// Fetch - ambil dari cache kalau offline
 self.addEventListener('fetch', function(event) {
   event.respondWith(
     caches.match(event.request)
@@ -32,6 +34,7 @@ self.addEventListener('fetch', function(event) {
   );
 });
 
+// Activate - hapus cache lama
 self.addEventListener('activate', function(event) {
   event.waitUntil(
     caches.keys().then(function(cacheNames) {
