@@ -81,7 +81,7 @@ let products = [
         image: "https://files.catbox.moe/a8q4wa.jpg",
         category: "jasa",
         isNegotiable: true,
-        type: "hot"
+        type: "coming_soon"
     },
     {
         id: 5,
@@ -99,21 +99,21 @@ let products = [
         id: 6,
         name: "Panel Pterodactly",
         description: "Server yang Siap Hosting bot kamu, Anti delay, dan bergaransi",
-        price: "Rp 1.000",
+        price: "Rp 1.500",
         image: "https://files.catbox.moe/39j3x7.jpg",
         category: "digital",
         isNegotiable: false,
-        type: "hot",
+        type: "sold_out",
         hasVariant: true,
         variants: [
-            { ram: "1GB", price: 1000, priceDisplay: "Rp 1.000" },
-            { ram: "2GB", price: 2000, priceDisplay: "Rp 2.000" },
-            { ram: "3GB", price: 3000, priceDisplay: "Rp 3.000" },
-            { ram: "4GB", price: 4000, priceDisplay: "Rp 4.000" },
-            { ram: "5GB", price: 5000, priceDisplay: "Rp 5.000" },
-            { ram: "6GB", price: 6000, priceDisplay: "Rp 6.000" },
-            { ram: "7GB", price: 7000, priceDisplay: "Rp 7.000" },
-            { ram: "8GB", price: 8000, priceDisplay: "Rp 8.000" }
+            { ram: "1GB", price: 1500, priceDisplay: "Rp 1.500" },
+            { ram: "2GB", price: 2500, priceDisplay: "Rp 2.500" },
+            { ram: "3GB", price: 4000, priceDisplay: "Rp 4.000" },
+            { ram: "4GB", price: 4500, priceDisplay: "Rp 4.500" },
+            { ram: "5GB", price: 5500, priceDisplay: "Rp 5.500" },
+            { ram: "6GB", price: 6500, priceDisplay: "Rp 6.500" },
+            { ram: "7GB", price: 7500, priceDisplay: "Rp 7.500" },
+            { ram: "8GB", price: 8500, priceDisplay: "Rp 8.500" }
         ]
     },
 {
@@ -124,7 +124,7 @@ let products = [
         image: "https://files.catbox.moe/lt9rg5.jpg",
         category: "jasa",
         isNegotiable: false ,
-        type: "none"
+        type: "rekomendasi"
 },
 {
         id: 8,
@@ -155,6 +155,16 @@ let products = [
         category: "digital",
         isNegotiable: true,
         type: "coming_soon"
+},
+{
+        id: 11,
+        name: "Apk Web To Apk",
+        description: "Ubah web mu jadi apk, tanpa ribet",
+        price: "Rp 5.000",
+        image: "https://files.catbox.moe/dkc623.jpg",
+        category: "digital",
+        isNegotiable: true,
+        type: "new"
 }
 
 
@@ -1286,55 +1296,71 @@ function closeQrisModal() {
 // ================================================
 // FUNGSI BUKA DAN TUTUP TOOL (DIPERBAIKI)
 // ================================================
-
 function openTool(toolName) {
     document.getElementById('toolsGrid').style.display = 'none';
     document.getElementById('toolDetailArea').style.display = 'block';
     
-    const tools = ['toolTiktok', 'toolYoutube', 'toolSpotify', 'toolFacebook', 'toolCapcut', 'toolInstagram', 'toolFakelobby', 'toolFakedana', 'toolFakelobbyml', 'toolFakejago', 'toolPassword'];
+    const tools = ['toolTiktok', 'toolYoutube', 'toolSpotify', 'toolFacebook', 'toolCapcut', 'toolInstagram', 'toolFakelobby', 'toolFakedana', 'toolFakelobbyml', 'toolFakejago', 'toolPassword', 'toolLorem', 'toolQrcode'];
     tools.forEach(tool => {
         const el = document.getElementById(tool);
         if (el) el.style.display = 'none';
     });
     
-    if (toolName === 'tiktok') document.getElementById('toolTiktok').style.display = 'block';
-    else if (toolName === 'youtube') document.getElementById('toolYoutube').style.display = 'block';
-    else if (toolName === 'spotify') document.getElementById('toolSpotify').style.display = 'block';
-    else if (toolName === 'facebook') document.getElementById('toolFacebook').style.display = 'block';
-    else if (toolName === 'capcut') document.getElementById('toolCapcut').style.display = 'block';
-    else if (toolName === 'instagram') document.getElementById('toolInstagram').style.display = 'block';
-    else if (toolName === 'fakelobby') document.getElementById('toolFakelobby').style.display = 'block';
-    else if (toolName === 'fakedana') document.getElementById('toolFakedana').style.display = 'block';
-    else if (toolName === 'fakelobbyml') document.getElementById('toolFakelobbyml').style.display = 'block';
-    else if (toolName === 'fakejago') document.getElementById('toolFakejago').style.display = 'block';
-    else if (toolName === 'password') document.getElementById('toolPassword').style.display = 'block';
-    else if (toolName === 'lorem') {
-    document.getElementById('toolLorem').style.display = 'block';
-    setTimeout(() => initLorem(), 100);
-    }
-    
-    else if (toolName === 'qrcode') {
-    document.getElementById('toolQrcode').style.display = 'block';
-    // Reset form
-    document.getElementById('qrText').value = '';
-    document.getElementById('qrResult').style.display = 'none';
-    document.getElementById('downloadQrBtn').style.display = 'none';
-    const canvas = document.getElementById('qrCanvas');
-    if (canvas) {
-        const ctx = canvas.getContext('2d');
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
-}
-
-
-
-
-
-
-    if (toolName === 'password') {
+    if (toolName === 'tiktok') {
+        document.getElementById('toolTiktok').style.display = 'block';
+    } 
+    else if (toolName === 'youtube') {
+        document.getElementById('toolYoutube').style.display = 'block';
+    } 
+    else if (toolName === 'spotify') {
+        document.getElementById('toolSpotify').style.display = 'block';
+    } 
+    else if (toolName === 'facebook') {
+        document.getElementById('toolFacebook').style.display = 'block';
+    } 
+    else if (toolName === 'capcut') {
+        document.getElementById('toolCapcut').style.display = 'block';
+    } 
+    else if (toolName === 'instagram') {
+        document.getElementById('toolInstagram').style.display = 'block';
+    } 
+    else if (toolName === 'fakelobby') {
+        document.getElementById('toolFakelobby').style.display = 'block';
+    } 
+    else if (toolName === 'fakedana') {
+        document.getElementById('toolFakedana').style.display = 'block';
+    } 
+    else if (toolName === 'fakelobbyml') {
+        document.getElementById('toolFakelobbyml').style.display = 'block';
+    } 
+    else if (toolName === 'fakejago') {
+        document.getElementById('toolFakejago').style.display = 'block';
+    } 
+    else if (toolName === 'password') {
+        document.getElementById('toolPassword').style.display = 'block';
         setTimeout(() => generatePassword(), 100);
+    } 
+    else if (toolName === 'lorem') {
+        document.getElementById('toolLorem').style.display = 'block';
+        setTimeout(() => initLorem(), 100);
+    } 
+    else if (toolName === 'qrcode') {
+        document.getElementById('toolQrcode').style.display = 'block';
+        // Reset form
+        const qrText = document.getElementById('qrText');
+        if (qrText) qrText.value = '';
+        const qrResult = document.getElementById('qrResult');
+        if (qrResult) qrResult.style.display = 'none';
+        const downloadBtn = document.getElementById('downloadQrBtn');
+        if (downloadBtn) downloadBtn.style.display = 'none';
+        const canvas = document.getElementById('qrCanvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
     }
 }
+
 
 
 
@@ -1395,97 +1421,6 @@ if (closeVariantModalBtn) {
 
 
 
-// ================================================
-// QR CODE GENERATOR
-// ================================================
-let currentQrSize = 200;
-
-function generateQRCode() {
-    const text = document.getElementById('qrText').value.trim();
-    const qrResult = document.getElementById('qrResult');
-    const downloadBtn = document.getElementById('downloadQrBtn');
-    
-    if (!text) {
-        showToast('❌ Masukkan teks atau URL!', true);
-        return;
-    }
-    
-    // Hapus canvas lama jika ada
-    const oldCanvas = document.getElementById('qrCanvas');
-    if (oldCanvas) {
-        const ctx = oldCanvas.getContext('2d');
-        ctx.clearRect(0, 0, oldCanvas.width, oldCanvas.height);
-    }
-    
-    // Generate QR Code
-    const canvas = document.getElementById('qrCanvas');
-    canvas.width = currentQrSize;
-    canvas.height = currentQrSize;
-    
-    QRCode.toCanvas(canvas, text, {
-        width: currentQrSize,
-        margin: 2,
-        color: {
-            dark: '#000000',
-            light: '#FFFFFF'
-        }
-    }, function(error) {
-        if (error) {
-            console.error(error);
-            showToast('❌ Gagal generate QR Code!', true);
-        } else {
-            qrResult.style.display = 'block';
-            downloadBtn.style.display = 'flex';
-            showToast('✅ QR Code berhasil dibuat!');
-        }
-    });
-}
-
-function downloadQRCode() {
-    const canvas = document.getElementById('qrCanvas');
-    const link = document.createElement('a');
-    link.download = 'qrcode.png';
-    link.href = canvas.toDataURL('image/png');
-    link.click();
-    showToast('✅ QR Code berhasil diunduh!');
-}
-
-// Event listeners
-const generateQrBtn = document.getElementById('generateQrBtn');
-if (generateQrBtn) {
-    generateQrBtn.addEventListener('click', generateQRCode);
-}
-
-const downloadQrBtn = document.getElementById('downloadQrBtn');
-if (downloadQrBtn) {
-    downloadQrBtn.addEventListener('click', downloadQRCode);
-}
-
-// Size buttons
-const sizeBtns = document.querySelectorAll('.size-btn');
-sizeBtns.forEach(btn => {
-    btn.addEventListener('click', function() {
-        sizeBtns.forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-        currentQrSize = parseInt(this.dataset.size);
-        
-        // Regenerate jika sudah ada QR
-        const text = document.getElementById('qrText').value.trim();
-        if (text) {
-            generateQRCode();
-        }
-    });
-});
-
-// Enter key submit
-const qrInput = document.getElementById('qrText');
-if (qrInput) {
-    qrInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            generateQRCode();
-        }
-    });
-}
 
 
 
