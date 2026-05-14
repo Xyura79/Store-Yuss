@@ -165,7 +165,27 @@ let products = [
         category: "digital",
         isNegotiable: true,
         type: "new"
-}
+},
+{
+    id: 12,
+    name: "Eboox",
+    description: "Cari tahu apakah eboox yang kamu cari tersedia. Masukkan judul eboox, lalu tanya ke owner.",
+    price: "Rp 1.500",
+    image: "https://files.catbox.moe/zqsot3.jpg",
+    category: "jasa",
+    isEboox: true,
+    type: "none"
+},
+{
+    id: 13,
+    name: "Nokos WhatsApp Indo",
+    description: "Nomor kosong WhatsApp Indonesia siap pakai, masih fresh",
+    price: "Rp 5.000",
+    image: "https://files.catbox.moe/bi7xdi.jpg",
+    category: "digital",
+    isNegotiable: true,
+    type: "hot"
+},
 
 
 
@@ -440,6 +460,44 @@ function showProductDetail(productId) {
     let priceDisplay = getDisplayPrice(product);
     let variantHtml = '';
     
+    // Cek apakah produk Eboox
+    if (product.isEboox) {
+        modalBody.innerHTML = `
+            <img src="${product.image}" class="modal-product-image" onerror="this.src='https://placehold.co/300x300/333/white?text=Error'">
+            <div class="modal-product-name">${product.name}</div>
+            <div class="modal-product-price">${priceDisplay}</div>
+            <div class="modal-product-desc">${product.description}</div>
+            <div class="eboox-form-detail">
+                <input type="text" id="ebooxTitleDetail" placeholder="Masukkan judul eboox yang dicari..." class="eboox-input-detail">
+                <button class="eboox-btn-detail" id="askEbooxDetailBtn">
+                    <i class="ri-whatsapp-line"></i> Tanya ke Owner
+                </button>
+            </div>
+        `;
+        
+        modal.classList.add('active');
+        
+        // Event listener untuk tombol tanya owner
+        const askBtn = document.getElementById('askEbooxDetailBtn');
+        if (askBtn) {
+            askBtn.addEventListener('click', function() {
+                const judul = document.getElementById('ebooxTitleDetail').value.trim();
+                if (!judul) {
+                    showToast('❌ Masukkan judul eboox!', true);
+                    return;
+                }
+                const message = "Halo Yuss Xy 👋%0a%0aSaya ingin menanyakan apakah e-book berikut tersedia:%0a➜ Judul: " + judul + "%0a%0aJika masih tersedia, saya tertarik untuk membelinya.%0a%0aTerima kasih 🙏";
+
+window.open(`https://wa.me/6283183469343?text=${message}`, '_blank');
+
+closeProductModal();
+showToast('✅ Pertanyaan terkirim ke owner');
+            });
+        }
+        return;
+    }
+    
+    // Untuk produk dengan varian RAM
     if (product.hasVariant) {
         priceDisplay = 'Pilih RAM';
         variantHtml = `
@@ -456,6 +514,7 @@ function showProductDetail(productId) {
         `;
     }
     
+    // Produk biasa (non-Eboox, non-varian)
     modalBody.innerHTML = `
         <img src="${product.image}" class="modal-product-image" onerror="this.src='https://placehold.co/300x300/333/white?text=Error'">
         <div class="modal-product-name">${product.name}</div>
@@ -476,11 +535,11 @@ function showProductDetail(productId) {
     
     modal.classList.add('active');
 }
+
 function closeProductModal() {
     const modal = document.getElementById('productModal');
     modal.classList.remove('active');
 }
-
 
 
 // ================================================
@@ -546,7 +605,6 @@ function selectVariantAndAddToCart(productId, price, ram) {
 // UPDATE FUNGSI BUY NOW
 // ================================================
 
-
 function buyNow(productId) {
     console.log("buyNow dipanggil untuk ID:", productId); // Untuk debugging
     
@@ -557,6 +615,13 @@ function buyNow(productId) {
     }
     
     console.log("Produk:", product.name);
+    
+    // CEK APAKAH PRODUK EBOOX
+    if (product.isEboox) {
+        console.log("Ini produk Eboox, buka modal tanya owner");
+        showProductDetail(product.id);
+        return;
+    }
     
     // CEK APAKAH LAYANAN TRANSFER
     if (product.isTransferService) {
@@ -603,9 +668,6 @@ function buyNow(productId) {
         totalPrice: totalPrice
     };
 }
-
-
-
 
 // ================================================
 // FORM TRANSFER (SEBELUM KONFIRMASI WA)
