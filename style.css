@@ -12,116 +12,60 @@
 
 
 
-
-
-
 /* ================================================
-   QR CODE GENERATOR
+   CSS UNTUK EBOOX FORM DI MODAL PRODUK
    ================================================ */
-.qrcode-controls {
-    background: var(--bg-secondary);
-    border-radius: 16px;
-    padding: 16px;
-    margin-bottom: 16px;
+.eboox-form-detail {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
-.qr-input {
+.eboox-input-detail {
     width: 100%;
-    padding: 12px;
-    background: var(--bg-card);
+    padding: 12px 14px;
+    background: var(--bg-secondary);
     border: 1px solid var(--border);
     border-radius: 12px;
     color: white;
     font-size: 14px;
+    font-family: inherit;
 }
 
-.qr-input:focus {
+.eboox-input-detail:focus {
     outline: none;
     border-color: var(--accent);
 }
 
-.qr-size-control {
-    margin: 16px 0;
-}
-
-.qr-size-control label {
-    display: block;
-    font-size: 13px;
-    font-weight: 600;
-    margin-bottom: 8px;
+.eboox-input-detail::placeholder {
     color: var(--text-secondary);
+    font-size: 13px;
 }
 
-.size-buttons {
-    display: flex;
-    gap: 10px;
-}
-
-.size-btn {
-    flex: 1;
-    padding: 8px;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    color: white;
-    font-size: 12px;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.size-btn.active {
-    background: var(--accent);
-    border-color: var(--accent);
-}
-
-.size-btn:active {
-    transform: scale(0.95);
-}
-
-.generate-qr-btn, .download-qr-btn {
+.eboox-btn-detail {
     width: 100%;
     padding: 12px;
+    background: #25D366;
     border: none;
     border-radius: 12px;
+    color: white;
     font-weight: 700;
+    font-size: 14px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    margin-top: 10px;
+    transition: transform 0.1s ease;
 }
 
-.generate-qr-btn {
-    background: linear-gradient(90deg, var(--accent), var(--accent-hover));
-    color: white;
-}
-
-.download-qr-btn {
-    background: #10b981;
-    color: white;
-}
-
-.generate-qr-btn:active, .download-qr-btn:active {
+.eboox-btn-detail:active {
     transform: scale(0.97);
+    background: #128C7E;
 }
 
-.qr-result {
-    text-align: center;
-    margin-top: 16px;
-}
 
-.qr-image-container {
-    background: white;
-    padding: 16px;
-    border-radius: 16px;
-    display: inline-block;
-}
-
-#qrCanvas {
-    display: block;
-    margin: 0 auto;
-}
 
 /* ================================================
    LOREM IPSUM GENERATOR
