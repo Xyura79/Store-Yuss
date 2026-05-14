@@ -81,7 +81,7 @@ let products = [
         image: "https://files.catbox.moe/a8q4wa.jpg",
         category: "jasa",
         isNegotiable: true,
-        type: "coming_soon"
+        type: "hot"
     },
     {
         id: 5,
@@ -124,7 +124,7 @@ let products = [
         image: "https://files.catbox.moe/lt9rg5.jpg",
         category: "jasa",
         isNegotiable: false ,
-        type: "rekomendasi"
+        type: "none"
 },
 {
         id: 8,
@@ -134,7 +134,7 @@ let products = [
         image: "https://files.catbox.moe/dhoyx1.jpg",
         category: "digital",
         isNegotiable: false,
-        type: "new"
+        type: "coming_soon"
 },
 {
         id: 9,
@@ -144,7 +144,7 @@ let products = [
         image: "https://files.catbox.moe/0o1hmt.jpg",
         category: "digital",
         isNegotiable:true ,
-        type: "new"
+        type: "coming_soon"
 },
 {
         id: 10,
@@ -154,7 +154,7 @@ let products = [
         image: "https://files.catbox.moe/evbhw1.jpg",
         category: "digital",
         isNegotiable: true,
-        type: "new"
+        type: "coming_soon"
 }
 
 
