@@ -50,6 +50,15 @@ let testimonials = [
         date: "15-05-2026",
         time: "21.14"
     },
+    id: 7,
+        image: "https://files.catbox.moe/lrb2zt.jpg",
+        product: "Transfer ke dana",
+        price: "Admin 1.000",
+        date: "15-05-2026",
+        time: "21.27"
+    },
+    
+    
     
     
     
