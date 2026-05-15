@@ -1,3 +1,4 @@
+
 // ================================================
 // DATA PRODUK
 // ================================================
@@ -189,7 +190,7 @@ let products = [
     image: "image/produk/produk13.jpg",
     category: "digital",
     isNegotiable: true,
-    type: "sold_out"
+    type: "coming_soon"
 },
 
 
@@ -2860,7 +2861,6 @@ function showToast(message, isError = false) {
 //😕😕😕😕😕😕😕😕😕😕
 //🥁🍚💴😕💴😕💴😕💴😕
 
-
 // ================================================
 // SAPAAN VERSI BARU (HANYA 1 KALI)
 // ================================================
@@ -2881,7 +2881,7 @@ function showWelcomeModal() {
             <div class="welcome-image">
                 <img src="image/welcome.png" alt="Welcome">
             </div>
-            <h2>Welcome To The Latest Version</h2>
+            <h2 id="typingText"></h2>
             <p class="welcome-version">Versi APK - ${APP_VERSION}</p>
             <p class="welcome-date">Rilis: ${APP_RELEASE_DATE}</p>
             <button class="welcome-btn" onclick="this.parentElement.parentElement.remove()">
@@ -2891,6 +2891,21 @@ function showWelcomeModal() {
     `;
     document.body.appendChild(modal);
     setTimeout(() => modal.classList.add('show'), 10);
+    
+    // Typing effect
+    const text = "Welcome To The Latest Version";
+    const typingElement = document.getElementById('typingText');
+    let i = 0;
+    
+    function typeWriter() {
+        if (i < text.length) {
+            typingElement.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(typeWriter, 60);
+        }
+    }
+    
+    typeWriter();
     
     // Bunyi suara saat modal muncul
     const welcomeSound = new Audio("https://assets.mixkit.co/active_storage/sfx/2019/2019-preview.mp3");
@@ -2906,6 +2921,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
+//🤣🤣🤣🤣
+// Menampilkan versi dari version.js ke halaman info
+const versionDisplay = document.getElementById('appVersionDisplay');
+if (versionDisplay) {
+    versionDisplay.textContent = APP_VERSION;
+}
 
 
 //😛😛😛😛😛😛😛😛😛😛😛
