@@ -19,107 +19,183 @@
             color: #ffffff;
             padding: 16px;
             padding-bottom: 30px;
+            min-height: 100vh;
         }
 
         .container {
             max-width: 480px;
             margin: 0 auto;
+            animation: fadeInUp 0.4s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .header {
             text-align: center;
-            margin-bottom: 20px;
-            padding: 12px 0;
+            margin-bottom: 24px;
+            padding: 16px 0;
         }
 
         .header h1 {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 800;
-            background: linear-gradient(135deg, #ef4444, #f97316);
+            background: linear-gradient(135deg, #ef4444, #f97316, #ef4444);
+            background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            animation: gradientShift 3s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .header p {
-            font-size: 11px;
+            font-size: 12px;
             color: #9ca3af;
-            margin-top: 4px;
+            margin-top: 6px;
         }
 
         .step-card {
-            background: #1e1e1e;
-            border-radius: 16px;
-            margin-bottom: 14px;
+            background: linear-gradient(135deg, #1e1e1e, #181818);
+            border-radius: 20px;
+            margin-bottom: 16px;
             overflow: hidden;
-            border: 1px solid #2a2a2a;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            transition: all 0.3s ease;
+            animation: cardFade 0.5s ease forwards;
+            opacity: 0;
+        }
+
+        .step-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(239, 68, 68, 0.5);
+            box-shadow: 0 8px 20px rgba(239, 68, 68, 0.15);
+        }
+
+        .step-card:nth-child(1) { animation-delay: 0.05s; }
+        .step-card:nth-child(2) { animation-delay: 0.10s; }
+        .step-card:nth-child(3) { animation-delay: 0.15s; }
+        .step-card:nth-child(4) { animation-delay: 0.20s; }
+        .step-card:nth-child(5) { animation-delay: 0.25s; }
+        .step-card:nth-child(6) { animation-delay: 0.30s; }
+        .step-card:nth-child(7) { animation-delay: 0.35s; }
+
+        @keyframes cardFade {
+            from {
+                opacity: 0;
+                transform: translateX(-15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .step-header {
             display: flex;
             align-items: center;
-            gap: 10px;
-            padding: 10px 14px;
-            background: #252525;
-            border-bottom: 1px solid #333;
+            gap: 12px;
+            padding: 12px 16px;
+            background: rgba(37, 37, 37, 0.8);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
         .step-number {
-            width: 28px;
-            height: 28px;
-            background: #ef4444;
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 800;
-            font-size: 14px;
+            font-size: 15px;
+            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);
         }
 
         .step-title {
             font-weight: 700;
-            font-size: 13px;
+            font-size: 14px;
+            letter-spacing: 0.3px;
         }
 
         .step-image {
-            padding: 12px;
-            background: #1a1a1a;
+            padding: 16px;
+            background: #121212;
             text-align: center;
         }
 
         .step-image img {
-            width: 120px;
+            width: 130px;
             height: auto;
-            border-radius: 12px;
-            border: 1px solid #333;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .step-image img:hover {
+            transform: scale(1.02);
         }
 
         .step-text {
-            padding: 12px 14px;
+            padding: 14px 16px;
             font-size: 12px;
             color: #d1d5db;
-            line-height: 1.5;
+            line-height: 1.6;
+            background: rgba(0,0,0,0.2);
         }
 
         .step-text strong {
             color: #ef4444;
+            font-weight: 700;
         }
 
         .back-btn {
             width: 100%;
-            padding: 12px;
+            padding: 14px;
             background: linear-gradient(90deg, #ef4444, #dc2626);
             border: none;
-            border-radius: 14px;
+            border-radius: 16px;
             color: white;
             font-weight: 700;
-            font-size: 14px;
+            font-size: 15px;
             cursor: pointer;
-            margin-top: 16px;
+            margin-top: 20px;
             margin-bottom: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .back-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .back-btn:hover::before {
+            left: 100%;
         }
 
         .back-btn:active {
@@ -130,14 +206,29 @@
             text-align: center;
             font-size: 10px;
             color: #6b7280;
-            margin-top: 16px;
-            padding-top: 12px;
-            border-top: 1px solid #2a2a2a;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255,255,255,0.05);
         }
 
-        .footer a {
-            color: #ef4444;
-            text-decoration: none;
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.02);
+                opacity: 0.95;
+            }
+        }
+
+        .step-card:last-child {
+            background: linear-gradient(135deg, #1e3a2f, #0f2a1f);
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+
+        .step-card:last-child .step-number {
+            background: linear-gradient(135deg, #10b981, #059669);
         }
     </style>
 </head>
@@ -145,110 +236,103 @@
     <div class="container">
         <div class="header">
             <h1>🔄 Cara Update Aplikasi</h1>
-            <p>Ikuti langkah-langkah berikut agar aplikasi selalu versi terbaru</p>
+            <p>Ikuti langkah-langkah berikut</p>
         </div>
 
-        <!-- STEP 1 -->
         <div class="step-card">
             <div class="step-header">
                 <div class="step-number">1</div>
-                <div class="step-title">Tutup Aplikasi YussXy</div>
+                <div class="step-title">Tutup Aplikasi</div>
             </div>
             <div class="step-image">
-                <img src="https://files.catbox.moe/dd7bw8.jpg" alt="Step 1">
+                <img src="image/update1/tutor1.jpg" alt="Step 1">
             </div>
             <div class="step-text">
-                Geser aplikasi ke atas dari <strong>recent apps</strong> untuk menutup paksa aplikasi YussXy.
+                Geser aplikasi ke atas dari <strong>recent apps</strong> untuk menutup paksa.
             </div>
         </div>
 
-        <!-- STEP 2 -->
         <div class="step-card">
             <div class="step-header">
                 <div class="step-number">2</div>
-                <div class="step-title">Info Aplikasi YussXy</div>
+                <div class="step-title">Info Aplikasi</div>
             </div>
             <div class="step-image">
-                <img src="https://files.catbox.moe/qbeiff.jpg" alt="Step 2">
+                <img src="image/update1/tutor2.jpg" alt="Step 2">
             </div>
             <div class="step-text">
-                Tahan ikon <strong>YussXy</strong> → pilih <strong>Info Aplikasi (i)</strong>.
+                Tahan ikon → pilih <strong>Info Aplikasi (i)</strong>.
             </div>
         </div>
 
-        <!-- STEP 3 -->
         <div class="step-card">
             <div class="step-header">
                 <div class="step-number">3</div>
-                <div class="step-title">Hapus Cache Aplikasi</div>
+                <div class="step-title">Hapus Cache</div>
             </div>
             <div class="step-image">
-                <img src="https://files.catbox.moe/58j73j.jpg" alt="Step 3">
+                <img src="image/update1/tutor3.jpg" alt="Step 3">
             </div>
             <div class="step-text">
-                Pilih <strong>Storage/Penyimpanan</strong> → klik <strong>Hapus Cache</strong>.
+                Pilih <strong>Storage</strong> → klik <strong>Hapus Cache</strong>.
             </div>
         </div>
 
-        <!-- STEP 4 -->
         <div class="step-card">
             <div class="step-header">
                 <div class="step-number">4</div>
-                <div class="step-title">Hapus Cache Chrome</div>
+                <div class="step-title">Cache Chrome</div>
             </div>
             <div class="step-image">
-                <img src="https://files.catbox.moe/l93l3p.jpg" alt="Step 4">
+                <img src="image/update1/tutor4.jpg" alt="Step 4">
             </div>
             <div class="step-text">
-                Tahan ikon <strong>Chrome</strong> → <strong>Info Aplikasi</strong> → <strong>Storage</strong> → <strong>Hapus Cache</strong>.
+                Tahan <strong>Chrome</strong> → <strong>Info Aplikasi</strong> → <strong>Storage</strong> → <strong>Hapus Cache</strong>.
             </div>
         </div>
 
-        <!-- STEP 5 -->
         <div class="step-card">
             <div class="step-header">
                 <div class="step-number">5</div>
-                <div class="step-title">Buka Tab Chrome</div>
+                <div class="step-title">Tab Chrome</div>
             </div>
             <div class="step-image">
-                <img src="https://files.catbox.moe/hjgm8b.jpg" alt="Step 5">
+                <img src="image/update1/tutor5.jpg" alt="Step 5">
             </div>
             <div class="step-text">
                 Buka <strong>Chrome</strong> → klik ikon kotak (<strong>Tab Switcher</strong>).
             </div>
         </div>
 
-        <!-- STEP 6 -->
         <div class="step-card">
             <div class="step-header">
                 <div class="step-number">6</div>
-                <div class="step-title">Hapus Semua Tab</div>
+                <div class="step-title">Hapus Tab</div>
             </div>
             <div class="step-image">
-                <img src="https://files.catbox.moe/tinhvx.jpg" alt="Step 6">
+                <img src="image/update1/tutor6.jpg" alt="Step 6">
             </div>
             <div class="step-text">
                 Klik <strong>3 titik</strong> → pilih <strong>Hapus semua tab</strong>.
             </div>
         </div>
 
-        <!-- SELESAI -->
         <div class="step-card">
             <div class="step-header">
                 <div class="step-number">✓</div>
-                <div class="step-title">Selesai!</div>
+                <div class="step-title">Selesai</div>
             </div>
             <div class="step-text">
-                Buka kembali aplikasi <strong>YussXy</strong>. Aplikasi sekarang akan <strong>terupdate</strong> ke versi terbaru! 🎉
+                Buka kembali aplikasi. Sekarang sudah <strong>terupdate</strong> ke versi terbaru!
             </div>
         </div>
 
         <button class="back-btn" onclick="window.location.href='index.html'">
-            <i class="ri-arrow-left-line"></i> Kembali ke Aplikasi
+            <i class="ri-arrow-left-line"></i> Kembali
         </button>
 
         <div class="footer">
-            <p>YussXy Store v1.0</p>
+            <p>YussXy Store</p>
         </div>
     </div>
 </body>
