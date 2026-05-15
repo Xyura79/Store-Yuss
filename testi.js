@@ -42,7 +42,14 @@ let testimonials = [
         date: "15-05-2026",
         time: "13.24"
     },
-    
+    {
+        id: 6,
+        image: "https://files.catbox.moe/g5cou8.jpg",
+        product: "Update Sc Bot Wa",
+        price: "Rp 5.000",
+        date: "15-05-2026",
+        time: "21.14"
+    },
     
     
     
