@@ -1,10 +1,12 @@
 // ================================================
 // DATA TESTIMONI - 3 ID DENGAN GAMBAR
 // ================================================
+
+
 let testimonials = [
     {
         id: 1,
-        image: "https://files.catbox.moe/2jmx8v.jpg",
+        image: "image/testi/testi01.jpg",
         product: "Panel 8GB",
         price: "Rp 8.500",
         date: "15-05-2026",
@@ -12,7 +14,7 @@ let testimonials = [
     },
     {
         id: 2,
-        image: "https://files.catbox.moe/czl854.jpg",
+        image: "image/testi/testi02.jpg",
         product: "Bot WhatsApp Custom",
         price: "Rp 10.000",
         date: "14-05-2026",
@@ -20,7 +22,7 @@ let testimonials = [
     },
     {
         id: 3,
-        image: "https://files.catbox.moe/dn4700.jpg",
+        image: "image/testi/testi03.jpg",
         product: "Bot WhatsApp Custom",
         price: "Rp 14.000",
         date: "12-05-2026",
@@ -28,7 +30,7 @@ let testimonials = [
     },
         {
         id: 4,
-        image: "https://files.catbox.moe/261cfx.jpg",
+        image: "image/testi/testi04.jpg",
         product: "Tools Termux Custom",
         price: "Rp 3.000",
         date: "12-05-2026",
@@ -36,7 +38,7 @@ let testimonials = [
     },
     {
         id: 5,
-        image: "https://files.catbox.moe/a8nvs8.jpg",
+        image: "image/testi/testi05.jpg",
         product: "Web To Apk",
         price: "Rp 5.000",
         date: "15-05-2026",
@@ -44,7 +46,7 @@ let testimonials = [
     },
     {
         id: 6,
-        image: "https://files.catbox.moe/g5cou8.jpg",
+        image: "image/testi/testi06.jpg",
         product: "Update Sc Bot Wa",
         price: "Rp 5.000",
         date: "15-05-2026",
@@ -52,7 +54,7 @@ let testimonials = [
     },
     {
     id: 7,
-        image: "https://files.catbox.moe/lrb2zt.jpg",
+        image: "image/testi/testi07.jpg",
         product: "Transfer ke dana",
         price: "Biaya Admin 1.000",
         date: "15-05-2026",
@@ -74,9 +76,6 @@ let testimonials = [
     
     
 ];
-
-
-
 
 
 
