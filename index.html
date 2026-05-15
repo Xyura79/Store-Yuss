@@ -1,0 +1,1000 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>YussXy Store - Belanja Online</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <!-- PWA Support -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ef4444">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="YussXy Store">
+<link rel="apple-touch-icon" href="https://files.catbox.moe/s6tjs1.jpg"> 
+    
+</head>
+<body>
+    <div class="app-container">
+        <!-- ==================== HEADER ==================== -->
+        <div class="header">
+            
+          <div class="logo-area">
+    <img src="https://files.catbox.moe/s6tjs1.jpg" alt="Logo" class="logo-img" onerror="this.src='https://placehold.co/36x36/ef4444/white?text=Y'">
+    <div class="logo-text">YussXy<span>Store</span></div>
+</div>
+            
+            <div class="header-icons">
+                <button class="icon-btn" id="cartIcon">
+                    <i class="ri-shopping-cart-line"></i>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </button>
+                <button class="icon-btn" id="menuIcon">
+                    <i class="ri-menu-3-line"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- ==================== SIDEBAR MENU ==================== -->
+        <div class="sidebar-overlay" id="sidebarOverlay">
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <img src="https://files.catbox.moe/s6tjs1.jpg" alt="Profile" class="sidebar-profile-img">
+                    <h3>YussXy Store</h3>
+                    <p>Online Shop</p>
+                    <button class="close-sidebar" id="closeSidebar"><i class="ri-close-line"></i></button>
+                </div>
+                
+                
+<div class="sidebar-menu">
+    <button class="sidebar-item" data-page="products">
+        <i class="ri-store-line"></i> Produk
+    </button>
+    <button class="sidebar-item" data-page="cart">
+        <i class="ri-shopping-cart-line"></i> Keranjang
+        <span class="sidebar-cart-count" id="sidebarCartCount">0</span>
+    </button>
+    <button class="sidebar-item" data-page="tools">
+        <i class="ri-tools-line"></i> Tools
+    </button>
+    <button class="sidebar-item" data-page="free">
+        <i class="ri-gift-line"></i> Produk Gratis
+    </button>
+    <button class="sidebar-item" data-page="testimoni">
+        <i class="ri-chat-quote-line"></i> Testimoni
+    </button>
+    <a href="update-tutorial.html" class="sidebar-item" style="text-decoration: none;">
+        <i class="ri-refresh-line"></i> Update Aplikasi
+    </a>
+    
+
+    
+    
+    
+    
+    
+    
+    <button class="sidebar-item" id="shareAppSidebar">
+        <i class="ri-share-line"></i> Share Aplikasi
+    </button>
+    <button class="sidebar-item" data-page="info">
+        <i class="ri-information-line"></i> Info
+    </button>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+           
+                </div>
+            </div>
+          
+                    
+
+        <!-- ==================== MAIN CONTENT ==================== -->
+        <div class="main-content" id="mainContent">
+            <!-- Halaman Produk -->
+            <div class="page active" id="productsPage">
+                <div class="page-header">
+                    
+           <h2>
+    <i class="ri-shopping-bag-line icon-large"></i> 
+    Produk Kami
+           </h2>
+                    
+                    <p>Pilih produk yang ingin kamu beli</p>
+                </div>
+                
+                <!-- ==================== BANNER REKOMENDASI HOT ==================== -->
+                <div class="hot-banner" id="hotBanner" style="display: none;">
+                    <div class="hot-banner-content">
+                        <i class="ri-fire-line"></i>
+                        <span>HOT SALE! Produk Rekomendasi Minggu Ini</span>
+                        <i class="ri-fire-line"></i>
+                    </div>
+                </div>
+                
+                <div class="products-grid" id="productsGrid">
+                    <!-- Produk akan diisi oleh JavaScript -->
+                </div>
+            </div>
+
+            <!-- Halaman Keranjang -->
+            <div class="page" id="cartPage">
+                <div class="page-header">
+                    <h2><i class="ri-shopping-cart-line icon-large"></i> Keranjang Belanja</h2>
+                    
+                    
+                    <p>Review pesanan kamu sebelum checkout</p>
+                </div>
+                <div class="cart-container" id="cartContainer">
+                    <!-- Keranjang akan diisi oleh JavaScript -->
+                </div>
+            </div>
+
+            <!-- Halaman Info -->
+            <div class="page" id="infoPage">
+                <div class="page-header">
+                    <h2>
+    <i class="ri-information-line icon-large"></i> 
+    Info Toko
+</h2>
+                    
+                    
+                    <p>Informasi tentang YussXy Store</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-item">
+                        <i class="ri-code-line"></i>
+                        <div>
+                            <h4>Versi Aplikasi</h4>
+                            <p>2.0.0</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="ri-shopping-bag-line"></i>
+                        <div>
+                            <h4>Jumlah Produk</h4>
+                            <p id="totalProducts">0</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="ri-whatsapp-line"></i>
+                        <div>
+                            
+                            <button class="channel-btn" id="channelBtn">
+                                <i class="ri-whatsapp-line"></i> Gabung Saluran
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-card">
+                   <h2>Tentang Kami</h2><br>
+<p style="color: #e5e7eb; line-height: 1.7;">
+    <b style="color: #ffffff;">YussXy Store</b> adalah layanan digital yang menyediakan berbagai kebutuhan modern mulai dari 
+    <span style="color: #60a5fa; font-weight: bold;">produk digital</span> hingga jasa 
+    <span style="color: #34d399; font-weight: bold;">pembuatan website</span>, 
+    <span style="color: #facc15; font-weight: bold;">bot WhatsApp</span>, dan 
+    <span style="color: #c084fc; font-weight: bold;">bot Telegram</span>.
+</p>
+
+<p style="margin-top: 12px; color: #d1d5db; line-height: 1.7;">
+    Kami berkomitmen memberikan layanan yang 
+    <b style="color: #22c55e;">cepat</b>, 
+    <b style="color: #38bdf8;">aman</b>, serta hasil berkualitas sesuai keinginan pembeli, dengan harga yang tetap 
+    <span style="color: #f97316; font-weight: bold;">terjangkau</span>. 
+    Cocok untuk kebutuhan pribadi, bisnis, maupun project online Anda.
+</p>
+
+<p style="margin-top: 12px; color: #d1d5db; line-height: 1.7;">
+    Kepuasan pelanggan adalah 
+    <span style="color: #f43f5e; font-weight: bold;">prioritas utama</span> kami dengan pelayanan ramah dan support yang siap membantu.
+</p>
+
+                    
+   <p style="margin-top: 16px; color: #ffffff; font-weight: bold; text-align: center;">
+    Untuk informasi lebih lanjut atau pemesanan, silakan hubungi owner melalui WhatsApp.
+</p>                 
+                    
+<div style="margin-top: 16px; text-align: center;">
+    <a href="carabuy.html" style="display: inline-block; background: #f97316; color: white; padding: 10px 20px; border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 14px;">
+        <i class="ri-shopping-bag-line"></i> Cara Pembelian
+    </a>
+</div>               
+                </div>
+            </div>
+        
+
+        
+<!--😁😉🙏😉🙏😉🙏-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- HALAMAN TOOLS -->
+<div class="page" id="toolsPage">
+    <div class="page-header">
+        <h2><i class="ri-tools-line icon-large"></i> Tools</h2>
+        <p>Nikmati Tools 100% gratis</p>
+    </div>
+    
+
+    
+    
+<!--☺☺😏🟡🟡-->
+<!-- GRID TOOLS -->
+
+
+<div class="tools-grid" id="toolsGrid">
+    <div class="tool-card" onclick="openTool('tiktok')">
+        <div class="tool-icon"><i class="ri-tiktok-line"></i></div>
+        <h3>TikTok Downloader</h3>
+        <p>Download video TikTok tanpa watermark</p>
+    </div>
+    <div class="tool-card" onclick="openTool('youtube')">
+        <div class="tool-icon"><i class="ri-youtube-line"></i></div>
+        <h3>YouTube Downloader</h3>
+        <p>Download video/audio YouTube</p>
+    </div>
+    <div class="tool-card" onclick="openTool('spotify')">
+        <div class="tool-icon"><i class="ri-spotify-line"></i></div>
+        <h3>Spotify Downloader</h3>
+        <p>Download lagu dari Spotify</p>
+    </div>
+    <div class="tool-card" onclick="openTool('facebook')">
+        <div class="tool-icon"><i class="ri-facebook-line"></i></div>
+        <h3>Facebook Downloader</h3>
+        <p>Download video dari Facebook</p>
+    </div>
+    <div class="tool-card" onclick="openTool('capcut')">
+        <div class="tool-icon"><i class="ri-video-line"></i></div>
+        <h3>CapCut Downloader</h3>
+        <p>Download video CapCut tanpa watermark</p>
+    </div>
+    <div class="tool-card" onclick="openTool('instagram')">
+        <div class="tool-icon"><i class="ri-instagram-line"></i></div>
+        <h3>Instagram Downloader</h3>
+        <p>Download foto/video Instagram</p>
+    </div>
+    <div class="tool-card full-width-card" onclick="openTool('fakelobby')">
+        <div class="tool-icon"><i class="ri-fire-line"></i></div>
+        <h3>Fake Lobby FF</h3>
+        <p>Generator lobby Free Fire kustom</p>
+    </div>
+    <div class="tool-card large-card" onclick="openTool('fakedana')">
+        <div class="tool-icon"><i class="ri-bank-card-line"></i></div>
+        <h3>Fake Dana</h3>
+        <p>Generator saldo DANA palsu</p>
+    </div>
+    <div class="tool-card large-card" onclick="openTool('fakelobbyml')">
+        <div class="tool-icon"><i class="ri-android-line"></i></div>
+        <h3>Fake Lobby ML</h3>
+        <p>Generator lobby Mobile Legend</p>
+    </div>
+    <div class="tool-card large-card" onclick="openTool('fakejago')">
+    <div class="tool-icon"><i class="ri-bank-line"></i></div>
+    <h3>Fake Bank Jago</h3>
+    <p>Generator saldo Bank Jago palsu</p>
+     </div>
+
+
+<div class="tool-card" onclick="openTool('password')">
+    <div class="tool-icon"><i class="ri-lock-password-line"></i></div>
+    <h3>Password Generator</h3>
+    <p>Buat password kuat dan aman</p>
+</div>
+    <div class="tool-card" onclick="openTool('lorem')">
+    <div class="tool-icon"><i class="ri-file-text-line"></i></div>
+    <h3>Lorem Ipsum Generator</h3>
+    <p>Generate teks dummy untuk desain</p>
+</div>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<!--😏😏😏😏😏-->
+    <!-- DETAIL TOOL -->
+    <div id="toolDetailArea" style="display: none;"
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+<!-- ==================== MODAL KONFIRMASI UPDATE ==================== -->
+<div class="modal" id="updateConfirmModal">
+    <div class="modal-content confirm-modal">
+        <div class="modal-header">
+            <h3><i class="ri-refresh-line"></i> Update Aplikasi</h3>
+            <button class="modal-close" id="closeUpdateModal"><i class="ri-close-line"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="confirm-icon">
+                <i class="ri-information-line"></i>
+            </div>
+            <p class="confirm-title">⚠️ Update Aplikasi</p>
+            <p class="confirm-message" id="updateConfirmMessage">Aplikasi akan reload dan mengambil versi terbaru.</p>
+            <div class="confirm-buttons">
+                <button class="confirm-btn cancel" id="cancelUpdateBtn">
+                    <i class="ri-close-line"></i> Batal
+                </button>
+                <button class="confirm-btn ok" id="okUpdateBtn">
+                    <i class="ri-check-line"></i> Update Sekarang
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+ 
+    
+    <!-- TOOL LOREM IPSUM GENERATOR -->
+<div id="toolLorem" class="tool-detail" style="display: none;">
+    <div class="tool-detail-header">
+        <button class="back-btn" onclick="closeTool()">
+            <i class="ri-arrow-left-line"></i> Kembali
+        </button>
+        <h3><i class="ri-file-text-line"></i> Lorem Ipsum Generator</h3>
+    </div>
+    <div class="tool-detail-body">
+        <div class="lorem-controls">
+            <div class="control-group">
+                <label>📝 Tipe:</label>
+                <select id="loremType" class="lorem-select">
+                    <option value="paragraphs">Paragraf</option>
+                    <option value="sentences">Kalimat</option>
+                    <option value="words">Kata</option>
+                </select>
+            </div>
+            
+            <div class="control-group">
+                <label>🔢 Jumlah:</label>
+                <div class="lorem-count">
+                    <input type="range" id="loremCount" min="1" max="20" value="3">
+                    <span id="countValue">3</span>
+                </div>
+            </div>
+            
+            <button class="generate-lorem-btn" id="generateLoremBtn">
+                <i class="ri-refresh-line"></i> Generate
+            </button>
+            
+            <button class="copy-lorem-btn" id="copyLoremBtn">
+                <i class="ri-file-copy-line"></i> Salin Teks
+            </button>
+        </div>
+        
+        <div class="lorem-result" id="loremResult">
+            <div class="lorem-output"></div>
+        </div>
+    </div>
+</div>
+    
+    
+ <!-- DETAIL TOOL PASSWORD GENERATOR -->
+<div id="toolPassword" class="tool-detail" style="display: none;">
+    <div class="tool-detail-header">
+        <button class="back-btn" onclick="closeTool()">
+            <i class="ri-arrow-left-line"></i> Kembali
+        </button>
+        <h3><i class="ri-lock-password-line"></i> Password Generator</h3>
+    </div>
+    <div class="tool-detail-body">
+        <div class="password-generator">
+            <div class="password-display">
+                <input type="text" id="generatedPassword" readonly class="password-input" value="Klik Generate">
+                <button class="copy-password-btn" id="copyPasswordBtn">
+                    <i class="ri-file-copy-line"></i>
+                </button>
+            </div>
+            
+            <div class="password-controls">
+                <div class="control-group">
+                    <label>📏 Panjang Password:</label>
+                    <div class="length-control">
+                        <input type="range" id="passwordLength" min="4" max="32" value="12">
+                        <span id="lengthValue">12</span>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <label>⚙️ Tipe Karakter:</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" id="includeUppercase" checked> Huruf Besar (A-Z)</label>
+                        <label><input type="checkbox" id="includeLowercase" checked> Huruf Kecil (a-z)</label>
+                        <label><input type="checkbox" id="includeNumbers" checked> Angka (0-9)</label>
+                        <label><input type="checkbox" id="includeSymbols" checked> Simbol (!@#$%^&*)</label>
+                    </div>
+                </div>
+                
+                <button class="generate-password-btn" id="generatePasswordBtn">
+                    <i class="ri-refresh-line"></i> Generate Password
+                </button>
+            </div>
+            
+            <div class="password-strength" id="passwordStrength">
+                <div class="strength-bar"></div>
+                <span class="strength-text">Kekuatan: -</span>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+ 
+ <!-- TOOL FAKE BANK JAGO -->
+<div id="toolFakejago" class="tool-detail" style="display: none;">
+    <div class="tool-detail-header">
+        <button class="back-btn" onclick="closeTool()">
+            <i class="ri-arrow-left-line"></i> Kembali
+        </button>
+        <h3><i class="ri-bank-line"></i> Fake Bank Jago</h3>
+    </div>
+    <div class="tool-detail-body">
+        <div class="input-wrapper">
+            <input type="text" id="jagoNama" placeholder="Masukkan Nama..." class="tool-input">
+            <input type="number" id="jagoSaldo" placeholder="Masukkan Saldo..." class="tool-input">
+            <button class="download-btn" id="generateJagoBtn">
+                <i class="ri-image-line"></i> Generate
+            </button>
+        </div>
+        <div id="jagoResult" class="result-box" style="display: none;"></div>
+    </div>
+</div>
+    
+    
+<!-- TOOL FAKE LOBBY FREE FIRE -->
+<div id="toolFakelobby" class="tool-detail full-width-tool" style="display: none;">
+    <div class="tool-detail-header">
+        <button class="back-btn" onclick="closeTool()">
+            <i class="ri-arrow-left-line"></i> Kembali
+        </button>
+        <h3><i class="ri-fire-line"></i> Fake Lobby Free Fire</h3>
+    </div>
+    <div class="tool-detail-body">
+        <div class="input-wrapper">
+            <input type="text" id="ffNickname" placeholder="Masukkan Nickname Free Fire..." class="tool-input">
+            <button class="download-btn" id="generateFfBtn">
+                <i class="ri-image-line"></i> Generate
+            </button>
+        </div>
+        <div id="ffResult" class="result-box" style="display: none;"></div>
+    </div>
+</div>    
+    
+    
+    
+<!-- TOOL FAKE DANA -->
+<div id="toolFakedana" class="tool-detail" style="display: none;">
+    <div class="tool-detail-header">
+        <button class="back-btn" onclick="closeTool()">
+            <i class="ri-arrow-left-line"></i> Kembali
+        </button>
+        <h3><i class="ri-bank-card-line"></i> Fake Dana</h3>
+    </div>
+    <div class="tool-detail-body">
+        <div class="input-wrapper">
+            <input type="number" id="danaNominal" placeholder="Masukkan nominal (contoh: 10000)" class="tool-input">
+            <button class="download-btn" id="generateDanaBtn">
+                <i class="ri-image-line"></i> Generate
+            </button>
+        </div>
+        <div id="danaResult" class="result-box" style="display: none;"></div>
+    </div>
+</div>
+
+<!-- TOOL FAKE LOBBY ML -->
+<div id="toolFakelobbyml" class="tool-detail" style="display: none;">
+    <div class="tool-detail-header">
+        <button class="back-btn" onclick="closeTool()">
+            <i class="ri-arrow-left-line"></i> Kembali
+        </button>
+        <h3><i class="ri-android-line"></i> Fake Lobby ML</h3>
+    </div>
+    <div class="tool-detail-body">
+        <div class="input-group-ml">
+            <input type="text" id="mlNickname" placeholder="Masukkan Nickname ML..." class="tool-input">
+            <input type="text" id="mlAvatar" placeholder="URL Avatar (opsional)..." class="tool-input">
+            <button class="download-btn" id="generateMlBtn">
+                <i class="ri-image-line"></i> Generate
+            </button>
+        </div>
+        <div id="mlResult" class="result-box" style="display: none;"></div>
+    </div>
+</div>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+<!-- TOOL INSTAGRAM DOWNLOADER -->
+<div id="toolInstagram" class="tool-detail" style="display: none;">
+    <div class="tool-detail-header">
+        <button class="back-btn" onclick="closeTool()">
+            <i class="ri-arrow-left-line"></i> Kembali
+        </button>
+        <h3><i class="ri-instagram-line"></i> Instagram Downloader</h3>
+    </div>
+    <div class="tool-detail-body">
+        <div class="input-wrapper">
+            <input type="text" id="instagramUrl" placeholder="Masukkan URL Instagram (reel/post)..." class="tool-input">
+            <button class="download-btn" id="downloadInstagramBtn">
+                <i class="ri-download-line"></i> Proses
+            </button>
+        </div>
+        <div id="instagramResult" class="result-box" style="display: none;"></div>
+    </div>
+</div>    
+    
+    
+    
+    
+    
+ <!-- TOOL CAPCUT DOWNLOADER -->
+<div id="toolCapcut" class="tool-detail" style="display: none;">
+    <div class="tool-detail-header">
+        <button class="back-btn" onclick="closeTool()">
+            <i class="ri-arrow-left-line"></i> Kembali
+        </button>
+        <h3><i class="ri-video-line"></i> CapCut Downloader</h3>
+    </div>
+    <div class="tool-detail-body">
+        <div class="input-wrapper">
+            <input type="text" id="capcutUrl" placeholder="Masukkan URL CapCut..." class="tool-input">
+            <button class="download-btn" id="downloadCapcutBtn">
+                <i class="ri-download-line"></i> Proses
+            </button>
+        </div>
+        <div id="capcutResult" class="result-box" style="display: none;"></div>
+    </div>
+</div>   
+    
+    
+    
+    
+    
+        <!-- TOOL FACEBOOK DOWNLOADER -->
+<div id="toolFacebook" class="tool-detail" style="display: none;">
+    <div class="tool-detail-header">
+        <button class="back-btn" onclick="closeTool()">
+            <i class="ri-arrow-left-line"></i> Kembali
+        </button>
+        <h3><i class="ri-facebook-line"></i> Facebook Downloader</h3>
+    </div>
+    <div class="tool-detail-body">
+        <div class="input-wrapper">
+            <input type="text" id="facebookUrl" placeholder="Masukkan URL Facebook (video)..." class="tool-input">
+            <button class="download-btn" id="downloadFacebookBtn">
+                <i class="ri-download-line"></i> Proses
+            </button>
+        </div>
+        <div id="facebookResult" class="result-box" style="display: none;"></div>
+     </div>
+    </div>
+        
+        
+        
+        <!-- TOOL SPOTIFY DOWNLOADER -->
+<div id="toolSpotify" class="tool-detail" style="display: none;">
+    <div class="tool-detail-header">
+        <button class="back-btn" onclick="closeTool()">
+            <i class="ri-arrow-left-line"></i> Kembali
+        </button>
+        <h3><i class="ri-spotify-line"></i> Spotify Downloader</h3>
+    </div>
+    <div class="tool-detail-body">
+        <div class="input-wrapper">
+            <input type="text" id="spotifyUrl" placeholder="Masukkan URL Spotify (track/playlist)..." class="tool-input">
+            <button class="download-btn" id="downloadSpotifyBtn">
+                <i class="ri-download-line"></i> Download
+            </button>
+        </div>
+        <div id="spotifyResult" class="result-box" style="display: none;"></div>
+      </div>
+    </div>
+        
+        
+        
+        <!-- TOOL TIKTOK DOWNLOADER -->
+        <div id="toolTiktok" class="tool-detail" style="display: none;">
+            <div class="tool-detail-header">
+                <button class="back-btn" onclick="closeTool()">
+                    <i class="ri-arrow-left-line"></i> Kembali
+                </button>
+                <h3><i class="ri-tiktok-line"></i> TikTok Downloader</h3>
+            </div>
+            <div class="tool-detail-body">
+                <div class="input-wrapper">
+                    <input type="text" id="tiktokUrl" placeholder="Masukkan URL TikTok..." class="tool-input">
+                    <button class="download-btn" id="downloadTiktokBtn">
+                        <i class="ri-download-line"></i> Download
+                    </button>
+                </div>
+                <div id="tiktokResult" class="result-box" style="display: none;"></div>
+            </div>
+        </div>
+        
+        <!-- TOOL YOUTUBE DOWNLOADER -->
+        <div id="toolYoutube" class="tool-detail" style="display: none;">
+            <div class="tool-detail-header">
+                <button class="back-btn" onclick="closeTool()">
+                    <i class="ri-arrow-left-line"></i> Kembali
+                </button>
+                <h3><i class="ri-youtube-line"></i> YouTube Downloader</h3>
+            </div>
+            <div class="tool-detail-body">
+                <div class="input-wrapper">
+                    <input type="text" id="youtubeUrl" placeholder="Masukkan URL YouTube..." class="tool-input">
+                    <button class="download-btn" id="processYoutubeBtn">
+                        <i class="ri-search-line"></i> Proses
+                    </button>
+                </div>
+                
+                <!-- Pilihan resolusi MP4 -->
+                <div class="youtube-options" id="youtubeOptions" style="display: none;">
+                    <div class="option-title">Pilih resolusi video (MP4):</div>
+                    <div class="resolution-buttons">
+                        <button class="res-btn" data-res="720">720p</button>
+                        <button class="res-btn" data-res="480">480p</button>
+                        <button class="res-btn" data-res="360">360p</button>
+                        <button class="res-btn" data-res="240">240p</button>
+                    </div>
+                    <button class="mp3-only-btn" id="downloadMp3Only">
+                        <i class="ri-music-line"></i> Download MP3 (Audio Only)
+                    </button>
+                </div>
+                
+                <div id="youtubeResult" class="result-box" style="display: none;"></div>
+            </div>
+        </div>
+        
+        <!-- TOOL COMING SOON -->
+        <div id="toolSoon" class="tool-detail" style="display: none;">
+            <div class="tool-detail-header">
+                <button class="back-btn" onclick="closeTool()">
+                    <i class="ri-arrow-left-line"></i> Kembali
+                </button>
+                <h3><i class="ri-time-line"></i> Segera Hadir</h3>
+            </div>
+            <div class="tool-detail-body">
+                <div class="coming-soon">
+                    <i class="ri-tools-line"></i>
+                    <p>Fitur ini sedang dalam pengembangan</p>
+                    <span>Mohon tunggu update berikutnya</span>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Halaman Testimoni -->
+<div class="page" id="testimoniPage">
+    <div class="page-header">
+        <h2><i class="ri-chat-quote-line icon-large"></i> Testimoni</h2>
+        <p>Bukti Pelayanan & Keamanahan</p>
+    </div>
+    <div class="testimoni-grid" id="testimoniGrid">
+    </div>
+</div>      
+
+
+<!-- Halaman Produk Gratis -->
+<div class="page" id="freePage">
+    <div class="page-header">
+        <h2><i class="ri-gift-line icon-large"></i> Produk Gratis</h2>
+        <p>Dapatkan produk digital gratis dari YussXy</p>
+    </div>
+    
+    <div class="free-products-grid" id="freeProductsGrid">
+        <!-- Produk gratis akan diisi JavaScript -->
+    </div>
+</div>
+    
+
+
+            
+<!--Pagee end👍1👋🙏😌-->        
+  </div>            
+<!--717177😊🤩😏86578-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- ==================== BOTTOM NAVIGATION ==================== -->
+     <div class="bottom-nav">
+    <button class="nav-item" data-page="products">
+        <i class="ri-store-line"></i>
+        <span>Produk</span>
+    </button>
+    <button class="nav-item" data-page="cart">
+        <i class="ri-shopping-cart-line"></i>
+        <span>Keranjang</span>
+        <span class="nav-badge" id="navBadge">0</span>
+    </button>
+    <button class="nav-item" data-page="testimoni">
+        <i class="ri-chat-quote-line"></i>
+        <span>Testimoni</span>
+    </button>
+    <button class="nav-item" data-page="info">
+        <i class="ri-information-line"></i>
+        <span>Info</span>
+    </button>
+</div>
+    
+    
+    
+
+    <!-- ==================== MODAL PRODUK DETAIL ==================== -->
+    <div class="modal" id="productModal">
+        <div class="modal-content product-modal">
+            <div class="modal-header">
+                <h3 id="modalProductName">Detail Produk</h3>
+                <button class="modal-close" id="closeProductModal"><i class="ri-close-line"></i></button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Detail produk akan diisi JS -->
+            </div>
+        </div>
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <!-- ==================== MODAL VARIAN RAM (UNTUK PANEL PTERODACTLY) ==================== -->
+<div class="modal" id="variantModal">
+    <div class="modal-content variant-modal">
+        <div class="modal-header">
+            <h3 id="variantProductName">Pilih Varian Produk</h3>
+            <button class="modal-close" id="closeVariantModal"><i class="ri-close-line"></i></button>
+        </div>
+        <div class="modal-body" id="variantBody">
+           
+        </div>
+    </div>
+</div>
+    
+    
+    
+    
+    
+    <!-- ==================== QRIS MODAL ==================== -->
+<div class="modal" id="qrisModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Scan QRIS untuk Pembayaran</h3>
+            <button class="modal-close" id="closeModal"><i class="ri-close-line"></i></button>
+        </div>
+        <div class="modal-body">
+            <img src="https://files.catbox.moe/053qg6.jpg" alt="QRIS" class="qris-image" id="qrisImage">
+            <p class="qr-total">Total: <span id="qrTotal">Rp 0</span></p>
+            <p class="qr-instruction">Scan QRIS di atas menggunakan aplikasi mobile banking atau e-wallet favoritmu.</p>
+            <p class="qr-save-hint">
+                <i class="ri-information-line"></i> Tekan dan tahan gambar untuk menyimpan QRIS
+            </p>
+            <button class="confirm-payment-btn" id="confirmPaymentBtn">
+                <i class="ri-whatsapp-line"></i> Konfirmasi Pembayaran
+            </button>
+        </div>
+    </div>
+</div>
+    
+
+
+
+
+<!-- ==================== MODAL TRANSFER DANA ==================== -->
+<div class="modal" id="transferModal">
+    <div class="modal-content transfer-modal">
+        <div class="modal-header">
+            <h3><i class="ri-bank-card-line"></i> Transfer ke DANA</h3>
+            <button class="modal-close" id="closeTransferModalBtn"><i class="ri-close-line"></i></button>
+        </div>
+        <div class="modal-body">
+            
+            <!-- QRIS DI ATAS (kecil dan tidak memakan ruang) -->
+            <div class="transfer-qris-section" id="transferQrisSection" style="display: none;">
+                <div class="qris-small-container">
+                    <img src="https://files.catbox.moe/053qg6.jpg" alt="QRIS" class="transfer-qris-small">
+                    <p class="transfer-qris-total" id="transferQrisTotal">Total: Rp 0</p>
+                </div>
+            </div>
+            
+            <div class="transfer-info">
+                <p>💡 Layanan ini untuk membantu transfer ke DANA bagi pengguna non-premium.</p>
+                <p>💰 Biaya Admin: <strong>Rp1.000</strong></p>
+                <p>📌 Minimal Transfer: <strong>Rp5.000</strong></p>
+            </div>
+            
+            <div class="transfer-form">
+                <div class="input-group">
+                    <label>📱 Nomor DANA Tujuan</label>
+                    <input type="tel" id="transferNomor" placeholder="Contoh: 081234567890" class="transfer-input">
+                </div>
+                <div class="input-group">
+                    <label>💰 Jumlah Transfer</label>
+                    <input type="number" id="transferJumlah" placeholder="Minimal Rp5.000" class="transfer-input">
+                </div>
+                <div class="transfer-result" id="transferCalculation">
+                    <p>💸 Total yang harus dibayar: <span id="totalBayar">Rp 0</span></p>
+                    <p class="detail-bayar" id="detailBayar"></p>
+                </div>
+                <button class="transfer-submit-btn" id="showQrisBtn">
+                    <i class="ri-qr-code-line"></i> Lanjut ke Pembayaran
+                </button>
+                
+                <!-- Tombol konfirmasi di bawah -->
+                <button class="transfer-confirm-btn" id="transferConfirmBtn" style="display: none;">
+                    <i class="ri-whatsapp-line"></i> Konfirmasi Pembayaran
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+    <!-- ==================== FLOATING CHAT OWNER BUTTON ==================== -->
+<button class="chat-owner-btn" id="chatOwnerBtn">
+    <i class="ri-whatsapp-line"></i>
+    <span class="chat-tooltip">Chat Owner</span>
+</button>
+    
+    
+    
+    
+    
+    
+    
+    
+    <script>
+  // Register Service Worker
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/sw.js').then(function(registration) {
+        console.log('ServiceWorker registration successful');
+      }, function(err) {
+        console.log('ServiceWorker registration failed: ', err);
+      });
+    });
+  }
+</script>
+    
+    
+
+
+<script src="testi.js"></script>
+<script src="klmn.js"></script>
+<script src="script.js"></script>
+    
+</body>
+</html>
