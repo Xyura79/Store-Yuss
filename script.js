@@ -189,7 +189,7 @@ let products = [
     image: "image/produk/produk13.jpg",
     category: "digital",
     isNegotiable: true,
-    type: "coming_soon"
+    type: "sold_out"
 },
 
 
