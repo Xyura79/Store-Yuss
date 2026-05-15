@@ -114,7 +114,7 @@ let products = [
     { ram: "8GB", price: 7000, priceDisplay: "Rp 7.000" },
     { ram: "9GB", price: 8000, priceDisplay: "Rp 8.000" },
     { ram: "10GB", price: 9000, priceDisplay: "Rp 9.000" },
-    { ram: "Unli-GB", price: 12000, priceDisplay: "Rp 13.000" }
+    { ram: "Unli-GB", price: 13000, priceDisplay: "Rp 13.000" }
 ]
 
 
