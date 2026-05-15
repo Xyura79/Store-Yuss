@@ -189,7 +189,7 @@ let products = [
     image: "https://files.catbox.moe/bi7xdi.jpg",
     category: "digital",
     isNegotiable: true,
-    type: "coming_soon"
+    type: "sold_out"
 },
 
 
