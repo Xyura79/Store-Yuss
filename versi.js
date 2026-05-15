@@ -1,0 +1,2 @@
+const APP_VERSION = "2.00.0";
+const APP_RELEASE_DATE = "16 Mei 2026";
