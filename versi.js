@@ -17,12 +17,25 @@ const NOTIFICATION_DATA = {
     hasNotification: true,
     count: 1,
     notifications: [
-        {
+{
             id: 1,
+            title: "Produk Baru Di Tambah Kan",
+            message: "Jasa Bug WhatsApp",
+            image: "",
+            date: "16 Mei 2026"
+        },
+        {
+            id: 2,
             title: "Update Versi",
             message: "Aplikasi YussXy telah diperbarui ke versi 3.0.0",
             image: "",
             date: "16 Mei 2026"
         }
+
+
+
+
+
+        
     ]
 };
