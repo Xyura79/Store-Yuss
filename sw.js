@@ -1,11 +1,13 @@
 // GANTI INI DENGAN NAMA REPO GITHUB KAMU
 var CACHE_NAME = 'yussxy-store-v1';
 var urlsToCache = [
-  '/',
-  '/index.html',
-  '/style.css',
-  '/script.js',
-  '/carabuy.html',
+  '/Store-Yuss/',
+  '/Store-Yuss/index.html',
+  '/Store-Yuss/style.css',
+  '/Store-Yuss/script.js',
+  '/Store-Yuss/carabuy.html',
+  '/Store-Yuss/offline.html',
+  '/Store-Yuss/manifest.json',
   'https://files.catbox.moe/s6tjs1.jpg',
   'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap',
   'https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css'
@@ -21,7 +23,7 @@ self.addEventListener('install', function(event) {
   );
 });
 
-// Fetch - ambil dari cache kalau offline
+// Fetch - ambil dari cache kalau offline, tampilkan offline.html
 self.addEventListener('fetch', function(event) {
   event.respondWith(
     caches.match(event.request)
@@ -29,7 +31,9 @@ self.addEventListener('fetch', function(event) {
         if (response) {
           return response;
         }
-        return fetch(event.request);
+        return fetch(event.request).catch(function() {
+          return caches.match('/Store-Yuss/offline.html');
+        });
       })
   );
 });
