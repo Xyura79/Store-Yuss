@@ -60,6 +60,14 @@ let testimonials = [
         date: "15-05-2026",
         time: "21.27"
     },
+    {
+        id: 8,
+        image: "image/testi/testi08.jpg",
+        product: "Bot Wa Custom",
+        price: "Biaya Admin 1.000",
+        date: "16-05-2026",
+        time: "23.05"
+    },
     
     
     
