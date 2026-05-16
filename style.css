@@ -65,7 +65,23 @@
 
 
 
+/* ================================================
+   HILANGKAN SCROLLBAR (GARIS GESER)
+   ================================================ */
+/* Untuk Chrome, Safari, Edge */
+::-webkit-scrollbar {
+    display: none;
+}
 
+/* Untuk Firefox */
+* {
+    scrollbar-width: none;
+}
+
+/* Untuk Internet Explorer */
+body {
+    -ms-overflow-style: none;
+}
 
 
 
