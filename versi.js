@@ -6,7 +6,7 @@
 const APP_VERSION = "3.1.0";
 
 
-const APP_RELEASE_DATE = "16 Mei 2026";
+const APP_RELEASE_DATE = "17 Mei 2026";
 
 
 const APP_UPDATE_INFO = "Jangan Lupa Follow Saluran Resmi Kami Agar Tidak Ketinggalan Info update, promo, dan informasi penting lainnya.";
@@ -37,7 +37,7 @@ const NOTIFICATION_DATA = {
             title: "Jasa Bug Wa Sedang Diskon",
             message: "Buruan Buy Keburu Diskon nya hilang",
             image: "",
-            date: "16 Mei 2026"
+            date: "17 Mei 2026"
         },
 
 
