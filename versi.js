@@ -3,7 +3,7 @@
 // Menyimpan informasi versi aplikasi
 // ================================================
 
-const APP_VERSION = "3.0.0";
+const APP_VERSION = "3.1.0";
 
 
 const APP_RELEASE_DATE = "16 Mei 2026";
@@ -26,9 +26,16 @@ const NOTIFICATION_DATA = {
             date: "16 Mei 2026"
         },
         {
-            id: 1,
+            id: 2,
             title: "Produk Baru Di Tambah Kan",
             message: "Jasa Bug WhatsApp",
+            image: "",
+            date: "17 Mei 2026"
+        },
+        {
+            id: 3,
+            title: "Jasa Bug Wa Sedang Diskon",
+            message: "Buruan Buy Keburu Diskon nya hilang",
             image: "",
             date: "16 Mei 2026"
         },
