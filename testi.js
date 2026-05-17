@@ -61,12 +61,20 @@ let testimonials = [
         time: "21.27"
     },
     {
-        id: 8,
+    id: 8,
         image: "image/testi/testi08.jpg",
         product: "Bot Wa Custom",
         price: "Biaya Admin 1.000",
         date: "16-05-2026",
         time: "23.05"
+    },
+        {
+      id: 9,
+        image: "image/testi/testi09.jpg",
+        product: "Panel Ptero 3GB",
+        price: "Rp 4.000",
+        date: "17-05-2026",
+        time: "20.17-05-20265"
     },
     
     
