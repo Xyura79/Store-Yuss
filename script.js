@@ -191,7 +191,7 @@ let products = [
     id: 14,
     name: "Jasa Bug",
     description: "Punya Musuh?, Mau Balas Dendam?, Jasa ini Akan Balaskan Dendam Kamu Ke target",
-    price: 4000,
+    price: "Rp 3.500",
     image: "image/produk/produk14.jpg",
     category: "digital",
     isNegotiable: false,
