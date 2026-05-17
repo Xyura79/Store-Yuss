@@ -195,7 +195,7 @@ let products = [
     image: "image/produk/produk14.jpg",
     category: "digital",
     isNegotiable: false,
-    type: "new",
+    type: "diskon",
     isBugService: true
 },
 
