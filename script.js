@@ -70,13 +70,13 @@ let products = [
         id: 4,
         name: "Bot WhatsApp Custom",
         description: "Jasa Pembuatan Bot WhatsApp sesuai kebutuhan pembeli, Bisa request fitur yang diinginkan juga suport termux dan panel.",
-        price: "Rp 10.000",
+        price: "Rp 11.000",
         priceMin: 10000,
         priceMax: 20000,
         image: "image/produk/produk4.jpg",
         category: "jasa",
         isNegotiable: true,
-        type: "coming_soon"
+        type: "ready"
     },
     {
         id: 5,
