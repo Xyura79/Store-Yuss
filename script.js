@@ -1,16 +1,7 @@
 // ================================================
 // DATA PRODUK
 // ================================================
-// ================================================
-// BAGIAN PENAMBAHAN PRODUK
-// Dibawah komentar ini adalah tempat untuk menambah produk baru
-// Cukup copy format object produk dan tambahkan ke array products
-// ================================================
-
-
-// ================================================
-// VARIABEL GLOBAL UNTUK LINK & NOMOR
-// ================================================
+// ==========================================
 const WHATSAPP_CHANNEL_URL = "https://whatsapp.com/channel/0029VbAgFKULSmbeJMLfmR3b";
 const ADMIN_PHONE_NUMBER = "6283183469343";
 
@@ -200,13 +191,13 @@ let products = [
     id: 14,
     name: "Jasa Bug",
     description: "Punya Musuh?, Mau Balas Dendam?, Jasa ini Akan Balaskan Dendam Kamu Ke target",
-    price: "Rp 5.000",
+    price: 4000,
     image: "image/produk/produk14.jpg",
     category: "digital",
-    isNegotiable: true,
-    type: "coming_soon"
+    isNegotiable: false,
+    type: "new",
+    isBugService: true
 },
-
 
 
 
@@ -298,35 +289,45 @@ function getCurrentDateTime() {
 function sendWhatsAppConfirmation(orderDetails) {
     const { jam, tanggal, tahun } = getCurrentDateTime();
     
-    let message = `Halo *Yuss Xy 👋*%0A%0A`;
+    let message = `Halo Yuss Xy 👋%0A%0A`;
     message += `Saya ingin melakukan konfirmasi pembelian.%0A%0A`;
-    message += `━━━━━━━━━━━━━━━%0A`;
-    message += `📦 DETAIL PESANAN%0A`;
-    message += `━━━━━━━━━━━━━━━%0A%0A`;
+    message += `📦 Detail Pesanan%0A%0A`;
     
-    orderDetails.items.forEach(item => {
-        message += `🛍️ ${item.name}`;
-        if (item.name.includes('(') && item.name.includes(')')) {
-            const ramMatch = item.name.match(/\((.*?)\)/);
-            if (ramMatch) {
-                message += ` - RAM: ${ramMatch[1]}`;
-            }
+    orderDetails.items.forEach((item) => {
+        message += `• Produk: ${item.name} (${item.quantity}x)%0A`;
+        
+        // Username Panel (untuk produk Panel Pterodactyl)
+        if (item.panelUsername || (orderDetails.isPanelService && orderDetails.panelUsername)) {
+            const username = item.panelUsername || orderDetails.panelUsername;
+            message += `• Username Panel: ${username}%0A`;
         }
-        message += ` (${item.quantity}x)%0A`;
+        
+        // RAM untuk panel
+        if (item.ram || orderDetails.panelRam) {
+            const ram = item.ram || orderDetails.panelRam;
+            message += `• RAM: ${ram}%0A`;
+        }
+        
+        // Nomor target (untuk Jasa Bug)
+        if (item.targetNumber || (orderDetails.isBugService && orderDetails.bugTarget)) {
+            const target = item.targetNumber || orderDetails.bugTarget;
+            message += `• Nomor Target: ${target}%0A`;
+        }
     });
     
-    message += `📦 Jumlah : ${orderDetails.totalItems} Item%0A`;
-    message += `💰 Total Harga : Rp ${orderDetails.totalPrice.toLocaleString('id-ID')}%0A`;
-    message += `🕒 Waktu : ${jam} • ${tanggal} ${tahun}%0A%0A`;
-    message += `━━━━━━━━━━━━━━━%0A%0A`;
+    message += `• Jumlah: ${orderDetails.totalItems} Item%0A`;
+    message += `• Total Harga: Rp${orderDetails.totalPrice.toLocaleString('id-ID')}%0A`;
+    message += `• Waktu: ${jam} • ${tanggal} ${tahun}%0A%0A`;
     message += `✅ Pembayaran sudah saya lakukan.%0A%0A`;
-    message += `Mohon dicek dan diproses ya 🙏%0A`;
-    message += `Terima kasih.%0A`;
+    message += `Mohon segera diproses untuk layanan yang telah saya pesan.%0A`;
+    message += `Terima kasih 🙏%0A`;
     
     const phoneNumber = '6283183469343';
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
     window.open(whatsappUrl, '_blank');
 }
+
+
 
 
 
@@ -598,55 +599,208 @@ function selectVariantAndBuy(productId, price, ram) {
     const product = products.find(p => p.id === productId);
     if (!product) return;
     
-    const productWithVariant = {
-        ...product,
+    // Simpan data varian yang dipilih
+    window.selectedVariantData = {
+        productId: productId,
         price: price,
-        variantName: ram,
-        name: `${product.name} (${ram})`
+        ram: ram,
+        productName: product.name,
+        productImage: product.image,
+        productDescription: product.description
     };
     
-    // Langsung checkout dengan varian yang dipilih
-    const totalPrice = price;
+    // Tutup modal varian
+    const variantModal = document.getElementById('variantModal');
+    if (variantModal) variantModal.classList.remove('active');
     
-    const qrTotal = document.getElementById('qrTotal');
-    if (qrTotal) qrTotal.textContent = formatPrice(totalPrice);
-    
-    const modal = document.getElementById('qrisModal');
-    if (modal) modal.classList.add('active');
-    
-    window.pendingOrder = {
-        items: [{ name: productWithVariant.name, quantity: 1 }],
-        totalItems: 1,
-        totalPrice: totalPrice
-    };
-    
-    closeProductModal();
+    // Tampilkan modal input username
+    showUsernameModalForPanel();
 }
+
+// ================================================
+// MODAL INPUT USERNAME UNTUK PANEL PTERODACTYL
+// ================================================
+function showUsernameModalForPanel() {
+    const modal = document.createElement('div');
+    modal.className = 'modal active';
+    modal.style.display = 'flex';
+    modal.innerHTML = `
+        <div class="modal-content" style="max-width: 320px;">
+            <div class="modal-header">
+                <h3><i class="ri-server-line"></i> Detail Panel</h3>
+                <button class="modal-close" onclick="this.closest('.modal').remove()">
+                    <i class="ri-close-line"></i>
+                </button>
+            </div>
+            <div class="modal-body" style="text-align: left;">
+                <p style="margin-bottom: 16px; font-size: 13px; color: var(--text-secondary);">
+                    Anda telah memilih RAM: <strong>${window.selectedVariantData.ram}</strong>
+                </p>
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; font-size: 13px; margin-bottom: 8px; font-weight: 600;">
+                        <i class="ri-user-line"></i> Masukkan Username Panel:
+                    </label>
+                    <input type="text" id="panelUsername" placeholder="Contoh: yussxy123" 
+                           style="width: 100%; padding: 12px; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 12px; color: white; font-size: 14px;">
+                </div>
+                <button class="btn-buy-now" id="proceedToPanelPayment" style="width: 100%;">
+                    <i class="ri-flashlight-line"></i> Bayar Rp ${formatPrice(window.selectedVariantData.price)}
+                </button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    
+    document.getElementById('proceedToPanelPayment').addEventListener('click', function() {
+        const username = document.getElementById('panelUsername').value.trim();
+        if (!username) {
+            showToast('❌ Masukkan username panel terlebih dahulu!', true);
+            return;
+        }
+        
+        // Buat produk dengan varian dan username
+        const productWithVariant = {
+            id: window.selectedVariantData.productId,
+            name: `${window.selectedVariantData.productName} (${window.selectedVariantData.ram})`,
+            price: window.selectedVariantData.price,
+            image: window.selectedVariantData.productImage,
+            description: window.selectedVariantData.productDescription,
+            variantName: window.selectedVariantData.ram,
+            panelUsername: username
+        };
+        
+        // Tutup modal input
+        modal.remove();
+        
+        // Lanjut ke QRIS
+        const totalPrice = productWithVariant.price;
+        const qrTotal = document.getElementById('qrTotal');
+        if (qrTotal) qrTotal.textContent = formatPrice(totalPrice);
+        
+        const qrisModal = document.getElementById('qrisModal');
+        if (qrisModal) qrisModal.classList.add('active');
+        
+        window.pendingOrder = {
+            items: [{ 
+                name: productWithVariant.name, 
+                quantity: 1,
+                panelUsername: username,
+                ram: window.selectedVariantData.ram
+            }],
+            totalItems: 1,
+            totalPrice: totalPrice,
+            isPanelService: true,
+            panelUsername: username,
+            panelRam: window.selectedVariantData.ram
+        };
+        
+        closeProductModal();
+        
+        // Reset data
+        window.selectedVariantData = null;
+    });
+}
+
 
 function selectVariantAndAddToCart(productId, price, ram) {
     const product = products.find(p => p.id === productId);
     if (!product) return;
     
-    const productWithVariant = {
-        id: product.id,
-        name: `${product.name} (${ram})`,
+    // Simpan data varian yang dipilih untuk keranjang
+    window.selectedVariantData = {
+        productId: productId,
         price: price,
-        image: product.image,
-        quantity: 1
+        ram: ram,
+        productName: product.name,
+        productImage: product.image,
+        action: 'addToCart'  // Tandai ini untuk keranjang
     };
     
-    const existingItem = cart.find(item => item.id === product.id && item.name === productWithVariant.name);
+    // Tutup modal varian
+    const variantModal = document.getElementById('variantModal');
+    if (variantModal) variantModal.classList.remove('active');
     
-    if (existingItem) {
-        existingItem.quantity += 1;
-    } else {
-        cart.push(productWithVariant);
-    }
+    // Tampilkan modal input username
+    showUsernameModalForPanelCart();
+}
+
+// ================================================
+// MODAL INPUT USERNAME UNTUK KERANJANG PANEL
+// ================================================
+function showUsernameModalForPanelCart() {
+    const modal = document.createElement('div');
+    modal.className = 'modal active';
+    modal.style.display = 'flex';
+    modal.innerHTML = `
+        <div class="modal-content" style="max-width: 320px;">
+            <div class="modal-header">
+                <h3><i class="ri-server-line"></i> Detail Panel</h3>
+                <button class="modal-close" onclick="this.closest('.modal').remove()">
+                    <i class="ri-close-line"></i>
+                </button>
+            </div>
+            <div class="modal-body" style="text-align: left;">
+                <p style="margin-bottom: 16px; font-size: 13px; color: var(--text-secondary);">
+                    Anda telah memilih RAM: <strong>${window.selectedVariantData.ram}</strong>
+                </p>
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; font-size: 13px; margin-bottom: 8px; font-weight: 600;">
+                        <i class="ri-user-line"></i> Masukkan Username Panel:
+                    </label>
+                    <input type="text" id="panelUsernameCart" placeholder="Contoh: yussxy123" 
+                           style="width: 100%; padding: 12px; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 12px; color: white; font-size: 14px;">
+                </div>
+                <button class="btn-add-cart" id="proceedToCartPanel" style="width: 100%;">
+                    <i class="ri-shopping-cart-line"></i> Tambah ke Keranjang
+                </button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
     
-    saveCart();
-    renderCart();
-    showToast(`${productWithVariant.name} ditambahkan ke keranjang!`);
-    closeProductModal();
+    document.getElementById('proceedToCartPanel').addEventListener('click', function() {
+        const username = document.getElementById('panelUsernameCart').value.trim();
+        if (!username) {
+            showToast('❌ Masukkan username panel terlebih dahulu!', true);
+            return;
+        }
+        
+        // Buat produk dengan varian dan username
+        const productWithVariant = {
+            id: window.selectedVariantData.productId,
+            name: `${window.selectedVariantData.productName} (${window.selectedVariantData.ram})`,
+            price: window.selectedVariantData.price,
+            image: window.selectedVariantData.productImage,
+            quantity: 1,
+            panelUsername: username,    // SIMPAN USERNAME
+            ram: window.selectedVariantData.ram
+        };
+        
+        // Cek apakah sudah ada di keranjang (termasuk username yang sama)
+        const existingItem = cart.find(item => 
+            item.id === productWithVariant.id && 
+            item.name === productWithVariant.name &&
+            item.panelUsername === username
+        );
+        
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push(productWithVariant);
+        }
+        
+        saveCart();
+        renderCart();
+        
+        // Tutup modal input
+        modal.remove();
+        
+        showToast(`${productWithVariant.name} ditambahkan ke keranjang!`);
+        closeProductModal();
+        
+        // Reset data
+        window.selectedVariantData = null;
+    });
 }
 
 
@@ -664,6 +818,18 @@ function buyNow(productId) {
     }
     
     console.log("Produk:", product.name);
+    
+    
+    
+    
+    
+    
+    // CEK APAKAH PRODUK JASA BUG
+    if (product.isBugService) {
+        showBugTargetModal(product);
+        return;
+    }
+    
     
     // CEK APAKAH PRODUK EBOOX
     if (product.isEboox) {
@@ -1069,6 +1235,12 @@ function checkout() {
 
 function confirmPayment() {
     if (window.pendingOrder) {
+        // Pastikan data bug target tetap ada
+        if (window.pendingBugTarget && !window.pendingOrder.bugTarget) {
+            window.pendingOrder.bugTarget = window.pendingBugTarget;
+            window.pendingOrder.isBugService = true;
+        }
+        
         sendWhatsAppConfirmation(window.pendingOrder);
         
         cart = [];
@@ -1081,9 +1253,14 @@ function confirmPayment() {
         navigateToPage('products');
         
         showToast('Pesanan berhasil dikonfirmasi!');
+        
+        // Reset
         window.pendingOrder = null;
+        window.pendingBugTarget = null;
     }
 }
+
+
 
 
 function showToast(message, isError = false) {
@@ -3286,6 +3463,471 @@ emptySearchStyle.textContent = `
 `;
 document.head.appendChild(emptySearchStyle);
 
+
+//🤨🤨😕🤨😕🤨😕🤨
+//🟨🟨🟨🟨🟨🟨🟨🟨
+
+
+
+
+
+
+//🟨🟨🟨🟨🟨🟨🟨🟨🟨
+//🟨🟨🟨🟨🟨🟨🟨🟨🟨
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function showBugTargetModal(product) {
+    const modal = document.createElement('div');
+    modal.className = 'modal active';
+    modal.style.display = 'flex';
+    modal.innerHTML = `
+        <div class="modal-content" style="max-width: 320px;">
+            <div class="modal-header">
+                <h3><i class="ri-bug-line"></i> ${product.name}</h3>
+                <button class="modal-close" onclick="this.closest('.modal').remove()">
+                    <i class="ri-close-line"></i>
+                </button>
+            </div>
+            <div class="modal-body" style="text-align: left;">
+                <p style="margin-bottom: 16px; font-size: 13px; color: var(--text-secondary);">${product.description}</p>
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; font-size: 13px; margin-bottom: 8px; font-weight: 600;">
+                        <i class="ri-phone-line"></i> Masukkan Nomor Target:
+                    </label>
+                    <input type="tel" id="bugTargetNumber" placeholder="Contoh: 628123456789" 
+                           style="width: 100%; padding: 12px; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 12px; color: white; font-size: 14px;">
+                </div>
+                <button class="btn-buy-now" id="proceedToBugPayment" style="width: 100%;">
+                    <i class="ri-flashlight-line"></i> Bayar Rp ${formatPrice(product.price)}
+                </button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    
+    document.getElementById('proceedToBugPayment').addEventListener('click', function() {
+        const targetNumber = document.getElementById('bugTargetNumber').value.trim();
+        if (!targetNumber) {
+            showToast('❌ Masukkan nomor target terlebih dahulu!', true);
+            return;
+        }
+        
+        // Validasi nomor (minimal 10 digit)
+        if (targetNumber.length < 10) {
+            showToast('❌ Nomor target tidak valid!', true);
+            return;
+        }
+        
+        // Simpan nomor target ke pendingOrder
+        window.pendingBugTarget = targetNumber;
+        
+        // Tutup modal input
+        modal.remove();
+        
+        // Lanjut ke QRIS
+        const totalPrice = product.price;
+        const qrTotal = document.getElementById('qrTotal');
+        if (qrTotal) qrTotal.textContent = formatPrice(totalPrice);
+        
+        const qrisModal = document.getElementById('qrisModal');
+        if (qrisModal) qrisModal.classList.add('active');
+        
+        window.pendingOrder = {
+            items: [{ name: product.name, quantity: 1, targetNumber: targetNumber }],
+            totalItems: 1,
+            totalPrice: totalPrice,
+            isBugService: true,
+            bugTarget: targetNumber
+        };
+    });
+}
 
 //💴😛😕😕😕
 
