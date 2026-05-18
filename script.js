@@ -22,7 +22,6 @@ const ADMIN_PHONE_NUMBER = "6283183469343";
 // ================================================
 // DATA PRODUK - EDIT DI SINI UNTUK TAMBAH PRODUK
 // ================================================
-
 let products = [
     {
         id: 1,
@@ -46,7 +45,7 @@ let products = [
     category: "digital",
     isNegotiable: false,
     type: "new",
-    isBugService: true
+    isBugService: false
 },
 
 
@@ -83,7 +82,7 @@ let products = [
         image: "image/produk/produk4.jpg",
         category: "jasa",
         isNegotiable: true,
-        type: "none"
+        type: "hot"
     },
     {
         id: 6,
@@ -108,9 +107,9 @@ let products = [
         type: "diskon",
         hasVariant: true,
         variants: [
-    { ram: "2GB", price: 2500, priceDisplay: "Rp 2.500" },
-    { ram: "3GB", price: 3500, priceDisplay: "Rp 3.500" },
-    { ram: "4GB", price: 4500, priceDisplay: "Rp 4.500" },
+    { ram: "2GB", price: 2000, priceDisplay: "Rp 2.000" },
+    { ram: "3GB", price: 3000, priceDisplay: "Rp 3.000" },
+    { ram: "4GB", price: 4000, priceDisplay: "Rp 4.000" },
     { ram: "5GB", price: 5000, priceDisplay: "Rp 5.000" },
     { ram: "6GB", price: 5500, priceDisplay: "Rp 5.500" },
     { ram: "7GB", price: 6000, priceDisplay: "Rp 6.000" },
@@ -230,6 +229,9 @@ let products = [
 ];
 
 
+
+
+    
 
 
 
