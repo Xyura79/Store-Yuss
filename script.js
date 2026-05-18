@@ -43,9 +43,7 @@ let products = [
     price: "Rp 25.000",
     image: "image/produk/produk16.jpg",
     category: "digital",
-    isNegotiable: false,
-    type: "new",
-    isBugService: false
+    type: "new"
 },
 
 
