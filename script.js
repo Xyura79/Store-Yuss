@@ -40,7 +40,7 @@ let products = [
     id: 2,
     name: "Reseller Panel (Permanent)",
     description: "Create panel sepuasnya (Reseler Berlaku Selamanya)",
-    price: "Rp 25.000",
+    price: "25000",
     image: "image/produk/produk16.jpg",
     category: "digital",
     type: "new"
