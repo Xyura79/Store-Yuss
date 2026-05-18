@@ -77,6 +77,14 @@ let testimonials = [
         time: "20.17-05-20265"
     },
     
+{
+      id: 10,
+        image: "image/testi/testi10.jpg",
+        product: "Panel Ptero 2GB",
+        price: "Rp 2.000",
+        date: "18-05-2026",
+        time: "20.17-05-20265"
+    },
     
     
     
