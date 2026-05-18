@@ -36,15 +36,18 @@ let products = [
         adminFee: 1000,
         transferMessage: "Masukkan nomor DANA tujuan dan jumlah transfer (minimal Rp5.000)"
     },
-    {
-    id: 2,
-    name: "Reseller Panel (Permanent)",
-    description: "Create panel sepuasnya (Reseler Berlaku Selamanya)",
-    price: 25000,
-    image: "image/produk/produk16.jpg",
-    category: "digital",
-    type: "new"
-},
+            {
+        id: 2,
+        name: "Reseler Panel Permanen",
+        description: "Create panel sepuasnya (Reseler Berlaku Selamanya)",
+        price: 25000,
+        
+        image: "image/produk/produk16.jpg",
+        category: "digital",
+        isNegotiable: false,
+        type: "new"
+    },
+    
 
             {
         id: 16,
