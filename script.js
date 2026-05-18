@@ -46,6 +46,17 @@ let products = [
     type: "new"
 },
 
+            {
+        id: 16,
+        name: "Jasa Pembuatan Web Store",
+        description: "Mulai Usaha anda dengan mempunyai web store sendiri, agar pembeli mudah dalam memilih produk yanh di inginkan nya",
+        price: 25000,
+        
+        image: "image/produk/produk17.jpg",
+        category: "jasa",
+        isNegotiable: false,
+        type: "new"
+    },
 
     
     
