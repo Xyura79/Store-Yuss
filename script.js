@@ -153,23 +153,23 @@ let products = [
         image: "image/produk/produk8.jpg",
         category: "digital",
         isNegotiable: false,
-        type: "coming_soon"
+        type: "none"
 },
 {
         id: 10,
         name: "Alight Motion Premium",
         description: "Am Premium 1 tahun (Expired 7 Januari 2027)",
-        price: "Rp 5.000",
+        price: "Rp 8.300",
         image: "image/produk/produk9.jpg",
         category: "digital",
         isNegotiable:true ,
-        type: "coming_soon"
+        type: "none"
 },
 {
         id: 11,
         name: "Canva Premium",
-        description: "Canva premium permanen",
-        price: "Rp 25.000",
+        description: "Canva premium",
+        price: "Rp 5.000",
         image: "image/produk/produk10.jpg",
         category: "digital",
         isNegotiable: true,
@@ -179,7 +179,7 @@ let products = [
         id: 12,
         name: "Apk Web To Apk",
         description: "Ubah web mu jadi apk, tanpa ribet",
-        price: "Rp 5.000",
+        price: "Rp 3.000",
         image: "image/produk/produk11.jpg",
         category: "digital",
         isNegotiable: true,
