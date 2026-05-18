@@ -19,18 +19,10 @@ const ADMIN_PHONE_NUMBER = "6283183469343";
 
 
 
-
-
-
-
-
-
-
-
-
 // ================================================
 // DATA PRODUK - EDIT DI SINI UNTUK TAMBAH PRODUK
 // ================================================
+
 let products = [
     {
         id: 1,
@@ -46,7 +38,22 @@ let products = [
         transferMessage: "Masukkan nomor DANA tujuan dan jumlah transfer (minimal Rp5.000)"
     },
     {
-        id: 2,
+    id: 2,
+    name: "Reseller Panel (Permanent)",
+    description: "Create panel sepuasnya (Reseler Berlaku Selamanya)",
+    price: "Rp 25.000",
+    image: "image/produk/produk16.jpg",
+    category: "digital",
+    isNegotiable: false,
+    type: "new",
+    isBugService: true
+},
+
+
+    
+    
+    {
+        id: 3,
         name: "Source Kode Downloader",
         description: "Source kode untuk web, desain simple, dan harga murah.",
         price: 2000,
@@ -55,7 +62,7 @@ let products = [
         type: "none"  // hot / rekomendasi / none / new / sold_out / coming_soon /dislon
     },
     {
-        id: 3,
+        id: 4,
         name: "Jasa Pembuatan Web Simple",
         description: "Pembuatan website sederhana sesuai kebutuhan. Harga bisa nego tergantung kompleksitas fitur.",
         price: "Rp 7.000",
@@ -67,19 +74,19 @@ let products = [
         type: "none"
     },
     {
-        id: 4,
+        id: 5,
         name: "Bot WhatsApp Custom",
         description: "Jasa Pembuatan Bot WhatsApp sesuai kebutuhan pembeli, Bisa request fitur yang diinginkan juga suport termux dan panel.",
-        price: "Rp 11.000",
+        price: "Rp 10.000",
         priceMin: 10000,
         priceMax: 20000,
         image: "image/produk/produk4.jpg",
         category: "jasa",
         isNegotiable: true,
-        type: "ready"
+        type: "coming_soon"
     },
     {
-        id: 5,
+        id: 6,
         name: "Bot Telegram Custom",
         description: "Jasa pembuatan bot telegram, harga murmer, bisa request fitur, support panel dan termux",
         price: "Rp 5.000",
@@ -91,7 +98,7 @@ let products = [
         type: "none"
     },
 {
-        id: 6,
+        id: 7,
         name: "Panel Pterodactly",
         description: "Server yang Siap Hosting bot kamu, Anti delay, dan bergaransi",
         price: "Rp 1.500",
@@ -118,7 +125,7 @@ let products = [
 
     },
 {
-        id: 7,
+        id: 8,
         name: "Jasa Buat Tools Termux",
         description: "Buat tools termux, harga menyesuaikan tergantung tools yang di buat, bebas request fitur, pengerjaan 1 hari",
         price: "Rp 5.000",
@@ -128,7 +135,7 @@ let products = [
         type: "none"
 },
 {
-        id: 8,
+        id: 9,
         name: "Viu Premium",
         description: "Aplikasi Viu Premium",
         price: "Rp 5.000",
@@ -138,7 +145,7 @@ let products = [
         type: "coming_soon"
 },
 {
-        id: 9,
+        id: 10,
         name: "Alight Motion Premium",
         description: "Am Premium 1 tahun (Expired 7 Januari 2027)",
         price: "Rp 5.000",
@@ -148,7 +155,7 @@ let products = [
         type: "coming_soon"
 },
 {
-        id: 10,
+        id: 11,
         name: "Canva Premium",
         description: "Canva premium permanen",
         price: "Rp 25.000",
@@ -158,7 +165,7 @@ let products = [
         type: "coming_soon"
 },
 {
-        id: 11,
+        id: 12,
         name: "Apk Web To Apk",
         description: "Ubah web mu jadi apk, tanpa ribet",
         price: "Rp 5.000",
@@ -168,7 +175,7 @@ let products = [
         type: "new"
 },
 {
-    id: 12,
+    id: 13,
     name: "Eboox",
     description: "Cari tahu apakah eboox yang kamu cari tersedia. Masukkan judul eboox, lalu tanya ke owner.",
     price: "Rp 1.500",
@@ -178,7 +185,7 @@ let products = [
     type: "none"
 },
 {
-    id: 13,
+    id: 14,
     name: "Nokos WhatsApp Indo",
     description: "Nomor kosong WhatsApp Indonesia siap pakai, masih fresh",
     price: "Rp 6.000",
@@ -188,7 +195,7 @@ let products = [
     type: "coming_soon"
 },
 {
-    id: 14,
+    id: 15,
     name: "Jasa Bug",
     description: "Punya Musuh?, Mau Balas Dendam?, Jasa ini Akan Balaskan Dendam Kamu Ke target",
     price: "Rp 3.500",
@@ -220,8 +227,8 @@ let products = [
 
 
 
-
 ];
+
 
 
 
