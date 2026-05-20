@@ -67,7 +67,7 @@ let products = [
         id: 3,
         name: "Source Kode Downloader",
         description: "Source kode untuk web, desain simple, dan harga murah.",
-        price: 2000,
+        price: 1000,
         image: "image/produk/produk2.jpg",
         category: "digital",
         type: "none"  // hot / rekomendasi / none / new / sold_out / coming_soon /dislon
@@ -76,7 +76,7 @@ let products = [
         id: 4,
         name: "Jasa Pembuatan Web Simple",
         description: "Pembuatan website sederhana sesuai kebutuhan. Harga bisa nego tergantung kompleksitas fitur.",
-        price: "Rp 7.000",
+        price: "Rp 15.000",
         priceMin: 7000,
         priceMax: 10000,
         image: "image/produk/produk3.jpg",
@@ -153,7 +153,7 @@ let products = [
         image: "image/produk/produk8.jpg",
         category: "digital",
         isNegotiable: false,
-        type: "none"
+        type: "coming_soon"
 },
 {
         id: 10,
@@ -163,7 +163,7 @@ let products = [
         image: "image/produk/produk9.jpg",
         category: "digital",
         isNegotiable:true ,
-        type: "none"
+        type: "sold_out"
 },
 {
         id: 11,
