@@ -206,7 +206,7 @@ let products = [
         image: "image/produk/produk9.jpg",
         category: "digital",
         isNegotiable:true ,
-        type: "coming_soon"
+        type: "hot"
 },
 {
         id: 11,
@@ -242,11 +242,11 @@ let products = [
     id: 14,
     name: "Nokos WhatsApp Indo",
     description: "Nomor kosong WhatsApp Indonesia siap pakai, masih fresh",
-    price: "Rp 6.000",
+    price: "Rp 5.000",
     image: "image/produk/produk13.jpg",
     category: "digital",
     isNegotiable: true,
-    type: "coming_soon"
+    type: "hot"
 },
 {
     id: 15,
