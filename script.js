@@ -90,8 +90,17 @@ let products = [
     type: "new",
     isConsultation: true
 },
-    
-    
+    {
+    id: 19,
+    name: "Reaction Pesan Saluran Wa",
+    description: "Memberikan 100+ Reaksi emoji ke pesan di saluran WhatsApp anda",
+    price: 500,
+    image: "image/produk/produk20.jpg",
+    category: "jasa",
+    isNegotiable: false,
+    type: "new",
+    isReactionService: true
+},
     
     
     
@@ -370,6 +379,14 @@ function sendWhatsAppConfirmation(orderDetails) {
             const target = item.targetNumber || orderDetails.bugTarget;
             message += `• Nomor Target: ${target}%0A`;
         }
+        
+        // Reaction Service (untuk Reaction Pesan Saluran WA)
+        if (item.reactionLink || (orderDetails.isReactionService && orderDetails.reactionLink)) {
+            const link = item.reactionLink || orderDetails.reactionLink;
+            const emoji = item.reactionEmoji || orderDetails.reactionEmoji;
+            message += `• Link Pesan: ${link}%0A`;
+            message += `• Emoji: ${emoji}%0A`;
+        }
     });
     
     message += `• Jumlah: ${orderDetails.totalItems} Item%0A`;
@@ -383,8 +400,6 @@ function sendWhatsAppConfirmation(orderDetails) {
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
     window.open(whatsappUrl, '_blank');
 }
-
-
 
 
 
@@ -883,7 +898,11 @@ function buyNow(productId) {
     
     
     
-    
+    // CEK APAKAH PRODUK REACTION SERVICE
+    if (product.isReactionService) {
+        showReactionModal(product);
+        return;
+    }
     
     
     
@@ -4226,7 +4245,135 @@ if (versionDisplay) {
 
 
 
-
+// ================================================
+// MODAL REACTION PESAN SALURAN WA
+// ================================================
+function showReactionModal(product) {
+    const modal = document.createElement('div');
+    modal.className = 'modal active';
+    modal.style.display = 'flex';
+    modal.innerHTML = `
+        <div class="modal-content" style="max-width: 350px;">
+            <div class="modal-header">
+                <h3><i class="ri-whatsapp-line"></i> ${product.name}</h3>
+                <button class="modal-close" onclick="this.closest('.modal').remove()">
+                    <i class="ri-close-line"></i>
+                </button>
+            </div>
+            <div class="modal-body" style="text-align: left;">
+                <p style="margin-bottom: 16px; font-size: 13px; color: var(--text-secondary);">${product.description}</p>
+                
+                <!-- Input Link Pesan -->
+                <div style="margin-bottom: 16px;">
+                    <label style="display: block; font-size: 13px; margin-bottom: 8px; font-weight: 600;">
+                        <i class="ri-link"></i> Link Pesan:
+                    </label>
+                    <input type="url" id="reactionLink" placeholder="https://whatsapp.com/channel/xxx/804" 
+                           style="width: 100%; padding: 12px; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 12px; color: white; font-size: 14px;">
+                    <p style="font-size: 10px; color: var(--text-secondary); margin-top: 4px;">
+                        Contoh: https://whatsapp.com/channel/0029VbAgFKULSmbeJMLfmR3b/804
+                    </p>
+                </div>
+                
+                <!-- Input Emoji (max 5) -->
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; font-size: 13px; margin-bottom: 8px; font-weight: 600;">
+                        <i class="ri-emotion-line"></i> Emoji (max 5):
+                    </label>
+                    <input type="text" id="reactionEmoji" placeholder="😅😘😌😒🥺" maxlength="10"
+                           style="width: 100%; padding: 12px; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 12px; color: white; font-size: 18px; letter-spacing: 4px;">
+                    <p style="font-size: 10px; color: var(--text-secondary); margin-top: 4px;">
+                        Maksimal 5 emoji, contoh: 😅😘😌😒🥺
+                    </p>
+                </div>
+                
+                <button class="btn-buy-now" id="proceedToReactionPayment" style="width: 100%;">
+                    <i class="ri-flashlight-line"></i> Bayar Rp ${formatPrice(product.price)}
+                </button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    
+    // Validasi emoji (max 5 karakter)
+    const emojiInput = document.getElementById('reactionEmoji');
+    if (emojiInput) {
+        emojiInput.addEventListener('input', function(e) {
+            let value = e.target.value;
+            // Batasi max 10 karakter (karena emoji 2 byte)
+            if (value.length > 10) {
+                e.target.value = value.slice(0, 10);
+            }
+            // Hitung jumlah emoji (estimasi)
+            const emojiCount = [...value].filter(c => /[\u{1F600}-\u{1F6FF}]/u.test(c)).length;
+            if (emojiCount > 5) {
+                e.target.value = value.slice(0, -2);
+                showToast('⚠️ Maksimal 5 emoji!', true);
+            }
+        });
+    }
+    
+    document.getElementById('proceedToReactionPayment').addEventListener('click', function() {
+        const link = document.getElementById('reactionLink').value.trim();
+        const emoji = document.getElementById('reactionEmoji').value.trim();
+        
+        // Validasi link
+        if (!link) {
+            showToast('❌ Masukkan link pesan WhatsApp!', true);
+            return;
+        }
+        
+        if (!link.includes('whatsapp.com/channel/')) {
+            showToast('❌ Link tidak valid! Masukkan link pesan saluran WhatsApp', true);
+            return;
+        }
+        
+        // Validasi emoji
+        if (!emoji) {
+            showToast('❌ Masukkan emoji!', true);
+            return;
+        }
+        
+        // Hitung jumlah emoji
+        const emojiCount = [...emoji].filter(c => /[\u{1F600}-\u{1F6FF}]/u.test(c)).length;
+        if (emojiCount > 5) {
+            showToast('❌ Maksimal 5 emoji!', true);
+            return;
+        }
+        
+        // Simpan data
+        window.pendingReactionData = {
+            link: link,
+            emoji: emoji,
+            emojiCount: emojiCount
+        };
+        
+        // Tutup modal input
+        modal.remove();
+        
+        // Lanjut ke QRIS
+        const totalPrice = product.price;
+        const qrTotal = document.getElementById('qrTotal');
+        if (qrTotal) qrTotal.textContent = formatPrice(totalPrice);
+        
+        const qrisModal = document.getElementById('qrisModal');
+        if (qrisModal) qrisModal.classList.add('active');
+        
+        window.pendingOrder = {
+            items: [{ 
+                name: product.name, 
+                quantity: 1,
+                reactionLink: link,
+                reactionEmoji: emoji
+            }],
+            totalItems: 1,
+            totalPrice: totalPrice,
+            isReactionService: true,
+            reactionLink: link,
+            reactionEmoji: emoji
+        };
+    });
+}
 
 
 
