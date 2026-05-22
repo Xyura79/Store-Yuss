@@ -85,7 +85,15 @@ let testimonials = [
         date: "18-05-2026",
         time: "20.17-05-20265"
     },
-    
+                 {
+      id: 11,
+        image: "image/testi/testi11.jpg",
+        product: "Reseller Panel Permanen",
+        price: "Rp 25.000",
+        date: "20-05-2026",
+        time: "17.00 20-05-2026"
+    },
+       
     
     
     
