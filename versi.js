@@ -33,11 +33,11 @@ const NOTIFICATION_DATA = {
             date: "17 Mei 2026"
         },
         {
-            id: 3,
-            title: "Jasa Bug Wa Sedang Diskon",
-            message: "Buruan Buy Keburu Diskon nya hilang",
-            image: "",
-            date: "17 Mei 2026"
+            id: 4,
+            title: "Produk Baru Di Tambahkan",
+            message: "Aplikasi Pembuat Logo jb",
+            image: "image/produk/produk18.jpg",
+            date: "22 Mei 2026"
         },
 
 
