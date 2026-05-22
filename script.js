@@ -60,7 +60,17 @@ let products = [
         isNegotiable: false,
         type: "new"
     },
-
+                   {
+        id: 17,
+        name: "Aplikasi Pembuat Logo JB",
+        description: "Keuntungannya, Buat Logo Gak Perlu Susah Lagi, Tinggal Ganti Teks Langsung Jadi, Bisa Jualan Logo JB",
+        price: 3000,
+        
+        image: "image/produk/produk18.jpg",
+        category: "jasa",
+        isNegotiable: false,
+        type: "new"
+    },
     
     
     {
