@@ -122,7 +122,7 @@ let products = [
         id: 7,
         name: "Panel Pterodactly",
         description: "Server yang Siap Hosting bot kamu, Anti delay, dan bergaransi",
-        price: "Rp 1.500",
+        price: "Rp 500",
         image: "image/produk/produk6.jpg",
         category: "digital",
         isNegotiable: false,
