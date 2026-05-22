@@ -25,20 +25,14 @@ const NOTIFICATION_DATA = {
             image: "",
             date: "16 Mei 2026"
         },
-        {
-            id: 2,
-            title: "Produk Baru Di Tambah Kan",
-            message: "Jasa Bug WhatsApp",
-            image: "",
-            date: "17 Mei 2026"
-        },
+        
         {
             id: 4,
             title: "Produk Baru Di Tambahkan",
             message: "Aplikasi Pembuat Logo jb",
             image: "image/produk/produk18.jpg",
             date: "22 Mei 2026"
-        },
+        }
 
 
 
