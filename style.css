@@ -28,7 +28,27 @@
 
 
 
+@keyframes spinGlow {
+    0% {
+        transform: rotate(0deg);
+        text-shadow: 0 0 0px rgba(239, 68, 68, 0);
+    }
+    50% {
+        transform: rotate(180deg);
+        text-shadow: 0 0 15px rgba(239, 68, 68, 0.8);
+    }
+    100% {
+        transform: rotate(360deg);
+        text-shadow: 0 0 0px rgba(239, 68, 68, 0);
+    }
+}
 
+.result-loading i,
+.ri-loader-4-line {
+    display: inline-block !important;
+    animation: spinGlow 1s linear infinite !important;
+    font-size: 28px;
+}
 
 
 /*😁😹😹😹😭😭😭*/
