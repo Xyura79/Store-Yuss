@@ -102,6 +102,119 @@ let testimonials = [
         
     },
     
+        {
+        "id": 15,
+        "image": "image/testi/testi15.jpg",
+        "product":  "Reaction Pesan Saluran WA",
+        "price": "Rp 500",
+        "date": "",
+        "time": ""
+    },
+    {
+        "id": 16,
+        "image": "image/testi/testi16.jpg",
+        "product": "Reaction Pesan Saluran WA",
+        "price": "Rp 500",
+        "date": "",
+        "time": ""
+    },
+    {
+        "id": 17,
+        "image": "image/testi/testi17.jpg",
+        "product": "Reaction Pesan Saluran WA",
+        "price": "Rp 500",
+        "date": "",
+        "time": ""
+    },
+    {
+        "id": 18,
+        "image": "image/testi/testi18.jpg",
+        "product": "Reaction Pesan Saluran WA",
+        "price": "Rp 500",
+        "date": "",
+        "time": ""
+    },
+    {
+        "id": 19,
+        "image": "image/testi/testi19.jpg",
+        "product": "Nokos indo",
+        "price": "Rp 5.000",
+        "date": "",
+        "time": ""
+    },
+    {
+        "id": 20,
+        "image": "image/testi/testi20.jpg",
+        "product": "Reaction Pesan Saluran WA",
+        "price": "Rp 500",
+        "date": "",
+        "time": ""
+    },
+    {
+        "id": 21,
+        "image": "image/testi/testi21.jpg",
+        "product": "Apk Buat Logo",
+        "price": "Rp 3.000",
+        "date": "",
+        "time": ""
+    },
+    {
+        "id": 22,
+        "image": "image/testi/testi22.jpg",
+        "product": "Apk buat logo",
+        "price": "Rp 3.000",
+        "date": "",
+        "time": ""
+    },
+    {
+        "id": 23,
+        "image": "image/testi/testi23.jpg",
+        "product": "Apk buat logo",
+        "price": "Rp 3.000",
+        "date": "",
+        "time": ""
+    },
+    {
+        "id": 24,
+        "image": "image/testi/testi24.jpg",
+        "product": "Reaction",
+        "price": "Rp 500",
+        "date": "",
+        "time": ""
+    },
+    {
+        "id": 25,
+        "image": "image/testi/testi25.jpg",
+        "product": "Reaction",
+        "price": "Rp 500",
+        "date": "",
+        "time": ""
+    },
+    {
+        "id": 26,
+        "image": "image/testi/testi26.jpg",
+        "product": "Panel Ptero",
+        "price": "",
+        "date": "",
+        "time": ""
+    },
+    {
+        "id": 27,
+        "image": "image/testi/testi27.jpg",
+        "product": "Panel Ptero",
+        "price": "",
+        "date": "",
+        "time": ""
+    },
+    {
+        "id": 28,
+        "image": "image/testi/testi28.jpg",
+        "product": "Panel Ptero",
+        "price": "",
+        "date": "",
+        "time": ""
+    }
+
     
     
     
