@@ -147,7 +147,7 @@ let products = [
         image: "image/produk/produk4.jpg",
         category: "jasa",
         isNegotiable: true,
-        type: "hot"
+        type: "coming_soon"
     },
     {
         id: 6,
