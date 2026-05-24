@@ -89,8 +89,8 @@ let products = [
         {
         id: 2,
         name: "Reseler Panel Permanen",
-        description: "Create panel sepuasnya (Reseler Berlaku Selamanya)",
-        price: 25000,
+        description: "Keuntungan beli reseler, Create panel sepuasnya, bisa jualan panel, gak perlu beli beli panel lagi(Reseler Berlaku Selamanya)",
+        price: 16000,
         
         image: "image/produk/produk16.jpg",
         category: "digital",
