@@ -147,7 +147,7 @@ let products = [
         image: "image/produk/produk4.jpg",
         category: "jasa",
         isNegotiable: true,
-        type: "coming_soon"
+        type: "hot"
     },
     {
         id: 6,
@@ -169,7 +169,7 @@ let products = [
         image: "image/produk/produk6.jpg",
         category: "digital",
         isNegotiable: false,
-        type: "sold_out",
+        type: "diskon",
         hasVariant: true,
         variants: [
     { ram: "2GB", price: 2000, priceDisplay: "Rp 2.000" },
@@ -222,7 +222,7 @@ let products = [
         id: 11,
         name: "Canva Premium",
         description: "Canva premium permanen",
-        price: "Rp 5.000",
+        price: "Rp 25.000",
         image: "image/produk/produk10.jpg",
         category: "digital",
         isNegotiable: true,
@@ -1572,17 +1572,14 @@ if (themeToggle) {
     const confirmBtn = document.getElementById('confirmPaymentBtn');
     if (confirmBtn) confirmBtn.addEventListener('click', confirmPayment);
     
-    // Channel button
+    // Channel button (menggunakan variabel WHATSAPP_CHANNEL_URL)
     const channelBtn = document.getElementById('channelBtn');
     if (channelBtn) {
         channelBtn.addEventListener('click', () => {
-            window.open('https://whatsapp.com/channel/0029VbAgFKULSmbeJMLfmR3b', '_blank');
+            window.open(WHATSAPP_CHANNEL_URL, '_blank');
         });
     }
 });
-
-
-
 
 
 
