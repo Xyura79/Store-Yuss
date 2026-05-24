@@ -222,7 +222,7 @@ let products = [
         id: 11,
         name: "Canva Premium",
         description: "Canva premium permanen",
-        price: "Rp 25.000",
+        price: "Rp 5.000",
         image: "image/produk/produk10.jpg",
         category: "digital",
         isNegotiable: true,
