@@ -2,7 +2,7 @@
 // DATA PRODUK
 // ================================================
 // ==========================================
-const WHATSAPP_CHANNEL_URL = "https://whatsapp.com/channel/0029VbAgFKULSmbeJMLfmR3b";
+const WHATSAPP_CHANNEL_URL = "https://whatsapp.com/channel/0029Vb7PNLzFnSzGBZk64k0i";
 const ADMIN_PHONE_NUMBER = "6283183469343";
 
 
