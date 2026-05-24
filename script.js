@@ -84,8 +84,6 @@ let products = [
 
     },
 
-    
-    
         {
         id: 2,
         name: "Reseler Panel Permanen",
@@ -95,8 +93,10 @@ let products = [
         image: "image/produk/produk16.jpg",
         category: "digital",
         isNegotiable: false,
-        type: "hot"
+        type: " diskon"
     },
+    
+    
             {
         id: 16,
         name: "Jasa Pembuatan Web Store",
