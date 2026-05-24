@@ -55,6 +55,36 @@ let products = [
         adminFee: 1000,
         transferMessage: "Masukkan nomor DANA tujuan dan jumlah transfer (minimal Rp5.000)"
     },
+
+{
+        id: 7,
+        name: "Panel Pterodactly",
+        description: "Server yang Siap Hosting bot kamu, Anti delay, dan bergaransi",
+        price: "Rp 500",
+        image: "image/produk/produk6.jpg",
+        category: "digital",
+        isNegotiable: false,
+        type: "hot",
+        hasVariant: true,
+        variants: [
+    { ram: "2GB", price: 2000, priceDisplay: "Rp 2.000" },
+    { ram: "3GB", price: 3000, priceDisplay: "Rp 3.000" },
+    { ram: "4GB", price: 4000, priceDisplay: "Rp 4.000" },
+    { ram: "5GB", price: 5000, priceDisplay: "Rp 5.000" },
+    { ram: "6GB", price: 5500, priceDisplay: "Rp 5.500" },
+    { ram: "7GB", price: 6000, priceDisplay: "Rp 6.000" },
+    { ram: "8GB", price: 7000, priceDisplay: "Rp 7.000" },
+    { ram: "9GB", price: 8000, priceDisplay: "Rp 8.000" },
+    { ram: "10GB", price: 9000, priceDisplay: "Rp 9.000" },
+    { ram: "Unli-GB", price: 13000, priceDisplay: "Rp 13.000" }
+]
+
+
+
+
+    },
+
+    
     
         {
         id: 2,
@@ -161,33 +191,7 @@ let products = [
         isNegotiable: true,
         type: "none"
     },
-{
-        id: 7,
-        name: "Panel Pterodactly",
-        description: "Server yang Siap Hosting bot kamu, Anti delay, dan bergaransi",
-        price: "Rp 500",
-        image: "image/produk/produk6.jpg",
-        category: "digital",
-        isNegotiable: false,
-        type: "sold_out",
-        hasVariant: true,
-        variants: [
-    { ram: "2GB", price: 2000, priceDisplay: "Rp 2.000" },
-    { ram: "3GB", price: 3000, priceDisplay: "Rp 3.000" },
-    { ram: "4GB", price: 4000, priceDisplay: "Rp 4.000" },
-    { ram: "5GB", price: 5000, priceDisplay: "Rp 5.000" },
-    { ram: "6GB", price: 5500, priceDisplay: "Rp 5.500" },
-    { ram: "7GB", price: 6000, priceDisplay: "Rp 6.000" },
-    { ram: "8GB", price: 7000, priceDisplay: "Rp 7.000" },
-    { ram: "9GB", price: 8000, priceDisplay: "Rp 8.000" },
-    { ram: "10GB", price: 9000, priceDisplay: "Rp 9.000" },
-    { ram: "Unli-GB", price: 13000, priceDisplay: "Rp 13.000" }
-]
 
-
-
-
-    },
 {
         id: 8,
         name: "Jasa Buat Tools Termux",
