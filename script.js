@@ -516,7 +516,7 @@ const lokerData = [
         name: "Tim Promosi",
         icon: "ri-megaphone-line",
         status: "open",
-        salary: "Rp 7.000 / 2.000 video yang ditonton",
+        salary: "Rp 5.000 / 2.000 video yang ditonton",
         schedule: "Fleksibel (remote)",
         need: "-",
         description: "Mempromosikan YussXy Store di media sosial TikTok.",
