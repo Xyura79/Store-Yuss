@@ -69,7 +69,7 @@ let products = [
         image: "image/produk/produk6.jpg",
         category: "digital",
         isNegotiable: false,
-        type: "diskon",
+        type: "sold_out",
         hasVariant: true,
         variants: [
     { ram: "2GB", price: 2000, priceDisplay: "Rp 2.000" },
@@ -99,7 +99,7 @@ let products = [
     image: "image/produk/produk16.jpg",
     category: "digital",
     isNegotiable: false,
-    type: "diskon",
+    type: "coming_soon",
     benefits: [
         "Bisa buat panel sepuasnya",
         "bisa jualan panel",
