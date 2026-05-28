@@ -396,6 +396,18 @@ const socialMediaServices = [
         status: "available",
         description: "Tambahkan pengikut ke saluran WhatsApp anda"
     },
+
+
+{
+        id: 4,
+        name: "WhatsApp Poll Vote",
+        price: 160000,// harga satu unit
+        unit: "1.000 Vote",
+        status: "available",
+        description: "Suntik Polling/Vote Salauran whatsapp [ Minimal Pesan 10 ] "
+    },
+
+    
     {
         id: 2,
         name: "TikTok View",
@@ -406,14 +418,7 @@ const socialMediaServices = [
     },
 
 
-        {
-        id: 4,
-        name: "WhatsApp Poll Vote",
-        price: 160000,// harga satu unit
-        unit: "1.000 Vote",
-        status: "available",
-        description: "Suntik Polling/Vote Salauran whatsapp [ Minimal Pesan 10 ] "
-    },
+        
 
     
     {
