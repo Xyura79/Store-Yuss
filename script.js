@@ -404,6 +404,18 @@ const socialMediaServices = [
         status: "coming_soon",
         description: "Tambahkan View ke video TikTok"
     },
+
+
+        {
+        id: 4,
+        name: "WhatsApp Poll Vote",
+        price: 160000,// harga satu unit
+        unit: "1.000 Vote",
+        status: "available",
+        description: "Suntik Polling/Vote Salauran whatsapp [ Minimal Pesan 10 ] "
+    },
+
+    
     {
         id: 3,
         name: "Tikton Like",
@@ -641,6 +653,11 @@ const lokerData = [
         ],
         note: "1. Harus minta izin tiap mau buat konten promosi. Promosi tanpa izin dianggap tidak sah, dan tidak akan mendapat bayaran.\n\n2. Mencantumkan nama owner 'YussXy' di konten, mengirimkan link saluran dan link aplikasi YussXy, di komentar maupun di video."
     },
+
+
+    
+
+    
     {
         id: 2,
         name: "Desainer Grafis",
