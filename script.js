@@ -87,7 +87,7 @@ let products = [
     
 {
     id: 14,
-    name: "Nokos WhatsApp Indo",
+    name: "Nokos",
     description: "Dapat nomor WhatsApp, Telegram, atau Dana murah meriah",
     price: "Pilih",
     image: "image/produk/produk13.jpg",
