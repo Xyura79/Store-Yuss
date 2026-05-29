@@ -85,9 +85,44 @@ let products = [
 },
     
     
-    
-    
         {
+    id: 26,
+    name: "Paket Hemat Reaction Wa",
+    description: "Otomatis nge reaction pesan baru di saluran mu selama 1/2 hari tergantung pesanan mu",
+    price: "Tanya Stok",
+    image: "image/produk/produk25.jpg",
+    category: "jasa",
+    isNegotiable: false,
+    type: "new",
+    hasDurationOption: true,
+    benefits: [
+        "Semua Pesan saluran mu banyak reaksi nya",
+        "Saluran Full Reaction",
+        "100+ reaction walaupun pengikut saluran kurang dari 100"
+    ]
+},
+    
+    
+    {
+    id: 19,
+    name: "Reaction Pesan Saluran",
+    description: "Memberikan 100+ Reaksi emoji ke pesan di saluran WhatsApp anda",
+    price: 500,
+    image: "image/produk/produk20.jpg",
+    category: "jasa",
+    isNegotiable: false,
+    type: "hot",
+    isReactionService: true,
+    benefits: [
+        "Pesan saluran mu banyak reaksi nya",
+        "bisa pamer ke teman",
+        "100+ reaction walaupun pengikut saluran kurang dari 100"
+    ]
+},
+    
+    
+    
+            {
     id: 24,
     name: "Mentahan Design",
     description: "Berisi Font, Image, apk pixelab mod, ibis paint mod",
@@ -103,7 +138,7 @@ let products = [
 },
     
     
-        {
+            {
     id: 25,
     name: "Jasa Rekber",
     description: "Mau beli akun tapi takut ketipu? Tenang kami siap jadi orang ke tiga yang memberikan keamanan di transaksi mu",
@@ -116,25 +151,7 @@ let products = [
     
 },
     
-
     
-    
-    {
-    id: 19,
-    name: "Reaction Pesan Saluran Wa",
-    description: "Memberikan 100+ Reaksi emoji ke pesan di saluran WhatsApp anda",
-    price: 500,
-    image: "image/produk/produk20.jpg",
-    category: "jasa",
-    isNegotiable: false,
-    type: "hot",
-    isReactionService: true,
-    benefits: [
-        "Pesan saluran mu banyak reaksi nya",
-        "bisa pamer ke teman",
-        "100+ reaction walaupun pengikut saluran kurang dari 100"
-    ]
-},
     
     
     
@@ -439,7 +456,7 @@ const socialMediaServices = [
         name: "Tikton Like",
         price: 20000,
         unit: "1.000 Like",
-        status: "coming_soon",
+        status: "available",
         description: "Tambahkan Like ke akun TikTok"
     }
 
@@ -800,27 +817,34 @@ function sendWhatsAppConfirmation(orderDetails) {
             message += `• Nomor Target: ${target}%0A`;
         }
         
+        // TAMBAHKAN INI - UNTUK SUNTIK SOSMED (Target/Link)
+        if (item.sosmedTarget || orderDetails.sosmedTarget) {
+            const target = item.sosmedTarget || orderDetails.sosmedTarget;
+            message += `• Target (Link/Username): ${target}%0A`;
+        }
+        
+        // TAMBAHKAN INI - UNTUK SUNTIK SOSMED (Quantity/Jumlah)
+        if (item.sosmedQuantity || orderDetails.sosmedQuantity) {
+            const qty = item.sosmedQuantity || orderDetails.sosmedQuantity;
+            message += `• Jumlah Pesanan: ${qty.toLocaleString('id-ID')}%0A`;
+        }
+        
         // Reaction Service (untuk Reaction Pesan Saluran WA)
         if (item.reactionLink || (orderDetails.isReactionService && orderDetails.reactionLink)) {
             const link = item.reactionLink || orderDetails.reactionLink;
             let emoji = item.reactionEmoji || orderDetails.reactionEmoji;
             
-            // Cara aman pisahkan emoji dengan koma
             let formattedEmoji = '';
             for (let i = 0; i < emoji.length; i++) {
                 const code = emoji.charCodeAt(i);
-                // Deteksi emoji (high surrogate)
                 if (code >= 0xD800 && code <= 0xDBFF) {
-                    // Ambil 2 karakter untuk 1 emoji
                     formattedEmoji += emoji[i] + emoji[i+1];
                     if (i + 2 < emoji.length) formattedEmoji += ', ';
-                    i++; // Lompati karakter berikutnya
+                    i++;
                 } else if (code > 0x7F) {
-                    // Karakter non-ASCII (termasuk emoji sederhana)
                     formattedEmoji += emoji[i];
                     if (i + 1 < emoji.length) formattedEmoji += ', ';
                 } else {
-                    // Karakter biasa
                     formattedEmoji += emoji[i];
                     if (i + 1 < emoji.length) formattedEmoji += ', ';
                 }
@@ -842,8 +866,6 @@ function sendWhatsAppConfirmation(orderDetails) {
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
     window.open(whatsappUrl, '_blank');
 }
-
-
 
 
 // ================================================
@@ -1383,6 +1405,17 @@ function buyNow(productId) {
         showTransferForm(product);
         return;
     }
+    
+    
+    
+     // CEK APAKAH PRODUK PAKET HEMAT REACTION (DURASI)
+    if (product.hasDurationOption) {
+        showReactionDurationModal(product);
+        return;
+    }
+    
+    
+    
     
     // CEK APAKAH PRODUK PUNYA VARIAN RAM
     if (product.hasVariant) {
@@ -6829,6 +6862,15 @@ function showSocialMediaModal() {
             return false;
         }
         
+        // Ambil target dari input
+        const targetInput = document.getElementById('serviceTarget');
+        const target = targetInput ? targetInput.value.trim() : '';
+        
+        if (!target) {
+            showToast('Masukkan target (link/username/ID) terlebih dahulu!', true);
+            return false;
+        }
+        
         const availableService = socialMediaServices.find(s => s.status === 'available');
         
         if (!availableService) {
@@ -6851,14 +6893,16 @@ function showSocialMediaModal() {
         const unitValue = unitMatch ? parseFloat(unitMatch[0].replace(/\./g, '')) : 1;
         
         const totalPrice = (quantity / unitValue) * availableService.price;
-        const orderName = `${availableService.name}`;
+        const orderName = `${availableService.name} (${target.substring(0, 30)})`;
         
         cart.push({
             id: Date.now(),
             name: orderName,
             price: totalPrice,
             image: "image/produk/produk23.jpg",
-            quantity: 1
+            quantity: 1,
+            sosmedTarget: target,
+            sosmedQuantity: quantity
         });
         
         saveCart();
@@ -6886,6 +6930,15 @@ function showSocialMediaModal() {
         }
         if (selectedService.status !== 'available') {
             showToast('Layanan tidak tersedia', true);
+            return false;
+        }
+        
+        // Ambil target dari input
+        const targetInput = document.getElementById('serviceTarget');
+        const target = targetInput ? targetInput.value.trim() : '';
+        
+        if (!target) {
+            showToast('Masukkan target (link/username/ID) terlebih dahulu!', true);
             return false;
         }
         
@@ -6919,13 +6972,23 @@ function showSocialMediaModal() {
         showQrisModalWithButton();
         
         window.pendingOrder = {
-            items: [{ name: orderName, quantity: 1 }],
+            items: [{ 
+                name: orderName, 
+                quantity: 1,
+                sosmedTarget: target,
+                sosmedQuantity: quantity
+            }],
             totalItems: 1,
-            totalPrice: totalPrice
+            totalPrice: totalPrice,
+            sosmedTarget: target,
+            sosmedQuantity: quantity
         };
         return false;
     };
 }
+    
+    
+
 
 function closeSocialMediaModal() {
     const modal = document.getElementById('socialMediaModal');
@@ -7030,6 +7093,152 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 //😭😭😭😭
+
+
+let selectedDurationProduct = null;
+
+function showReactionDurationModal(product) {
+    const modal = document.createElement('div');
+    modal.className = 'modal active';
+    modal.style.display = 'flex';
+    modal.innerHTML = `
+        <div class="modal-content" style="max-width: 350px;">
+            <div class="modal-header">
+                <h3><i class="ri-whatsapp-line"></i> ${product.name}</h3>
+                <button class="modal-close" onclick="this.closest('.modal').remove()">
+                    <i class="ri-close-line"></i>
+                </button>
+            </div>
+            <div class="modal-body" style="text-align: left;">
+                <p style="margin-bottom: 16px; font-size: 13px; color: var(--text-secondary);">${product.description}</p>
+                
+
+
+                    <!-- Pilihan Durasi -->
+<div style="margin-bottom: 20px;">
+    <label style="display: block; font-size: 13px; margin-bottom: 8px; font-weight: 600;">
+        <i class="ri-time-line"></i> Pilih Durasi:
+    </label>
+    <div style="display: flex; gap: 12px;">
+        <button class="duration-option-btn" data-duration="1" data-price="5000" style="flex: 1; padding: 12px; border-radius: 12px; background: var(--bg-secondary); border: 1px solid var(--border); color: white; font-weight: 600; cursor: pointer; transition: all 0.2s;">
+            1 Hari<br>
+            <span style="font-size: 11px; color: #3b82f6;">Rp 5.000</span>
+        </button>
+        <button class="duration-option-btn" data-duration="2" data-price="10000" style="flex: 1; padding: 12px; border-radius: 12px; background: var(--bg-secondary); border: 1px solid var(--border); color: white; font-weight: 600; cursor: pointer; transition: all 0.2s;">
+            2 Hari<br>
+            <span style="font-size: 11px; color: #3b82f6;">Rp 10.000</span>
+        </button>
+    </div>
+</div>
+
+
+
+                
+                <!-- Input Link Pesan (Opsional) -->
+                <div style="margin-bottom: 16px;">
+                    <label style="display: block; font-size: 13px; margin-bottom: 8px; font-weight: 600;">
+                        <i class="ri-link"></i> Link Pesan Saluran (Opsional):
+                    </label>
+                    <input type="url" id="reactionLinkDuration" placeholder="https://whatsapp.com/channel/xxx/804" 
+                           style="width: 100%; padding: 12px; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 12px; color: white; font-size: 14px;">
+                    
+                    
+                </div>
+                
+                <!-- Input Emoji (Opsional) -->
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; font-size: 13px; margin-bottom: 8px; font-weight: 600;">
+                        <i class="ri-emotion-line"></i> Emoji (Opsional, max 5):
+                    </label>
+                    <input type="text" id="reactionEmojiDuration" placeholder="😅😘😌😒🥺" maxlength="10"
+                           style="width: 100%; padding: 12px; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 12px; color: white; font-size: 18px; letter-spacing: 4px;">
+                    
+                </div>
+                
+                <!-- Tombol Tanya Stok (LANGSUNG WHATSAPP, TANPA QRIS) -->
+                <button class="btn-ask-stock" id="askStockDurationBtn" style="width: 100%; background: #25D366; border: none; padding: 14px; border-radius: 30px; color: white; font-weight: 600; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer;">
+                    <i class="ri-whatsapp-line"></i> Tanya Stok via WhatsApp
+                </button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    
+    let selectedDuration = null;
+    let selectedPrice = null;
+    
+    // Event listener untuk tombol durasi
+    // Event listener untuk tombol durasi
+// Event listener untuk tombol durasi
+document.querySelectorAll('.duration-option-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        // Reset style semua tombol durasi
+        document.querySelectorAll('.duration-option-btn').forEach(b => {
+            b.style.background = 'var(--bg-secondary)';
+            b.style.border = '1px solid var(--border)';
+            // Reset teks harga jadi biru
+            const priceSpan = b.querySelector('span');
+            if (priceSpan) priceSpan.style.color = '#3b82f6';
+        });
+        
+        // Highlight tombol yang dipilih dengan warna MERAH
+        this.style.background = 'var(--accent)';
+        this.style.border = '1px solid var(--accent)';
+        
+        // Ubah teks harga di tombol yang dipilih menjadi BIRU
+        const selectedPriceSpan = this.querySelector('span');
+        if (selectedPriceSpan) selectedPriceSpan.style.color = '#3b82f6';
+        
+        selectedDuration = parseInt(this.dataset.duration);
+        selectedPrice = parseInt(this.dataset.price);
+    });
+});
+    
+    
+    // Tombol Tanya Stok - LANGSUNG KE WHATSAPP, TANPA QRIS
+    document.getElementById('askStockDurationBtn').addEventListener('click', function() {
+    const link = document.getElementById('reactionLinkDuration').value.trim();
+    const emoji = document.getElementById('reactionEmojiDuration').value.trim();
+    
+    let message = "Halo Yuss Xy 👋%0A%0A";
+    message += "Saya tertarik dengan produk Paket Hemat Reaction WhatsApp dan ingin melakukan pemesanan.%0A%0A";
+    message += "Detail pesanan:%0A%0A";
+    
+    if (selectedDuration) {
+        message += `- Durasi: ${selectedDuration} Hari%0A`;
+        message += `- Harga: Rp ${selectedPrice.toLocaleString('id-ID')}%0A`;
+    }
+    
+    if (link) {
+        message += `- Link Pesan: ${link}%0A`;
+    }
+    
+    if (emoji) {
+        message += `- Emoji: ${emoji}%0A`;
+    }
+    
+    message += "%0A";
+    message += "Apakah paket ini masih tersedia? Jika masih ready, saya ingin lanjut order.%0A%0A";
+    message += "Mohon info dan arahannya. Terima kasih 🙏";
+    
+    window.open(`https://wa.me/6283183469343?text=${message}`, '_blank');
+    
+    showToast("Pertanyaan stok terkirim ke owner");
+    
+    modal.remove();
+});
+    
+    
+    
+    
+}
+   
+
+
+
+
+//🙏😁🤪😁🤪😁🤪😁🤪😁
+//🙏😁🤪😁🤪😁🤪😁🤪😁
 
 // ================================================
 // SKELETON LOADING UNTUK PRODUK
@@ -7224,11 +7433,12 @@ function renderProductsWithImageLoading() {
     // ... sisa kode imageObserver dll tetap sama
 
     
+    //🙏😁🤪😁🤪😁🤪😁🤪😁
     
+   
+
     
-    
-    
-    
+//🙏😁🤪😁🤪😁🤪😁🤪😁
     // Tambahkan efek lazy loading dengan Intersection Observer
     const imageObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
