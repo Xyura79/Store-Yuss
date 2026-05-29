@@ -6645,9 +6645,38 @@ function askStock(product) {
 // ================================================
 // MODAL SUNTIK SOSMED
 // ================================================
+
 let selectedService = null;
 
- function showSocialMediaModal() {
+// FUNGSI UNTUK UPDATE STATUS TOMBOL
+function updateButtonsState(quantity) {
+    const orderBtn = document.getElementById('orderNowBtn');
+    const addToCartBtn = document.getElementById('addToCartServiceBtn');
+    
+    if (!orderBtn || !addToCartBtn) return;
+    
+    if (isNaN(quantity) || quantity < 50) {
+        orderBtn.disabled = true;
+        addToCartBtn.disabled = true;
+        orderBtn.style.opacity = '0.5';
+        addToCartBtn.style.opacity = '0.5';
+        orderBtn.style.cursor = 'not-allowed';
+        addToCartBtn.style.cursor = 'not-allowed';
+        orderBtn.style.pointerEvents = 'none';
+        addToCartBtn.style.pointerEvents = 'none';
+    } else {
+        orderBtn.disabled = false;
+        addToCartBtn.disabled = false;
+        orderBtn.style.opacity = '1';
+        addToCartBtn.style.opacity = '1';
+        orderBtn.style.cursor = 'pointer';
+        addToCartBtn.style.cursor = 'pointer';
+        orderBtn.style.pointerEvents = 'auto';
+        addToCartBtn.style.pointerEvents = 'auto';
+    }
+}
+
+function showSocialMediaModal() {
     const modal = document.getElementById('socialMediaModal');
     if (!modal) return;
     
@@ -6690,13 +6719,16 @@ let selectedService = null;
         document.getElementById('selectedServiceDesc').innerHTML = service.description;
         
         const quantityInput = document.getElementById('serviceQuantity');
-        // SET DEFAULT 1000, TAPI MINIMAL 50
         quantityInput.value = 1000;
-        quantityInput.min = 50;  // MINIMAL 50
+        quantityInput.min = 50;
         quantityInput.disabled = !isAvailable;
         
-        document.getElementById('orderNowBtn').disabled = !isAvailable;
-        document.getElementById('addToCartServiceBtn').disabled = !isAvailable;
+        if (isAvailable) {
+            updateButtonsState(1000);
+        } else {
+            document.getElementById('orderNowBtn').disabled = true;
+            document.getElementById('addToCartServiceBtn').disabled = true;
+        }
         
         updatePriceBreakdownFlexible(service);
         
@@ -6704,120 +6736,115 @@ let selectedService = null;
     };
     
     const quantityInput = document.getElementById('serviceQuantity');
-    quantityInput.oninput = function() {
-        // VALIDASI MINIMAL 50
-        let value = parseInt(this.value);
-        if (isNaN(value)) value = 50;
-        if (value < 50) {
-            this.value = 50;
-            showToast('⚠️ Minimal pesan 50!', true);
-        }
-        if (selectedService) {
-            updatePriceBreakdownFlexible(selectedService);
-        }
-    };
     
-    // Validasi saat kehilangan fokus
-    quantityInput.onblur = function() {
-        let value = parseInt(this.value);
-        if (isNaN(value) || value < 50) {
-            this.value = 50;
-            if (selectedService) {
+    quantityInput.oninput = function() {
+        if (selectedService) {
+            let value = parseInt(this.value);
+            updateButtonsState(value);
+            
+            if (!isNaN(value) && value > 0) {
                 updatePriceBreakdownFlexible(selectedService);
+            } else {
+                document.getElementById('pricePerThousand').innerHTML = selectedService ? `Rp ${selectedService.price.toLocaleString('id-ID')} / ${selectedService.unit}` : 'Rp 0';
+                document.getElementById('totalPrice').innerHTML = 'Rp 0';
             }
         }
     };
     
-    // ================================================
-// FUNGSI TOMBOL + DAN - UNTUK QUANTITY
-// ================================================
-
-// Di dalam showSocialMediaModal(), setelah semua elemen dibuat, tambahkan:
-
-// Tombol Decrement (-)
-const qtyDecrBtn = document.getElementById('qtyDecrBtn');
-if (qtyDecrBtn) {
-    // Hapus event listener lama jika ada
-    qtyDecrBtn.removeEventListener('click', qtyDecrHandler);
-    qtyDecrBtn.addEventListener('click', qtyDecrHandler);
-}
-
-// Tombol Increment (+)
-const qtyIncrBtn = document.getElementById('qtyIncrBtn');
-if (qtyIncrBtn) {
-    // Hapus event listener lama jika ada
-    qtyIncrBtn.removeEventListener('click', qtyIncrHandler);
-    qtyIncrBtn.addEventListener('click', qtyIncrHandler);
-}
-
-// Handler untuk tombol -
-function qtyDecrHandler() {
-    const qtyInput = document.getElementById('serviceQuantity');
-    if (!qtyInput) return;
-    
-    let currentVal = parseInt(qtyInput.value) || 1000;
-    let newVal = currentVal - 50;
-    
-    if (newVal >= 50) {
-        qtyInput.value = newVal;
-        // Trigger event input
-        const event = new Event('input', { bubbles: true });
-        qtyInput.dispatchEvent(event);
-        // Update harga
-        if (selectedService) {
+    quantityInput.onblur = function() {
+        if (!selectedService) return;
+        
+        let value = parseInt(this.value);
+        if (isNaN(value) || value < 50) {
+            this.value = 50;
+            updateButtonsState(50);
+            updatePriceBreakdownFlexible(selectedService);
+            showToast('Minimal pesan 50!', true);
+        } else {
+            updateButtonsState(value);
             updatePriceBreakdownFlexible(selectedService);
         }
-    } else {
-        showToast('Minimal pesan 50!', true);
+    };
+    
+    // Tombol Decrement
+    const qtyDecrBtn = document.getElementById('qtyDecrBtn');
+    if (qtyDecrBtn) {
+        qtyDecrBtn.onclick = function() {
+            const qtyInput = document.getElementById('serviceQuantity');
+            if (!qtyInput || !selectedService) return;
+            
+            let currentVal = parseInt(qtyInput.value) || 1000;
+            let newVal = currentVal - 50;
+            
+            if (newVal >= 50) {
+                qtyInput.value = newVal;
+                updateButtonsState(newVal);
+                updatePriceBreakdownFlexible(selectedService);
+            } else if (currentVal > 50) {
+                qtyInput.value = 50;
+                updateButtonsState(50);
+                updatePriceBreakdownFlexible(selectedService);
+            } else {
+                showToast('Minimal pesan 50!', true);
+            }
+        };
     }
-}
-
-// Handler untuk tombol +
-function qtyIncrHandler() {
-    const qtyInput = document.getElementById('serviceQuantity');
-    if (!qtyInput) return;
     
-    let currentVal = parseInt(qtyInput.value) || 1000;
-    let newVal = currentVal + 50;
-    
-    qtyInput.value = newVal;
-    // Trigger event input
-    const event = new Event('input', { bubbles: true });
-    qtyInput.dispatchEvent(event);
-    // Update harga
-    if (selectedService) {
-        updatePriceBreakdownFlexible(selectedService);
+    // Tombol Increment
+    const qtyIncrBtn = document.getElementById('qtyIncrBtn');
+    if (qtyIncrBtn) {
+        qtyIncrBtn.onclick = function() {
+            const qtyInput = document.getElementById('serviceQuantity');
+            if (!qtyInput || !selectedService) return;
+            
+            let currentVal = parseInt(qtyInput.value) || 1000;
+            let newVal = currentVal + 50;
+            
+            qtyInput.value = newVal;
+            updateButtonsState(newVal);
+            updatePriceBreakdownFlexible(selectedService);
+        };
     }
-}
     
-    
-    
-    
+    // Tombol Quick
     document.querySelectorAll('.quick-btn').forEach(btn => {
-        btn.onclick = () => {
+        btn.onclick = function() {
             if (selectedService) {
-                let qty = parseInt(btn.dataset.qty);
-                // PASTIKAN TOMBOL QUICK JUGA MINIMAL 50
+                let qty = parseInt(this.dataset.qty);
                 if (qty < 50) qty = 50;
                 quantityInput.value = qty;
+                updateButtonsState(qty);
                 updatePriceBreakdownFlexible(selectedService);
             }
         };
     });
     
     // TOMBOL MASUKAN KERANJANG
-    document.getElementById('addToCartServiceBtn').onclick = function() {
+    const addToCartBtn = document.getElementById('addToCartServiceBtn');
+    addToCartBtn.onclick = function(e) {
+        if (this.disabled === true) {
+            e.preventDefault();
+            e.stopPropagation();
+            showToast('Minimal pesan 50!', true);
+            return false;
+        }
+        
         const availableService = socialMediaServices.find(s => s.status === 'available');
         
         if (!availableService) {
             showToast('Maaf, layanan sedang tidak tersedia', true);
-            return;
+            return false;
         }
         
-        let quantity = parseInt(quantityInput.value) || 1000;
+        let quantity = parseInt(quantityInput.value) || 0;
+        
         if (quantity < 50) {
-            showToast('⚠️ Minimal pesan 50!', true);
-            return;
+            showToast('Minimal pesan 50!', true);
+            quantityInput.value = 50;
+            quantity = 50;
+            updateButtonsState(50);
+            updatePriceBreakdownFlexible(availableService);
+            return false;
         }
         
         const unitMatch = availableService.unit.match(/([\d\.]+)/);
@@ -6840,29 +6867,42 @@ function qtyIncrHandler() {
         
         showToast(`${orderName} ditambahkan ke keranjang!`);
         closeSocialMediaModal();
+        return false;
     };
     
     // TOMBOL PESAN SEKARANG
-    document.getElementById('orderNowBtn').onclick = function() {
+    const orderNowBtn = document.getElementById('orderNowBtn');
+    orderNowBtn.onclick = function(e) {
+        if (this.disabled === true) {
+            e.preventDefault();
+            e.stopPropagation();
+            showToast('Minimal pesan 50!', true);
+            return false;
+        }
+        
         if (!selectedService) {
             showToast('Pilih layanan terlebih dahulu', true);
-            return;
+            return false;
         }
         if (selectedService.status !== 'available') {
             showToast('Layanan tidak tersedia', true);
-            return;
+            return false;
         }
         
         let quantity = parseInt(quantityInput.value) || 0;
-        if (quantity <= 0) {
-            showToast('Masukkan jumlah pesanan', true);
-            return;
+        
+        if (quantity < 50) {
+            showToast('Minimal pesan 50!', true);
+            quantityInput.value = 50;
+            quantity = 50;
+            updateButtonsState(50);
+            updatePriceBreakdownFlexible(selectedService);
+            return false;
         }
         
-        // VALIDASI MINIMAL 50
-        if (quantity < 50) {
-            showToast('⚠️ Minimal pesan 50!', true);
-            return;
+        if (quantity <= 0) {
+            showToast('Masukkan jumlah pesanan', true);
+            return false;
         }
         
         const unitMatch = selectedService.unit.match(/([\d\.]+)/);
@@ -6883,16 +6923,23 @@ function qtyIncrHandler() {
             totalItems: 1,
             totalPrice: totalPrice
         };
+        return false;
     };
+}
+
+function closeSocialMediaModal() {
+    const modal = document.getElementById('socialMediaModal');
+    if (modal) modal.classList.remove('active');
+    selectedService = null;
 }
 
 function updatePriceBreakdownFlexible(service) {
     let quantity = parseInt(document.getElementById('serviceQuantity').value) || 0;
     
-    // VALIDASI MINIMAL 50
-    if (quantity < 50) {
-        quantity = 50;
-        document.getElementById('serviceQuantity').value = 50;
+    if (!quantity || quantity <= 0) {
+        document.getElementById('pricePerThousand').innerHTML = `Rp ${service.price.toLocaleString('id-ID')} / ${service.unit}`;
+        document.getElementById('totalPrice').innerHTML = 'Rp 0';
+        return;
     }
     
     const unitMatch = service.unit.match(/([\d\.]+)/);
@@ -6902,12 +6949,6 @@ function updatePriceBreakdownFlexible(service) {
     
     document.getElementById('pricePerThousand').innerHTML = `Rp ${service.price.toLocaleString('id-ID')} / ${service.unit}`;
     document.getElementById('totalPrice').innerHTML = `Rp ${totalPrice.toLocaleString('id-ID')}`;
-}
-
-function closeSocialMediaModal() {
-    const modal = document.getElementById('socialMediaModal');
-    if (modal) modal.classList.remove('active');
-    selectedService = null;
 }
 
 
