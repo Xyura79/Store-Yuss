@@ -85,6 +85,29 @@ let products = [
 },
     
     
+{
+    id: 14,
+    name: "Nokos WhatsApp Indo",
+    description: "Dapat nomor WhatsApp, Telegram, atau Dana murah meriah",
+    price: "Pilih",
+    image: "image/produk/produk13.jpg",
+    category: "digital",
+    isNegotiable: true,
+    type: "hot",
+    hasNokosOption: true,  // TAMBAHKAN INI
+    benefits: [
+        "Dapat nomor whatsapp murah meriah",
+        "Pilih aplikasi sesuai kebutuhan",
+        "Pilih negara sesuai keinginan"
+    ],
+    note: ""
+},
+
+    
+    
+    
+    
+    
         {
     id: 26,
     name: "Paket Hemat Reaction Wa",
@@ -259,21 +282,6 @@ let products = [
     
     
     
-{
-    id: 14,
-    name: "Nokos WhatsApp Indo",
-    description: "Dapat no whatsapp murah meriah",
-    price: "Rp 5.000",
-    image: "image/produk/produk13.jpg",
-    category: "digital",
-    isNegotiable: true,
-    type: "hot",
-    isAskStock: true,  // TAMBAHKAN INI
-    benefits: [
-        "Dapat no whatsapp murah meriah"
-    ],
-    note: ""
-},
 
 
 
@@ -461,6 +469,51 @@ const socialMediaServices = [
     }
 
 ];
+
+
+//🙏😁🤪😁🤪😁🤪😁🤪😁
+//🙏😁🤪😁🤪😁🤪😁🤪😁
+
+
+
+// ================================================
+// DATA NEGARA UNTUK NOKOS
+// ================================================
+const nokosCountries = {
+    whatsapp: {
+        indonesia: { name: "Indonesia", code: "+62", price: 6000, countryCode: "id" },
+        philippines: { name: "Filipina", code: "+63", price: 9000, countryCode: "ph" },
+        malaysia: { name: "Malaysia", code: "+60", price: 14000, countryCode: "my" },
+        thailand: { name: "Thailand", code: "+66", price: 18000, countryCode: "th" },
+        colombia: { name: "Colombia", code: "+57", price: 10000, countryCode: "co" },
+        afghanistan: { name: "Afganistan", code: "+93", price: 20000, countryCode: "af" },
+        albania: { name: "Albania", code: "+355", price: 11000, countryCode: "al" },
+        algeria: { name: "Algeria", code: "+213", price: 11000, countryCode: "dz" },
+        austria: { name: "Austria", code: "+43", price: 15000, countryCode: "at" },
+        brazil: { name: "Brazil", code: "+55", price: 19500, countryCode: "br" }
+    },
+    telegram: {
+        indonesia: { name: "Indonesia", code: "+62", price: 4000, countryCode: "id" },
+        philippines: { name: "Filipina", code: "+63", price: 7000, countryCode: "ph" },
+        malaysia: { name: "Malaysia", code: "+60", price: 9700, countryCode: "my" },
+        colombia: { name: "Colombia", code: "+57", price: 7000, countryCode: "co" }
+    },
+    dana: {
+        indonesia: { name: "Indonesia", code: "+62", price: 4600, countryCode: "id" }
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -925,6 +978,9 @@ function renderProducts() {
         
         
         
+        
+        
+        
         // Tampilkan harga diskon dengan animasi
         let priceHtml = `<div class="product-price">${getDisplayPrice(product)}</div>`;
         if (product.type === 'diskon' && product.oldPrice) {
@@ -938,6 +994,81 @@ function renderProducts() {
             `;
         }
         
+//🙏😁🤪😁🤪😁🤪😁🤪😁
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Di dalam renderProducts(), cek untuk produk Nokos
+if (product.id === 14 || product.hasNokosOption) {
+    return `
+        <div class="product-card ${disabledClass}" data-product-id="${product.id}">
+            <div class="product-image-wrapper">
+                ${badgeHtml}
+                <img src="${product.image}" alt="${product.name}" class="product-image" onerror="this.src='https://placehold.co/300x300/333/white?text=Error'">
+            </div>
+            <div class="product-info">
+                <div class="product-name">${product.name}</div>
+                ${priceHtml}
+                <div class="product-buttons">
+                    <button class="btn-buy-now" onclick="event.stopPropagation(); buyNow(${product.id});" style="background: linear-gradient(90deg, #f59e0b, #d97706);">
+                        <i class="ri-list-check"></i> Pilih
+                    </button>
+                    <button class="btn-add-cart" onclick="event.stopPropagation(); addToCart(${product.id});" ${disabledCart}>
+                        <i class="ri-shopping-cart-line"></i> Keranjang
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+
+
+        
+        
+        //🙏😁🤪😁🤪😁🤪😁🤪😁
         
         // Di dalam renderProducts(), untuk produk isSocialMediaService
 if (product.isSocialMediaService || product.id === 21) {
@@ -1368,6 +1499,15 @@ function buyNow(productId) {
     }
     
     console.log("Produk:", product.name);
+    
+    
+    
+     // CEK APAKAH PRODUK NOKOS
+    if (product.hasNokosOption) {
+        console.log("Ini produk Nokos dengan pilihan aplikasi dan negara");
+        showNokosModal(product);
+        return;
+    }
     
     // CEK APAKAH PRODUK PERLU TANYA STOK DULU
     if (product.isAskStock) {
@@ -2168,29 +2308,25 @@ function getCurrentDateTime() {
 // ================================================
 // FITUR CHAT OWNER - START
 // ================================================
+
+// =================================
 function chatWithOwner() {
     const phoneNumber = '6283183469343';
     const { jam, tanggal, tahun } = getCurrentDateTime();
     
-    // Perbaikan: gunakan template string dengan benar
-    let message = "Halo *Yuss Xy 👋*%0A%0A";
-    message += "Saya tertarik dengan produk di *YussXy Store*.%0A%0A";
-    message += "━━━━━━━━━━━━━━━%0A";
-    message += "📋 INFORMASI%0A";
-    message += "━━━━━━━━━━━━━━━%0A%0A";
-    message += "🕒 Waktu : " + jam + " • " + tanggal + " " + tahun + "%0A%0A";
-    message += "Saya ingin bertanya tentang produk yang dijual.%0A%0A";
-    message += "Mohon infonya ya 🙏%0A";
+    let message = "Halo Yuss Xy 👋%0A%0A";
+    message += "Saya tertarik dengan produk yang tersedia di YussXy Store.%0A%0A";
+    message += "Saya ingin mengetahui informasi lebih lanjut mengenai produk yang dijual serta ketersediaannya.%0A%0A";
+    message += "Mohon bantuannya ya 🙏%0A";
     message += "Terima kasih.";
     
-    // Debug: cek apakah fungsi dipanggil
     console.log("Chat owner diklik, membuka WhatsApp...");
     
-    // Buka WhatsApp
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
 }
 
-// ================================================
+
+//===============
 // EVENT LISTENER SETELAH DOM LOAD
 // ================================================
 document.addEventListener('DOMContentLoaded', function() {
@@ -7434,11 +7570,7 @@ function renderProductsWithImageLoading() {
 
     
     //🙏😁🤪😁🤪😁🤪😁🤪😁
-    
-   
-
-    
-//🙏😁🤪😁🤪😁🤪😁🤪😁
+  
     // Tambahkan efek lazy loading dengan Intersection Observer
     const imageObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
@@ -7483,6 +7615,276 @@ function renderProductsWithImageLoading() {
 
 // GANTI renderProducts yang lama dengan yang baru
 // Atau panggil renderProductsWithImageLoading() di DOMContentLoaded
+//🙏😁🤪😁🤪😁🤪😁🤪😁
+//🙏😁🤪😁🤪😁🤪😁🤪😁
+//🙏😁🤪😁🤪😁🤪😁🤪😁
+
+
+
+
+
+
+// ================================================
+// MODAL NOKOS (PILIH APLIKASI & NEGARA)
+// ================================================
+let selectedNokosApp = null;
+let selectedNokosCountry = null;
+let selectedNokosPrice = null;
+
+function showNokosModal(product) {
+    const modal = document.createElement('div');
+    modal.className = 'modal active';
+    modal.style.display = 'flex';
+    modal.innerHTML = `
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <h3><i class="ri-phone-line"></i> ${product.name}</h3>
+                <button class="modal-close" onclick="this.closest('.modal').remove()">
+                    <i class="ri-close-line"></i>
+                </button>
+            </div>
+            <div class="modal-body" style="text-align: left;">
+                <p style="margin-bottom: 16px; font-size: 13px; color: var(--text-secondary);">${product.description}</p>
+                
+                <!-- Pilih Aplikasi -->
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; font-size: 13px; margin-bottom: 8px; font-weight: 600;">
+                        <i class="ri-apps-line"></i> Pilih Aplikasi:
+                    </label>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <button class="nokos-app-btn" data-app="whatsapp" style="flex: 1; padding: 10px; border-radius: 12px; background: var(--bg-secondary); border: 1px solid var(--border); color: white; cursor: pointer;">
+                            <i class="ri-whatsapp-line"></i> WhatsApp
+                        </button>
+                        <button class="nokos-app-btn" data-app="telegram" style="flex: 1; padding: 10px; border-radius: 12px; background: var(--bg-secondary); border: 1px solid var(--border); color: white; cursor: pointer;">
+                            <i class="ri-telegram-line"></i> Telegram
+                        </button>
+                        <button class="nokos-app-btn" data-app="dana" style="flex: 1; padding: 10px; border-radius: 12px; background: var(--bg-secondary); border: 1px solid var(--border); color: white; cursor: pointer;">
+                            <i class="ri-bank-card-line"></i> Dana
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Pilih Negara (akan diisi JS) -->
+                <div id="nokosCountryContainer" style="display: none; margin-bottom: 20px;">
+                    <label style="display: block; font-size: 13px; margin-bottom: 8px; font-weight: 600;">
+                        <i class="ri-map-pin-line"></i> Pilih Negara:
+                    </label>
+                    <div id="nokosCountryList" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; max-height: 250px; overflow-y: auto; padding: 4px;">
+                        <!-- Negara akan diisi JS -->
+                    </div>
+                </div>
+                
+                <!-- Info Harga -->
+                <div id="nokosPriceInfo" style="display: none; background: var(--bg-secondary); border-radius: 12px; padding: 12px; margin-bottom: 20px; text-align: center;">
+                    <span style="font-size: 12px; color: var(--text-secondary);">Harga yang akan dibayar:</span>
+                    <div style="font-size: 24px; font-weight: 700; color: var(--accent);" id="nokosSelectedPrice">Rp 0</div>
+                </div>
+                
+                <!-- Tombol Tanya Stok -->
+                <button class="btn-ask-stock" id="nokosAskStockBtn" disabled style="width: 100%; background: #25D366; border: none; padding: 14px; border-radius: 30px; color: white; font-weight: 600; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 8px; opacity: 0.5; cursor: not-allowed;">
+                    <i class="ri-whatsapp-line"></i> Tanya Stok via WhatsApp
+                </button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    
+    let selectedApp = null;
+    let selectedCountry = null;
+    let selectedPrice = null;
+    
+    // Event listener untuk tombol aplikasi
+    document.querySelectorAll('.nokos-app-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.nokos-app-btn').forEach(b => {
+                b.style.background = 'var(--bg-secondary)';
+                b.style.border = '1px solid var(--border)';
+            });
+            
+            this.style.background = 'var(--accent)';
+            this.style.border = '1px solid var(--accent)';
+            
+            selectedApp = this.dataset.app;
+            
+            // Tampilkan container negara
+            const countryContainer = document.getElementById('nokosCountryContainer');
+            const countryList = document.getElementById('nokosCountryList');
+            
+            // Reset pilihan negara
+            selectedCountry = null;
+            selectedPrice = null;
+            document.getElementById('nokosSelectedPrice').innerHTML = 'Rp 0';
+            document.getElementById('nokosAskStockBtn').disabled = true;
+            document.getElementById('nokosAskStockBtn').style.opacity = '0.5';
+            document.getElementById('nokosAskStockBtn').style.cursor = 'not-allowed';
+            
+            // Isi daftar negara sesuai aplikasi
+            const countries = nokosCountries[selectedApp];
+            if (countries) {
+                countryContainer.style.display = 'block';
+                countryList.innerHTML = '';
+                
+                Object.keys(countries).forEach(key => {
+                    const country = countries[key];
+                    countryList.innerHTML += `
+                        <button class="nokos-country-btn" data-country-key="${key}" data-country-name="${country.name}" data-country-code="${country.code}" data-price="${country.price}" style="padding: 10px; border-radius: 10px; background: var(--bg-secondary); border: 1px solid var(--border); color: white; cursor: pointer; text-align: left;">
+                            <div style="font-weight: 600;">${country.name}</div>
+                            <div style="font-size: 11px; color: var(--text-secondary);">${country.code}</div>
+                            <div style="font-size: 12px; color: var(--accent);">Rp ${country.price.toLocaleString('id-ID')}</div>
+                        </button>
+                    `;
+                });
+                
+                // Event listener untuk tombol negara
+                document.querySelectorAll('.nokos-country-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        document.querySelectorAll('.nokos-country-btn').forEach(b => {
+                            b.style.background = 'var(--bg-secondary)';
+                            b.style.border = '1px solid var(--border)';
+                        });
+                        
+                        this.style.background = 'rgba(239, 68, 68, 0.2)';
+                        this.style.border = '1px solid var(--accent)';
+                        
+                        selectedCountry = this.dataset.countryName;
+                        selectedPrice = parseInt(this.dataset.price);
+                        
+                        document.getElementById('nokosSelectedPrice').innerHTML = `Rp ${selectedPrice.toLocaleString('id-ID')}`;
+                        document.getElementById('nokosAskStockBtn').disabled = false;
+                        document.getElementById('nokosAskStockBtn').style.opacity = '1';
+                        document.getElementById('nokosAskStockBtn').style.cursor = 'pointer';
+                    });
+                });
+            } else {
+                countryContainer.style.display = 'none';
+            }
+        });
+    });
+    
+    // Tombol Tanya Stok
+    document.getElementById('nokosAskStockBtn').addEventListener('click', function() {
+        if (this.disabled) return;
+        
+        let message = "Halo Yuss Xy 👋%0A%0A";
+        message += "Saya tertarik dengan produk Nokos WhatsApp Indo.%0A%0A";
+        message += "================================%0A";
+        message += "DETAIL PEMESANAN%0A";
+        message += "================================%0A%0A";
+        message += `Aplikasi: ${selectedApp === 'whatsapp' ? 'WhatsApp' : (selectedApp === 'telegram' ? 'Telegram' : 'Dana')}%0A`;
+        message += `Negara: ${selectedCountry}%0A`;
+        message += `Harga: Rp ${selectedPrice.toLocaleString('id-ID')}%0A%0A`;
+        message += "================================%0A%0A";
+        message += "Apakah stok untuk nomor ini masih tersedia?%0A";
+        message += "Saya ingin melakukan pemesanan.%0A%0A";
+        message += "Mohon infonya ya 🙏";
+        
+        window.open(`https://wa.me/6283183469343?text=${message}`, '_blank');
+        
+        showToast("Pertanyaan stok terkirim ke owner");
+        
+        modal.remove();
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
