@@ -566,8 +566,8 @@ const premiumApps = [
         id: 5,
         name: "Spotify Premium",
         description: "1 bulan",
-        status: "sold_out",
-        price: "Rp 20.500",
+        status: "available",
+        price: "Rp 21.000",
         image: "image/apk/spotify.jpg"
     },
     {
