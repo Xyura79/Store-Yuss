@@ -130,7 +130,7 @@ let products = [
     id: 19,
     name: "Reaction Pesan Saluran",
     description: "Memberikan 100+ Reaksi emoji ke pesan di saluran WhatsApp anda",
-    price: 500,
+    price: 800,
     image: "image/produk/produk20.jpg",
     category: "jasa",
     isNegotiable: false,
