@@ -116,7 +116,7 @@ let products = [
     image: "image/produk/produk25.jpg",
     category: "jasa",
     isNegotiable: false,
-    type: "sold_out",
+    type: "hot",
     hasDurationOption: true,
     benefits: [
         "Semua Pesan saluran mu banyak reaksi nya",
@@ -134,7 +134,7 @@ let products = [
     image: "image/produk/produk20.jpg",
     category: "jasa",
     isNegotiable: false,
-    type: "sold_out",
+    type: "hot",
     isReactionService: true,
     benefits: [
         "Pesan saluran mu banyak reaksi nya",
