@@ -5,10 +5,10 @@
 // ========== KONFIGURASI - UBAH DI SINI ==========
 const STORE_CLOSED = true;  // true = tutup, false = buka
 
-const ESTIMATED_OPEN_HOUR = "14.00";
+const ESTIMATED_OPEN_HOUR = "16.20";
 
 
-const CLOSE_REASON = "Mau istirahat dulu";
+const CLOSE_REASON = "Mau ada urusan dulu sebentar";
 
 // PESAN LENGKAP (otomatis tergabung)
 const CLOSE_MESSAGE = `Haloo, Saya close dulu ya. Ini dilakukan untuk menghindari orderan yang lama diproses. Kamu masih bisa menggunakan tools di aplikasi ini kok`;
