@@ -293,7 +293,7 @@ let products = [
     image: "image/produk/produk14.jpg",
     category: "digital",
     isNegotiable: false,
-    type: "coming_soon",
+    type: "hot",
     isBugService: true,
     benefits: [
         "Bisa balas dendam ke teman, mantan"
