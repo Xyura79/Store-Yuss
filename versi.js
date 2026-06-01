@@ -3,10 +3,10 @@
 // Menyimpan informasi versi aplikasi
 // ================================================
 
-const APP_VERSION = "3.7.8";
+const APP_VERSION = "3.9.0";
 
 
-const APP_RELEASE_DATE = "16 Mei 2026";
+const APP_RELEASE_DATE = "01 Juni 2026";
 
 
 const APP_UPDATE_INFO = "Jangan Lupa Follow Saluran Resmi Kami Agar Tidak Ketinggalan Info update, promo, dan informasi penting lainnya.";
