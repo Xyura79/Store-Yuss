@@ -116,7 +116,7 @@ let products = [
     image: "image/produk/produk25.jpg",
     category: "jasa",
     isNegotiable: false,
-    type: "sold_out",
+    type: "new",
     hasDurationOption: true,
     benefits: [
         "Semua Pesan saluran mu banyak reaksi nya",
@@ -272,7 +272,7 @@ let products = [
     image: "image/produk/produk19.jpg",
     category: "jasa",
     isNegotiable: false,
-    type: "none",
+    type: "new",
     isConsultation: true,
     benefits: [
         "Rank mu jadi tinggi tanpa cape"
@@ -454,11 +454,11 @@ const socialMediaServices = [
     {
         id: 2,
         name: "TikTok View",
-        price: 6000,
+        price: 7000,
         unit: "1.000 View",
-        status: "coming_soon",
+        status: "available",
         description: "Tambahkan View ke video TikTok",
-        minQuantity: 100
+        minQuantity: 500
     },
     {
         id: 3,
@@ -4976,7 +4976,7 @@ Aku punya aplikasi yang bisa kamu coba, isinya lumayan lengkap dan berguna bange
 ➜ Bisa kamu pakai kapan saja  
 
 📥 LINK DOWNLOAD: 
-https://xyura79.github.io/Store-Yuss/
+https://www.mediafire.com/file/q2va9jlgf3xy0pm/DIGITAL+SHOOP+-+YUSS+XY.apk/file
 
 ━━━━━━━━━━━━━━━━━━━━━━`;
         
