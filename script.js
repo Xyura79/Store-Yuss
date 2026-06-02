@@ -449,7 +449,7 @@ const socialMediaServices = [
         name: "TikTok View",
         price: 7000,
         unit: "1.000 View",
-        status: "available",
+        status: "coming_soon",
         description: "Tambahkan View ke video TikTok",
         minQuantity: 500
     },
