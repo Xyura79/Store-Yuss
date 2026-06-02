@@ -109,7 +109,7 @@ let products = [
     image: "image/produk/produk25.jpg",
     category: "jasa",
     isNegotiable: false,
-    type: "sold_out",
+    type: "hot",
     hasDurationOption: true,
     benefits: [
         "Semua Pesan saluran mu banyak reaksi nya",
@@ -286,7 +286,7 @@ let products = [
     image: "image/produk/produk14.jpg",
     category: "digital",
     isNegotiable: false,
-    type: "hot",
+    type: "coming_soon",
     isBugService: true,
     benefits: [
         "Bisa balas dendam ke teman, mantan"
@@ -724,7 +724,7 @@ const lokerData = [
         name: "Tim Promosi",
         icon: "ri-megaphone-line",
         status: "open",
-        salary: "Rp 7.000 / 2.000 video yang ditonton",
+        salary: "Rp 5.000 / 2.000 video yang ditonton",
         schedule: "Fleksibel (remote)",
         need: "-",
         description: "Mempromosikan YussXy Store di media sosial TikTok.",
