@@ -25,7 +25,413 @@
 
 
 
+/* ================================================
+   TOOLS PAGE - RAPIH & MODERN
+   ================================================ */
 
+/* Grid Tools - 3 kolom responsif */
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 16px 0;
+}
+
+@media (max-width: 500px) {
+    .tools-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+}
+
+/* Tool Card */
+.tool-card {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 16px 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid var(--border);
+}
+
+.tool-card:active {
+    transform: scale(0.97);
+    background: var(--accent);
+}
+
+.tool-card .tool-icon {
+    font-size: 32px;
+    color: var(--accent);
+    margin-bottom: 8px;
+}
+
+.tool-card:active .tool-icon {
+    color: white;
+}
+
+.tool-card h3 {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.tool-card p {
+    font-size: 10px;
+    color: var(--text-secondary);
+    line-height: 1.3;
+}
+
+.tool-card:active p {
+    color: white;
+}
+
+/* Full width card untuk Fake Lobby */
+.tool-card.full-width-card {
+    grid-column: 1 / -1;
+    display: flex !important;
+    align-items: center;
+    gap: 16px;
+    text-align: left;
+    padding: 14px 16px;
+}
+
+.tool-card.full-width-card .tool-icon {
+    margin-bottom: 0;
+    font-size: 28px;
+}
+
+.tool-card.full-width-card h3 {
+    font-size: 14px;
+    margin-bottom: 2px;
+}
+
+.tool-card.full-width-card p {
+    font-size: 11px;
+}
+
+/* ================================================
+   DETAIL TOOL - RAPIH
+   ================================================ */
+
+.tool-detail {
+    background: var(--bg-card);
+    border-radius: 24px;
+    padding: 20px;
+    margin-top: 16px;
+    animation: fadeIn 0.25s ease;
+}
+
+.tool-detail-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+}
+
+.back-btn {
+    background: var(--bg-secondary);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 30px;
+    color: white;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.back-btn:active {
+    transform: scale(0.95);
+    background: var(--accent);
+}
+
+.tool-detail-header h3 {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+/* Input Wrapper */
+.input-wrapper {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.tool-input {
+    flex: 1;
+    padding: 12px 14px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    color: white;
+    font-size: 14px;
+}
+
+.tool-input:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.download-btn {
+    padding: 12px 20px;
+    background: var(--accent);
+    border: none;
+    border-radius: 14px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.download-btn:active {
+    transform: scale(0.96);
+}
+
+/* Result Box */
+.result-box {
+    margin-top: 20px;
+    padding: 16px;
+    background: var(--bg-secondary);
+    border-radius: 16px;
+}
+
+/* ================================================
+   EMOJI MIX - KHUSUS
+   ================================================ */
+
+.emojimix-input-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: flex-end;
+}
+
+.emojimix-input-group .input-field {
+    flex: 1;
+    min-width: 120px;
+}
+
+.input-field label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--text-secondary);
+}
+
+.emoji-input {
+    text-align: center;
+    font-size: 28px !important;
+    letter-spacing: 4px;
+    font-family: monospace;
+}
+
+.emojimix-result {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.emojimix-result-image {
+    max-width: 180px;
+    margin: 0 auto;
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 16px;
+}
+
+.emojimix-result-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+}
+
+.emojimix-info {
+    margin-top: 12px;
+    font-size: 13px;
+}
+
+/* ================================================
+   PASSWORD GENERATOR - RAPIH
+   ================================================ */
+
+.password-generator {
+    padding: 8px 0;
+}
+
+.password-display {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.password-input {
+    flex: 1;
+    padding: 14px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    color: white;
+    font-size: 16px;
+    font-family: monospace;
+    letter-spacing: 1px;
+}
+
+.copy-password-btn {
+    padding: 14px 18px;
+    background: var(--accent);
+    border: none;
+    border-radius: 14px;
+    color: white;
+    cursor: pointer;
+}
+
+.password-controls {
+    background: var(--bg-secondary);
+    border-radius: 20px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.control-group {
+    margin-bottom: 16px;
+}
+
+.control-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-secondary);
+}
+
+.length-control {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.length-control input {
+    flex: 1;
+    height: 4px;
+    -webkit-appearance: none;
+    background: var(--border);
+    border-radius: 4px;
+}
+
+.length-control input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    background: var(--accent);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.checkbox-group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 400;
+}
+
+.generate-password-btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+    border: none;
+    border-radius: 14px;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* ================================================
+   LOREM IPSUM - RAPIH
+   ================================================ */
+
+.lorem-controls {
+    background: var(--bg-secondary);
+    border-radius: 20px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.lorem-select {
+    width: 100%;
+    padding: 12px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    color: white;
+    font-size: 14px;
+}
+
+.lorem-count {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.lorem-count input {
+    flex: 1;
+}
+
+.lorem-output {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.generate-lorem-btn, .copy-lorem-btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 14px;
+    font-weight: 700;
+    margin-top: 10px;
+}
+
+.generate-lorem-btn {
+    background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+    color: white;
+    border: none;
+}
+
+.copy-lorem-btn {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+}
+
+/* ================================================
+   ANIMASI
+   ================================================ */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
 
 
@@ -7749,3 +8155,71 @@ img {
 
 
 
+
+
+
+/* Perbaikan untuk semua tool detail - tombol di bawah input */
+.tool-detail .input-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.tool-detail .input-wrapper .tool-input {
+    width: 100%;
+}
+
+.tool-detail .input-wrapper .download-btn {
+    width: 100%;
+    justify-content: center;
+}
+
+/* Khusus untuk tool yang punya resolusi (YouTube) agar tetap rapi */
+.youtube-options .resolution-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+}
+
+
+
+/* Perbaikan tombol di bawah & lebar penuh untuk tool-tool tertentu */
+.ytsearch-input-group,
+.spotify-search-group,
+.lyrics-search-group,
+.hashtag-input-group,
+.wr-input-group,
+.input-group-ml,
+.emojimix-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.ytsearch-input-group .tool-input,
+.spotify-search-group .tool-input,
+.lyrics-search-group .tool-input,
+.hashtag-input-group .tool-input,
+.wr-input-group .tool-input,
+.input-group-ml .tool-input,
+.emojimix-input-group .tool-input,
+.emojimix-input-group .input-field input {
+    width: 100%;
+}
+
+.ytsearch-input-group .download-btn,
+.spotify-search-group .download-btn,
+.lyrics-search-group .download-btn,
+.hashtag-input-group .download-btn,
+.wr-input-group .download-btn,
+.input-group-ml .download-btn,
+.emojimix-input-group .download-btn {
+    width: 100%;
+    justify-content: center;
+}
+
+/* Khusus Emoji Mix - dua input di atas tombol */
+.emojimix-input-group .input-field {
+    width: 100%;
+} 
