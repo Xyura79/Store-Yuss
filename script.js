@@ -135,6 +135,10 @@ let products = [
         "100+ reaction walaupun pengikut saluran kurang dari 100"
     ]
 },
+
+
+
+    
     
     
     
@@ -8467,6 +8471,8 @@ async function downloadAndAddToLibrary(index) {
     }
 }
 
+
+
 function playSpotifyTrack(track) {
     if (!track.audioUrl) {
         showToast('Audio tidak tersedia', true);
@@ -8524,6 +8530,30 @@ function playSpotifyTrack(track) {
         currentSpotifyTrack = track;
         
         const thumb = getValidThumbnail(track.thumbnail);
+        
+        // ========== MEDIA SESSION API ==========
+        if ('mediaSession' in navigator) {
+            navigator.mediaSession.metadata = new MediaMetadata({
+                title: track.title,
+                artist: track.artist,
+                album: 'YussXy Store Music',
+                artwork: [
+                    { src: thumb, sizes: '96x96', type: 'image/jpeg' },
+                    { src: thumb, sizes: '128x128', type: 'image/jpeg' },
+                    { src: thumb, sizes: '192x192', type: 'image/jpeg' },
+                    { src: thumb, sizes: '256x256', type: 'image/jpeg' },
+                    { src: thumb, sizes: '384x384', type: 'image/jpeg' },
+                    { src: thumb, sizes: '512x512', type: 'image/jpeg' },
+                ]
+            });
+
+            navigator.mediaSession.setActionHandler('play', toggleSpotifyPlay);
+            navigator.mediaSession.setActionHandler('pause', pauseSpotifyTrack);
+            navigator.mediaSession.setActionHandler('previoustrack', playPrevTrack);
+            navigator.mediaSession.setActionHandler('nexttrack', playNextTrack);
+        }
+        // =====================================
+        
         document.getElementById('currentTrackImg').src = thumb;
         document.getElementById('currentTrackTitle').innerHTML = escapeHtml(track.title.substring(0, 35));
         document.getElementById('currentTrackArtist').innerHTML = escapeHtml(track.artist);
@@ -8555,7 +8585,19 @@ function playSpotifyTrack(track) {
         }
     });
     
+    // ========== AUTOPLAY NEXT TRACK ==========
     audio.addEventListener('ended', () => {
+        // Cek apakah ada lagu berikutnya di library
+        if (window.spotifyLibrary && window.spotifyLibrary.length > 0) {
+            const nextIndex = currentPlayIndex + 1;
+            if (nextIndex < window.spotifyLibrary.length) {
+                // Mainkan lagu berikutnya
+                playFromLibrary(nextIndex);
+                return; // keluar, jangan eksekusi kode berhenti
+            }
+        }
+        
+        // Jika tidak ada lagu berikutnya, berhenti seperti biasa
         if (playBtn) {
             playBtn.innerHTML = '<i class="ri-play-fill"></i>';
         }
@@ -8580,6 +8622,15 @@ function playSpotifyTrack(track) {
     
     spotifyAudio = audio;
 }
+
+
+
+
+
+
+
+
+
 
 
 function pauseSpotifyTrack() {
