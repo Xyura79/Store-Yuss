@@ -433,7 +433,7 @@ const socialMediaServices = [
     {
         id: 1,
         name: "Pengikut Saluran WhatsApp",
-        price: 70000,
+        price: 75000,
         unit: "1.000 pengikut",
         status: "available",
         description: "Tambahkan pengikut ke saluran WhatsApp anda",
