@@ -2,11 +2,11 @@
 // SPOTIFY PLAYER (LIBRARY BANYAK LAGU) - FINAL
 // ================================================
 
-let spotifyAudio = null;
-let isSpotifyPlaying = false;
-let currentSpotifyTrack = null;
-let currentPlayIndex = -1;
-let searchResults = [];
+//let spotifyAudio = null;
+//let isSpotifyPlaying = false;
+//let currentSpotifyTrack = null;
+//let currentPlayIndex = -1;
+//let searchResults = [];
 
 let spotifyLibrary = JSON.parse(localStorage.getItem('spotify_library')) || [];
 
