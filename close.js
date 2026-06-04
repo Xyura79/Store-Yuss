@@ -3,7 +3,7 @@
 // ================================================
 
 // ========== KONFIGURASI - UBAH DI SINI ==========
-const STORE_CLOSED = true;  // true = tutup, false = buka
+const STORE_CLOSED = false;  // true = tutup, false = buka
 
 const ESTIMATED_OPEN_HOUR = "07.30";
 
