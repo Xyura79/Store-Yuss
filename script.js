@@ -458,7 +458,7 @@ const socialMediaServices = [
         name: "TikTok Like",
         price: 20000,
         unit: "1.000 Like",
-        status: "available",
+        status: "coming_soon",
         description: "Tambahkan Like ke akun TikTok",
         minQuantity: 100
     }
@@ -8195,14 +8195,14 @@ function showNokosModal(product) {
 // SPOTIFY PLAYER (FIXED - MULTIPLE LIBRARY)
 // ================================================
 
-/*let spotifyAudio = null;
+let spotifyAudio = null;
 let isSpotifyPlaying = false;
 let currentSpotifyTrack = null;
 let currentPlayIndex = -1;
 let searchResults = [];
-let currentLoadingOverlay = null;*/
+let currentLoadingOverlay = null;
 
-//let spotifyLibrary = [];
+let spotifyLibrary = [];
 
 function loadLibrary() {
     const saved = localStorage.getItem('spotify_library');
@@ -8242,13 +8242,14 @@ function addToLibrary(track) {
     );
     
     if (!exists) {
+        
         const newTrack = {
-            id: track.id || Date.now(), // jika id kosong, pakai timestamp unik
-            title: track.title,
-            artist: track.artist,
-            thumbnail: getValidThumbnail(track.thumbnail),
-            audioUrl: track.audioUrl
-        };
+    id: Date.now(), // SELALU pakai timestamp, jangan track.id
+    title: track.title,
+    artist: track.artist,
+    thumbnail: getValidThumbnail(track.thumbnail),
+    audioUrl: track.audioUrl
+};
         
         spotifyLibrary.unshift(newTrack);
         saveLibrary();
