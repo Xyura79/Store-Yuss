@@ -460,9 +460,9 @@ const socialMediaServices = [
     {
         id: 3,
         name: "TikTok Like",
-        price: 20000,
+        price: 15000,
         unit: "1.000 Like",
-        status: "coming_soon",
+        status: "available",
         description: "Tambahkan Like ke akun TikTok",
         minQuantity: 100
     }
