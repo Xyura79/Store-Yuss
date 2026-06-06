@@ -425,7 +425,6 @@ let products = [
 //🙏😁🤪😁🤪😁🤪😁🤪😁
 //🙏😁🤪😁🤪😁🤪😁🤪😁
 
-
 // ================================================
 // DATA LAYANAN SUNTIK SOSMED (FLEKSIBEL)
 // ================================================
@@ -453,20 +452,35 @@ const socialMediaServices = [
         name: "TikTok View",
         price: 7000,
         unit: "1.000 View",
-        status: "coming_soon",
+        status: "available",
         description: "Tambahkan View ke video TikTok",
         minQuantity: 500
     },
     {
         id: 3,
-        name: "TikTok Like",
+        name: "TikTok Like+View",
         price: 15000,
         unit: "1.000 Like",
         status: "available",
-        description: "Tambahkan Like ke akun TikTok",
+        description: "Menambahkan  Like ke VT Anda",
         minQuantity: 100
-    }
+    },
+        {
+        id: 4,
+        name: "TikTok Follower Indo",
+        price: 70000,
+        unit: "1.000 Like",
+        status: "available",
+        description: "Menambah Follower ke akun TikTok",
+        minQuantity: 20
+    },
+    
+    
+    
+    
+    
 ];
+
 
 
 //🙏😁🤪😁🤪😁🤪😁🤪😁
