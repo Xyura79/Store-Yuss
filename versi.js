@@ -19,7 +19,7 @@ const NOTIFICATION_DATA = {
             id: 1,
             title: "Update Versi",
             message: "Aplikasi YussXy telah diperbarui ke versi 3.0.0",
-            image: "",
+            image: "image/logo/logo.jpg",
             date: "20 Mei 2026"
         }
         
