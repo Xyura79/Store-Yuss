@@ -6,7 +6,7 @@
   "scope": "/Store-Yuss/",
   "display": "standalone",
   "background_color": "#0f0f0f",
-  "theme_color": "#ef4444",
+  "theme_color": "#0f0f0f",
   "orientation": "portrait",
   "icons": [
     {
