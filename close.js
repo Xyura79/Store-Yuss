@@ -5,7 +5,7 @@
 // ========== KONFIGURASI - UBAH DI SINI ==========
 const STORE_CLOSED = true;  // true = tutup, false = buka
 
-const ESTIMATED_OPEN_HOUR = "17.00/18.30";
+const ESTIMATED_OPEN_HOUR = "07.00/09.00";
 
 
 const CLOSE_REASON = "Istirahat Dulu";
