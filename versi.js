@@ -21,14 +21,13 @@ const NOTIFICATION_DATA = {
             message: "Aplikasi YussXy telah diperbarui ke versi 3.0.0",
             image: "",
             date: "20 Mei 2026"
-        },
-        {
-            id: 3,
-            title: "Produk Baru Di Tambah",
-            message: "Aplikasi Pembuat Logo JB",
-            image: "image/produk/produk18.jpg",
-            date: "22 Mei 2026"
         }
+        
+            
+
+
+
+        
     ]
 };
 
