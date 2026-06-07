@@ -306,7 +306,7 @@ let products = [
     image: "image/produk/produk14.jpg",
     category: "digital",
     isNegotiable: false,
-    type: "hot",
+    type: "coming_soon",
     isBugService: true,
     benefits: [
         "Bisa balas dendam ke teman, mantan"
