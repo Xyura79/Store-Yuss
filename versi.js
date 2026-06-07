@@ -3,7 +3,7 @@
 // Menyimpan informasi versi aplikasi
 // ================================================
 
-const APP_VERSION = "3.9.5";
+const APP_VERSION = "3.9.6";
 
 
 const APP_RELEASE_DATE = "03 Juni 2026";
@@ -30,6 +30,14 @@ const NOTIFICATION_DATA = {
             message: "Aplikasi Pembuat Logo JB",
             image: "image/produk/produk18.jpg",
             date: "22 Mei 2026"
+        },
+
+        {
+            id: 4,
+            title: "Update Di Tambahkan Di Bagian Qris",
+            message: "Sekarang Qris Sudah tidak memakai lini gambar, sekarang langsung ke path foto nya, membuat qris tidak error, dan sekarang jika kalian klik kris nya itu akan membuat qris nya membesar.",
+            image: "image/qris/qris.jpg",
+            date: "7 Juni 2026"
         },
         
         
