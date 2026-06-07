@@ -138,8 +138,8 @@ let products = [
 
 
     
-    
-    {
+  /*  
+ {
     id: 27,
     name: "Beli/Post Akun Game",
     description: ".",
@@ -150,7 +150,7 @@ let products = [
     type: "hot",
     isFFAccountService: true
 },
-    
+    */
     
     
     
@@ -199,7 +199,7 @@ let products = [
         image: "image/produk/produk6.jpg",
         category: "digital",
         isNegotiable: false,
-        type: "none",
+        type: "sold_out",
         hasVariant: true,
         variants: [
     { ram: "2GB", price: 2000, priceDisplay: "Rp 2.000" },
