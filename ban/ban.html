@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Akses Ditolak - YussXy Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f0f0f;
+            --bg-secondary: #1a1a1a;
+            --bg-card: #1e1e1e;
+            --text-primary: #ffffff;
+            --text-secondary: #9ca3af;
+            --accent: #ef4444;
+            --accent-hover: #dc2626;
+            --success: #10b981;
+            --border: #2a2a2a;
+            --radius-sm: 12px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background: var(--bg-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .banned-container {
+            text-align: center;
+            max-width: 380px;
+            width: 100%;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 40px 24px 32px;
+            animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .banned-icon-wrapper {
+            margin: 0 auto 24px;
+        }
+
+        .banned-icon-circle {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: rgba(239, 68, 68, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgba(239, 68, 68, 0.25);
+            margin: 0 auto;
+        }
+
+        .banned-icon-circle i {
+            font-size: 44px;
+            color: var(--accent);
+        }
+
+        .banned-title {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+        }
+
+        .banned-subtitle {
+            font-size: 11px;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+        }
+
+        .banned-message {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            margin-bottom: 14px;
+        }
+
+        .banned-message p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        .banned-message p strong {
+            color: var(--text-primary);
+        }
+
+        .device-id-display {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 40px;
+            padding: 10px 18px;
+            margin-bottom: 28px;
+            display: inline-block;
+        }
+
+        .device-id-display span {
+            font-size: 11px;
+            color: var(--text-secondary);
+            font-family: monospace;
+            letter-spacing: 1px;
+        }
+
+        .banned-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btn-unban {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            border: none;
+            border-radius: 40px;
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.15s ease;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.25);
+        }
+
+        .btn-unban:active {
+            transform: scale(0.97);
+            box-shadow: 0 2px 8px rgba(37, 211, 102, 0.15);
+        }
+
+        .btn-exit {
+            width: 100%;
+            padding: 15px;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 40px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.15s ease;
+        }
+
+        .btn-exit:active {
+            transform: scale(0.97);
+            background: rgba(239, 68, 68, 0.05);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .watermark {
+            margin-top: 28px;
+            font-size: 10px;
+            color: var(--border);
+            letter-spacing: 1.5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="banned-container">
+
+        <div class="banned-icon-wrapper">
+            <div class="banned-icon-circle">
+                <i class="ri-forbid-2-line"></i>
+            </div>
+        </div>
+
+        <h1 class="banned-title">AKSES DI TOLAK</h1>
+        <p class="banned-subtitle">Kamu Di Ban</p>
+
+        <div class="banned-message">
+            <p>
+                Maaf, kamu telah <strong>di ban oleh owner</strong>. Dan<br>
+                kamu tidak dapat mengakses <strong>Aplikasi YussXy Store</strong>.
+            </p>
+        </div>
+
+        <div class="device-id-display">
+            <span id="bannedDeviceId">Memuat ID...</span>
+        </div>
+
+        <div class="banned-buttons">
+            <button class="btn-unban" onclick="requestUnban()">
+                <i class="ri-whatsapp-line"></i> Minta Unban
+            </button>
+            <button class="btn-exit" onclick="exitApp()">
+                <i class="ri-logout-box-line"></i> Keluar
+            </button>
+        </div>
+
+        <p class="watermark">YussXy Store</p>
+    </div>
+
+    <script>
+        const deviceId = localStorage.getItem('device_fingerprint') || 'Tidak tersedia';
+        document.getElementById('bannedDeviceId').textContent = 'ID: ' + deviceId;
+
+        function requestUnban() {
+            const message = 
+                'Halo Yuss Xy \u{1F44B}\n\n' +
+                'Saya ingin mengajukan permohonan pembukaan blokir (UNBAN).\n\n' +
+                '\u{1F4F1} ID Perangkat Saya:\n' +
+                deviceId + '\n\n' +
+                'Mohon pertimbangkan untuk membuka blokir perangkat saya.\n' +
+                'Terima kasih \u{1F64F}';
+            
+            window.open('https://wa.me/6283183469343?text=' + encodeURIComponent(message), '_blank');
+        }
+
+        function exitApp() {
+            if (navigator.app && navigator.app.exitApp) {
+                navigator.app.exitApp();
+            } else if (window.close) {
+                window.close();
+            } else {
+                window.location.href = 'about:blank';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Unban Berhasil - YussXy Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f0f0f;
+            --bg-secondary: #1a1a1a;
+            --bg-card: #1e1e1e;
+            --text-primary: #ffffff;
+            --text-secondary: #9ca3af;
+            --accent: #ef4444;
+            --accent-hover: #dc2626;
+            --success: #10b981;
+            --border: #2a2a2a;
+            --radius-sm: 12px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background: var(--bg-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .unban-container {
+            text-align: center;
+            max-width: 380px;
+            width: 100%;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 40px 24px 32px;
+            animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .unban-icon-wrapper {
+            margin: 0 auto 28px;
+        }
+
+        .unban-icon-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: rgba(16, 185, 129, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgba(16, 185, 129, 0.25);
+            margin: 0 auto;
+            animation: scaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .unban-icon-circle i {
+            font-size: 52px;
+            color: var(--success);
+            animation: checkDraw 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+        }
+
+        @keyframes checkDraw {
+            from {
+                opacity: 0;
+                transform: scale(0.5) rotate(-20deg);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        .unban-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .unban-subtitle {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 32px;
+            padding: 0 8px;
+        }
+
+        .unban-subtitle strong {
+            color: var(--success);
+        }
+
+        .btn-next {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+            border: none;
+            border-radius: 40px;
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.15s ease;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+        }
+
+        .btn-next:active {
+            transform: scale(0.97);
+            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2);
+        }
+
+        .watermark {
+            margin-top: 28px;
+            font-size: 10px;
+            color: var(--border);
+            letter-spacing: 1.5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="unban-container">
+
+        <div class="unban-icon-wrapper">
+            <div class="unban-icon-circle">
+                <i class="ri-check-line"></i>
+            </div>
+        </div>
+
+        <h1 class="unban-title">Selamat! Kamu Tidak Lagi Di Ban</h1>
+        <p class="unban-subtitle">
+            Ban telah <strong>dibuka oleh owner</strong>.<br>
+            Kamu sekarang bisa mengakses aplikasi kembali.
+        </p>
+
+        <button class="btn-next" onclick="goToApp()">
+            <i class="ri-arrow-right-line"></i> Selanjutnya
+        </button>
+
+        <p class="watermark">YussXy Store</p>
+    </div>
+
+    <script>
+        function goToApp() {
+            window.location.href = '../index.html';
+        }
+    </script>
+</body>
+</html>
