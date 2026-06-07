@@ -227,7 +227,80 @@
 
 
 
+.qris-image {
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+    border-radius: 20px;
+    background: #f0f0f0;
+    padding: 12px;
+    margin: 0 auto;
+    display: block;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
 
+.qris-image:active {
+    transform: scale(0.97);
+}
+
+/* Overlay fullscreen */
+.qris-fullscreen-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.qris-fullscreen-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.qris-fullscreen-overlay img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 24px;
+    transform: scale(0.8);
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.qris-fullscreen-overlay.active img {
+    transform: scale(1);
+}
+
+.qris-fullscreen-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    z-index: 10;
+}
+
+.qris-fullscreen-close:active {
+    transform: scale(0.9);
+    background: rgba(255, 255, 255, 0.25);
+}
 
 
 
@@ -1629,14 +1702,17 @@
 
 .qris-image {
     width: 100%;
-    max-width: 280px;
+    max-width: 380px;
+    height: auto;
     border-radius: 20px;
     background: #f0f0f0;
-    padding: 12px;
+    padding: 16px;
     margin: 0 auto;
     display: block;
-    transition: opacity 0.2s ease;
+    object-fit: contain;
 }
+
+
 
 /* Loading spinner */
 .qris-loading {
@@ -8674,3 +8750,30 @@ body.modal-open-spotify {
     height: 40px;
     flex-shrink: 0;
 }
+
+
+
+
+
+img {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    pointer-events: none;
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+}
+
+
+img.allow-touch {
+    pointer-events: auto !important;
+    -webkit-touch-callout: auto !important;
+    -webkit-user-select: auto !important;
+    user-select: auto !important;
+    }
