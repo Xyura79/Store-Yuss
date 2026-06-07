@@ -1,11 +1,10 @@
-
 // ================================================
 // DATA PRODUK
 // ================================================
 // ==========================================
 const WHATSAPP_CHANNEL_URL = "https://whatsapp.com/channel/0029VbAgFKULSmbeJMLfmR3b";
 const ADMIN_PHONE_NUMBER = "6283183469343";
-
+const phoneNumber = '6283183469343';
 
 const tools = ['toolTiktok', 'toolYoutube', 'toolSpotify', 'toolFacebook', 'toolCapcut', 'toolInstagram', 'toolFakelobby', 'toolFakedana', 'toolFakelobbyml', 'toolFakejago', 'toolPassword', 'toolLorem', 'toolQrcode', 'toolSertifikatlol', 'toolWrMLBB', 'toolEmojimix', 'toolBeritaMLBB', 'toolTiktokhashtag', 'toolTranslate', 'toolSpotifysearch', 'toolLyrics', 'toolYtsearch', 'toolPpcouple', 'toolDeviceid', 'toolCekacount'];
 
@@ -140,7 +139,7 @@ let products = [
 
     
     
-  /*  {
+    {
     id: 27,
     name: "Beli/Post Akun Game",
     description: ".",
@@ -150,7 +149,7 @@ let products = [
     isNegotiable: false,
     type: "hot",
     isFFAccountService: true
-},*/
+},
     
     
     
@@ -200,7 +199,7 @@ let products = [
         image: "image/produk/produk6.jpg",
         category: "digital",
         isNegotiable: false,
-        type: "sold_out",
+        type: "none",
         hasVariant: true,
         variants: [
     { ram: "2GB", price: 2000, priceDisplay: "Rp 2.000" },
@@ -915,37 +914,31 @@ function sendWhatsAppConfirmation(orderDetails) {
     orderDetails.items.forEach((item) => {
         message += `• Produk: ${item.name} (${item.quantity}x)%0A`;
         
-        // Username Panel (untuk produk Panel Pterodactyl)
         if (item.panelUsername || (orderDetails.isPanelService && orderDetails.panelUsername)) {
             const username = item.panelUsername || orderDetails.panelUsername;
             message += `• Username Panel: ${username}%0A`;
         }
         
-        // RAM untuk panel
         if (item.ram || orderDetails.panelRam) {
             const ram = item.ram || orderDetails.panelRam;
             message += `• RAM: ${ram}%0A`;
         }
         
-        // Nomor target (untuk Jasa Bug)
         if (item.targetNumber || (orderDetails.isBugService && orderDetails.bugTarget)) {
             const target = item.targetNumber || orderDetails.bugTarget;
             message += `• Nomor Target: ${target}%0A`;
         }
         
-        // TAMBAHKAN INI - UNTUK SUNTIK SOSMED (Target/Link)
         if (item.sosmedTarget || orderDetails.sosmedTarget) {
             const target = item.sosmedTarget || orderDetails.sosmedTarget;
             message += `• Target (Link/Username): ${target}%0A`;
         }
         
-        // TAMBAHKAN INI - UNTUK SUNTIK SOSMED (Quantity/Jumlah)
         if (item.sosmedQuantity || orderDetails.sosmedQuantity) {
             const qty = item.sosmedQuantity || orderDetails.sosmedQuantity;
             message += `• Jumlah Pesanan: ${qty.toLocaleString('id-ID')}%0A`;
         }
         
-        // Reaction Service (untuk Reaction Pesan Saluran WA)
         if (item.reactionLink || (orderDetails.isReactionService && orderDetails.reactionLink)) {
             const link = item.reactionLink || orderDetails.reactionLink;
             let emoji = item.reactionEmoji || orderDetails.reactionEmoji;
@@ -973,7 +966,12 @@ function sendWhatsAppConfirmation(orderDetails) {
     
     message += `• Jumlah: ${orderDetails.totalItems} Item%0A`;
     message += `• Total Harga: Rp${orderDetails.totalPrice.toLocaleString('id-ID')}%0A`;
-    message += `• Waktu: ${jam} • ${tanggal} ${tahun}%0A%0A`;
+    message += `• Waktu: ${jam} • ${tanggal} ${tahun}%0A`;
+    
+    // ID Perangkat
+    const deviceId = localStorage.getItem('device_fingerprint') || 'Tidak tersedia';
+    message += `• ID: ${deviceId}%0A%0A`;
+    
     message += `✅ Pembayaran sudah saya lakukan.%0A%0A`;
     message += `Mohon segera diproses untuk layanan yang telah saya pesan.%0A`;
     message += `Terima kasih 🙏%0A`;
@@ -982,7 +980,6 @@ function sendWhatsAppConfirmation(orderDetails) {
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
     window.open(whatsappUrl, '_blank');
 }
-
 
 // ================================================
 // WHATSAPP CHAT KE OWNER (untuk tanya harga)
