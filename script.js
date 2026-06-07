@@ -2477,6 +2477,31 @@ function chatWithOwner() {
 // EVENT LISTENER SETELAH DOM LOAD
 // ==============
 document.addEventListener('DOMContentLoaded', function() {
+    // ================================================
+    // CEK BANNED & UNBAN (DI PALING ATAS)
+    // ================================================
+    const deviceId = localStorage.getItem('device_fingerprint');
+    
+    if (deviceId && typeof BANNED_DEVICE_IDS !== 'undefined' && BANNED_DEVICE_IDS.length > 0) {
+        if (BANNED_DEVICE_IDS.includes(deviceId)) {
+            localStorage.setItem('was_banned', 'true');
+            window.location.href = 'ban/ban.html';
+            return;
+        }
+    }
+    
+    const wasBanned = localStorage.getItem('was_banned') === 'true';
+    if (wasBanned && deviceId && typeof BANNED_DEVICE_IDS !== 'undefined') {
+        if (!BANNED_DEVICE_IDS.includes(deviceId)) {
+            localStorage.removeItem('was_banned');
+            window.location.href = 'ban/unban.html';
+            return;
+        }
+    }
+
+    // ================================================
+    // BANNER & ACTION BUTTONS
+    // ================================================
     loadBannerImages();
     
     const channelBtn = document.getElementById('channelBtn');
@@ -2497,8 +2522,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // ================================================
     // MODAL COMING SOON FITUR SPECIAL
     // ================================================
-    
-    // Tombol OK untuk menutup modal (tetap di halaman produk)
     const closeSpecialBtn = document.getElementById('closeSpecialModalBtn');
     if (closeSpecialBtn) {
         closeSpecialBtn.addEventListener('click', function() {
@@ -2509,7 +2532,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Tutup modal jika klik di luar konten
     const specialModal = document.getElementById('specialComingSoonModal');
     if (specialModal) {
         specialModal.addEventListener('click', function(e) {
@@ -2520,29 +2542,22 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // ================================================
-    // BOTTOM NAVIGATION - TOMBOL SPESIAL WARNA KUNING + ANIMASI
+    // BOTTOM NAVIGATION - TOMBOL SPESIAL
     // ================================================
-    
     const navItems = document.querySelectorAll('.nav-item');
     if (navItems.length > 0) {
         navItems.forEach(function(item) {
             item.addEventListener('click', function(e) {
                 const page = this.dataset.page;
                 
-                // Hapus class active dari semua nav-item
                 navItems.forEach(function(nav) {
                     nav.classList.remove('active');
                     nav.classList.remove('special-active');
                 });
                 
-                // Jika tombol Fitur (special) ditekan
                 if (page === 'special') {
                     e.preventDefault();
-                    
-                    // Tambah class special-active (warna kuning + animasi)
                     this.classList.add('special-active');
-                    
-                    // Animasi tambahan: efek bounce
                     this.style.transform = 'scale(0.9)';
                     setTimeout(() => {
                         if (this) this.style.transform = '';
@@ -2555,7 +2570,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     return;
                 }
                 
-                // Untuk tombol lain (Produk, Keranjang, Testimoni, Info)
                 if (page && typeof navigateToPage === 'function') {
                     this.classList.add('active');
                     navigateToPage(page);
@@ -2564,7 +2578,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
-
 
 // ================================================
 // BAGIAN FUNGSI TUTUP MODAL DENGAN ANIMASI
