@@ -1,4 +1,3 @@
-
 // ================================================
 // DATA PRODUK
 // ================================================
@@ -2477,108 +2476,12 @@ function chatWithOwner() {
 //===============
 // EVENT LISTENER SETELAH DOM LOAD
 // ==============
-document.addEventListener('DOMContentLoaded', function() {
-    // ================================================
-    // CEK BANNED & UNBAN (DI PALING ATAS)
-    // ================================================
-    const deviceId = localStorage.getItem('device_fingerprint');
-    
-    if (deviceId && typeof BANNED_DEVICE_IDS !== 'undefined' && BANNED_DEVICE_IDS.length > 0) {
-        if (BANNED_DEVICE_IDS.includes(deviceId)) {
-            localStorage.setItem('was_banned', 'true');
-            window.location.href = 'ban/ban.html';
-            return;
-        }
-    }
-    
-    const wasBanned = localStorage.getItem('was_banned') === 'true';
-    if (wasBanned && deviceId && typeof BANNED_DEVICE_IDS !== 'undefined') {
-        if (!BANNED_DEVICE_IDS.includes(deviceId)) {
-            localStorage.removeItem('was_banned');
-            window.location.href = 'ban/unban.html';
-            return;
-        }
-    }
 
-    // ================================================
-    // BANNER & ACTION BUTTONS
-    // ================================================
-    loadBannerImages();
-    
-    const channelBtn = document.getElementById('channelBtn');
-    const chatAdminBtn = document.getElementById('chatAdminBtn');
-    
-    if (channelBtn) {
-        channelBtn.addEventListener('click', function() {
-            window.open(WHATSAPP_CHANNEL_URL, '_blank');
-        });
-    }
-    
-    if (chatAdminBtn) {
-        chatAdminBtn.addEventListener('click', function() {
-            chatWithOwner();
-        });
-    }
-    
-    // ================================================
-    // MODAL COMING SOON FITUR SPECIAL
-    // ================================================
-    const closeSpecialBtn = document.getElementById('closeSpecialModalBtn');
-    if (closeSpecialBtn) {
-        closeSpecialBtn.addEventListener('click', function() {
-            const modal = document.getElementById('specialComingSoonModal');
-            if (modal) {
-                modal.classList.remove('active');
-            }
-        });
-    }
-    
-    const specialModal = document.getElementById('specialComingSoonModal');
-    if (specialModal) {
-        specialModal.addEventListener('click', function(e) {
-            if (e.target === specialModal) {
-                specialModal.classList.remove('active');
-            }
-        });
-    }
-    
-    // ================================================
-    // BOTTOM NAVIGATION - TOMBOL SPESIAL
-    // ================================================
-    const navItems = document.querySelectorAll('.nav-item');
-    if (navItems.length > 0) {
-        navItems.forEach(function(item) {
-            item.addEventListener('click', function(e) {
-                const page = this.dataset.page;
-                
-                navItems.forEach(function(nav) {
-                    nav.classList.remove('active');
-                    nav.classList.remove('special-active');
-                });
-                
-                if (page === 'special') {
-                    e.preventDefault();
-                    this.classList.add('special-active');
-                    this.style.transform = 'scale(0.9)';
-                    setTimeout(() => {
-                        if (this) this.style.transform = '';
-                    }, 150);
-                    
-                    const modal = document.getElementById('specialComingSoonModal');
-                    if (modal) {
-                        modal.classList.add('active');
-                    }
-                    return;
-                }
-                
-                if (page && typeof navigateToPage === 'function') {
-                    this.classList.add('active');
-                    navigateToPage(page);
-                }
-            });
-        });
-    }
-});
+
+
+
+
+
 
 // ================================================
 // BAGIAN FUNGSI TUTUP MODAL DENGAN ANIMASI
@@ -2696,7 +2599,125 @@ function closeQrisModal() {
 
 
 
+document.addEventListener('DOMContentLoaded', function() {
+    // ================================================
+    // GENERATE DEVICE ID OTOMATIS (KALAU BELUM ADA)
+    // ================================================
+    if (!localStorage.getItem('device_fingerprint')) {
+        generateAndSaveDeviceId();
+    }
 
+    async function generateAndSaveDeviceId() {
+        try {
+            const code = await generateDeviceCode();
+            localStorage.setItem('device_fingerprint', code);
+            console.log('Device ID dibuat otomatis:', code);
+        } catch(e) {
+            console.log('Gagal generate device ID:', e);
+        }
+    }
+
+    // ================================================
+    // CEK BANNED & UNBAN (DI PALING ATAS)
+    // ================================================
+    const deviceId = localStorage.getItem('device_fingerprint');
+    
+    if (deviceId && typeof BANNED_DEVICE_IDS !== 'undefined' && BANNED_DEVICE_IDS.length > 0) {
+        if (BANNED_DEVICE_IDS.includes(deviceId)) {
+            localStorage.setItem('was_banned', 'true');
+            window.location.href = 'ban/ban.html';
+            return;
+        }
+    }
+    
+    const wasBanned = localStorage.getItem('was_banned') === 'true';
+    if (wasBanned && deviceId && typeof BANNED_DEVICE_IDS !== 'undefined') {
+        if (!BANNED_DEVICE_IDS.includes(deviceId)) {
+            localStorage.removeItem('was_banned');
+            window.location.href = 'ban/unban.html';
+            return;
+        }
+    }
+
+    // ================================================
+    // BANNER & ACTION BUTTONS
+    // ================================================
+    loadBannerImages();
+    
+    const channelBtn = document.getElementById('channelBtn');
+    const chatAdminBtn = document.getElementById('chatAdminBtn');
+    
+    if (channelBtn) {
+        channelBtn.addEventListener('click', function() {
+            window.open(WHATSAPP_CHANNEL_URL, '_blank');
+        });
+    }
+    
+    if (chatAdminBtn) {
+        chatAdminBtn.addEventListener('click', function() {
+            chatWithOwner();
+        });
+    }
+    
+    // ================================================
+    // MODAL COMING SOON FITUR SPECIAL
+    // ================================================
+    const closeSpecialBtn = document.getElementById('closeSpecialModalBtn');
+    if (closeSpecialBtn) {
+        closeSpecialBtn.addEventListener('click', function() {
+            const modal = document.getElementById('specialComingSoonModal');
+            if (modal) {
+                modal.classList.remove('active');
+            }
+        });
+    }
+    
+    const specialModal = document.getElementById('specialComingSoonModal');
+    if (specialModal) {
+        specialModal.addEventListener('click', function(e) {
+            if (e.target === specialModal) {
+                specialModal.classList.remove('active');
+            }
+        });
+    }
+    
+    // ================================================
+    // BOTTOM NAVIGATION - TOMBOL SPESIAL
+    // ================================================
+    const navItems = document.querySelectorAll('.nav-item');
+    if (navItems.length > 0) {
+        navItems.forEach(function(item) {
+            item.addEventListener('click', function(e) {
+                const page = this.dataset.page;
+                
+                navItems.forEach(function(nav) {
+                    nav.classList.remove('active');
+                    nav.classList.remove('special-active');
+                });
+                
+                if (page === 'special') {
+                    e.preventDefault();
+                    this.classList.add('special-active');
+                    this.style.transform = 'scale(0.9)';
+                    setTimeout(() => {
+                        if (this) this.style.transform = '';
+                    }, 150);
+                    
+                    const modal = document.getElementById('specialComingSoonModal');
+                    if (modal) {
+                        modal.classList.add('active');
+                    }
+                    return;
+                }
+                
+                if (page && typeof navigateToPage === 'function') {
+                    this.classList.add('active');
+                    navigateToPage(page);
+                }
+            });
+        });
+    }
+});
 
 
 
@@ -9080,6 +9101,25 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+
+
+
+// ================================================
+// GENERATE DEVICE ID OTOMATIS (KALAU BELUM ADA)
+// ================================================
+if (!localStorage.getItem('device_fingerprint')) {
+    generateAndSaveDeviceId();
+}
+
+async function generateAndSaveDeviceId() {
+    try {
+        const code = await generateDeviceCode();
+        localStorage.setItem('device_fingerprint', code);
+        console.log('Device ID dibuat otomatis:', code);
+    } catch(e) {
+        console.log('Gagal generate device ID:', e);
+    }
+}
 
 
 
