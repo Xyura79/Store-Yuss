@@ -35,7 +35,7 @@ const NOTIFICATION_DATA = {
         {
             id: 4,
             title: "Update Di Tambahkan Di Bagian Qris",
-            message: "Sekarang Qris Sudah tidak memakai lini gambar, sekarang langsung ke path foto nya, membuat qris tidak error, dan sekarang jika kalian klik kris nya itu akan membuat qris nya membesar.",
+            message: "Sekarang Qris Sudah tidak memakai link, sekarang langsung ke path foto nya, membuat qris tidak error, dan sekarang jika kalian klik Qris nya itu akan membuat qris nya membesar.",
             image: "image/qris/qris.jpg",
             date: "7 Juni 2026"
         },
