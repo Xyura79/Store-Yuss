@@ -1,3 +1,4 @@
+
 // ================================================
 // DATA PRODUK
 // ================================================
@@ -137,7 +138,20 @@ let products = [
 },
 
 
-
+    
+    
+    {
+    id: 27,
+    name: "Beli/Post Akun Game",
+    description: ".",
+    price: "Lihat Daftar",
+    image: "image/produk/produk26.jpg",
+    category: "jual-beli",
+    isNegotiable: false,
+    type: "hot",
+    isFFAccountService: true
+},
+    
     
     
     
@@ -156,7 +170,10 @@ let products = [
         "bisa di jual lagi"
     ]
 },
-    
+   
+   
+   
+   
     
             {
     id: 25,
@@ -183,7 +200,7 @@ let products = [
         image: "image/produk/produk6.jpg",
         category: "digital",
         isNegotiable: false,
-        type: "sold_out",
+        type: "none",
         hasVariant: true,
         variants: [
     { ram: "2GB", price: 2000, priceDisplay: "Rp 2.000" },
@@ -388,24 +405,13 @@ let products = [
     category: "jasa",
     isEboox: true,
     type: "none"
-},
+}
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+//🥑😒🥑🫡😒🫡😒🫡😒🫡😒
+//😒😇😒😇😒😇😒😇😒😇😒
 
 
 
@@ -420,10 +426,56 @@ let products = [
 
 ];
 
+//😑🥺🥹🥺😊🥺😋
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ================================================
+// DATA AKUN FREE FIRE (TERPISAH)
+// ================================================
+const ffAccounts = [
+    {
+        id: 1,
+        name: "Akun FF Sultan",
+        price: 150000,
+        specs: "Level 70 • 50 Skin Legend • 10 Bundle",
+        description: "Akun pribadi, aman, data lengkap",
+        seller: { type: 'owner' }  // admin YussXy
+    },
+    {
+        id: 2,
+        name: "Akun FF Semi Sultan",
+        price: 80000,
+        specs: "Level 60 • 20 Skin Legend • 5 Bundle",
+        description: "Akun hasil joki, bisa ganti email",
+        seller: { type: 'other', name: 'Rizky', phone: '6281234567890' }
+    },
+    {
+        id: 3,
+        name: "Akun FF Budget",
+        price: 30000,
+        specs: "Level 40 • 5 Skin Legend • 1 Bundle",
+        description: "Cocok buat pemula",
+        seller: { type: 'other', name: 'Asep', phone: '6289876543210' }
+    }
+];
+
+
 
 //🙏😁🤪😁🤪😁🤪😁🤪😁
 //🙏😁🤪😁🤪😁🤪😁🤪😁
 //🙏😁🤪😁🤪😁🤪😁🤪😁
+
 
 // ================================================
 // DATA LAYANAN SUNTIK SOSMED (FLEKSIBEL)
@@ -467,7 +519,7 @@ const socialMediaServices = [
     },
         {
         id: 4,
-        name: "TikTok Follower Indo",
+        name: "TikTok Follower",
         price: 70000,
         unit: "1.000 Like",
         status: "available",
@@ -480,7 +532,6 @@ const socialMediaServices = [
     
     
 ];
-
 
 
 //🙏😁🤪😁🤪😁🤪😁🤪😁
@@ -1463,7 +1514,7 @@ function showQrisModalWithButton() {
     }
     
     // Preload gambar dengan cache buster (biar cepat)
-    const qrisUrl = 'https://files.catbox.moe/053qg6.jpg';
+    const qrisUrl = 'image/qris/qris.jpg';
     const img = new Image();
     img.onload = function() {
         // Gambar selesai dimuat
@@ -1471,6 +1522,8 @@ function showQrisModalWithButton() {
             qrisImage.src = qrisUrl;
             qrisImage.style.display = 'block';
             qrisImage.style.opacity = '1';
+            setupQrisZoom();
+            
         }
         if (qrisLoading) {
             qrisLoading.style.display = 'none';
@@ -1492,6 +1545,57 @@ function showQrisModalWithButton() {
     if (modal) {
         modal.classList.add('active');
     }
+}
+
+
+
+
+
+
+
+
+let qrisZoomReady = false;
+
+function setupQrisZoom() {
+    if (qrisZoomReady) return;
+    
+    const qrisImage = document.getElementById('qrisImage');
+    if (!qrisImage) return;
+
+    qrisImage.style.cursor = 'pointer';
+
+    qrisImage.addEventListener('click', function() {
+        const overlay = document.createElement('div');
+        overlay.className = 'qris-fullscreen-overlay';
+        overlay.innerHTML = `
+            <button class="qris-fullscreen-close">
+                <i class="ri-close-line"></i>
+            </button>
+            <img src="${qrisImage.src}" alt="QRIS">
+        `;
+
+        document.body.appendChild(overlay);
+        document.body.style.overflow = 'hidden';
+
+        requestAnimationFrame(() => {
+            overlay.classList.add('active');
+        });
+
+        function closeOverlay() {
+            overlay.classList.remove('active');
+            setTimeout(() => {
+                overlay.remove();
+                document.body.style.overflow = '';
+            }, 300);
+        }
+
+        overlay.querySelector('.qris-fullscreen-close').addEventListener('click', closeOverlay);
+        overlay.addEventListener('click', function(e) {
+            if (e.target === overlay) closeOverlay();
+        });
+    });
+
+    qrisZoomReady = true;
 }
 
 
@@ -2154,9 +2258,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     
     
-    
-    
-    
+
     
  // ================================================
 // DARK/LIGHT MODE TOGGLE
@@ -2488,6 +2590,7 @@ function closeProductModal() {
 function closeQrisModal() {
     const modal = document.getElementById('qrisModal');
     closeModalWithAnimation(modal);
+    qrisZoomReady = false;
 }
 
 
@@ -8820,7 +8923,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 //🟡🟡🟡🟡🟡🟡🟡
 
+
+
+
 //🟡🟡🟡🟡🟡🟡🟡
+
+
 
 
 
@@ -8943,6 +9051,22 @@ window.addEventListener('popstate', function(event) {
 
 
 
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Mencegah drag pada semua gambar
+    document.addEventListener('dragstart', function(e) {
+        if (e.target.tagName === 'IMG') {
+            e.preventDefault();
+        }
+    });
+
+    // Mencegah klik kanan (context menu) pada gambar
+    document.addEventListener('contextmenu', function(e) {
+        if (e.target.tagName === 'IMG') {
+            e.preventDefault();
+        }
+    });
+});
 
 
 
