@@ -34,6 +34,5 @@ const NOTIFICATION_DATA = {
 
 const BANNED_DEVICE_IDS = [
     // "A1B2C3D4E5F6G7H8",
-    "C67925C88D63AFCE"
     
 ];
