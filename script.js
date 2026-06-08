@@ -1,6 +1,3 @@
-
-
-
 // ================================================
 // DATA PRODUK
 // ================================================
@@ -200,6 +197,50 @@ let products = [
     
     
     
+        {
+    id: 17,
+    name: "Aplikasi Pembuat Logo JB",
+    description: "Keuntungannya, Buat Logo Gak Perlu Susah Lagi, Tinggal Ganti Teks Langsung Jadi, Bisa Jualan Logo JB",
+    price: 5000,
+    image: "image/produk/produk18.jpg",
+    category: "digital",
+    isNegotiable: false,
+    type: "hot",
+    benefits: [
+        "Bisa buat logo dengan mudah",
+        "bisa jualan logo"
+    ]
+},
+    
+    
+    
+        {
+    id: 30,
+    name: "Aplikasi Auto Sv Kontak",
+    description: "Keuntungannya, Kontak Jadi Banyak, Gak perlu sv 1 1, udah otomatis nge save kontak tidak di kenal, cocok buat anak jb",
+    price: 5000,
+    image: "image/produk/produk27.jpg",
+    category: "digital",
+    isNegotiable: false,
+    type: "new",
+    benefits: [
+        "Otomatis Save Kontak Tidak Di kenal",
+        "Kontak Jadi Banyak"
+    ]
+},
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
             {
     id: 24,
@@ -273,22 +314,7 @@ let products = [
     
     
     
-    {
-    id: 17,
-    name: "Aplikasi Pembuat Logo JB",
-    description: "Keuntungannya, Buat Logo Gak Perlu Susah Lagi, Tinggal Ganti Teks Langsung Jadi, Bisa Jualan Logo JB",
-    price: 3000,
-    image: "image/produk/produk18.jpg",
-    category: "digital",
-    isNegotiable: false,
-    type: "none",
-    benefits: [
-        "Bisa buat logo dengan mudah",
-        "bisa jualan logo"
-    ]
-},
-    
-    
+
 
     
     
