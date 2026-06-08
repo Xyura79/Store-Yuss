@@ -51,6 +51,11 @@ let products = [
         "Bisa tf Dana ke sesama akun Dana non premium"
     ]
 },
+
+
+
+
+
     
     {
     id: 20,
@@ -100,6 +105,26 @@ let products = [
     
     
     
+        {
+    id: 19,
+    name: "Reaction Pesan Saluran",
+    description: "Memberikan 100+ Reaksi emoji ke pesan di saluran WhatsApp anda",
+    price: 800,
+    image: "image/produk/produk20.jpg",
+    category: "jasa",
+    isNegotiable: false,
+    type: "hot",
+    isReactionService: true,
+    benefits: [
+        "Pesan saluran mu banyak reaksi nya",
+        "bisa pamer ke teman",
+        "100+ reaction walaupun pengikut saluran kurang dari 100"
+    ]
+},
+
+    
+    
+    
     
         {
     id: 26,
@@ -119,22 +144,6 @@ let products = [
 },
     
     
-    {
-    id: 19,
-    name: "Reaction Pesan Saluran",
-    description: "Memberikan 100+ Reaksi emoji ke pesan di saluran WhatsApp anda",
-    price: 800,
-    image: "image/produk/produk20.jpg",
-    category: "jasa",
-    isNegotiable: false,
-    type: "hot",
-    isReactionService: true,
-    benefits: [
-        "Pesan saluran mu banyak reaksi nya",
-        "bisa pamer ke teman",
-        "100+ reaction walaupun pengikut saluran kurang dari 100"
-    ]
-},
 
 
     
@@ -388,7 +397,7 @@ let products = [
     image: "image/produk/produk11.jpg",
     category: "digital",
     isNegotiable: true,
-    type: "new",
+    type: "hot",
     benefits: [
         "Ubah web mu jadi aplikasi"
     ]
@@ -1481,9 +1490,7 @@ function showUsernameModalForPanelCart() {
 }
 
 
-// ================================================
-// FUNGSI RESET DAN TAMPILKAN LINK CADANGAN QRIS
-// ================================================
+
 // ================================================
 // FUNGSI TAMPILKAN QRIS DENGAN LOADING CEPAT
 // ================================================
@@ -2223,9 +2230,8 @@ document.addEventListener('DOMContentLoaded', () => {
     renderCart();
     updateCartBadges();
     showSkeletonLoading();
-    
-    
-    
+    initSholatWidget();
+    initQuoteWidget();
     
     
     
@@ -5476,7 +5482,6 @@ function renderTestimonials() {
     const grid = document.getElementById('testimoniGrid');
     if (!grid) return;
     
-    // Pastikan testimonials sudah didefinisikan di testi.js
     if (typeof testimonials === 'undefined') {
         console.log("testimonials tidak ditemukan");
         return;
@@ -5485,26 +5490,28 @@ function renderTestimonials() {
     grid.innerHTML = testimonials.map(t => `
         <div class="testimoni-card">
             <div class="testimoni-image">
-                <img src="${t.image}" alt="Produk" onerror="this.src='https://placehold.co/50x50/333/white?text=Error'">
+                <div class="testimoni-skeleton"></div>
+                <img src="${t.image}" alt="Produk" class="testimoni-img skeleton-loading" 
+                     onload="this.classList.remove('skeleton-loading'); this.previousElementSibling.remove();" 
+                     onerror="this.src='https://placehold.co/140x140/333/white?text=Error'; this.classList.remove('skeleton-loading'); this.previousElementSibling.remove();">
             </div>
-            <div class="testimoni-title">
-                📢 TRANSAKSI BERHASIL
+            <div class="testimoni-badge">
+                <i class="ri-verified-badge-line"></i> TRANSAKSI BERHASIL
             </div>
             <div class="testimoni-product">
-                <p>📦 <strong>${t.product}</strong></p>
-                <p>💰 ${t.price}</p>
-                <p>📆 ${t.date} • 🕒 ${t.time}</p>
+                <p><i class="ri-shopping-bag-line"></i> <strong>${t.product}</strong></p>
+                <p><i class="ri-money-dollar-circle-line"></i> ${t.price}</p>
+                <p><i class="ri-calendar-line"></i> ${t.date} <i class="ri-time-line"></i> ${t.time}</p>
             </div>
-
+            <div class="testimoni-divider"></div>
             <div class="testimoni-footer">
-                <p>✅ Proses cepat & aman</p>
-                <p>✅ Layanan aktif setiap hari</p>
+                <p><i class="ri-check-double-line"></i> Proses cepat & aman</p>
+                <p><i class="ri-shield-check-line"></i> Layanan aktif setiap hari</p>
+                <p class="testimoni-admin"><i class="ri-user-star-line"></i> Admin: YussXy</p>
             </div>
         </div>
     `).join('');
 }
-
-
 
 // ================================================
 // SHARE APLIKASI DARI SIDEBAR
@@ -9120,6 +9127,366 @@ async function generateAndSaveDeviceId() {
         console.log('Gagal generate device ID:', e);
     }
 }
+
+
+
+
+
+
+//💡💡👤👤👤
+
+// ================================================
+// ZOOM QRIS TRANSFER
+// ================================================
+(function() {
+    function attachZoom() {
+        const qrisImg = document.getElementById('transferQrisImage');
+        if (!qrisImg || qrisImg.dataset.zoomAttached === 'true') return;
+        
+        qrisImg.dataset.zoomAttached = 'true';
+        qrisImg.style.cursor = 'pointer';
+
+        qrisImg.addEventListener('click', function() {
+            const overlay = document.createElement('div');
+            overlay.className = 'qris-fullscreen-overlay';
+            overlay.innerHTML = `
+                <button class="qris-fullscreen-close">
+                    <i class="ri-close-line"></i>
+                </button>
+                <img src="${this.src}" alt="QRIS">
+            `;
+
+            document.body.appendChild(overlay);
+            document.body.style.overflow = 'hidden';
+
+            requestAnimationFrame(() => {
+                overlay.classList.add('active');
+            });
+
+            function closeOverlay() {
+                overlay.classList.remove('active');
+                setTimeout(() => {
+                    overlay.remove();
+                    document.body.style.overflow = '';
+                }, 300);
+            }
+
+            overlay.querySelector('.qris-fullscreen-close').addEventListener('click', closeOverlay);
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) closeOverlay();
+            });
+        });
+    }
+
+    // Coba langsung
+    attachZoom();
+
+    // Coba lagi setelah delay (buat jaga-jaga kalau elemen muncul belakangan)
+    setTimeout(attachZoom, 500);
+    setTimeout(attachZoom, 1000);
+    setTimeout(attachZoom, 2000);
+})();
+
+
+
+
+
+
+
+
+
+function initSholatWidget() {
+    const input = document.getElementById('sholatCityInput');
+    const refresh = document.getElementById('sholatRefreshBtn');
+    
+    // Load default Bandung (TANPA TOAST NOTIF)
+    loadJadwalSholatSilent('bandung');
+    
+    if (refresh && input) {
+        refresh.addEventListener('click', function() {
+            const kota = input.value.trim();
+            if (kota) {
+                fetchJadwalSholat(kota);  // dengan toast
+            } else {
+                showToast('❌ Masukkan nama kota', true);
+            }
+        });
+        
+        input.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const kota = input.value.trim();
+                if (kota) {
+                    fetchJadwalSholat(kota);  // dengan toast
+                }
+            }
+        });
+    }
+}
+
+// Fungsi baru: load tanpa toast notif
+async function loadJadwalSholatSilent(kota) {
+    const loading = document.getElementById('sholatLoading');
+    const content = document.getElementById('sholatContent');
+    
+    if (loading) loading.style.display = 'flex';
+    if (content) content.style.display = 'none';
+    
+    try {
+        const encodedKota = encodeURIComponent(kota.toLowerCase());
+        const response = await fetch(`https://api.nexray.eu.cc/information/jadwalsholat?kota=${encodedKota}`);
+        const data = await response.json();
+        
+        if (data.status && data.result) {
+            const r = data.result;
+            const j = r.jadwal;
+            
+            document.getElementById('sholatCityName').textContent = r.kota;
+            document.getElementById('sholatDate').textContent = `${r.periode} - ${r.tanggal}`;
+            document.getElementById('imsyak').textContent = j.imsyak || '--:--';
+            document.getElementById('subuh').textContent = j.subuh || '--:--';
+            document.getElementById('terbit').textContent = j.terbit || '--:--';
+            document.getElementById('dhuha').textContent = j.dhuha || '--:--';
+            document.getElementById('dzuhur').textContent = j.dzuhur || '--:--';
+            document.getElementById('ashar').textContent = j.ashar || '--:--';
+            document.getElementById('maghrib').textContent = j.maghrib || '--:--';
+            document.getElementById('isya').textContent = j.isya || '--:--';
+            
+            if (content) content.style.display = 'block';
+            // TIDAK ADA showToast di sini
+        } else {
+            if (content) content.style.display = 'none';
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    } finally {
+        if (loading) loading.style.display = 'none';
+    }
+}
+
+
+
+
+// ================================================
+// JADWAL SHOLAT - MODERN WIDGET (FIXED)
+// ================================================
+
+async function fetchJadwalSholat(kota) {
+    const loading = document.getElementById('sholatLoading');
+    const content = document.getElementById('sholatContent');
+    
+    if (loading) loading.style.display = 'flex';
+    if (content) content.style.display = 'none';
+    
+    try {
+        const encodedKota = encodeURIComponent(kota.toLowerCase());
+        const response = await fetch(`https://api.nexray.eu.cc/information/jadwalsholat?kota=${encodedKota}`);
+        const data = await response.json();
+        
+        if (data.status && data.result) {
+            const r = data.result;
+            const j = r.jadwal;
+            
+            // Update DOM
+            const cityNameSpan = document.getElementById('sholatCityName');
+            const dateSpan = document.getElementById('sholatDate');
+            if (cityNameSpan) cityNameSpan.textContent = r.kota;
+            if (dateSpan) dateSpan.textContent = `${r.periode} - ${r.tanggal}`;
+            
+            const imsyak = document.getElementById('imsyak');
+            const subuh = document.getElementById('subuh');
+            const terbit = document.getElementById('terbit');
+            const dhuha = document.getElementById('dhuha');
+            const dzuhur = document.getElementById('dzuhur');
+            const ashar = document.getElementById('ashar');
+            const maghrib = document.getElementById('maghrib');
+            const isya = document.getElementById('isya');
+            
+            if (imsyak) imsyak.textContent = j.imsyak || '--:--';
+            if (subuh) subuh.textContent = j.subuh || '--:--';
+            if (terbit) terbit.textContent = j.terbit || '--:--';
+            if (dhuha) dhuha.textContent = j.dhuha || '--:--';
+            if (dzuhur) dzuhur.textContent = j.dzuhur || '--:--';
+            if (ashar) ashar.textContent = j.ashar || '--:--';
+            if (maghrib) maghrib.textContent = j.maghrib || '--:--';
+            if (isya) isya.textContent = j.isya || '--:--';
+            
+            const updateSpan = document.getElementById('sholatUpdateTime');
+            if (updateSpan && data.timestamp) {
+                const date = new Date(data.timestamp);
+                updateSpan.textContent = `Update ${date.toLocaleTimeString('id-ID')}`;
+            }
+            
+            if (content) content.style.display = 'block';
+            
+            // Hanya tampilkan toast jika bukan load pertama (optional)
+            if (!window.isFirstLoad) {
+                showToast(`✅ Jadwal ${r.kota}`);
+            }
+            window.isFirstLoad = true;
+            
+        } else {
+            showToast('❌ Kota tidak ditemukan', true);
+            if (content) content.style.display = 'none';
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        showToast('❌ Gagal mengambil jadwal', true);
+    } finally {
+        if (loading) loading.style.display = 'none';
+    }
+}
+
+// Fungsi untuk load tanpa toast (pertama kali)
+async function loadJadwalSholatSilent(kota) {
+    const loading = document.getElementById('sholatLoading');
+    const content = document.getElementById('sholatContent');
+    
+    if (loading) loading.style.display = 'flex';
+    if (content) content.style.display = 'none';
+    
+    try {
+        const encodedKota = encodeURIComponent(kota.toLowerCase());
+        const response = await fetch(`https://api.nexray.eu.cc/information/jadwalsholat?kota=${encodedKota}`);
+        const data = await response.json();
+        
+        if (data.status && data.result) {
+            const r = data.result;
+            const j = r.jadwal;
+            
+            const cityNameSpan = document.getElementById('sholatCityName');
+            const dateSpan = document.getElementById('sholatDate');
+            if (cityNameSpan) cityNameSpan.textContent = r.kota;
+            if (dateSpan) dateSpan.textContent = `${r.periode} - ${r.tanggal}`;
+            
+            document.getElementById('imsyak').textContent = j.imsyak || '--:--';
+            document.getElementById('subuh').textContent = j.subuh || '--:--';
+            document.getElementById('terbit').textContent = j.terbit || '--:--';
+            document.getElementById('dhuha').textContent = j.dhuha || '--:--';
+            document.getElementById('dzuhur').textContent = j.dzuhur || '--:--';
+            document.getElementById('ashar').textContent = j.ashar || '--:--';
+            document.getElementById('maghrib').textContent = j.maghrib || '--:--';
+            document.getElementById('isya').textContent = j.isya || '--:--';
+            
+            if (content) content.style.display = 'block';
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    } finally {
+        if (loading) loading.style.display = 'none';
+    }
+}
+
+// Inisialisasi widget
+function initSholatWidget() {
+    const input = document.getElementById('sholatCityInput');
+    const refresh = document.getElementById('sholatRefreshBtn');
+    
+    if (!input || !refresh) return;
+    
+    // Set flag untuk first load
+    window.isFirstLoad = false;
+    
+    // Load default Bandung (silent, tanpa toast)
+    loadJadwalSholatSilent('bandung');
+    
+    // Hapus event listener lama (biar tidak double)
+    const newRefresh = refresh.cloneNode(true);
+    refresh.parentNode.replaceChild(newRefresh, refresh);
+    
+    // Event klik tombol refresh
+    newRefresh.addEventListener('click', function() {
+        const kota = input.value.trim();
+        if (kota) {
+            fetchJadwalSholat(kota);
+        } else {
+            showToast('❌ Masukkan nama kota', true);
+        }
+    });
+    
+    // Event enter key
+    input.removeEventListener('keypress', input._listener);
+    input._listener = function(e) {
+        if (e.key === 'Enter') {
+            const kota = input.value.trim();
+            if (kota) {
+                fetchJadwalSholat(kota);
+            } else {
+                showToast('❌ Masukkan nama kota', true);
+            }
+        }
+    };
+    input.addEventListener('keypress', input._listener);
+    
+    // Event change (ketika pilih dari datalist)
+    input.addEventListener('change', function() {
+        const kota = input.value.trim();
+        if (kota) {
+            fetchJadwalSholat(kota);
+        }
+    });
+}
+
+
+
+
+// ================================================
+// RANDOM QUOTE WIDGET
+// ================================================
+
+async function fetchRandomQuote() {
+    const quoteText = document.getElementById('quoteText');
+    if (!quoteText) return;
+    
+    quoteText.innerHTML = '<i class="ri-loader-4-line" style="display: inline-block; animation: spin 0.8s linear infinite;"></i> Memuat...';
+    
+    try {
+        const response = await fetch('https://kyzznekoo.zone.id/api/random/quotes');
+        const data = await response.json();
+        
+        if (data.status === true && data.result) {
+            quoteText.innerHTML = ` ${escapeHtml(data.result)}`;
+        } else {
+            quoteText.innerHTML = '"Hari ini adalah kesempatan untuk jadi lebih baik."';
+        }
+    } catch (error) {
+        console.error('Error fetching quote:', error);
+        quoteText.innerHTML = '"Jangan menyerah, masih ada hari esok."';
+    }
+}
+
+// Panggil di initSholatWidget atau buat fungsi terpisah
+function initQuoteWidget() {
+    const refreshBtn = document.getElementById('refreshQuoteBtn');
+    
+    // Load quote pertama kali
+    fetchRandomQuote();
+    
+    // Event refresh
+    if (refreshBtn) {
+        refreshBtn.addEventListener('click', fetchRandomQuote);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
