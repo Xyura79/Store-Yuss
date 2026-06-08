@@ -533,7 +533,7 @@ const socialMediaServices = [
         unit: "1.000 Like",
         status: "available",
         description: "Menambah Like Facebook",
-        minQuantity: 50
+        minQuantity: 100
     },
     
     
