@@ -1,3 +1,4 @@
+
 // ================================================
 // DATA PRODUK
 // ================================================
@@ -56,6 +57,7 @@ let products = [
 
 
 
+
     
     {
     id: 20,
@@ -83,6 +85,8 @@ let products = [
 },
     
     
+    
+    
 {
     id: 14,
     name: "Nokos",
@@ -102,6 +106,33 @@ let products = [
 },
 
     
+        {
+        id: 7,
+        name: "Panel Pterodactly",
+        description: "Server yang Siap Hosting bot kamu, Anti delay, dan bergaransi",
+        price: "Rp 500",
+        image: "image/produk/produk6.jpg",
+        category: "digital",
+        isNegotiable: false,
+        type: "hot",
+        hasVariant: true,
+        variants: [
+    { ram: "2GB", price: 2000, priceDisplay: "Rp 2.000" },
+    { ram: "3GB", price: 3000, priceDisplay: "Rp 3.000" },
+    { ram: "4GB", price: 4000, priceDisplay: "Rp 4.000" },
+    { ram: "5GB", price: 5000, priceDisplay: "Rp 5.000" },
+    { ram: "6GB", price: 5500, priceDisplay: "Rp 5.500" },
+    { ram: "7GB", price: 6000, priceDisplay: "Rp 6.000" },
+    { ram: "8GB", price: 7000, priceDisplay: "Rp 7.000" },
+    { ram: "9GB", price: 8000, priceDisplay: "Rp 8.000" },
+    { ram: "10GB", price: 9000, priceDisplay: "Rp 9.000" },
+    { ram: "Unli-GB", price: 13000, priceDisplay: "Rp 13.000" }
+]
+
+
+
+
+    },
     
     
     
@@ -113,7 +144,7 @@ let products = [
     image: "image/produk/produk20.jpg",
     category: "jasa",
     isNegotiable: false,
-    type: "sold_out",
+    type: "hot",
     isReactionService: true,
     benefits: [
         "Pesan saluran mu banyak reaksi nya",
@@ -147,19 +178,23 @@ let products = [
 
 
     
-  /*  
- {
-    id: 27,
-    name: "Beli/Post Akun Game",
-    description: ".",
-    price: "Lihat Daftar",
+        {
+    id: 29,
+    name: "Website Store",
+    description: "Web store ini akan membantu kamu dalam berjualan, Pembeli jadi tidak perlu tanya tanya harga, prodyk apa yang di jual, karna sudah tersedia di web, dan pembeli tinggal memilih. Kamu mendapatkan web dan script nya",
+    price: 20000,
     image: "image/produk/produk26.jpg",
-    category: "jual-beli",
+    category: "digital",
     isNegotiable: false,
-    type: "hot",
-    isFFAccountService: true
+    type: "new",
+    benefits: [
+        "Punya Web Store Permanen",
+        "Free Deploy Vercel",
+        "Free ADD 10 Produk",
+        
+    ]
 },
-    */
+    
     
     
     
@@ -200,34 +235,7 @@ let products = [
     
     
     
-    {
-        id: 7,
-        name: "Panel Pterodactly",
-        description: "Server yang Siap Hosting bot kamu, Anti delay, dan bergaransi",
-        price: "Rp 500",
-        image: "image/produk/produk6.jpg",
-        category: "digital",
-        isNegotiable: false,
-        type: "hot",
-        hasVariant: true,
-        variants: [
-    { ram: "2GB", price: 2000, priceDisplay: "Rp 2.000" },
-    { ram: "3GB", price: 3000, priceDisplay: "Rp 3.000" },
-    { ram: "4GB", price: 4000, priceDisplay: "Rp 4.000" },
-    { ram: "5GB", price: 5000, priceDisplay: "Rp 5.000" },
-    { ram: "6GB", price: 5500, priceDisplay: "Rp 5.500" },
-    { ram: "7GB", price: 6000, priceDisplay: "Rp 6.000" },
-    { ram: "8GB", price: 7000, priceDisplay: "Rp 7.000" },
-    { ram: "9GB", price: 8000, priceDisplay: "Rp 8.000" },
-    { ram: "10GB", price: 9000, priceDisplay: "Rp 9.000" },
-    { ram: "Unli-GB", price: 13000, priceDisplay: "Rp 13.000" }
-]
 
-
-
-
-    },
-    
     
      
 {
@@ -294,7 +302,7 @@ let products = [
     image: "image/produk/produk19.jpg",
     category: "jasa",
     isNegotiable: false,
-    type: "new",
+    type: "none",
     isConsultation: true,
     benefits: [
         "Rank mu jadi tinggi tanpa cape"
@@ -446,37 +454,6 @@ let products = [
 
 
 
-
-
-// ================================================
-// DATA AKUN FREE FIRE (TERPISAH)
-// ================================================
-const ffAccounts = [
-    {
-        id: 1,
-        name: "Akun FF Sultan",
-        price: 150000,
-        specs: "Level 70 • 50 Skin Legend • 10 Bundle",
-        description: "Akun pribadi, aman, data lengkap",
-        seller: { type: 'owner' }  // admin YussXy
-    },
-    {
-        id: 2,
-        name: "Akun FF Semi Sultan",
-        price: 80000,
-        specs: "Level 60 • 20 Skin Legend • 5 Bundle",
-        description: "Akun hasil joki, bisa ganti email",
-        seller: { type: 'other', name: 'Rizky', phone: '6281234567890' }
-    },
-    {
-        id: 3,
-        name: "Akun FF Budget",
-        price: 30000,
-        specs: "Level 40 • 5 Skin Legend • 1 Bundle",
-        description: "Cocok buat pemula",
-        seller: { type: 'other', name: 'Asep', phone: '6289876543210' }
-    }
-];
 
 
 
@@ -1675,6 +1652,17 @@ function buyNow(productId) {
     }
     
     
+    // KHUSUS PRODUK WEBSITE STORE (ID 29)
+if (product.id === 29 || product.name === "Website Store") {
+    console.log("Ini produk Website Store, buka modal form");
+    showWebsiteStoreModal(product);
+    return;
+}
+    
+    
+    
+    
+    
     
     
     // CEK APAKAH PRODUK PUNYA VARIAN RAM
@@ -2073,33 +2061,6 @@ function checkout() {
 // BAGIAN FUNGSI KERANJANG - END
 // ================================================
 
-function confirmPayment() {
-    if (window.pendingOrder) {
-        // Pastikan data bug target tetap ada
-        if (window.pendingBugTarget && !window.pendingOrder.bugTarget) {
-            window.pendingOrder.bugTarget = window.pendingBugTarget;
-            window.pendingOrder.isBugService = true;
-        }
-        
-        sendWhatsAppConfirmation(window.pendingOrder);
-        
-        cart = [];
-        saveCart();
-        renderCart();
-        
-        const modal = document.getElementById('qrisModal');
-        if (modal) modal.classList.remove('active');
-        
-        navigateToPage('products');
-        
-        showToast('Pesanan berhasil dikonfirmasi!');
-        
-        // Reset
-        window.pendingOrder = null;
-        window.pendingBugTarget = null;
-    }
-}
-
 
 
 
@@ -2221,6 +2182,75 @@ function closeSidebar() {
         setTimeout(() => overlay.style.display = 'none', 300);
     }
 }
+
+
+
+
+
+
+function confirmPayment() {
+    if (window.pendingOrder) {
+        // Cek apakah ini pesanan website store
+        if (window.pendingOrder.isWebsiteOrder && window.pendingOrder.websiteData) {
+            const data = window.pendingOrder.websiteData;
+            const { jam, tanggal, tahun } = getCurrentDateTime();
+            
+            let message = `Halo Yuss Xy 👋%0A%0A`;
+            message += `Saya ingin memesan *Website Store*.%0A%0A`;
+            message += `📦 DETAIL PESANAN WEBSITE%0A%0A`;
+            message += `Nama Website: ${data.webName}%0A`;
+            message += `Nama Owner: ${data.ownerName}%0A`;
+            message += `Telegram: ${data.telegramLink || '-'}%0A`;
+            message += `Instagram: ${data.instagramLink || '-'}%0A`;
+            message += `WhatsApp Owner: ${data.ownerWA}%0A`;
+            message += `WhatsApp Admin: ${data.adminWA || '-'}%0A`;
+            message += `Harga: Rp ${data.productPrice.toLocaleString('id-ID')}%0A%0A`;
+            message += `✅ Pembayaran sudah saya lakukan.%0A%0A`;
+            message += `Mohon segera diproses untuk pembuatan website store saya.%0A`;
+            message += `Terima kasih 🙏%0A%0A`;
+            message += `Waktu: ${jam} • ${tanggal} ${tahun}`;
+            
+            window.open(`https://wa.me/${ADMIN_PHONE_NUMBER}?text=${message}`, '_blank');
+        }
+        // Cek apakah ini pesanan bug service
+        else if (window.pendingOrder.isBugService || (window.pendingBugTarget && !window.pendingOrder.bugTarget)) {
+            if (window.pendingBugTarget && !window.pendingOrder.bugTarget) {
+                window.pendingOrder.bugTarget = window.pendingBugTarget;
+                window.pendingOrder.isBugService = true;
+            }
+            sendWhatsAppConfirmation(window.pendingOrder);
+        }
+        // Pesanan biasa
+        else {
+            sendWhatsAppConfirmation(window.pendingOrder);
+        }
+        
+        // Reset cart
+        cart = [];
+        saveCart();
+        renderCart();
+        
+        // Tutup modal QRIS
+        const modal = document.getElementById('qrisModal');
+        if (modal) modal.classList.remove('active');
+        
+        // Kembali ke halaman produk
+        navigateToPage('products');
+        
+        showToast('✅ Pesanan berhasil dikonfirmasi!');
+        
+        // Reset semua data pending
+        window.pendingOrder = null;
+        window.pendingBugTarget = null;
+        window.websiteOrderData = null;
+    }
+}
+
+
+
+
+
+
 
 // ================================================
 // EVENT LISTENERS
@@ -6639,9 +6669,7 @@ if (product.isSocialMediaService) {
 }
     
     
-    
-    
-    
+
     
     
     // Untuk produk dengan varian RAM
@@ -9471,16 +9499,219 @@ function initQuoteWidget() {
 
 
 
+// ================================================
+// WEBSITE STORE MODAL (PRODUK ID 29)
+// ================================================
+
+let currentPreviewIndex = 0;
+let totalPreviews = 3;
+
+
+function showWebsiteStoreModal(product) {
+    const modal = document.getElementById('websiteStoreModal');
+    
+    // Reset form
+    document.getElementById('webName').value = '';
+    document.getElementById('ownerName').value = '';
+    document.getElementById('telegramLink').value = '';
+    document.getElementById('instagramLink').value = '';
+    document.getElementById('ownerWA').value = '';
+    document.getElementById('adminWA').value = '';
+    
+    // Tampilkan modal
+    modal.classList.add('active');
+    
+    // ========== TAMBAHAN: Event klik gambar untuk zoom (tombol contoh sudah langsung panggil showZoomImage) ==========
+    // Tidak perlu kode carousel karena sudah pakai tombol contoh
+    
+    // Tombol bayar
+    const bayarBtn = document.getElementById('bayarWebsiteBtn');
+    const newBayarBtn = bayarBtn.cloneNode(true);
+    bayarBtn.parentNode.replaceChild(newBayarBtn, bayarBtn);
+    
+    newBayarBtn.addEventListener('click', () => {
+        // Validasi form
+        const webName = document.getElementById('webName').value.trim();
+        const ownerName = document.getElementById('ownerName').value.trim();
+        const telegramLink = document.getElementById('telegramLink').value.trim();
+        const instagramLink = document.getElementById('instagramLink').value.trim();
+        const ownerWA = document.getElementById('ownerWA').value.trim();
+        const adminWA = document.getElementById('adminWA').value.trim();
+        
+        if (!webName) {
+            showToast('❌ Masukkan Nama Website Store!', true);
+            return;
+        }
+        if (!ownerName) {
+            showToast('❌ Masukkan Nama Owner!', true);
+            return;
+        }
+        if (!ownerWA) {
+            showToast('❌ Masukkan No WhatsApp Owner!', true);
+            return;
+        }
+        
+        // Validasi nomor WA (minimal 10 digit)
+        const cleanWA = ownerWA.replace(/\D/g, '');
+        if (cleanWA.length < 10) {
+            showToast('❌ No WhatsApp Owner tidak valid! Minimal 10 digit.', true);
+            return;
+        }
+        
+        // Simpan data ke variable global
+        window.websiteOrderData = {
+            webName: webName,
+            ownerName: ownerName,
+            telegramLink: telegramLink || '-',
+            instagramLink: instagramLink || '-',
+            ownerWA: ownerWA,
+            adminWA: adminWA || '-',
+            productName: product.name,
+            productPrice: product.price
+        };
+        
+        // Tutup modal website
+        closeWebsiteModal();
+        
+        // Tampilkan QRIS
+        const totalPrice = product.price;
+        const qrTotal = document.getElementById('qrTotal');
+        if (qrTotal) qrTotal.textContent = formatPrice(totalPrice);
+        
+        showQrisModalWithButton();
+        
+        window.pendingOrder = {
+            items: [{ name: product.name, quantity: 1 }],
+            totalItems: 1,
+            totalPrice: totalPrice,
+            isWebsiteOrder: true,
+            websiteData: window.websiteOrderData
+        };
+    });
+    
+    // Close modal dengan tombol X
+    const closeBtn = document.getElementById('closeWebsiteModal');
+    if (closeBtn) {
+        const newCloseBtn = closeBtn.cloneNode(true);
+        closeBtn.parentNode.replaceChild(newCloseBtn, closeBtn);
+        
+        newCloseBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            closeWebsiteModal();
+        });
+    }
+    
+    // Close modal klik overlay (luar modal)
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            closeWebsiteModal();
+        }
+    });
+}
+
+
+function closeWebsiteModal() {
+    const modal = document.getElementById('websiteStoreModal');
+    if (modal) {
+        modal.classList.remove('active');
+    }
+}
+
+function updateCarousel() {
+    const wrapper = document.getElementById('carouselWrapper');
+    if (wrapper) {
+        wrapper.style.transform = `translateX(-${currentPreviewIndex * 100}%)`;
+    }
+}
+
+function updateDots() {
+    const dotsContainer = document.getElementById('carouselDots');
+    if (!dotsContainer) return;
+    
+    dotsContainer.innerHTML = '';
+    for (let i = 0; i < totalPreviews; i++) {
+        const dot = document.createElement('span');
+        dot.className = `carousel-dot ${i === currentPreviewIndex ? 'active' : ''}`;
+        dot.addEventListener('click', () => {
+            currentPreviewIndex = i;
+            updateCarousel();
+            updateDots();
+        });
+        dotsContainer.appendChild(dot);
+    }
+}
 
 
 
 
 
 
+// ================================================
+// ZOOM GAMBAR WEBSITE - DENGAN ANIMASI
+// ================================================
 
+function showZoomImage(imageSrc) {
+    console.log("showZoomImage dipanggil:", imageSrc);
+    
+    const modal = document.getElementById('zoomImageModal');
+    const zoomImage = document.getElementById('zoomImage');
+    
+    if (!modal) {
+        console.log("Modal zoom tidak ditemukan!");
+        return;
+    }
+    
+    if (!zoomImage) {
+        console.log("Element zoomImage tidak ditemukan!");
+        return;
+    }
+    
+    // Hapus class closing jika ada
+    modal.classList.remove('closing');
+    
+    zoomImage.src = imageSrc;
+    modal.classList.add('active');
+    
+    // Close button dengan animasi
+    const closeBtn = document.getElementById('closeZoomModal');
+    if (closeBtn) {
+        const newCloseBtn = closeBtn.cloneNode(true);
+        closeBtn.parentNode.replaceChild(newCloseBtn, closeBtn);
+        
+        newCloseBtn.addEventListener('click', function() {
+            closeZoomModalWithAnimation(modal);
+        });
+    }
+    
+    // Close klik luar gambar dengan animasi
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            closeZoomModalWithAnimation(modal);
+        }
+    });
+    
+    // Close dengan tombol ESC
+    function escHandler(e) {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeZoomModalWithAnimation(modal);
+            document.removeEventListener('keydown', escHandler);
+        }
+    }
+    document.addEventListener('keydown', escHandler);
+}
 
-
-
+function closeZoomModalWithAnimation(modal) {
+    if (!modal) return;
+    
+    // Tambah class closing untuk animasi
+    modal.classList.add('closing');
+    
+    // Tunggu animasi selesai, baru hapus active
+    setTimeout(() => {
+        modal.classList.remove('active', 'closing');
+    }, 250);
+}
 
 
 
