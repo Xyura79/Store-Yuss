@@ -415,11 +415,125 @@
 <!--😁😉🙏😉🙏😉🙏-->
 
 
+<!-- Halaman Special - JADWAL SHOLAT + TOMBOL AI -->
+<div class="page" id="specialPage">
+    <div class="page-header">
+        <h2><i class="ri-star-line"></i> Special Fitur</h2>
+        <p></p>
+    </div>
+
+    <!-- Widget Jadwal Sholat - Desain Compact & Keren -->
+    <div class="sholat-widget">
+        <!-- Bar pencarian kota -->
+        <div class="sholat-search-bar">
+            <i class="ri-search-line"></i>
+            <input type="text" id="sholatCityInput" class="sholat-search-input" 
+                   placeholder="Cari kota..." value="Bandung" list="cityList">
+            <datalist id="cityList">
+                <option value="Bandung">
+                <option value="Jakarta">
+                <option value="Surabaya">
+                <option value="Semarang">
+                <option value="Medan">
+                <option value="Makassar">
+                <option value="Yogyakarta">
+                <option value="Malang">
+                <option value="Depok">
+                <option value="Bogor">
+            </datalist>
+            <button class="sholat-refresh" id="sholatRefreshBtn">
+                <i class="ri-refresh-line"></i>
+            </button>
+        </div>
+
+        <!-- Loading -->
+        <div id="sholatLoading" class="sholat-loading" style="display: none;">
+            <div class="loading-dots">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+
+        <!-- Hasil Jadwal -->
+        <div id="sholatContent" style="display: none;">
+            <div class="sholat-location">
+                <i class="ri-map-pin-fill"></i>
+                <span id="sholatCityName">Bandung</span>
+                <span class="sholat-date" id="sholatDate">-</span>
+            </div>
+            <div class="sholat-grid">
+                <div class="sholat-time-card">
+                    <div class="time-label">🌙 Imsyak</div>
+                    <div class="time-value" id="imsyak">--:--</div>
+                </div>
+                <div class="sholat-time-card">
+                    <div class="time-label">🌅 Subuh</div>
+                    <div class="time-value" id="subuh">--:--</div>
+                </div>
+                <div class="sholat-time-card">
+                    <div class="time-label">☀️ Terbit</div>
+                    <div class="time-value" id="terbit">--:--</div>
+                </div>
+                <div class="sholat-time-card">
+                    <div class="time-label">🌸 Dhuha</div>
+                    <div class="time-value" id="dhuha">--:--</div>
+                </div>
+                <div class="sholat-time-card">
+                    <div class="time-label">🏙️ Dzuhur</div>
+                    <div class="time-value" id="dzuhur">--:--</div>
+                </div>
+                <div class="sholat-time-card">
+                    <div class="time-label">⛅ Ashar</div>
+                    <div class="time-value" id="ashar">--:--</div>
+                </div>
+                <div class="sholat-time-card">
+                    <div class="time-label">🌇 Maghrib</div>
+                    <div class="time-value" id="maghrib">--:--</div>
+                </div>
+                <div class="sholat-time-card">
+                    <div class="time-label">🌙 Isya</div>
+                    <div class="time-value" id="isya">--:--</div>
+                </div>
+            </div>
+            <div class="sholat-footer" id="sholatFooter">
+                <i class="ri-information-line"></i> <span id="sholatUpdateTime">-</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Random Quote Widget -->
+    <div class="quote-widget" id="quoteWidget">
+        <div class="quote-icon">
+            <i class="ri-double-quotes-L"></i>
+        </div>
+        <div class="quote-content">
+            <p id="quoteText" class="quote-text">Memuat kata bijak...</p>
+            <button class="quote-refresh" id="refreshQuoteBtn">
+                <i class="ri-refresh-line"></i> Quote Lain
+            </button>
+        </div>
+    </div>
+
+    <!-- ==================== GRID TOMBOL AI (1 TOMBOL) ==================== -->
+    <!-- ==================== GRID TOMBOL AI (1 TOMBOL) ==================== -->
+<div class="tools-grid">
+    <div class="tool-card" onclick="window.location.href='ai/ai.html'">
+        <div class="tool-icon"><i class="ri-robot-line"></i></div>
+        <h3>AI Chat</h3>
+        <p>Chat dengan Ai</p>
+    </div>
+</div>
+<!--😡😡😡😡 END GRID TOMBOL -->
 
 
 
 
 
+
+
+
+
+</div>
+<!--😡😡😡😡 END specialPage -->
 
 
 
@@ -1584,6 +1698,9 @@
 
 
 
+
+
+
 <!-- Halaman Testimoni -->
 <div class="page" id="testimoniPage">
     <div class="page-header">
@@ -1986,6 +2103,62 @@
 
 
 
+<!-- MODAL TRANSFER DANA -->
+<div class="modal" id="transferModal">
+    <div class="modal-content transfer-modal">
+        <div class="modal-header">
+            <h3><i class="ri-bank-card-line"></i> Transfer ke DANA</h3>
+            <button class="modal-close" id="closeTransferModalBtn"><i class="ri-close-line"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="transfer-info">
+                <p><i class="ri-information-line"></i> Biaya admin: <strong>Rp 1.000</strong></p>
+                <p>Minimal transfer: <strong>Rp 5.000</strong></p>
+            </div>
+            
+            <div class="transfer-form">
+                <div class="input-group">
+                    <label><i class="ri-phone-line"></i> Nomor DANA Tujuan</label>
+                    <input type="tel" id="transferNomor" placeholder="Contoh: 08123456789" class="transfer-input">
+                </div>
+                <div class="input-group">
+                    <label><i class="ri-money-dollar-circle-line"></i> Jumlah Transfer</label>
+                    <input type="number" id="transferJumlah" placeholder="Contoh: 50000" class="transfer-input" min="5000">
+                </div>
+            </div>
+            
+            <div class="transfer-result" id="transferResult" style="display: none;">
+                <p>Total yang harus dibayar:</p>
+                <p id="totalBayar">Rp 0</p>
+                <p class="detail-bayar" id="detailBayar"></p>
+            </div>
+            
+            <!-- QRIS -->
+            <div class="transfer-qris-section" id="transferQrisSection" style="display: none;">
+                
+                       <div class="qris-small-container">
+    <img src="image/qris/qris.jpg" alt="QRIS" class="transfer-qris-small" id="transferQrisImage">
+    <p class="transfer-qris-total" id="transferQrisTotal">Total: Rp 0</p>
+</div>
+                    
+                    
+                    
+
+            </div>
+            
+            <button class="transfer-submit-btn" id="showQrisBtn">
+                <i class="ri-arrow-right-line"></i> Lanjut ke Pembayaran
+            </button>
+            
+            <button class="transfer-confirm-btn" id="transferConfirmBtn" style="display: none;">
+                <i class="ri-whatsapp-line"></i> Konfirmasi Pembayaran
+            </button>
+        </div>
+    </div>
+</div>
+
+
+
 
 
 <!-- MODAL SPOTIFY PLAYER -->
@@ -2034,23 +2207,6 @@
 
 
 
-<!-- Halaman Fitur Special -->
-<div class="page" id="specialPage">
-    <div class="page-header">
-        <h2><i class="ri-flashlight-line icon-large"></i> Fitur Special</h2>
-        <p>Fitur-fitur unggulan YussXy Store</p>
-    </div>
-    <div class="special-grid" id="specialGrid">
-        <!-- Grid fitur akan diisi dengan JavaScript -->
-    </div>
-</div>
-
-
-
-
-
-
-
 
 
     
@@ -2076,28 +2232,6 @@
     
     
     
-
-<div class="modal" id="specialComingSoonModal">
-    <div class="modal-content">
-        <div class="modal-header" style="display: flex; justify-content: center; padding-bottom: 0;">
-            <i class="ri-tools-line" style="font-size: 56px; color: var(--accent);"></i>
-        </div>
-        <div class="modal-body">
-            <h3>Fitur Sedang Dibangun</h3>
-            <p>
-                Fitur ini sedang dalam proses pengembangan.
-            </p>
-            <p style="margin-top: 16px; background: rgba(239, 68, 68, 0.1); padding: 12px; border-radius: 16px;">
-                <i class="ri-calendar-line" style="margin-right: 6px;"></i>
-                <strong>Estimasi Selesai:</strong> 15-20 Hari Lagi
-            </p>
-            <p style="margin-top: 16px; font-size: 12px; color: var(--text-secondary);">
-                Akan hadir Menu Bug Confess Dll Di Fitur Ini, Mohon menunggu.
-            </p>
-            <button id="closeSpecialModalBtn" class="btn-modal-ok" style="margin-top: 8px;">OK</button>
-        </div>
-    </div>
-</div>
 
 
 
@@ -2289,4 +2423,4 @@
 <script src="music.js"></script>
     
 </body>
-        </html>
+                            </html>
