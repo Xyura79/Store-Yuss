@@ -113,7 +113,7 @@ let products = [
     image: "image/produk/produk20.jpg",
     category: "jasa",
     isNegotiable: false,
-    type: "hot",
+    type: "sold_out",
     isReactionService: true,
     benefits: [
         "Pesan saluran mu banyak reaksi nya",
