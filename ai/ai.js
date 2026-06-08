@@ -1,4 +1,3 @@
-
 // ================================================
 // AI CHAT - YussXy Store (11 AI + Auto Bold + localStorage + ANIMASI)
 // ================================================
@@ -258,13 +257,13 @@ function switchAI(aiKey, aiName) {
     
     localStorage.setItem('selected_ai', aiKey);
     
-    let welcomeMsg = `✨ AI berhasil diganti ke **${aiName}**!\n\n`;
+    let welcomeMsg = `AI berhasil diganti ke **${aiName}**!\n\n`;
     if (aiKey === 'dracin') {
-        welcomeMsg += '🎵 Kirimkan teks dan saya akan mengubahnya menjadi suara!';
+        welcomeMsg += 'Kirimkan teks dan saya akan mengubahnya menjadi suara!';
     } else if (aiKey === 'felo') {
-        welcomeMsg += '📚 Saya bisa memberikan jawaban dengan referensi sumber terpercaya.';
+        welcomeMsg += 'Saya bisa memberikan jawaban dengan referensi sumber terpercaya.';
     } else {
-        welcomeMsg += `💬 Ada yang ingin ditanyakan?`;
+        welcomeMsg += `Ada yang ingin ditanyakan?`;
     }
     
     addMessageToDOM('ai', welcomeMsg, getCurrentTime(), true);
@@ -356,9 +355,9 @@ function clearChatHistory() {
             chatHistory = [];
             saveChatHistory();
             chatMessages.innerHTML = '';
-            const welcomeMsg = `👋 Halo! Saya **${currentAIName}**, asisten AI dari **YussXy Store**.\n\n✨ Riwayat chat telah dihapus. Ada yang bisa saya bantu?`;
+            const welcomeMsg = `👋 Halo! Saya **${currentAIName}**, asisten AI dari **YussXy Store**.\n\nRiwayat chat telah dihapus. Ada yang bisa saya bantu?`;
             addMessageToDOM('ai', welcomeMsg, getCurrentTime(), true);
-            showToast('🗑️ Riwayat chat berhasil dihapus');
+            showToast(' Riwayat chat berhasil dihapus');
         }
     );
 }
@@ -519,7 +518,7 @@ bgUpload.addEventListener('change', (e) => {
             bgSettings.image = event.target.result;
             document.getElementById('bgPreview').style.backgroundImage = `url(${bgSettings.image})`;
             saveBgSettings();
-            showToast('🖼️ Background berhasil diubah');
+            showToast(' Background berhasil diubah');
         };
         reader.readAsDataURL(file);
     }
@@ -552,7 +551,7 @@ document.getElementById('resetBgBtn').addEventListener('click', () => {
     document.getElementById('blurSlider').value = 0;
     document.getElementById('opacitySlider').value = 1;
     saveBgSettings();
-    showToast('🔄 Background direset ke default');
+    showToast('Background direset ke default');
 });
 
 // Clear chat - pakai modal custom
