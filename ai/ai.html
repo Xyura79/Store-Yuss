@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>YussXy Store - AI Chat</title>
+    <link rel="stylesheet" href="ai.css">
+    <link rel="stylesheet" href="../style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body>
+    <div class="chat-wrapper" id="chatWrapper">
+        <!-- Header -->
+        <div class="chat-header">
+            <button class="back-btn" onclick="window.location.href='../index.html'">
+                <i class="ri-arrow-left-line"></i>
+            </button>
+            <div class="header-info">
+                <h3 id="aiName">ChatGPT</h3>
+                <p id="aiStatus">Online • Siap Membantu</p>
+            </div>
+            <button class="settings-btn" id="settingsBtn">
+                <i class="ri-settings-4-line"></i>
+            </button>
+            <div class="ai-selector" id="aiSelectorBtn">
+                <i class="ri-robot-line"></i>
+                <span id="selectedAIName">ChatGPT</span>
+                <i class="ri-arrow-down-s-line"></i>
+            </div>
+        </div>
+
+        <!-- Chat Messages Area -->
+        <div class="chat-messages" id="chatMessages"></div>
+
+        <!-- Input Area -->
+        <div class="chat-input-area">
+            <input type="text" id="chatInput" class="chat-input" placeholder="Ketik pesan...">
+            <button id="sendBtn" class="send-btn">
+                <i class="ri-send-plane-fill"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal Pilih AI -->
+    <div id="aiModal" class="modal-ai">
+        <div class="modal-ai-content">
+            <div class="modal-ai-header">
+                <h4><i class="ri-robot-line"></i> Pilih Asisten AI</h4>
+                <button id="closeAiModal" class="modal-close-btn">&times;</button>
+            </div>
+            <div class="ai-list">
+                <div class="ai-option active" data-ai="chatgpt" data-name="ChatGPT">
+                    <i class="ri-chat-ai-line"></i>
+                    <div class="ai-option-info">
+                        <h4>ChatGPT</h4>
+                        <p>AI dari OpenAI</p>
+                    </div>
+                </div>
+                <div class="ai-option" data-ai="dolphin" data-name="Dolphin AI">
+                    <i class="ri-smartphone-line"></i>
+                    <div class="ai-option-info">
+                        <h4>Dolphin AI</h4>
+                        <p>AI dengan template logical</p>
+                    </div>
+                </div>
+                <div class="ai-option" data-ai="dracin" data-name="Dracin TTS">
+                    <i class="ri-music-line"></i>
+                    <div class="ai-option-info">
+                        <h4>Dracin TTS</h4>
+                        <p>Text to Speech dengan musik</p>
+                    </div>
+                </div>
+                <div class="ai-option" data-ai="felo" data-name="Felo AI">
+                    <i class="ri-search-line"></i>
+                    <div class="ai-option-info">
+                        <h4>Felo AI</h4>
+                        <p>AI dengan referensi sumber</p>
+                    </div>
+                </div>
+                <div class="ai-option" data-ai="wormgpt" data-name="WormGPT">
+                    <i class="ri-bug-line"></i>
+                    <div class="ai-option-info">
+                        <h4>WormGPT</h4>
+                        <p>AI generatif gaya bebas</p>
+                    </div>
+                </div>
+                <div class="ai-option" data-ai="bintangai" data-name="BINTANGAI">
+                    <i class="ri-star-line"></i>
+                    <div class="ai-option-info">
+                        <h4>BINTANGAI</h4>
+                        <p>AI premium buatan Bintang</p>
+                    </div>
+                </div>
+                <div class="ai-option" data-ai="islam" data-name="IslamAI">
+                    <i class="ri-moon-line"></i>
+                    <div class="ai-option-info">
+                        <h4>IslamAI</h4>
+                        <p>AI berbasis nilai Islam</p>
+                    </div>
+                </div>
+                <div class="ai-option" data-ai="gpt35" data-name="GPT-3.5">
+                    <i class="ri-chat-ai-line"></i>
+                    <div class="ai-option-info">
+                        <h4>GPT-3.5</h4>
+                        <p>Model bahasa populer</p>
+                    </div>
+                </div>
+                <div class="ai-option" data-ai="copilot" data-name="Copilot AI">
+                    <i class="ri-microsoft-line"></i>
+                    <div class="ai-option-info">
+                        <h4>Copilot AI</h4>
+                        <p>Asisten cerdas Microsoft</p>
+                    </div>
+                </div>
+                <div class="ai-option" data-ai="claude" data-name="Claude AI">
+                    <i class="ri-brain-line"></i>
+                    <div class="ai-option-info">
+                        <h4>Claude AI</h4>
+                        <p>AI dari Anthropic</p>
+                    </div>
+                </div>
+                <div class="ai-option" data-ai="gemini" data-name="Gemini">
+                    <i class="ri-google-line"></i>
+                    <div class="ai-option-info">
+                        <h4>Gemini</h4>
+                        <p>AI dari Google</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Settings Background -->
+    <div id="settingsModal" class="modal-settings">
+        <div class="modal-settings-content">
+            <div class="modal-settings-header">
+                <h4><i class="ri-palette-line"></i> Custom Background</h4>
+                <button id="closeSettingsModal" class="modal-close-btn">&times;</button>
+            </div>
+            <div class="settings-list">
+                <div class="setting-item">
+                    <div class="setting-label">
+                        <i class="ri-image-line"></i>
+                        <span>Upload Background</span>
+                    </div>
+                    <input type="file" id="bgUpload" accept="image/*" style="display: none;">
+                    <button id="uploadBgBtn" class="upload-btn">
+                        <i class="ri-upload-line"></i> Pilih Gambar
+                    </button>
+                    <div id="bgPreview" class="bg-preview"></div>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-label">
+                        <i class="ri-contrast-line"></i>
+                        <span>Kegelapan</span>
+                    </div>
+                    <input type="range" id="darknessSlider" min="0" max="0.9" step="0.01" value="0.5">
+                    <span id="darknessValue">50%</span>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-label">
+                        <i class="ri-blur-off-line"></i>
+                        <span>Blur</span>
+                    </div>
+                    <input type="range" id="blurSlider" min="0" max="10" step="1" value="0">
+                    <span id="blurValue">0px</span>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-label">
+                        <i class="ri-opacity-line"></i>
+                        <span>Opacity</span>
+                    </div>
+                    <input type="range" id="opacitySlider" min="0.3" max="1" step="0.01" value="1">
+                    <span id="opacityValue">100%</span>
+                </div>
+                
+                <button id="resetBgBtn" class="reset-bg-btn">
+                    <i class="ri-refresh-line"></i> Reset Background
+                </button>
+                
+                <button id="clearChatBtn" class="reset-bg-btn clear-chat-btn">
+                    <i class="ri-delete-bin-line"></i> Hapus Riwayat Chat
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="ai.js"></script>
+</body>
+</html>
