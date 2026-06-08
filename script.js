@@ -1,4 +1,6 @@
 
+
+
 // ================================================
 // DATA PRODUK
 // ================================================
@@ -476,7 +478,7 @@ const socialMediaServices = [
         minQuantity: 50
     },
     {
-        id: 4,
+        id: 2,
         name: "WhatsApp Poll Vote",
         price: 160000,
         unit: "1.000 Vote",
@@ -485,7 +487,7 @@ const socialMediaServices = [
         minQuantity: 50
     },
     {
-        id: 2,
+        id: 3,
         name: "TikTok View",
         price: 7000,
         unit: "1.000 View",
@@ -494,7 +496,7 @@ const socialMediaServices = [
         minQuantity: 500
     },
     {
-        id: 3,
+        id: 4,
         name: "TikTok Like+View",
         price: 15000,
         unit: "1.000 Like",
@@ -503,7 +505,7 @@ const socialMediaServices = [
         minQuantity: 100
     },
         {
-        id: 4,
+        id: 5,
         name: "TikTok Follower",
         price: 70000,
         unit: "1.000 Like",
@@ -511,6 +513,29 @@ const socialMediaServices = [
         description: "Menambah Follower ke akun TikTok",
         minQuantity: 20
     },
+
+    
+              {
+        id: 6,
+        name: "Instagram like",
+        price: 50000,
+        unit: "1.000 Like",
+        status: "available",
+        description: "Menambah Like ke Reels anda",
+        minQuantity: 25
+    },
+    
+    
+                  {
+        id: 7,
+        name: "Facebook Like",
+        price: 10000,
+        unit: "1.000 Like",
+        status: "available",
+        description: "Menambah Like Facebook",
+        minQuantity: 50
+    },
+    
     
     
     
@@ -7461,44 +7486,52 @@ function showSocialMediaModal() {
     modal.classList.add('active');
     
     serviceSelect.onchange = function() {
-        const serviceId = parseInt(this.value);
-        if (!serviceId) {
-            serviceDetail.style.display = 'none';
-            selectedService = null;
-            return;
-        }
-        
-        const service = socialMediaServices.find(s => s.id === serviceId);
-        if (!service) return;
-        
-        selectedService = service;
-        
-        const isAvailable = service.status === 'available';
-        const statusText = service.status === 'available' ? 'Tersedia' : (service.status === 'sold_out' ? 'Habis' : 'Segera');
-        const statusColor = service.status === 'available' ? '#10b981' : (service.status === 'sold_out' ? '#6b7280' : '#f59e0b');
-        const minQty = service.minQuantity || 50;
-        
-        document.getElementById('selectedServiceName').innerHTML = `${service.name} <span style="font-size: 9px; padding: 2px 8px; border-radius: 20px; background: ${statusColor}; color: white; margin-left: 6px;">${statusText}</span>`;
-        document.getElementById('selectedServicePrice').innerHTML = `Rp ${service.price.toLocaleString('id-ID')} / ${service.unit}`;
-        document.getElementById('selectedServiceDesc').innerHTML = service.description;
-        
-        const quantityInput = document.getElementById('serviceQuantity');
-        quantityInput.value = 1000;
-        quantityInput.min = minQty;
-        quantityInput.disabled = !isAvailable;
-        
-        if (isAvailable) {
-            updateButtonsState(1000, minQty);
-        } else {
-            document.getElementById('orderNowBtn').disabled = true;
-            document.getElementById('addToCartServiceBtn').disabled = true;
-        }
-        
-        updatePriceBreakdownFlexible(service);
-        
-        serviceDetail.style.display = 'block';
-    };
+    const serviceId = parseInt(this.value);
+    if (!serviceId) {
+        serviceDetail.style.display = 'none';
+        selectedService = null;
+        return;
+    }
     
+    const service = socialMediaServices.find(s => s.id === serviceId);
+    if (!service) return;
+    
+    selectedService = service;
+    
+    const isAvailable = service.status === 'available';
+    const statusText = service.status === 'available' ? 'Tersedia' : (service.status === 'sold_out' ? 'Habis' : 'Segera');
+    const statusColor = service.status === 'available' ? '#10b981' : (service.status === 'sold_out' ? '#6b7280' : '#f59e0b');
+    const minQty = service.minQuantity || 50;
+    
+    document.getElementById('selectedServiceName').innerHTML = `${service.name} <span style="font-size: 9px; padding: 2px 8px; border-radius: 20px; background: ${statusColor}; color: white; margin-left: 6px;">${statusText}</span>`;
+    document.getElementById('selectedServicePrice').innerHTML = `Rp ${service.price.toLocaleString('id-ID')} / ${service.unit}`;
+    document.getElementById('selectedServiceDesc').innerHTML = service.description;
+    
+    // ========== UPDATE TEKS MINIMAL ==========
+    const minQtyValue = document.getElementById('minQtyValue');
+    if (minQtyValue) {
+        minQtyValue.textContent = minQty.toLocaleString('id-ID');
+    }
+    
+    const quantityInput = document.getElementById('serviceQuantity');
+    quantityInput.value = minQty;
+    quantityInput.min = minQty;
+    quantityInput.disabled = !isAvailable;
+    
+    if (isAvailable) {
+        updateButtonsState(minQty, minQty);
+    } else {
+        document.getElementById('orderNowBtn').disabled = true;
+        document.getElementById('addToCartServiceBtn').disabled = true;
+    }
+    
+    updatePriceBreakdownFlexible(service);
+    
+    serviceDetail.style.display = 'block';
+};
+
+
+
     const quantityInput = document.getElementById('serviceQuantity');
     
     
@@ -7740,20 +7773,67 @@ function updatePriceBreakdownFlexible(service) {
     if (!quantity || quantity <= 0) {
         document.getElementById('pricePerThousand').innerHTML = `Rp ${service.price.toLocaleString('id-ID')} / ${service.unit}`;
         document.getElementById('totalPrice').innerHTML = 'Rp 0';
+        
+        // Hapus warning jika ada
+        removeMinQuantityWarning();
         return;
     }
     
-    // JANGAN PAKSA quantity jadi minQty
+    // Hitung total harga
     const unitMatch = service.unit.match(/([\d\.]+)/);
     const unitValue = unitMatch ? parseFloat(unitMatch[0].replace(/\./g, '')) : 1;
-    
     const totalPrice = (quantity / unitValue) * service.price;
     
     document.getElementById('pricePerThousand').innerHTML = `Rp ${service.price.toLocaleString('id-ID')} / ${service.unit}`;
     document.getElementById('totalPrice').innerHTML = `Rp ${totalPrice.toLocaleString('id-ID')}`;
+    
+    // ========== TAMBAHAN: TAMPILKAN PERINGATAN MINIMAL ==========
+    if (quantity < minQty) {
+        showMinQuantityWarning(minQty, service.unit);
+    } else {
+        removeMinQuantityWarning();
+    }
 }
 
+// Fungsi untuk menampilkan peringatan minimal
+function showMinQuantityWarning(minQty, unit) {
+    // Cek apakah warning sudah ada
+    let warning = document.getElementById('minQuantityWarning');
+    if (warning) return;
+    
+    // Buat elemen warning
+    warning = document.createElement('div');
+    warning.id = 'minQuantityWarning';
+    warning.style.cssText = `
+        font-size: 10px;
+        color: #f59e0b;
+        background: rgba(245, 158, 11, 0.1);
+        padding: 8px 12px;
+        border-radius: 20px;
+        margin-top: 10px;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+    `;
+    
+    // Bersihkan nama unit (hilangkan angka)
+    let cleanUnit = unit.replace(/[\d\.]+\s*/, '');
+    warning.innerHTML = `<i class="ri-information-line"></i> Minimal pesanan adalah ${minQty.toLocaleString('id-ID')} ${cleanUnit}`;
+    
+    // Tempatkan di bawah input quantity
+    const quantityGroup = document.querySelector('.quantity-input-group');
+    if (quantityGroup && !document.getElementById('minQuantityWarning')) {
+        quantityGroup.appendChild(warning);
+    }
+}
 
+// Fungsi untuk menghapus peringatan minimal
+function removeMinQuantityWarning() {
+    const warning = document.getElementById('minQuantityWarning');
+    if (warning) warning.remove();
+}
 
 //🙏😁🤪😁🤪😁🤪😁🤪😁
 
