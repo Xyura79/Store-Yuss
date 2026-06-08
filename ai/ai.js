@@ -1,5 +1,5 @@
 // ================================================
-// AI CHAT - YussXy Store (FIXED localStorage)
+// AI CHAT - YussXy Store (11 AI + Auto Bold + localStorage)
 // ================================================
 
 // Theme dari localStorage
@@ -44,7 +44,6 @@ const API_URLS = {
     gemini: (msg) => `https://bintangapi.full.diskon.cloud/api/aichat/gemini/?text=${encodeURIComponent(msg)}`
 };
 
-// Parse response untuk setiap AI
 function parseResponse(ai, data) {
     if (ai === 'chatgpt') return data.result || 'Maaf, tidak ada respons';
     if (ai === 'dolphin') return data.result || 'Maaf, tidak ada respons';
@@ -68,7 +67,7 @@ function parseResponse(ai, data) {
     return 'Maaf, tidak ada respons';
 }
 
-// ==================== FORMAT BOLD OTOMATIS ====================
+// ==================== FORMAT BOLD ====================
 function formatBoldText(text) {
     if (!text) return '';
     
@@ -281,30 +280,23 @@ function saveBgSettings() {
     applyBackground();
 }
 
-// ==================== CHAT HISTORY (FIXED) ====================
+// ==================== CHAT HISTORY ====================
 function saveChatHistory() {
     localStorage.setItem('ai_chat_history', JSON.stringify(chatHistory));
-    console.log('Chat history saved:', chatHistory.length, 'messages');
 }
 
 function loadChatHistory() {
     const saved = localStorage.getItem('ai_chat_history');
-    console.log('Loading chat history from localStorage:', saved ? 'found' : 'not found');
-    
     if (saved) {
         try {
             chatHistory = JSON.parse(saved);
-            console.log('Chat history loaded:', chatHistory.length, 'messages');
             renderChatHistory();
         } catch(e) {
-            console.error('Error parsing chat history:', e);
             chatHistory = [];
         }
     }
     
-    // Jika tidak ada history, buat pesan sambutan
     if (chatHistory.length === 0) {
-        console.log('No history found, creating welcome message');
         const welcomeMsg = `Halo! 👋 Saya **${currentAIName}**, asisten AI dari **YussXy Store**.\n\n💡 **Yang bisa saya bantu:**\n• Tanyakan apa saja\n• Pilih AI lain dari menu atas\n• Atur background dengan klik ikon gerigi\n\nAda yang ingin ditanyakan?`;
         addMessageToDOM('ai', welcomeMsg, getCurrentTime(), true);
     }
@@ -317,7 +309,6 @@ function renderChatHistory() {
         addMessageToDOM(msg.sender, msg.text, msg.time, false);
     });
     chatMessages.scrollTop = chatMessages.scrollHeight;
-    console.log('Rendered', chatHistory.length, 'messages');
 }
 
 function clearChatHistory() {
@@ -476,13 +467,6 @@ if (savedAI && savedAI !== 'chatgpt') {
 }
 
 // ==================== INITIALIZATION ====================
-// Load semua data dari localStorage
 loadBgSettings();
-loadChatHistory();  // Ini akan memuat chat history
+loadChatHistory();
 chatInput.focus();
-
-console.log('AI Chat initialized, localStorage keys:', {
-    history: localStorage.getItem('ai_chat_history') ? 'yes' : 'no',
-    bg: localStorage.getItem('ai_chat_bg') ? 'yes' : 'no',
-    ai: localStorage.getItem('selected_ai') || 'default'
-});
