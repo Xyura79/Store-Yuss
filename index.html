@@ -415,6 +415,72 @@
 <!--😁😉🙏😉🙏😉🙏-->
 
 
+<!-- ==================== MODAL WEBSITE STORE ==================== -->
+<div class="modal" id="websiteStoreModal">
+    <div class="modal-content website-modal">
+        <div class="modal-header">
+            <h3><i class="ri-shopping-cart-line"></i> Buat Website Store</h3>
+            <button class="modal-close" id="closeWebsiteModal"><i class="ri-close-line"></i></button>
+        </div>
+        <div class="modal-body" id="websiteModalBody">
+            <!-- Preview Website - VERSION TOMBOL -->
+            <div class="website-preview-section">
+                <div class="preview-header">
+                    <i class="ri-image-line"></i>
+                    <span>Contoh Tampilan Website</span>
+                </div>
+                <div class="preview-buttons">
+                    <button class="preview-example-btn" onclick="showZoomImage('image/website/1.jpg')">
+                        <i class="ri-image-line"></i> Contoh 1
+                    </button>
+                    <button class="preview-example-btn" onclick="showZoomImage('image/website/2.jpg')">
+                        <i class="ri-image-line"></i> Contoh 2
+                    </button>
+                    <button class="preview-example-btn" onclick="showZoomImage('image/website/3.jpg')">
+                        <i class="ri-image-line"></i> Contoh 3
+                    </button>
+                </div>
+                <p class="preview-hint">💡 Klik tombol untuk melihat contoh tampilan website</p>
+            </div>
+
+            <!-- Form Data Website -->
+            <div class="website-form-section">
+                <h4><i class="ri-file-list-line"></i> Isi Data Website Store</h4>
+                <div class="form-group">
+                    <label><i class="ri-store-line"></i> Nama Website Store <span class="required">*</span></label>
+                    <input type="text" id="webName" class="web-input" placeholder="Contoh: YussXy Store">
+                </div>
+                <div class="form-group">
+                    <label><i class="ri-user-line"></i> Nama Owner <span class="required">*</span></label>
+                    <input type="text" id="ownerName" class="web-input" placeholder="Contoh: Yuss Xy">
+                </div>
+                <div class="form-group">
+                    <label><i class="ri-telegram-line"></i> Link Telegram</label>
+                    <input type="url" id="telegramLink" class="web-input" placeholder="https://t.me/username (opsional)">
+                </div>
+                <div class="form-group">
+                    <label><i class="ri-instagram-line"></i> Link Instagram</label>
+                    <input type="url" id="instagramLink" class="web-input" placeholder="https://instagram.com/username (opsional)">
+                </div>
+                <div class="form-group">
+                    <label><i class="ri-whatsapp-line"></i> No WhatsApp Owner <span class="required">*</span></label>
+                    <input type="tel" id="ownerWA" class="web-input" placeholder="6281234567890">
+                    <small class="input-hint">📱 Masukkan dengan kode negara (contoh: 628xxxx)</small>
+                </div>
+                <div class="form-group">
+                    <label><i class="ri-customer-service-line"></i> No WhatsApp Admin</label>
+                    <input type="tel" id="adminWA" class="web-input" placeholder="6281234567890 (opsional)">
+                </div>
+            </div>
+
+            <button class="btn-bayar-website" id="bayarWebsiteBtn">
+                <i class="ri-flashlight-line"></i> Bayar Sekarang
+            </button>
+        </div>
+    </div>
+</div>
+
+
 <!-- Halaman Special - JADWAL SHOLAT + TOMBOL AI -->
 <div class="page" id="specialPage">
     <div class="page-header">
@@ -2232,14 +2298,18 @@
     
     
     
-
-
-
-
-
-
-
-
+<!-- ==================== MODAL ZOOM GAMBAR WEBSITE ==================== -->
+<div class="modal" id="zoomImageModal">
+    <div class="modal-content zoom-modal">
+        <div class="modal-header">
+            <h3><i class="ri-image-line"></i> Preview Website</h3>
+            <button class="modal-close" id="closeZoomModal"><i class="ri-close-line"></i></button>
+        </div>
+        <div class="modal-body zoom-body">
+            <img id="zoomImage" src="" alt="Preview" class="zoom-image">
+        </div>
+    </div>
+</div>
 
 
 
@@ -2415,6 +2485,7 @@
 
 
 
+
 <script src="versi.js"></script>
 <script src="testi.js"></script>
 <script src="klmn.js"></script>
@@ -2423,4 +2494,4 @@
 <script src="music.js"></script>
     
 </body>
-                            </html>
+    </html>
