@@ -1,5 +1,6 @@
+
 // ================================================
-// AI CHAT - YussXy Store (11 AI + Auto Bold + localStorage)
+// AI CHAT - YussXy Store (11 AI + Auto Bold + localStorage + ANIMASI)
 // ================================================
 
 // Theme dari localStorage
@@ -144,6 +145,7 @@ function addMessageToDOM(sender, text, time, saveToHistory = true) {
     const formattedText = formatMessage(text);
     const messageDiv = document.createElement('div');
     messageDiv.className = `message ${sender}`;
+    messageDiv.style.opacity = '0';
     messageDiv.innerHTML = `
         <div class="bubble">
             ${formattedText}
@@ -153,6 +155,11 @@ function addMessageToDOM(sender, text, time, saveToHistory = true) {
         </div>
     `;
     chatMessages.appendChild(messageDiv);
+    
+    setTimeout(() => {
+        messageDiv.style.opacity = '1';
+    }, 10);
+    
     chatMessages.scrollTop = chatMessages.scrollHeight;
     
     if (saveToHistory) {
@@ -197,6 +204,7 @@ async function sendToAI(message) {
     }
 }
 
+
 async function sendMessage() {
     const message = chatInput.value.trim();
     if (!message) return;
@@ -204,12 +212,38 @@ async function sendMessage() {
     addMessageToDOM('user', message, getCurrentTime(), true);
     chatInput.value = '';
     
-    showTypingIndicator();
+    // Delay 0.6 detik sebelum animasi mengetik muncul
+    showTypingIndicatorWithDelay();
+    
     const reply = await sendToAI(message);
     removeTypingIndicator();
     
     addMessageToDOM('ai', reply, getCurrentTime(), true);
 }
+
+// Fungsi baru untuk typing indicator dengan delay
+let typingTimeout = null;
+
+function showTypingIndicatorWithDelay() {
+    // Hapus timeout sebelumnya jika ada
+    if (typingTimeout) clearTimeout(typingTimeout);
+    
+    // Tunggu 600ms (0.6 detik) baru tampilkan animasi
+    typingTimeout = setTimeout(() => {
+        showTypingIndicator();
+    }, 600);
+}
+
+// Override removeTypingIndicator untuk membersihkan timeout juga
+const originalRemoveTypingIndicator = removeTypingIndicator;
+removeTypingIndicator = function() {
+    if (typingTimeout) {
+        clearTimeout(typingTimeout);
+        typingTimeout = null;
+    }
+    originalRemoveTypingIndicator();
+};
+
 
 function switchAI(aiKey, aiName) {
     currentAI = aiKey;
@@ -224,13 +258,13 @@ function switchAI(aiKey, aiName) {
     
     localStorage.setItem('selected_ai', aiKey);
     
-    let welcomeMsg = `AI berhasil diganti ke **${aiName}**! ✨\n\n`;
+    let welcomeMsg = `✨ AI berhasil diganti ke **${aiName}**!\n\n`;
     if (aiKey === 'dracin') {
-        welcomeMsg += 'Kirimkan teks dan saya akan mengubahnya menjadi suara! 🎵';
+        welcomeMsg += '🎵 Kirimkan teks dan saya akan mengubahnya menjadi suara!';
     } else if (aiKey === 'felo') {
-        welcomeMsg += 'Saya bisa memberikan jawaban dengan referensi sumber terpercaya. 📚';
+        welcomeMsg += '📚 Saya bisa memberikan jawaban dengan referensi sumber terpercaya.';
     } else {
-        welcomeMsg += `Ada yang ingin ditanyakan?`;
+        welcomeMsg += `💬 Ada yang ingin ditanyakan?`;
     }
     
     addMessageToDOM('ai', welcomeMsg, getCurrentTime(), true);
@@ -297,7 +331,7 @@ function loadChatHistory() {
     }
     
     if (chatHistory.length === 0) {
-        const welcomeMsg = `Halo! 👋 Saya **${currentAIName}**, asisten AI dari **YussXy Store**.\n\n💡 **Yang bisa saya bantu:**\n• Tanyakan apa saja\n• Pilih AI lain dari menu atas\n• Atur background dengan klik ikon gerigi\n\nAda yang ingin ditanyakan?`;
+        const welcomeMsg = `👋 Halo! Saya **${currentAIName}**, asisten AI dari **YussXy Store**.\n\n💡 **Yang bisa saya bantu:**\n• Tanyakan apa saja\n• Pilih AI lain dari menu atas\n• Atur background dengan klik ikon gerigi\n\nAda yang ingin ditanyakan?`;
         addMessageToDOM('ai', welcomeMsg, getCurrentTime(), true);
     }
 }
@@ -312,12 +346,93 @@ function renderChatHistory() {
 }
 
 function clearChatHistory() {
-    chatHistory = [];
-    saveChatHistory();
-    chatMessages.innerHTML = '';
-    const welcomeMsg = `Halo! 👋 Saya **${currentAIName}**, asisten AI dari **YussXy Store**.\n\nRiwayat chat telah dihapus. Ada yang bisa saya bantu?`;
-    addMessageToDOM('ai', welcomeMsg, getCurrentTime(), true);
-    showToast('Riwayat chat berhasil dihapus');
+    // Gunakan modal custom, bukan alert
+    showConfirmModal(
+        'Hapus Riwayat Chat',
+        'Apakah Anda yakin ingin menghapus semua riwayat percakapan?',
+        'Ya, Hapus',
+        'Batal',
+        function() {
+            chatHistory = [];
+            saveChatHistory();
+            chatMessages.innerHTML = '';
+            const welcomeMsg = `👋 Halo! Saya **${currentAIName}**, asisten AI dari **YussXy Store**.\n\n✨ Riwayat chat telah dihapus. Ada yang bisa saya bantu?`;
+            addMessageToDOM('ai', welcomeMsg, getCurrentTime(), true);
+            showToast('🗑️ Riwayat chat berhasil dihapus');
+        }
+    );
+}
+
+// ==================== MODAL KONFIRMASI CUSTOM ====================
+function showConfirmModal(title, message, confirmText, cancelText, onConfirm) {
+    // Hapus modal lama jika ada
+    const oldModal = document.getElementById('customConfirmModal');
+    if (oldModal) oldModal.remove();
+    
+    const modal = document.createElement('div');
+    modal.id = 'customConfirmModal';
+    modal.className = 'confirm-modal';
+    modal.innerHTML = `
+        <div class="confirm-modal-content">
+            <div class="confirm-modal-header">
+                <i class="ri-question-line"></i>
+                <h3>${title}</h3>
+            </div>
+            <div class="confirm-modal-body">
+                <p>${message}</p>
+            </div>
+            <div class="confirm-modal-footer">
+                <button class="confirm-btn cancel-btn" id="confirmCancelBtn">${cancelText}</button>
+                <button class="confirm-btn ok-btn" id="confirmOkBtn">${confirmText}</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    
+    // Animasi muncul
+    setTimeout(() => modal.classList.add('active'), 10);
+    
+    const cancelBtn = document.getElementById('confirmCancelBtn');
+    const okBtn = document.getElementById('confirmOkBtn');
+    
+    const closeModal = () => {
+        modal.classList.remove('active');
+        setTimeout(() => modal.remove(), 300);
+    };
+    
+    cancelBtn.addEventListener('click', closeModal);
+    okBtn.addEventListener('click', () => {
+        closeModal();
+        if (onConfirm) onConfirm();
+    });
+    
+    // Klik overlay
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+}
+
+// ==================== TOAST ====================
+function showToast(message, isError = false) {
+    const toast = document.createElement('div');
+    toast.style.cssText = `
+        position: fixed;
+        bottom: 100px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: ${isError ? '#ef4444' : '#10b981'};
+        color: white;
+        padding: 10px 20px;
+        border-radius: 40px;
+        font-size: 13px;
+        z-index: 1000;
+        white-space: nowrap;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    `;
+    toast.className = 'toast-animation';
+    toast.innerHTML = `<i class="ri-${isError ? 'error-warning' : 'check-line'}"></i> ${message}`;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 2500);
 }
 
 // ==================== COPY CODE ====================
@@ -327,31 +442,11 @@ window.copyCode = function(uniqueId) {
         const code = codeBlock.querySelector('pre').innerText;
         navigator.clipboard.writeText(code).then(() => {
             const btn = codeBlock.querySelector('.copy-code-btn');
-            btn.innerText = 'Tersalin!';
-            setTimeout(() => btn.innerText = 'Salin', 1500);
+            btn.innerHTML = '<i class="ri-check-line"></i> Tersalin!';
+            setTimeout(() => btn.innerHTML = 'Salin', 1500);
         });
     }
 };
-
-function showToast(message) {
-    const toast = document.createElement('div');
-    toast.style.cssText = `
-        position: fixed;
-        bottom: 100px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: var(--accent);
-        color: white;
-        padding: 8px 16px;
-        border-radius: 30px;
-        font-size: 12px;
-        z-index: 1000;
-        white-space: nowrap;
-    `;
-    toast.innerText = message;
-    document.body.appendChild(toast);
-    setTimeout(() => toast.remove(), 2000);
-}
 
 // ==================== EVENT LISTENERS ====================
 sendBtn.addEventListener('click', sendMessage);
@@ -365,14 +460,22 @@ const aiSelectorBtn = document.getElementById('aiSelectorBtn');
 const closeAiModal = document.getElementById('closeAiModal');
 
 aiSelectorBtn.addEventListener('click', () => aiModal.classList.add('active'));
-closeAiModal.addEventListener('click', () => aiModal.classList.remove('active'));
+closeAiModal.addEventListener('click', () => {
+    aiModal.classList.add('closing');
+    setTimeout(() => {
+        aiModal.classList.remove('active', 'closing');
+    }, 200);
+});
 
 document.querySelectorAll('.ai-option').forEach(option => {
     option.addEventListener('click', () => {
         const aiKey = option.dataset.ai;
         const aiName = option.dataset.name;
         switchAI(aiKey, aiName);
-        aiModal.classList.remove('active');
+        aiModal.classList.add('closing');
+        setTimeout(() => {
+            aiModal.classList.remove('active', 'closing');
+        }, 200);
     });
 });
 
@@ -396,7 +499,12 @@ settingsBtn.addEventListener('click', () => {
     settingsModal.classList.add('active');
 });
 
-closeSettingsModal.addEventListener('click', () => settingsModal.classList.remove('active'));
+closeSettingsModal.addEventListener('click', () => {
+    settingsModal.classList.add('closing');
+    setTimeout(() => {
+        settingsModal.classList.remove('active', 'closing');
+    }, 200);
+});
 
 // Upload background
 const uploadBgBtn = document.getElementById('uploadBgBtn');
@@ -411,6 +519,7 @@ bgUpload.addEventListener('change', (e) => {
             bgSettings.image = event.target.result;
             document.getElementById('bgPreview').style.backgroundImage = `url(${bgSettings.image})`;
             saveBgSettings();
+            showToast('🖼️ Background berhasil diubah');
         };
         reader.readAsDataURL(file);
     }
@@ -443,19 +552,32 @@ document.getElementById('resetBgBtn').addEventListener('click', () => {
     document.getElementById('blurSlider').value = 0;
     document.getElementById('opacitySlider').value = 1;
     saveBgSettings();
-    showToast('Background direset ke default');
+    showToast('🔄 Background direset ke default');
 });
 
-// Clear chat
+// Clear chat - pakai modal custom
 document.getElementById('clearChatBtn').addEventListener('click', () => {
-    if (confirm('Hapus semua riwayat chat? Tindakan ini tidak bisa dibatalkan.')) {
-        clearChatHistory();
-    }
+    clearChatHistory(); // Sudah pakai modal custom
 });
 
 // Close modals on outside click
-aiModal.addEventListener('click', (e) => { if (e.target === aiModal) aiModal.classList.remove('active'); });
-settingsModal.addEventListener('click', (e) => { if (e.target === settingsModal) settingsModal.classList.remove('active'); });
+aiModal.addEventListener('click', (e) => { 
+    if (e.target === aiModal) {
+        aiModal.classList.add('closing');
+        setTimeout(() => {
+            aiModal.classList.remove('active', 'closing');
+        }, 200);
+    }
+});
+
+settingsModal.addEventListener('click', (e) => { 
+    if (e.target === settingsModal) {
+        settingsModal.classList.add('closing');
+        setTimeout(() => {
+            settingsModal.classList.remove('active', 'closing');
+        }, 200);
+    }
+});
 
 // Load saved AI preference
 const savedAI = localStorage.getItem('selected_ai');
