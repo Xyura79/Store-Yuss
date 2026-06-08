@@ -1,4 +1,7 @@
 
+
+
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -1953,7 +1956,6 @@
 <!--🙏😁🤪😁🤪😁🤪😁🤪😁-->
 
 
-
 <!-- ==================== MODAL SUNTIK SOSMED ==================== -->
 <div class="modal" id="socialMediaModal">
     <div class="modal-content social-media-modal">
@@ -1976,30 +1978,34 @@
                     <div class="service-desc" id="selectedServiceDesc"></div>
                 </div>
                 
-                <!-- KOLOM TARGET (BARU) -->
+                <!-- KOLOM TARGET -->
                 <div class="target-input-group">
                     <label><i class="ri-link"></i> Target (Link/Username/ID)</label>
                     <input type="text" id="serviceTarget" class="service-target-input" 
-                           placeholder="Klik Untuk input">
+                           placeholder="Masukkan link profil, username, atau ID target">
                     <p class="target-hint">Masukkan link profil, username, atau ID target sesuai layanan yang dipilih</p>
                 </div>
                 
                 <!-- KOLOM JUMLAH -->
                 <div class="quantity-input-group">
                     <label><i class="ri-number-line"></i> Jumlah Pesanan</label>
+                    
+                    <!-- TEKS MINIMAL - BADGE TENGAH -->
+                    <div class="min-quantity-badge" id="minQtyInfo">
+                        <div class="min-quantity-content">
+                            <i class="ri-information-line"></i>
+                            <span>Minimal pesan <strong id="minQtyValue">-</strong></span>
+                        </div>
+                    </div>
+                    
                     <div class="quantity-wrapper">
                         <button type="button" class="qty-decr-btn" id="qtyDecrBtn">-</button>
                         <input type="number" id="serviceQuantity" class="service-quantity" value="1000" min="50" step="50">
                         <button type="button" class="qty-incr-btn" id="qtyIncrBtn">+</button>
                     </div>
-                    <div class="quick-buttons">
-                        <button type="button" class="quick-btn" data-qty="50">50</button>
-                        <button type="button" class="quick-btn" data-qty="100">100</button>
-                        <button type="button" class="quick-btn" data-qty="500">500</button>
-                        <button type="button" class="quick-btn" data-qty="1000">1.000</button>
-                        <button type="button" class="quick-btn" data-qty="5000">5.000</button>
-                        <button type="button" class="quick-btn" data-qty="10000">10.000</button>
-                    </div>
+                    
+                    <!-- QUICK BUTTONS -->
+                    
                 </div>
                 
                 <div class="price-breakdown">
@@ -2025,10 +2031,6 @@
         </div>
     </div>
 </div>
-
-
-
-
 
 
 
@@ -2494,4 +2496,4 @@
 <script src="music.js"></script>
     
 </body>
-                    </html>
+</html>
