@@ -189,6 +189,474 @@
 
 
 
+/* ================================================
+   GRID TOMBOL AI - SEPERTI TOOLS
+   ================================================ */
+
+.special-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 24px 0 12px 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.special-title i {
+    font-size: 18px;
+    color: var(--accent);
+}
+
+/* Grid tombol AI - 2 kolom */
+.ai-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+/* Card tombol AI - sama seperti tool-card */
+.ai-card {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 16px 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid var(--border);
+}
+
+.ai-card:active {
+    transform: scale(0.97);
+    background: var(--accent);
+}
+
+.ai-card .ai-icon {
+    font-size: 32px;
+    color: var(--accent);
+    margin-bottom: 8px;
+}
+
+.ai-card:active .ai-icon {
+    color: white;
+}
+
+.ai-card h3 {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.ai-card p {
+    font-size: 10px;
+    color: var(--text-secondary);
+    line-height: 1.3;
+}
+
+.ai-card:active p {
+    color: white;
+}
+
+/* Responsif HP kecil */
+@media (max-width: 450px) {
+    .ai-grid {
+        gap: 10px;
+    }
+    
+    .ai-card {
+        padding: 14px 8px;
+    }
+    
+    .ai-card .ai-icon {
+        font-size: 28px;
+    }
+    
+    .ai-card h3 {
+        font-size: 12px;
+    }
+}
+
+/* Light mode */
+body.light-mode .ai-card {
+    background: #ffffff;
+}
+
+
+
+
+/* ================================================
+   RANDOM QUOTE WIDGET
+   ================================================ */
+
+.quote-widget {
+    background: linear-gradient(135deg, var(--bg-secondary), var(--bg-card));
+    border-radius: 20px;
+    padding: 16px 18px;
+    margin-top: 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
+}
+
+.quote-icon {
+    flex-shrink: 0;
+}
+
+.quote-icon i {
+    font-size: 28px;
+    color: var(--accent);
+    opacity: 0.7;
+}
+
+.quote-content {
+    flex: 1;
+}
+
+.quote-text {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    font-style: italic;
+    min-height: 60px;
+}
+
+.quote-refresh {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    padding: 6px 14px;
+    font-size: 11px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+}
+
+.quote-refresh:active {
+    transform: scale(0.95);
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+}
+
+/* Light Mode */
+body.light-mode .quote-widget {
+    background: linear-gradient(135deg, #f8fafc, #ffffff);
+}
+
+body.light-mode .quote-refresh {
+    background: #f1f5f9;
+}
+
+
+
+
+
+
+
+/* ================================================
+   JADWAL SHOLAT WIDGET - MODERN & COMPACT
+   ================================================ */
+
+.sholat-widget {
+    background: var(--bg-card);
+    border-radius: 28px;
+    padding: 18px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Search Bar */
+.sholat-search-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--bg-secondary);
+    border-radius: 60px;
+    padding: 4px 6px 4px 16px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border);
+}
+
+.sholat-search-bar i {
+    font-size: 18px;
+    color: #ffffff !important;  /* Icon kaca pembesar putih */
+}
+
+.sholat-search-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 12px 0;
+    color: var(--text-primary);
+    font-size: 14px;
+    outline: none;
+}
+
+.sholat-search-input::placeholder {
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+
+.sholat-refresh {
+    width: 42px;
+    height: 42px;
+    background: var(--accent);
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.sholat-refresh:active {
+    transform: scale(0.94);
+}
+
+.sholat-refresh i {
+    color: #ffffff !important;  /* Icon refresh putih */
+    font-size: 18px;
+}
+
+/* Loading Dots */
+.sholat-loading {
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+}
+
+.loading-dots {
+    display: flex;
+    gap: 8px;
+}
+
+.loading-dots span {
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: dotBounce 1.4s ease-in-out infinite;
+}
+
+.loading-dots span:nth-child(1) { animation-delay: 0s; }
+.loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+.loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes dotBounce {
+    0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+    40% { transform: scale(1); opacity: 1; }
+}
+
+/* Location */
+.sholat-location {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+}
+
+.sholat-location i {
+    font-size: 18px;
+    color: var(--accent);
+}
+
+.sholat-location span:first-of-type {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.sholat-date {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-left: auto;
+}
+
+/* Grid Waktu Sholat - 4 kolom */
+.sholat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+@media (max-width: 450px) {
+    .sholat-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+    }
+}
+
+/* SEMUA CARD SAMA - TIDAK ADA HIGHLIGHT MERAH */
+.sholat-time-card {
+    background: var(--bg-secondary);
+    border-radius: 16px;
+    padding: 10px 6px;
+    text-align: center;
+    transition: all 0.2s;
+}
+
+/* Hapus efek highlight merah */
+.sholat-time-card.highlight {
+    background: var(--bg-secondary);
+}
+
+.sholat-time-card.highlight .time-label,
+.sholat-time-card.highlight .time-value {
+    color: var(--text-primary);
+}
+
+.sholat-time-card.highlight .time-value {
+    color: var(--accent);
+}
+
+.time-label {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+    letter-spacing: 0.3px;
+}
+
+.time-value {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    font-family: monospace;
+    letter-spacing: 0.5px;
+}
+
+/* Footer */
+.sholat-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    font-size: 10px;
+    color: var(--text-secondary);
+}
+
+.sholat-footer i {
+    font-size: 12px;
+}
+
+/* Light Mode */
+body.light-mode .sholat-widget {
+    background: #ffffff;
+}
+
+body.light-mode .sholat-time-card {
+    background: #f1f5f9;
+}
+
+body.light-mode .sholat-time-card.highlight {
+    background: #f1f5f9;
+}
+
+body.light-mode .sholat-time-card.highlight .time-value {
+    color: #ef4444;
+}
+
+/* Light mode icon search bar */
+body.light-mode .sholat-search-bar i {
+    color: #ffffff !important;
+}
+
+
+
+
+
+/*👤😎👤😎👤😎👤*/
+
+
+.testimoni-badge {
+    font-size: 10px;
+    font-weight: 700;
+    color: #10b981;
+    text-align: center;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    background: rgba(16, 185, 129, 0.08);
+    padding: 5px 12px;
+    border-radius: 20px;
+}
+
+.testimoni-badge i {
+    font-size: 13px;
+}
+
+.testimoni-admin {
+    margin-top: 6px;
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.testimoni-product p {
+    margin: 4px 0;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.testimoni-product p i {
+    color: var(--accent);
+    font-size: 13px;
+}
+
+.testimoni-footer p {
+    margin: 4px 0;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.testimoni-footer p i {
+    color: #10b981;
+    font-size: 12px;
+}
+
+.testimoni-skeleton {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 36px;
+    height: 36px;
+    border: 3px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: skeletonSpin 0.8s linear infinite;
+}
+
+@keyframes skeletonSpin {
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.testimoni-img.skeleton-loading {
+    opacity: 0;
+}
+
+.testimoni-img {
+    transition: opacity 0.3s ease;
+}
 
 
 
@@ -197,29 +665,42 @@
 
 
 
+.qris-small-container {
+    background: var(--bg-secondary);
+    border-radius: 20px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    max-width: 100%;
+}
 
+.transfer-qris-small {
+    width: 90% !important;
+    max-width: 500px !important;
+    min-width: 280px !important;
+    height: auto !important;
+    border-radius: 24px;
+    background: #f0f0f0;
+    padding: 20px;
+    margin: 0 auto;
+    display: block;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
 
+.transfer-qris-small:active {
+    transform: scale(0.97);
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.transfer-qris-total {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--accent);
+    margin: 0;
+}
 
 
 
@@ -1812,6 +2293,11 @@
         transform: translateX(-50%) translateY(0);
     }
 }
+
+
+
+
+
 
 @keyframes fadeOutDown {
     from {
@@ -4817,8 +5303,8 @@ body {
    ANIMASI HILANG MUNCUL (FADE IN / FADE OUT)
    ================================================ */
 .jailbreak-card {
-    transition: all 0.3s ease;
-    animation: cardFadeIn 0.3s ease;
+    transition: all 0.4s ease;
+    animation: cardFadeIn 0.7s ease;
 }
 
 @keyframes cardFadeIn {
@@ -6350,7 +6836,7 @@ input, textarea, [contenteditable="true"] {
     
 //👇👇👇
 .modal.closing {
-    animation: modalFadeOut 0.2s ease forwards;
+    animation: modalFadeOut 0.4s ease forwards;
 }
 
 @keyframes modalFadeOut {
@@ -6360,11 +6846,9 @@ input, textarea, [contenteditable="true"] {
     }
     to {
         opacity: 0;
-        transform: scale(0.9);
+        transform: scale(0.92);
     }
 }
-    
-    
     
 /*😏🤗😏🤗😏🤗*/   
 /* BADGE SOLD OUT (HABIS) */
@@ -8228,7 +8712,8 @@ body {
 /* ================================================
    BOTTOM NAVIGATION
    ================================================ */
-.bottom-nav {
+   
+   .bottom-nav {
     position: fixed;
     bottom: 0;
     left: 0;
@@ -8249,14 +8734,14 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
-    font-size: 12px;
+    gap: 3px;
+    font-size: 11px;
     cursor: pointer;
     position: relative;
 }
 
 .nav-item i {
-    font-size: 22px;
+    font-size: 20px;
 }
 
 .nav-item.active {
@@ -8266,13 +8751,18 @@ body {
 .nav-badge {
     position: absolute;
     top: -5px;
-    right: -10px;
+    right: -9px;
     background: var(--accent);
     color: white;
-    font-size: 9px;
+    font-size: 8px;
     padding: 2px 5px;
-    border-radius: 10px;
+    border-radius: 9px;
 }
+   
+   
+   
+   
+   
 
 
 /*😘😘😚😋😋😋*/
