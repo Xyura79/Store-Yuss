@@ -1,5 +1,6 @@
+
 /* ================================================
-   AI CHAT STYLE - YussXy Store (WARNA TERANG)
+   AI CHAT STYLE - YussXy Store (FIXED VIEWPORT)
    ================================================ */
 
 * {
@@ -8,49 +9,57 @@
     box-sizing: border-box;
 }
 
+html, body {
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+}
+
 body {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    height: 100vh;
-    overflow: hidden;
     background: var(--bg-primary);
 }
 
-/* Chat Wrapper */
+/* Chat Wrapper - PAKAI 100% BUKAN 100vh */
 .chat-wrapper {
-    position: relative;
-    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     display: flex;
     flex-direction: column;
     background: var(--bg-primary);
-    transition: all 0.3s ease;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
 }
 
-
-
-
-
-/* Header - LEBIH TRANSPARAN */
+/* Header - SOLID, PASTI KELIHATAN */
 .chat-header {
-    position: sticky;
-    top: 0;
-    background: rgba(0, 0, 0, 0.3) !important;
-    backdrop-filter: blur(15px);
+    flex-shrink: 0;
+    background: var(--bg-secondary) !important;
     padding: 12px 16px;
     display: flex;
     align-items: center;
     gap: 12px;
-    border-bottom: 1px solid rgba(255,255,255,0.15);
+    border-bottom: 1px solid var(--border);
     z-index: 100;
+    position: relative;
+    width: 100%;
+    min-height: 64px;
 }
 
-/* Light mode header lebih transparan */
 body.light-mode .chat-header {
-    background: rgba(255, 255, 255, 0.4) !important;
-    backdrop-filter: blur(15px);
-    border-bottom: 1px solid rgba(0,0,0,0.1);
+    background: #ffffff !important;
+    border-bottom: 1px solid #e2e8f0;
 }
 
-
+/* Back Button */
 .back-btn {
     background: var(--bg-card);
     border: 1px solid var(--border);
@@ -64,6 +73,7 @@ body.light-mode .chat-header {
     color: var(--text-primary);
     font-size: 20px;
     transition: all 0.2s;
+    flex-shrink: 0;
 }
 
 .back-btn:active {
@@ -72,13 +82,16 @@ body.light-mode .chat-header {
     color: white;
 }
 
+/* Header Info */
 .header-info {
     flex: 1;
+    min-width: 0;
 }
 
 .header-info h3 {
     font-size: 16px;
     margin-bottom: 2px;
+    color: var(--text-primary);
 }
 
 .header-info p {
@@ -98,6 +111,8 @@ body.light-mode .chat-header {
     cursor: pointer;
     font-size: 12px;
     transition: all 0.2s;
+    color: var(--text-primary);
+    flex-shrink: 0;
 }
 
 .ai-selector:active {
@@ -128,6 +143,7 @@ body.light-mode .chat-header {
     color: var(--text-primary);
     font-size: 20px;
     transition: all 0.2s;
+    flex-shrink: 0;
 }
 
 .settings-btn:active {
@@ -136,7 +152,7 @@ body.light-mode .chat-header {
     color: white;
 }
 
-/* Chat Messages Area */
+/* Chat Messages Area - SCROLLABLE */
 .chat-messages {
     flex: 1;
     overflow-y: auto;
@@ -144,6 +160,7 @@ body.light-mode .chat-header {
     display: flex;
     flex-direction: column;
     gap: 12px;
+    -webkit-overflow-scrolling: touch;
 }
 
 /* Bubble Chat */
@@ -168,26 +185,24 @@ body.light-mode .chat-header {
     max-width: 100%;
 }
 
-/* PESAN USER (merah) */
+/* PESAN USER */
 .message.user .bubble {
     background: var(--accent);
     color: white;
     border-bottom-right-radius: 4px;
 }
 
-/* PESAN AI - WARNA TERANG (tidak hitam) */
+/* PESAN AI */
 .message.ai .bubble {
-    background: #2a2a3a !important;
-    color: #e5e7eb !important;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
     border-bottom-left-radius: 4px;
-    border: 1px solid #3a3a4a;
+    border: 1px solid var(--border);
 }
 
-/* Light mode - AI bubble lebih terang */
 body.light-mode .message.ai .bubble {
-    background: #eef2ff !important;
-    color: #1e293b !important;
-    border: 1px solid #c7d2fe;
+    background: #f1f5f9;
+    color: #1e293b;
 }
 
 .message-time {
@@ -204,14 +219,10 @@ body.light-mode .message.ai .bubble {
 }
 
 .message.ai .message-time {
-    color: #9ca3af;
+    color: var(--text-secondary);
 }
 
-body.light-mode .message.ai .message-time {
-    color: #64748b;
-}
-
-/* Bold & Italic Styling */
+/* Bold & Italic */
 .bubble strong, 
 .bubble b {
     font-weight: 700;
@@ -220,7 +231,7 @@ body.light-mode .message.ai .message-time {
 
 .bubble em {
     font-style: italic;
-    color: #9ca3af;
+    color: var(--text-secondary);
 }
 
 /* Code Block */
@@ -245,7 +256,7 @@ body.light-mode .message.ai .message-time {
     position: absolute;
     top: 8px;
     right: 8px;
-    background: rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.2);
     border: none;
     border-radius: 8px;
     padding: 4px 8px;
@@ -259,13 +270,7 @@ body.light-mode .message.ai .message-time {
     background: var(--accent);
 }
 
-
-
-
-/* ================================================
-   TYPING ANIMATION - UKURAN NORMAL
-   ================================================ */
-
+/* Typing Animation */
 .typing-indicator {
     display: flex;
     align-items: center;
@@ -296,20 +301,13 @@ body.light-mode .message.ai .message-time {
     }
 }
 
-
-
-/* ================================================
-   AUDIO PLAYER - WARNA TERANG
-   ================================================ */
-
-/* Audio player container */
+/* Audio Player */
 .audio-message {
     width: 100%;
     min-width: 250px;
     margin: 4px 0;
 }
 
-/* Style untuk audio player - BACKGROUND PUTIH */
 .ai-audio-player {
     width: 100%;
     min-width: 260px;
@@ -330,54 +328,26 @@ body.light-mode .message.ai .message-time {
     color: #1e293b !important;
 }
 
-.ai-audio-player::-webkit-media-controls-timeline {
-    background-color: #e2e8f0;
-    border-radius: 10px;
-}
-
 .ai-audio-player::-webkit-media-controls-play-button {
     background-color: var(--accent);
     border-radius: 50%;
 }
 
-/* Audio loading */
-.audio-loading {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 8px 12px;
-    background: var(--bg-secondary);
-    border-radius: 30px;
-    width: fit-content;
-}
-
-.audio-loading i {
-    animation: spinAudio 1s linear infinite;
-}
-
-@keyframes spinAudio {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-/* ================================================
-   INPUT AREA & LAINNYA
-   ================================================ */
-/* Input Area - LEBIH TRANSPARAN */
+/* Input Area - SOLID */
 .chat-input-area {
-    background: rgba(0, 0, 0, 0.3) !important;
-    backdrop-filter: blur(15px);
+    flex-shrink: 0;
+    background: var(--bg-secondary) !important;
     padding: 12px 16px;
-    border-top: 1px solid rgba(255,255,255,0.15);
+    border-top: 1px solid var(--border);
     display: flex;
     gap: 10px;
+    position: relative;
+    width: 100%;
 }
 
-/* Light mode input area lebih transparan */
 body.light-mode .chat-input-area {
-    background: rgba(255, 255, 255, 0.4) !important;
-    backdrop-filter: blur(15px);
-    border-top: 1px solid rgba(0,0,0,0.08);
+    background: #ffffff !important;
+    border-top: 1px solid #e2e8f0;
 }
 
 .chat-input {
@@ -389,6 +359,10 @@ body.light-mode .chat-input-area {
     color: var(--text-primary);
     font-size: 14px;
     outline: none;
+}
+
+.chat-input::placeholder {
+    color: var(--text-secondary);
 }
 
 .chat-input:focus {
@@ -408,13 +382,14 @@ body.light-mode .chat-input-area {
     align-items: center;
     justify-content: center;
     transition: all 0.2s;
+    flex-shrink: 0;
 }
 
 .send-btn:active {
     transform: scale(0.95);
 }
 
-/* Modal AI */
+/* Modal */
 .modal-ai, .modal-settings {
     position: fixed;
     top: 0;
@@ -487,15 +462,10 @@ body.light-mode .chat-input-area {
 .ai-option.active {
     background: var(--accent);
     color: white;
-    border: 1px solid var(--accent);
 }
 
 .ai-option.active i {
     color: white;
-}
-
-.ai-option.active .ai-option-info p {
-    color: rgba(255,255,255,0.8);
 }
 
 .ai-option:active {
@@ -622,27 +592,9 @@ input[type="range"]::-webkit-slider-thumb {
     border-radius: 4px;
 }
 
-/* Light Mode - Override */
-body.light-mode .bubble.ai {
-    background: #eef2ff !important;
-    color: #1e293b !important;
-}
-
-body.light-mode .code-block {
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
-}
-
-body.light-mode .code-block pre {
-    color: #1e293b;
-}
-
-body.light-mode .ai-option {
-    background: #ffffff;
-}
-
-body.light-mode .ai-option.active {
-    background: #ef4444;
+/* Light Mode Scrollbar */
+body.light-mode .chat-messages::-webkit-scrollbar-track {
+    background: #e2e8f0;
 }
 
 /* Background custom */
@@ -653,6 +605,10 @@ body.light-mode .ai-option.active {
     position: relative;
 }
 
+.chat-wrapper.custom-bg .chat-messages {
+    background: transparent;
+}
+
 .bg-overlay {
     position: absolute;
     top: 0;
@@ -661,4 +617,4 @@ body.light-mode .ai-option.active {
     height: 100%;
     z-index: 0;
     pointer-events: none;
-}
+       }
