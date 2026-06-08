@@ -167,20 +167,363 @@
 
 
 
+/* ================================================
+   MODAL ZOOM GAMBAR WEBSITE - DENGAN ANIMASI
+   ================================================ */
 
+.zoom-modal {
+    max-width: 90%;
+    width: auto;
+    background: transparent !important;
+    box-shadow: none;
+}
 
+.zoom-modal .modal-header {
+    background: rgba(0,0,0,0.7);
+    border-radius: 20px 20px 0 0;
+    padding: 12px 16px;
+}
 
+.zoom-modal .modal-header h3 {
+    color: white;
+    font-size: 14px;
+}
 
+.zoom-modal .modal-header h3 i {
+    color: white;
+}
 
+.zoom-modal .modal-close {
+    color: white;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    transition: all 0.2s ease;
+}
 
+.zoom-modal .modal-close:active {
+    transform: scale(0.9);
+    background: var(--accent);
+}
 
+.zoom-body {
+    padding: 0;
+    background: transparent;
+    text-align: center;
+}
 
+.zoom-image {
+    max-width: 100%;
+    max-height: 80vh;
+    object-fit: contain;
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    cursor: pointer;
+}
 
+/* ========== ANIMASI ZOOM MODAL ========== */
 
+/* Animasi saat modal muncul */
+.zoom-modal.active {
+    display: flex;
+    animation: zoomModalFadeIn 0.25s ease forwards;
+}
 
+/* Animasi saat modal ditutup */
+.zoom-modal.closing {
+    animation: zoomModalFadeOut 0.2s ease forwards;
+}
 
+/* Animasi gambar zoom in */
+.zoom-modal.active .zoom-image {
+    animation: zoomImageIn 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
+}
 
+/* Animasi gambar zoom out saat ditutup */
+.zoom-modal.closing .zoom-image {
+    animation: zoomImageOut 0.2s ease forwards;
+}
 
+@keyframes zoomModalFadeIn {
+    from {
+        opacity: 0;
+        backdrop-filter: blur(0px);
+    }
+    to {
+        opacity: 1;
+        backdrop-filter: blur(4px);
+    }
+}
+
+@keyframes zoomModalFadeOut {
+    from {
+        opacity: 1;
+        backdrop-filter: blur(4px);
+    }
+    to {
+        opacity: 0;
+        backdrop-filter: blur(0px);
+    }
+}
+
+@keyframes zoomImageIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes zoomImageOut {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+}
+
+/* Light mode zoom modal */
+body.light-mode .zoom-modal .modal-header {
+    background: rgba(0,0,0,0.8);
+}
+
+/* ================================================
+   MODAL WEBSITE STORE - FIXED SCROLL (VERSION TOMBOL)
+   ================================================ */
+
+.website-modal {
+    max-width: 360px;
+    width: 90%;
+    max-height: 85vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Scroll area untuk konten */
+.website-modal .modal-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    max-height: calc(85vh - 60px);
+}
+
+/* Preview Section - VERSION TOMBOL */
+.website-preview-section {
+    margin-bottom: 16px;
+}
+
+.preview-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 10px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.preview-header i {
+    color: var(--accent);
+    font-size: 16px;
+}
+
+/* Tombol contoh */
+.preview-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+}
+
+.preview-example-btn {
+    flex: 1;
+    min-width: 80px;
+    padding: 10px 12px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    color: var(--text-primary);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: all 0.2s;
+}
+
+.preview-example-btn:active {
+    transform: scale(0.95);
+    background: var(--accent);
+    color: white;
+}
+
+.preview-example-btn:active i {
+    color: white;
+}
+
+.preview-hint {
+    font-size: 10px;
+    color: var(--text-secondary);
+    text-align: center;
+    margin-top: 6px;
+}
+
+/* Form Section */
+.website-form-section {
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+.website-form-section h4 {
+    font-size: 13px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.form-group {
+    margin-bottom: 12px;
+}
+
+.form-group label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--text-secondary);
+}
+
+.form-group label i {
+    color: var(--accent);
+    font-size: 12px;
+}
+
+.required {
+    color: var(--accent);
+    font-size: 11px;
+    margin-left: 2px;
+}
+
+.input-hint {
+    display: block;
+    font-size: 9px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+}
+
+.web-input {
+    width: 100%;
+    padding: 10px 12px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text-primary);
+    font-size: 12px;
+}
+
+.web-input:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+/* Tombol Bayar - STICKY DI BAWAH */
+.btn-bayar-website {
+    width: calc(100% - 32px);
+    padding: 12px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+    border: none;
+    border-radius: 30px;
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 0 16px 16px 16px;
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+}
+
+.btn-bayar-website:active {
+    transform: scale(0.97);
+}
+
+/* Light mode */
+body.light-mode .web-input {
+    background: #f8fafc;
+}
+
+body.light-mode .preview-example-btn {
+    background: #f1f5f9;
+}
+
+/* Scrollbar styling */
+.website-modal::-webkit-scrollbar {
+    width: 4px;
+}
+
+.website-modal::-webkit-scrollbar-track {
+    background: var(--border);
+    border-radius: 4px;
+}
+
+.website-modal::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 4px;
+}
+
+/* HP kecil (max 400px) */
+@media (max-width: 400px) {
+    .website-modal {
+        max-height: 90vh;
+    }
+    
+    .website-modal .modal-body {
+        padding: 12px;
+        max-height: calc(90vh - 50px);
+    }
+    
+    .preview-buttons {
+        gap: 8px;
+    }
+    
+    .preview-example-btn {
+        padding: 8px 10px;
+        font-size: 11px;
+        min-width: 70px;
+    }
+    
+    .form-group {
+        margin-bottom: 10px;
+    }
+    
+    .web-input {
+        padding: 8px 10px;
+        font-size: 11px;
+    }
+    
+    .btn-bayar-website {
+        padding: 10px;
+        font-size: 13px;
+        width: calc(100% - 24px);
+        margin: 0 12px 12px 12px;
+    }
+}
 
 
 
@@ -9266,4 +9609,4 @@ img.allow-touch {
     -webkit-touch-callout: auto !important;
     -webkit-user-select: auto !important;
     user-select: auto !important;
-    }
+   }
