@@ -148,19 +148,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* ================================================
    MINIMAL PESANAN BADGE - DESAIN TENGAH
    ================================================ */
@@ -1331,21 +1318,16 @@ body.light-mode .sholat-search-bar i {
     }
 }
 
-/* Tool Card */
+/* Efek klik pada tool card */
 .tool-card {
-    background: var(--bg-card);
-    border-radius: 20px;
-    padding: 16px 10px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    border: 1px solid var(--border);
+    transition: transform 0.05s linear;
 }
 
 .tool-card:active {
-    transform: scale(0.97);
-    background: var(--accent);
+    transform: scale(0.96);
 }
+
+
 
 .tool-card .tool-icon {
     font-size: 32px;
@@ -9703,4 +9685,4 @@ img.allow-touch {
     -webkit-touch-callout: auto !important;
     -webkit-user-select: auto !important;
     user-select: auto !important;
-       }
+}
