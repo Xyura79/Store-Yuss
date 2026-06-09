@@ -161,7 +161,6 @@
 
 
 
-
 /* ================================================
    MINIMAL PESANAN BADGE - DESAIN TENGAH
    ================================================ */
@@ -4820,10 +4819,13 @@ body.light-mode .news-card {
 }
 
 .toast-msg {
-    animation: toastSlideIn 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards !important;
-    background: #1e293b !important;  /* Abu-abu gelap profesional */
+    position: fixed !important;
+    bottom: 100px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    background: #1e293b !important;
     color: #f1f5f9 !important;
-    padding: 10px 20px !important;
+    padding: 8px 18px !important;
     border-radius: 40px !important;
     font-size: 13px !important;
     font-weight: 500 !important;
@@ -4831,7 +4833,57 @@ body.light-mode .news-card {
     backdrop-filter: blur(4px) !important;
     border-left: 3px solid #3b82f6 !important;
     letter-spacing: 0.3px !important;
+    z-index: 9999 !important;
+    
+    /* PENTING: Batasi ukuran maksimal */
+    max-width: 85% !important;
+    width: auto !important;
+    min-width: 120px !important;
+    white-space: nowrap !important;
+    
+    /* Hindari efek zoom browser */
+    text-size-adjust: 100% !important;
+    -webkit-text-size-adjust: 100% !important;
+    
+    animation: toastSlideIn 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards !important;
 }
+
+/* Untuk HP kecil, biar tidak mepet */
+@media (max-width: 480px) {
+    .toast-msg {
+        padding: 6px 14px !important;
+        font-size: 12px !important;
+        white-space: nowrap !important;
+        bottom: 80px !important;
+    }
+}
+
+/* Animasi masuk */
+@keyframes toastSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+/* Animasi keluar */
+@keyframes toastFadeOut {
+    from {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-20px);
+    }
+}
+
+
+
 
 /*🟨🟨🟨🟨🟨🟨🟨🟨*/
 /*🟨🟨🟨🟨🟨🟨🟨🟨*/
