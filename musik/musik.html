@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<title>YsPlayer</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
+<link rel="stylesheet" href="musik.css"/>
+<style>
+.hdr-btn-home i { font-size: 20px; }
+.info-logo-img { width: 64px; height: 64px; border-radius: 18px; object-fit: cover; margin: 0 auto 12px; display: block; }
+</style>
+</head>
+<body>
+<div class="app" id="app">
+
+  <!-- HEADER dengan logo YussXyPlayer (tanpa spasi) -->
+  <div class="header">
+    <div class="logo">
+      <img class="logo-mark-img" src="../image/logo/logo.jpg" alt="Logo" style="width:30px; height:30px; border-radius:8px; object-fit:cover;">
+      YussXy<span>Player</span>
+    </div>
+    <div class="hdr-btns">
+      <button class="hdr-btn" id="hdr-sleep-btn" onclick="openSleepModal()" title="Timer Tidur"><i class="ri-moon-line"></i></button>
+      <button class="hdr-btn hdr-btn-home" onclick="location.href='../index.html'" title="Beranda Utama"><i class="ri-home-5-line"></i></button>
+      <button class="hdr-btn" onclick="showPage('info')" title="Info"><i class="ri-information-line"></i></button>
+    </div>
+  </div>
+
+  <!-- MAIN (konten sama seperti sebelumnya, tidak diubah untuk menghemat tempat) -->
+  <div class="main" id="main-scroll">
+    <!-- HOME -->
+    <div class="page active" id="page-home">
+      <div class="notif-bar" id="notif-bar" onclick="requestNotif()" style="display:none"><i class="ri-notification-3-line"></i><div class="nb-txt">Aktifkan notifikasi untuk kontrol musik di latar</div><button class="nb-btn">Izinkan</button></div>
+      <div class="sleep-status" id="sleep-status" onclick="openSleepModal()"><i class="ri-moon-line"></i><span id="sleep-status-txt">Timer tidur aktif</span></div>
+      <div class="search-wrap"><i class="ri-search-2-line"></i><input id="srch" placeholder="Cari lagu atau artis…" autocomplete="off"/><button class="s-btn" onclick="doSearch()">Cari</button></div>
+      <div id="chips-wrap"><div class="sec-head" style="margin-top:0"><h3><i class="ri-fire-line"></i> Coba Cari</h3></div><div class="chips"><button class="chip" onclick="qs('Hindia Secukupnya')">Hindia</button><button class="chip" onclick="qs('Iwan Fals Bento')">Iwan Fals</button><button class="chip" onclick="qs('Nadin Amizah Rumpang')">Nadin Amizah</button><button class="chip" onclick="qs('Isyana Sarasvati Tetap Dalam Jiwa')">Isyana</button><button class="chip" onclick="qs('Kunto Aji Pilu Membiru')">Kunto Aji</button><button class="chip" onclick="qs('Tulus Hati-Hati di Jalan')">Tulus</button><button class="chip" onclick="qs('Pamungkas To The Bone')">Pamungkas</button><button class="chip" onclick="qs('Raisa Jatuh Hati')">Raisa</button><button class="chip" onclick="qs('The Weeknd Blinding Lights')">The Weeknd</button><button class="chip" onclick="qs('Coldplay Fix You')">Coldplay</button></div></div>
+      <div id="rec-section"><div class="sec-head"><h3><i class="ri-music-2-line"></i> Rekomendasi Untukmu</h3><a onclick="loadRecs()"><i class="ri-shuffle-line"></i> Acak lagi</a></div><div id="rec-list"><div class="spin-box"><div class="spinner"></div><p style="font-size:12px;color:var(--text2)">Memuat rekomendasi...</p></div></div></div>
+      <div id="results-sec" style="display:none"><div class="sec-head" style="margin-top:4px"><h3 id="results-lbl">Hasil Pencarian</h3><a onclick="clearSearch()"><i class="ri-close-line"></i> Tutup</a></div><div id="results-box"></div></div>
+    </div>
+    <!-- QUEUE -->
+    <div class="page" id="page-queue"><div class="sec-head"><h3><i class="ri-play-list-2-line"></i> Antrian <span id="q-ct"></span></h3><a onclick="clearQueue()" id="q-clear" style="color:var(--danger)"><i class="ri-delete-bin-line"></i> Hapus Semua</a></div><div class="q-list" id="q-list"></div><div id="q-empty" class="state-box" style="display:none"><i class="ri-play-list-2-line"></i><p>Antrian kosong</p><small>Cari lagu dan putar untuk memulai</small></div></div>
+    <!-- FAVORITES -->
+    <div class="page" id="page-fav"><div class="sec-head"><h3><i class="ri-heart-3-line"></i> Favorit <span id="fav-ct"></span></h3></div><div id="fav-list"></div><div id="fav-empty" class="state-box" style="display:none"><i class="ri-heart-line"></i><p>Belum ada favorit</p><small>Ketuk ikon hati di lagu untuk menyimpan</small></div></div>
+    <!-- PLAYLIST -->
+    <div class="page" id="page-pl"><div class="sec-head"><h3><i class="ri-folder-music-line"></i> Playlist <span id="pl-ct"></span></h3><a onclick="openNewPl()"><i class="ri-add-line"></i> Buat</a></div><div class="pl-cards" id="pl-cards"></div><div id="pl-empty" class="state-box" style="display:none"><i class="ri-folder-music-line"></i><p>Belum ada playlist</p><small>Ketuk "+ Buat" untuk membuat playlist baru</small></div><div id="pl-detail" style="display:none"><div class="sec-head"><h3 id="pl-detail-name">Playlist</h3><a onclick="closePlDetail()"><i class="ri-arrow-left-line"></i> Kembali</a></div><div id="pl-detail-list"></div></div></div>
+    <!-- HISTORY -->
+    <div class="page" id="page-hist"><div class="sec-head"><h3><i class="ri-history-line"></i> Riwayat <span id="hist-ct"></span></h3><a onclick="clearHist()" style="color:var(--danger)"><i class="ri-delete-bin-line"></i> Hapus</a></div><div id="hist-list"></div><div id="hist-empty" class="state-box" style="display:none"><i class="ri-history-line"></i><p>Belum ada riwayat</p><small>Putar lagu dan riwayat akan tersimpan</small></div></div>
+    <!-- INFO -->
+    <div class="page" id="page-info">
+      <div class="info-hero"><img class="info-logo-img" src="../image/logo/logo.jpg" alt="Logo YsPlayer"><div class="info-name">YussXyPlayer</div><div class="info-tagline">Pemutar Musik No Iklan</div><div class="info-version">Versi 1.0.0 · Rilis:09 Juni 2026</div></div>
+      <a class="info-cta" href="https://whatsapp.com/channel/0029VbAgFKULSmbeJMLfmR3b" target="_blank"><i class="ri-whatsapp-line"></i> Masuk Saluran WhatsApp</a>
+      <a class="info-cta green" href="https://wa.me/6283183469343" target="_blank"><i class="ri-chat-1-line"></i> Chat Owner (yuss xy)</a>
+      <div class="info-card" style="margin-top: 12px;"><h4>Tentang</h4><div class="info-row"><i class="ri-user-line"></i><div><div class="ir-label">Dibuat oleh</div><div class="ir-val">YussXy</div></div></div><div class="info-row"><i class="ri-calendar-line"></i><div><div class="ir-label">Tanggal Rilis</div><div class="ir-val">Juni 2025</div></div></div><div class="info-row"><i class="ri-information-line"></i><div><div class="ir-label">Version</div><div class="ir-val">1.0.0</div></div></div></div>
+      <div style="text-align:center;font-size:11px;color:var(--text3);padding:14px 0 20px;">Made with by YussXy · YsPlayer v1.0.0</div>
+    </div>
+  </div><!-- /main -->
+
+  <!-- MINI PLAYER -->
+  <div class="mini hidden" id="mini" onclick="openPlayer()">
+    <div class="mini-thumb-ph" id="mini-thumb"><i class="ri-music-line" style="font-size:18px"></i></div>
+    <div class="mini-info"><div class="mini-title" id="mini-title">—</div><div class="mini-artist" id="mini-artist">—</div></div>
+    <button class="mini-btn" onclick="event.stopPropagation();playPrev()"><i class="ri-skip-back-fill"></i></button>
+    <button class="mini-btn pp" id="mini-pp" onclick="event.stopPropagation();togglePlay()"><i class="ri-play-fill" id="mini-pp-icon"></i></button>
+    <button class="mini-btn" onclick="event.stopPropagation();playNext()"><i class="ri-skip-forward-fill"></i></button>
+    <div class="mini-prog"><div class="mini-prog-fill" id="mini-prog" style="width:0%"></div></div>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <div class="bot-nav">
+    <button class="nav-btn active" id="nav-home" onclick="showPage('home')"><i class="ri-home-4-fill"></i>Beranda</button>
+    <button class="nav-btn" id="nav-queue" onclick="showPage('queue')"><i class="ri-play-list-2-fill"></i>Antrian<span class="nb" id="nb-queue">0</span></button>
+    <button class="nav-btn" id="nav-fav" onclick="showPage('fav')"><i class="ri-heart-3-fill"></i>Favorit<span class="nb" id="nb-fav">0</span></button>
+    <button class="nav-btn" id="nav-pl" onclick="showPage('pl')"><i class="ri-folder-music-fill"></i>Playlist</button>
+    <button class="nav-btn" id="nav-hist" onclick="showPage('hist')"><i class="ri-history-line"></i>Riwayat</button>
+  </div>
+
+  <!-- FULL PLAYER -->
+  <div class="player" id="player">
+    <div class="po-hdr"><div class="po-label">Sedang Diputar</div><button class="po-close" onclick="closePlayer()"><i class="ri-arrow-down-s-line"></i></button></div>
+    <div class="po-art-area"><div class="po-art-ph" id="po-art"><i class="ri-music-2-line" style="font-size:64px"></i></div></div>
+    <div class="po-track"><div class="po-track-info"><div class="po-name" id="po-name">Tidak ada lagu</div><div class="po-artist" id="po-artist">—</div></div><button class="po-fav-btn" id="po-fav" onclick="toggleFavCurrent()"><i class="ri-heart-line"></i></button></div>
+    <div class="po-prog-wrap"><div class="po-bar" id="po-bar" onclick="seekTo(event)"><div class="po-fill" id="po-fill" style="width:0%"><div class="po-thumb"></div></div></div><div class="po-times"><span id="po-cur">0:00</span><span id="po-dur">0:00</span></div></div>
+    <div class="po-ctrls"><button class="ctrl" id="po-shuf" onclick="toggleShuffle()" title="Acak"><i class="ri-shuffle-line"></i></button><button class="ctrl" onclick="playPrev()"><i class="ri-skip-back-fill"></i></button><button class="ctrl pp" id="po-pp" onclick="togglePlay()"><i class="ri-play-fill" id="po-pp-icon"></i></button><button class="ctrl" onclick="playNext()"><i class="ri-skip-forward-fill"></i></button><button class="ctrl" id="po-rep" onclick="toggleRepeat()"><i class="ri-repeat-line"></i></button></div>
+    <div class="po-vol"><i class="ri-volume-down-line" id="vol-ico" onclick="toggleMute()" style="cursor:pointer"></i><div class="vol-bar" id="vol-bar" onclick="setVol(event)"><div class="vol-fill" id="vol-fill" style="width:80%"></div></div><i class="ri-volume-up-line"></i></div>
+  </div>
+
+  <!-- MODALS -->
+  <div class="modal-bg" id="ctx-modal"><div class="modal"><div class="modal-pill"></div><div class="ctx-thumb" id="ctx-thumb-area"></div><div id="ctx-menu-items"></div></div></div>
+  <div class="modal-bg" id="atp-modal"><div class="modal"><div class="modal-pill"></div><div class="modal-title">Simpan ke Playlist</div><div id="atp-list"></div><div class="new-pl-btn" onclick="openNewPl()"><i class="ri-add-circle-line"></i> Buat Playlist Baru</div></div></div>
+  <div class="modal-bg" id="npl-modal"><div class="modal"><div class="modal-pill"></div><div class="modal-title">Playlist Baru</div><div class="m-pad"><input class="m-input" id="npl-name" placeholder="Nama playlist…" maxlength="40"/><button class="m-btn" onclick="createPlaylist()">Buat</button></div></div></div>
+  <div class="modal-bg" id="sleep-modal"><div class="modal"><div class="modal-pill"></div><div class="modal-title"><i class="ri-moon-line"></i> Timer Tidur</div><div class="sleep-active" id="sleep-active-txt"></div><div class="sleep-opts"><button class="sleep-opt" onclick="setSleep(5)">5 menit</button><button class="sleep-opt" onclick="setSleep(10)">10 menit</button><button class="sleep-opt" onclick="setSleep(15)">15 menit</button><button class="sleep-opt" onclick="setSleep(20)">20 menit</button><button class="sleep-opt" onclick="setSleep(30)">30 menit</button><button class="sleep-opt" onclick="setSleep(45)">45 menit</button><button class="sleep-opt" onclick="setSleep(60)">1 jam</button><button class="sleep-opt" onclick="setSleep(90)">1.5 jam</button><button class="sleep-opt" onclick="setSleep(120)">2 jam</button><button class="sleep-opt" id="sleep-cancel-btn" onclick="cancelSleep()" style="display:none;background:rgba(244,63,94,.1);color:var(--danger);border-color:rgba(244,63,94,.3)">Batalkan</button></div></div></div>
+
+</div><!-- /app -->
+<div class="toast" id="toast"></div>
+<audio id="aud"></audio>
+<script src="musik.js"></script>
+</body>
+</html>
