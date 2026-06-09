@@ -1,4 +1,4 @@
-{
+"#1a1a1a",){
   "name": "YussXy",
   "short_name": "YussXy",
   "description": "Toko Digital YussXy",
@@ -6,7 +6,7 @@
   "scope": "/Store-Yuss/",
   "display": "standalone",
   "background_color": "#0f0f0f",
-  "theme_color": "#0f0f0f",
+  "theme_color": "#1a1a1a",
   "orientation": "portrait",
   "icons": [
     {
