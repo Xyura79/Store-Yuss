@@ -1,67 +1,122 @@
+
 // ================================================
 // STORE CLOSE / MAINTENANCE MODE (PREMIUM)
+// Ambil data dari API Vercel
 // ================================================
 
-// ========== KONFIGURASI - UBAH DI SINI ==========
-let STORE_CLOSED = false;
-let ESTIMATED_OPEN_HOUR = "";
-let CLOSE_REASON = "";
-let CLOSE_MESSAGE = "";
-let isStoreClosed = STORE_CLOSED;
+// API Endpoints (sama dengan admin panel)
+const API_STATUS_URL = "https://backend-delta-steel-38.vercel.app/api/store-setting";
+
+// Variabel global untuk status toko
+let storeStatus = {
+    is_closed: false,
+    reason: "",
+    message: "",
+    open_time: "13.00",
+    title: ""
+};
+
+// ========== FUNGSI AMBIL STATUS DARI API ==========
+async function fetchStoreStatusFromAPI() {
+    try {
+        const response = await fetch(API_STATUS_URL, {
+            cache: "no-store"
+        });
+        const data = await response.json();
+
+        console.log("📦 Store status dari API:", data);
+
+        if (data.success === true) {
+            storeStatus = {
+                is_closed: data.is_closed || false,
+                reason: data.reason || "",
+                message: data.message || "Layanan sedang tutup",
+                open_time: data.open_time || "13.00",
+                title: data.title || ""
+            };
+            return true;
+        } else {
+            console.error("API response error:", data);
+            return false;
+        }
+    } catch (error) {
+        console.error("❌ Gagal ambil status toko:", error);
+        return false;
+    }
+}
+
+// ========== FUNGSI CEK APAKAH TOKO TUTUP ==========
+async function isStoreClosed() {
+    await fetchStoreStatusFromAPI();
+    return storeStatus.is_closed === true;
+}
+
+// ========== GETTER UNTUK DATA ==========
+function getCloseReason() {
+    return storeStatus.reason || "Sedang maintenance";
+}
+
+function getCloseMessage() {
+    return storeStatus.message || "Haloo, Saya close dulu ya. Ini dilakukan untuk menghindari orderan yang lama diproses. Kamu masih bisa menggunakan tools di aplikasi ini kok";
+}
+
+function getEstimatedOpenTime() {
+    return storeStatus.open_time || "13.00";
+}
+
+// ========== TOAST NOTIFIKASI ==========
+// ========== TOAST NOTIFIKASI (UKURAN KECIL) ==========
 
 
 
+// ========== TEKS TOAST (BUATAN SENDIRI, BUKAN DARI API) ==========
+const TOAST_TEXT = "Layanan sedang tutup, tidak bisa memesan";
 
-
-// Toast notifikasi (didefinisikan lebih awal)
-function showStoreClosedToast(message, type = 'warning') {
-    const colors = {
-        warning: '#f59e0b',
-        error: '#ef4444',
-        info: '#3b82f6'
-    };
-    
-    const icons = {
-        warning: 'ri-store-3-line',
-        error: 'ri-close-circle-line',
-        info: 'ri-information-line'
-    };
+// ========== TOAST NOTIFIKASI UKURAN KECIL ==========
+function showStoreClosedToast() {
+    // Hapus toast yang sudah ada sebelumnya
+    const existingToast = document.querySelector('.custom-toast-closed');
+    if (existingToast) existingToast.remove();
     
     const toast = document.createElement('div');
+    toast.className = 'custom-toast-closed';
     toast.style.cssText = `
         position: fixed;
-        bottom: 100px;
+        bottom: 90px;
         left: 50%;
         transform: translateX(-50%);
-        background: ${colors[type]};
+        background: #f59e0b;
         color: white;
-        padding: 12px 24px;
-        border-radius: 50px;
-        font-size: 13px;
+        padding: 8px 16px;
+        border-radius: 24px;
+        font-size: 11px;
         font-weight: 500;
         z-index: 10001;
         white-space: nowrap;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-        animation: toastPremiumIn 0.3s cubic-bezier(0.34, 1.2, 0.64, 1);
-        backdrop-filter: blur(4px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 6px;
+        opacity: 0;
+        transition: opacity 0.2s ease;
     `;
-    toast.innerHTML = `<i class="${icons[type]}"></i> ${message}`;
+    toast.innerHTML = `<i class="ri-store-3-line" style="font-size: 14px;"></i> ${TOAST_TEXT}`;
     document.body.appendChild(toast);
     
-    if (navigator.vibrate) navigator.vibrate(50);
+    setTimeout(() => { toast.style.opacity = '1'; }, 10);
+    
+    if (navigator.vibrate) navigator.vibrate(30);
     
     setTimeout(() => {
-        toast.style.animation = 'toastPremiumOut 0.3s ease';
-        setTimeout(() => toast.remove(), 300);
-    }, 2500);
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 200);
+    }, 2000);
 }
 
-// FUNGSI UNTUK MENONAKTIFKAN TOMBOL DI MODAL APAPUN
+
+
+// ========== NONAKTIFKAN TOMBOL DI MODAL ==========
 function disableModalButtons() {
-    // Nonaktifkan tombol di modal suntik sosmed
     const orderNowBtn = document.getElementById('orderNowBtn');
     const addToCartServiceBtn = document.getElementById('addToCartServiceBtn');
     const quickBtns = document.querySelectorAll('.quick-btn');
@@ -76,7 +131,7 @@ function disableModalButtons() {
         orderNowBtn.onclick = function(e) {
             e.preventDefault();
             e.stopPropagation();
-            showStoreClosedToast("Layanan sedang tutup, tidak bisa memesan", 'warning');
+            showStoreClosedToast(getCloseMessage(), 'warning');
             return false;
         };
     }
@@ -89,7 +144,7 @@ function disableModalButtons() {
         addToCartServiceBtn.onclick = function(e) {
             e.preventDefault();
             e.stopPropagation();
-            showStoreClosedToast("Layanan sedang tutup, tidak bisa menambah ke keranjang", 'warning');
+            showStoreClosedToast(getCloseMessage(), 'warning');
             return false;
         };
     }
@@ -103,7 +158,7 @@ function disableModalButtons() {
             btn.onclick = function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                showStoreClosedToast("Layanan sedang tutup", 'info');
+                showStoreClosedToast(getCloseMessage(), 'info');
                 return false;
             };
         }
@@ -124,27 +179,24 @@ function disableModalButtons() {
     }
 }
 
-// MUTATION OBSERVER - Mendeteksi ketika modal muncul
+// ========== OBSERVER MODAL ==========
 function observeModalAppearance() {
     const observer = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutation) {
             if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
                 const modal = mutation.target;
                 if (modal.id === 'socialMediaModal' && modal.classList.contains('active')) {
-                    // Modal muncul, disable tombolnya
                     setTimeout(disableModalButtons, 50);
                 }
             }
         });
     });
     
-    // Observasi perubahan class pada modal
     const socialMediaModal = document.getElementById('socialMediaModal');
     if (socialMediaModal) {
         observer.observe(socialMediaModal, { attributes: true });
     }
     
-    // Juga observasi untuk modal yang mungkin dibuat dinamis
     const observerBody = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutation) {
             mutation.addedNodes.forEach(function(node) {
@@ -163,8 +215,16 @@ function observeModalAppearance() {
     observerBody.observe(document.body, { childList: true, subtree: true });
 }
 
-// Modal informasi (layanan tutup)
+// ========== MODAL INFORMASI TOKO TUTUP ========
+
+
+
+
+// ========== MODAL INFORMASI TOKO TUTUP ==========
 function showStoreClosedInfo() {
+    // Cek apakah modal sudah pernah ditampilkan di session ini
+    if (sessionStorage.getItem('store_closed_modal_shown') === 'true') return;
+    
     const modal = document.createElement('div');
     modal.id = 'storeClosedInfoModal';
     modal.style.cssText = `
@@ -188,12 +248,12 @@ function showStoreClosedInfo() {
             <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 8px; background: linear-gradient(135deg, var(--accent), #f97316); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Layanan Sedang Tutup</h2>
             <div style="background: rgba(239,68,68,0.1); border-radius: 16px; padding: 12px; margin: 16px 0;">
                 <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 4px;"><i class="ri-information-line"></i> Alasan</p>
-                <p style="font-size: 13px; color: #f59e0b; font-weight: 500;">${CLOSE_REASON}</p>
+                <p style="font-size: 13px; color: #f59e0b; font-weight: 500;">${getCloseReason()}</p>
             </div>
-            <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.5;">${CLOSE_MESSAGE}</p>
+            <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.5;">${getCloseMessage()}</p>
             <div style="background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(239,68,68,0.1)); border-radius: 40px; padding: 12px; margin-bottom: 24px;">
                 <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 6px;"><i class="ri-time-line"></i> Perkiraan Buka Kembali</div>
-                <div style="font-size: 24px; font-weight: 800; color: #3b82f6;" id="storeEstimateTime">Jam ${ESTIMATED_OPEN_HOUR}</div>
+                <div style="font-size: 24px; font-weight: 800; color: #3b82f6;" id="storeEstimateTime">Jam ${getEstimatedOpenTime()}</div>
                 <div style="font-size: 10px; color: var(--text-secondary); margin-top: 4px;">WIB (GMT+7)</div>
             </div>
             <button id="closeStoreModalBtn" style="background: linear-gradient(90deg, var(--accent), var(--accent-hover)); border: none; padding: 12px 28px; border-radius: 40px; color: white; font-weight: 600; cursor: pointer; width: 100%; transition: transform 0.1s;">
@@ -203,14 +263,20 @@ function showStoreClosedInfo() {
     `;
     document.body.appendChild(modal);
     
+    sessionStorage.setItem('store_closed_modal_shown', 'true');
+    
     document.getElementById('closeStoreModalBtn').addEventListener('click', function() {
         modal.remove();
     });
 }
 
-// Modal informasi saat layanan BUKA
+
+
+
+
+// ========== MODAL INFORMASI TOKO BUKA ==========
 function showStoreOpenInfo() {
-    const hasSeenOpenModal = localStorage.getItem('store_open_modal_seen');
+    const hasSeenOpenModal = sessionStorage.getItem('store_open_modal_seen');
     if (hasSeenOpenModal === 'true') return;
     
     const modal = document.createElement('div');
@@ -246,26 +312,14 @@ function showStoreOpenInfo() {
     `;
     document.body.appendChild(modal);
     
-    localStorage.setItem('store_open_modal_seen', 'true');
+    sessionStorage.setItem('store_open_modal_seen', 'true');
     
     document.getElementById('closeStoreOpenModalBtn').addEventListener('click', function() {
         modal.remove();
     });
 }
 
-// Reset storage
-function checkAndResetOpenModal() {
-    const wasClosed = localStorage.getItem('was_store_closed');
-    const currentClosed = STORE_CLOSED;
-    
-    if (wasClosed === 'true' && currentClosed === false) {
-        localStorage.removeItem('store_open_modal_seen');
-    }
-    
-    localStorage.setItem('was_store_closed', currentClosed);
-}
-
-// Nonaktifkan fitur pembelian
+// ========== NONAKTIFKAN FITUR PEMBELIAN ==========
 function disablePurchaseFeatures() {
     document.querySelectorAll('.btn-buy-now, .checkout-btn, .confirm-payment-btn, .app-buy-btn').forEach(btn => {
         btn.disabled = true;
@@ -275,13 +329,14 @@ function disablePurchaseFeatures() {
         btn.style.pointerEvents = 'none';
     });
     
+    // Override fungsi global
     window.buyNow = function(productId) {
-        showStoreClosedToast("Pembelian tidak dapat diproses, layanan sedang tutup", 'error');
+        showStoreClosedToast(getCloseMessage(), 'error');
         return false;
     };
     
     window.checkout = function() {
-        showStoreClosedToast("Checkout tidak tersedia, layanan sedang tutup", 'warning');
+        showStoreClosedToast(getCloseMessage(), 'warning');
         return false;
     };
     
@@ -291,7 +346,7 @@ function disablePurchaseFeatures() {
     };
     
     window.showProductDetail = function(productId) {
-        showStoreClosedToast("Detail produk tidak dapat diakses, layanan sedang tutup", 'info');
+        showStoreClosedToast(getCloseMessage(), 'info');
         return false;
     };
     
@@ -300,39 +355,100 @@ function disablePurchaseFeatures() {
         card.style.cursor = 'not-allowed';
         card.onclick = (e) => {
             e.stopPropagation();
-            showStoreClosedToast("Layanan sedang tutup, tidak bisa melihat detail produk", 'info');
+            showStoreClosedToast(getCloseMessage(), 'info');
             return false;
         };
     });
     
-    // LANGSUNG DISABLE TOMBOL MODAL JIKA SUDAH ADA
     setTimeout(disableModalButtons, 100);
 }
 
+// ========== RESET FITUR PEMBELIAN (SAAT TOKO BUKA) ==========
+function enablePurchaseFeatures() {
+    document.querySelectorAll('.btn-buy-now, .checkout-btn, .confirm-payment-btn, .app-buy-btn').forEach(btn => {
+        btn.disabled = false;
+        btn.style.opacity = '1';
+        btn.style.cursor = 'pointer';
+        btn.style.pointerEvents = 'auto';
+    });
+    
+    document.querySelectorAll('.product-card').forEach(card => {
+        card.style.opacity = '1';
+        card.style.cursor = 'pointer';
+        // Hapus override onclick
+        card.onclick = null;
+    });
+    
+    // Reload ulang fungsi asli dari script.js
+    if (typeof window.originalBuyNow === 'function') {
+        window.buyNow = window.originalBuyNow;
+    }
+    if (typeof window.originalCheckout === 'function') {
+        window.checkout = window.originalCheckout;
+    }
+    if (typeof window.originalShowProductDetail === 'function') {
+        window.showProductDetail = window.originalShowProductDetail;
+    }
+}
 
-
-
-document.addEventListener('DOMContentLoaded', async function () {
-
-    const res = await fetch(
-        "https://backend-delta-steel-38.vercel.app/api/store-status"
-    );
-
-    const data = await res.json();
-
-    STORE_CLOSED = data.closed;
-    ESTIMATED_OPEN_HOUR = data.estimatedOpenHour;
-    CLOSE_REASON = data.reason;
-    CLOSE_MESSAGE = data.message;
-
-    checkAndResetOpenModal();
-
-    if (STORE_CLOSED) {
+// ========== INISIALISASI UTAMA ==========
+async function initStoreStatus() {
+    // Simpan fungsi asli
+    if (typeof window.buyNow === 'function' && !window.originalBuyNow) {
+        window.originalBuyNow = window.buyNow;
+    }
+    if (typeof window.checkout === 'function' && !window.originalCheckout) {
+        window.originalCheckout = window.checkout;
+    }
+    if (typeof window.showProductDetail === 'function' && !window.originalShowProductDetail) {
+        window.originalShowProductDetail = window.showProductDetail;
+    }
+    
+    // Ambil status dari API
+    const success = await fetchStoreStatusFromAPI();
+    
+    if (success && storeStatus.is_closed === true) {
+        console.log("🔒 Toko dalam mode TUTUP");
         disablePurchaseFeatures();
         showStoreClosedInfo();
         observeModalAppearance();
     } else {
+        console.log("🔓 Toko dalam mode BUKA");
+        enablePurchaseFeatures();
         showStoreOpenInfo();
     }
+}
 
+// Jalankan saat DOM siap
+document.addEventListener('DOMContentLoaded', function() {
+    initStoreStatus();
 });
+
+// Tambahkan animasi CSS jika belum ada
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes toastPremiumIn {
+        0% { opacity: 0; transform: translateX(-50%) translateY(20px); }
+        100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+    @keyframes toastPremiumOut {
+        0% { opacity: 1; transform: translateX(-50%) translateY(0); }
+        100% { opacity: 0; transform: translateX(-50%) translateY(20px); }
+    }
+    @keyframes modalPremiumIn {
+        0% { opacity: 0; transform: scale(0.95); }
+        100% { opacity: 1; transform: scale(1); }
+    }
+    @keyframes iconPulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+    }
+    .animate-spin {
+        animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+`;
+document.head.appendChild(style);
