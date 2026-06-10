@@ -1,20 +1,22 @@
 
 
+
+
 // ═══════════════════════════════════════════════
 //  YsPlayer — yuss xy
 //  Fitur: rekomendasi personal, list vertikal, titik tiga
-//  API: kyzznekoo.zone.id
+//  API: kyzznekoo.zone.id (downloader)
 // ═══════════════════════════════════════════════
 
-// API Endpoints baru
+// API Endpoints
 const API_SEARCH = 'https://kyzznekoo.zone.id/api/search/spotify?q=';
-const API_PLAY   = 'https://kyzznekoo.zone.id/api/play/spotify?url=';
+const API_PLAY   = 'https://kyzznekoo.zone.id/api/downloader/spotify?url=';
 
 // Rate limiting cooldown (ms)
 let lastSearchTime = 0;
 let lastRecLoadTime = 0;
-const SEARCH_COOLDOWN = 3000;    // 3 detik antar pencarian
-const REC_COOLDOWN = 90000;      // 90 detik (1.5 menit) untuk acak rekomendasi
+const SEARCH_COOLDOWN = 3000;
+const REC_COOLDOWN = 90000;
 
 const aud = document.getElementById('aud');
 aud.volume = 0.8;
@@ -26,7 +28,7 @@ let prevVol = 0.8, muted = false;
 let ctxTrack = null, atpTrack = null;
 let sleepTimer = null, sleepEnd = 0;
 let mediaSession = 'mediaSession' in navigator;
-let recLoading = false; // cegah spam load rekomendasi
+let recLoading = false;
 
 // LOCALSTORAGE
 const LS = {
@@ -49,7 +51,6 @@ let savedQueue = LS.get('queue', []);
 let savedIdx = LS.get('curIdx', -1);
 let savedVol = LS.get('vol', 0.8);
 
-// Simpan riwayat pencarian user
 function addSearchQuery(query) {
   if (!query.trim()) return;
   searchHistory = searchHistory.filter(q => q !== query);
@@ -58,7 +59,6 @@ function addSearchQuery(query) {
   LS.set('searchHistory', searchHistory);
 }
 
-// Helper untuk format durasi dari ms ke mm:ss
 function formatDuration(ms) {
   if (!ms) return '';
   const minutes = Math.floor(ms / 60000);
@@ -66,21 +66,17 @@ function formatDuration(ms) {
   return `${minutes}:${seconds.toString().padStart(2, '0')}`;
 }
 
-// Helper untuk mengambil artist name dari array artists
 function getArtistName(artists) {
   if (!artists || !artists.length) return 'Unknown';
   return artists.map(a => a.name).join(', ');
 }
 
-// Helper untuk mengambil thumbnail terbaik dari album.images
 function getThumbnail(album) {
   if (!album || !album.images || !album.images.length) return null;
-  // cari gambar ukuran sedang (300px) atau yang pertama
   const img = album.images.find(i => i.width === 300) || album.images[0];
   return img.url;
 }
 
-// Konversi response API ke format track yang konsisten
 function convertToTrack(item) {
   return {
     title: item.name || 'Unknown Title',
@@ -92,7 +88,6 @@ function convertToTrack(item) {
   };
 }
 
-// RESTORE SESSION
 window.addEventListener('load', () => {
   aud.volume = savedVol;
   document.getElementById('vol-fill').style.width = (savedVol * 100) + '%';
@@ -118,7 +113,7 @@ window.addEventListener('load', () => {
   updateHistUI();
 });
 
-// ========== REKOMENDASI PERSONAL dengan cooldown ==========
+// ========== REKOMENDASI ==========
 const STATIC_QUERIES = [
   'Hindia Secukupnya', 'Hindia Evaluasi', 'Iwan Fals Bento', 'Iwan Fals Aku Sayang Kamu',
   'Nadin Amizah Rumpang', 'Nadin Amizah Taruh', 'Kunto Aji Pilu Membiru', 'Kunto Aji Terlalu Lama Sendiri',
@@ -142,7 +137,6 @@ const STATIC_QUERIES = [
 ];
 
 async function loadRecs() {
-  // Cek cooldown
   const now = Date.now();
   if (now - lastRecLoadTime < REC_COOLDOWN && lastRecLoadTime !== 0) {
     const remaining = Math.ceil((REC_COOLDOWN - (now - lastRecLoadTime)) / 1000);
@@ -160,29 +154,24 @@ async function loadRecs() {
 
   let queries = [];
 
-  // 1. Dari riwayat pencarian user (5 terbaru)
   if (searchHistory.length) {
     queries.push(...searchHistory.slice(0, 5));
   }
 
-  // 2. Dari artis favorit (ambil dari favs, unik, maks 5)
   const favArtists = [...new Set(favs.map(f => f.artist).filter(a => a && a !== 'Unknown'))];
   if (favArtists.length) {
     queries.push(...favArtists.slice(0, 5));
   }
 
-  // 3. Dari lagu yang sering diputar (history terbaru, ambil artis & judul)
   const topPlayed = [...history].slice(0, 5);
   for (let t of topPlayed) {
     if (t.artist && t.artist !== 'Unknown') queries.push(t.artist);
     if (t.title) queries.push(t.title);
   }
 
-  // 4. Tambahkan query statis (5 random dari daftar tetap)
   const shuffledStatic = [...STATIC_QUERIES].sort(() => Math.random() - 0.5);
   queries.push(...shuffledStatic.slice(0, 5));
 
-  // Hapus duplikat & kosong
   queries = [...new Set(queries)].filter(q => q && q.trim());
   const picks = queries.slice(0, 15);
 
@@ -217,7 +206,6 @@ async function loadRecs() {
   toast('Rekomendasi diperbarui!', 'ok');
 }
 
-// Fungsi render LIST VERTIKAL (rekomendasi & hasil pencarian)
 function renderVerticalList(container, tracks, type = 'rec') {
   const wrapper = document.createElement('div');
   wrapper.className = 'vertical-list';
@@ -253,7 +241,7 @@ function renderVerticalList(container, tracks, type = 'rec') {
   container.appendChild(wrapper);
 }
 
-// ========== PENCARIAN dengan cooldown ==========
+// ========== PENCARIAN ==========
 document.getElementById('srch').addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
 
 function qs(q) {
@@ -262,7 +250,6 @@ function qs(q) {
 }
 
 async function doSearch() {
-  // Cek cooldown pencarian
   const now = Date.now();
   if (now - lastSearchTime < SEARCH_COOLDOWN) {
     const remaining = Math.ceil((SEARCH_COOLDOWN - (now - lastSearchTime)) / 1000);
@@ -290,7 +277,6 @@ async function doSearch() {
       document.getElementById('results-lbl').textContent = `"${q}" — 0 lagu`;
       return;
     }
-    // Konversi hasil pencarian ke format track
     const tracks = j.result.map(item => convertToTrack(item));
     document.getElementById('results-lbl').textContent = `"${q}" — ${tracks.length} lagu`;
     renderVerticalList(document.getElementById('results-box'), tracks, 'search');
@@ -308,7 +294,7 @@ function clearSearch() {
   document.getElementById('rec-section').style.display = '';
 }
 
-// ========== PLAY dengan API baru ==========
+// ========== PLAY dengan API DOWNLOADER ==========
 async function playFromSearch(track, cardEl) {
   let qIdx = queue.findIndex(x => x.url === track.url);
   if (qIdx === -1) {
@@ -344,18 +330,22 @@ async function startPlay(idx, cardEl) {
   toast('Memuat audio…');
 
   try {
-    // Gunakan API play dengan parameter url
     const url = encodeURIComponent(t.url);
     const r = await fetch(API_PLAY + url);
     const j = await r.json();
     
-    if (!j.status || !j.songs || !j.songs.length) throw new Error('no audio url');
+    console.log('Downloader API response:', j);
     
-    const songData = j.songs[0];
-    queue[idx].audioUrl = songData.url;
-    if (songData.title) queue[idx].title = songData.title;
-    if (songData.artist) queue[idx].artist = songData.artist;
-    if (songData.thumbnail) queue[idx].thumbnail = songData.thumbnail;
+    if (!j.status || !j.result || !j.result.download || !j.result.download.url) {
+      throw new Error('no audio url from API');
+    }
+    
+    const audioDownloadUrl = j.result.download.url;
+    queue[idx].audioUrl = audioDownloadUrl;
+    
+    if (j.result.title) queue[idx].title = j.result.title;
+    if (j.result.artist) queue[idx].artist = j.result.artist;
+    if (j.result.image) queue[idx].thumbnail = j.result.image;
     saveQueue();
     
     if (curIdx === idx) {
@@ -365,7 +355,7 @@ async function startPlay(idx, cardEl) {
     }
   } catch(e) {
     console.error('Play error:', e);
-    toast('Gagal memuat audio', 'err');
+    toast('Gagal memuat audio: ' + (e.message || 'cek koneksi'), 'err');
   } finally {
     document.getElementById(`cl-${idx}`)?.remove();
   }
@@ -687,7 +677,7 @@ function renderHistList() {
 }
 function clearHist() { if (!confirm('Hapus semua riwayat?')) return; history = []; LS.set('history', history); updateHistUI(); toast('Riwayat dihapus'); }
 
-// ========== DOWNLOAD (perbaiki dengan API baru) ==========
+// ========== DOWNLOAD ==========
 async function downloadTrack(track) {
   closeModal('ctx-modal');
   toast('Menyiapkan download…');
@@ -697,8 +687,10 @@ async function downloadTrack(track) {
       const encodedUrl = encodeURIComponent(track.url);
       const r = await fetch(API_PLAY + encodedUrl);
       const j = await r.json();
-      if (!j.status || !j.songs || !j.songs.length) throw new Error('no url');
-      url = j.songs[0].url;
+      if (!j.status || !j.result || !j.result.download || !j.result.download.url) {
+        throw new Error('no url');
+      }
+      url = j.result.download.url;
     }
     const a = document.createElement('a');
     a.href = url;
