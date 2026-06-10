@@ -3,18 +3,15 @@
 // ================================================
 
 // ========== KONFIGURASI - UBAH DI SINI ==========
-const STORE_CLOSED = false;  // true = tutup, false = buka
-
-const ESTIMATED_OPEN_HOUR = "07.00/09.00";
-
-
-const CLOSE_REASON = "Istirahat Dulu";
-
-// PESAN LENGKAP (otomatis tergabung)
-const CLOSE_MESSAGE = `Haloo, Saya close dulu ya. Ini dilakukan untuk menghindari orderan yang lama diproses. Kamu masih bisa menggunakan tools di aplikasi ini kok`;
-// ================================================
-
+let STORE_CLOSED = false;
+let ESTIMATED_OPEN_HOUR = "";
+let CLOSE_REASON = "";
+let CLOSE_MESSAGE = "";
 let isStoreClosed = STORE_CLOSED;
+
+
+
+
 
 // Toast notifikasi (didefinisikan lebih awal)
 function showStoreClosedToast(message, type = 'warning') {
@@ -312,15 +309,30 @@ function disablePurchaseFeatures() {
     setTimeout(disableModalButtons, 100);
 }
 
-// Jalankan
-document.addEventListener('DOMContentLoaded', function() {
+
+
+
+document.addEventListener('DOMContentLoaded', async function () {
+
+    const res = await fetch(
+        "https://backend-delta-steel-38.vercel.app/api/store-status"
+    );
+
+    const data = await res.json();
+
+    STORE_CLOSED = data.closed;
+    ESTIMATED_OPEN_HOUR = data.estimatedOpenHour;
+    CLOSE_REASON = data.reason;
+    CLOSE_MESSAGE = data.message;
+
     checkAndResetOpenModal();
-    
+
     if (STORE_CLOSED) {
         disablePurchaseFeatures();
         showStoreClosedInfo();
-        observeModalAppearance(); // Mulai observasi modal yang muncul
+        observeModalAppearance();
     } else {
         showStoreOpenInfo();
     }
+
 });
