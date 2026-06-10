@@ -4694,6 +4694,9 @@ const generateDanaBtn = document.getElementById('generateDanaBtn');
 const danaNominal = document.getElementById('danaNominal');
 const danaResult = document.getElementById('danaResult');
 
+
+
+
 if (generateDanaBtn) {
     generateDanaBtn.addEventListener('click', async function() {
         let nominal = danaNominal.value.trim();
@@ -4706,17 +4709,29 @@ if (generateDanaBtn) {
         danaResult.innerHTML = '<div class="result-loading"><i class="ri-loader-4-line" style="animation: spin 1s linear infinite;"></i> Generating...</div>';
 
         try {
-            const apiUrl = `https://api.nexray.eu.cc/maker/fakedana?nominal=${nominal}`;
+            // API BARU: kyzznekoo.zone.id
+            const apiUrl = `https://kyzznekoo.zone.id/api/canvas/fakedana?nominal=${encodeURIComponent(nominal)}`;
             const response = await fetch(apiUrl);
+            
+            // Cek apakah response ok
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+            
             const blob = await response.blob();
             const imageUrl = URL.createObjectURL(blob);
+
+            // Format nominal untuk tampilan
+            let nominalNumber = parseInt(nominal.replace(/[^0-9]/g, ''));
+            let formattedNominal = isNaN(nominalNumber) ? nominal : `Rp ${nominalNumber.toLocaleString('id-ID')}`;
 
             danaResult.innerHTML = `
                 <div class="dana-result">
                     <div class="dana-info">
                         <i class="ri-bank-card-line" style="font-size: 40px; color: #0085FF;"></i>
                         <div class="dana-details">
-                            <p><strong>Nominal: Rp ${parseInt(nominal).toLocaleString('id-ID')}</strong></p>
+                            <p><strong>${escapeHtml(formattedNominal)}</strong></p>
+                            <p><i class="ri-wallet-line"></i> Fake Saldo DANA</p>
                         </div>
                     </div>
                     <div class="image-preview">
@@ -4734,18 +4749,24 @@ if (generateDanaBtn) {
             document.getElementById('danaDownloadBtn').addEventListener('click', function() {
                 const link = document.createElement('a');
                 link.href = imageUrl;
-                link.download = `fakedana_${nominal}.png`;
+                link.download = `fakedana_${nominal.replace(/[^0-9]/g, '')}.png`;
+                document.body.appendChild(link);
                 link.click();
+                document.body.removeChild(link);
                 showToast('⏬ Download dimulai...');
             });
 
             showToast('✅ Berhasil generate!');
         } catch(e) {
+            console.error('Dana generator error:', e);
             danaResult.innerHTML = `<div class="result-error">❌ Error: ${e.message}</div>`;
             showToast('❌ Gagal koneksi', true);
         }
     });
 }
+
+
+
 
 // ================================================
 // FAKE BANK JAGO (LANGSUNG GAMBAR - UKURAN WAJAR)
@@ -4824,6 +4845,8 @@ const mlNickname = document.getElementById('mlNickname');
 const mlAvatar = document.getElementById('mlAvatar');
 const mlResult = document.getElementById('mlResult');
 
+
+
 if (generateMlBtn) {
     generateMlBtn.addEventListener('click', async function() {
         let nickname = mlNickname.value.trim();
@@ -4833,7 +4856,8 @@ if (generateMlBtn) {
         }
 
         let avatarUrl = mlAvatar.value.trim();
-        let defaultAvatar = 'https://files.catbox.moe/p966f9.jpg';
+        // Default avatar baru sesuai permintaan
+        let defaultAvatar = 'https://files.catbox.moe/htswya.jpg';
         let finalAvatar = avatarUrl || defaultAvatar;
 
         mlResult.style.display = 'block';
@@ -4842,8 +4866,15 @@ if (generateMlBtn) {
         try {
             const encodedAvatar = encodeURIComponent(finalAvatar);
             const encodedNickname = encodeURIComponent(nickname);
-            const apiUrl = `https://api.nexray.eu.cc/maker/fakelobyml?avatar=${encodedAvatar}&nickname=${encodedNickname}`;
+            // API BARU: kyzznekoo.zone.id
+            const apiUrl = `https://kyzznekoo.zone.id/api/canvas/fakeml?pp=${encodedAvatar}&nama=${encodedNickname}`;
             const response = await fetch(apiUrl);
+            
+            // Cek apakah response ok
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+            
             const blob = await response.blob();
             const imageUrl = URL.createObjectURL(blob);
 
@@ -4857,8 +4888,8 @@ if (generateMlBtn) {
                             </button>
                         </div>
                         <div class="ml-details">
-                            <p><strong>Nickname: ${nickname}</strong></p>
-                            <p>🎮 Fake Lobby Mobile Legend</p>
+                            <p><strong>Nickname: ${escapeHtml(nickname)}</strong></p>
+                            <p><i class="ri-gamepad-line"></i> Fake Lobby Mobile Legend</p>
                         </div>
                     </div>
                     <button class="direct-download-btn" id="mlDownloadBtn">
@@ -4870,18 +4901,23 @@ if (generateMlBtn) {
             document.getElementById('mlDownloadBtn').addEventListener('click', function() {
                 const link = document.createElement('a');
                 link.href = imageUrl;
-                link.download = `FakeLobbyML_${nickname}.png`;
+                link.download = `FakeLobbyML_${nickname.replace(/[^a-z0-9]/gi, '_')}.png`;
+                document.body.appendChild(link);
                 link.click();
+                document.body.removeChild(link);
                 showToast('⏬ Download dimulai...');
             });
 
             showToast('✅ Lobby berhasil dibuat!');
         } catch(e) {
+            console.error('ML Generator error:', e);
             mlResult.innerHTML = `<div class="result-error">❌ Error: ${e.message}</div>`;
             showToast('❌ Gagal koneksi', true);
         }
     });
 }
+
+
 
 // ================================================
 // FUNGSI MODAL LIHAT GAMBAR FULLSCREEN
@@ -4915,7 +4951,7 @@ if (generateFfBtn) {
     generateFfBtn.addEventListener('click', async function() {
         let nickname = ffNicknameInput.value.trim();
         if (!nickname) {
-            showToast('❌ Masukkan Nickname ', true);
+            showToast('❌ Masukkan Nickname!', true);
             return;
         }
 
@@ -4924,10 +4960,17 @@ if (generateFfBtn) {
 
         try {
             const encodedNickname = encodeURIComponent(nickname);
-            const apiUrl = `https://api.nexray.eu.cc/maker/fakelobyff?nickname=${encodedNickname}`;
+            // API BARU: kyzznekoo.zone.id
+            const apiUrl = `https://kyzznekoo.zone.id/api/canvas/fakeff?nama=${encodedNickname}`;
             
             // Fetch gambar langsung sebagai blob
             const response = await fetch(apiUrl);
+            
+            // Cek apakah response ok
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+            
             const blob = await response.blob();
             
             // Konversi blob ke URL gambar
@@ -4938,9 +4981,8 @@ if (generateFfBtn) {
                     <div class="ff-info">
                         <img src="${imageUrl}" class="ff-image" alt="Fake Lobby FF">
                         <div class="ff-details">
-                            <p><strong>Nickname: ${nickname}</strong></p>
-                            <p>Fake Lobby Free Fire</p>
-                            
+                            <p><strong>Nickname: ${escapeHtml(nickname)}</strong></p>
+                            <p><i class="ri-gamepad-line"></i> Fake Lobby Free Fire</p>
                         </div>
                     </div>
                     <button class="direct-download-btn" id="ffDownloadBtn">
@@ -4953,23 +4995,21 @@ if (generateFfBtn) {
             document.getElementById('ffDownloadBtn').addEventListener('click', function() {
                 const link = document.createElement('a');
                 link.href = imageUrl;
-                link.download = `FakeLobby_${nickname}.png`;
+                link.download = `FakeLobby_${nickname.replace(/[^a-z0-9]/gi, '_')}.png`;
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
                 showToast('⏬ Download gambar dimulai...');
             });
 
-            showToast('✅  Berhasil Membuat Image');
+            showToast('✅ Berhasil Membuat Image');
         } catch(e) {
+            console.error('FF Generator error:', e);
             ffResult.innerHTML = `<div class="result-error">❌ Error: ${e.message}</div>`;
             showToast('❌ Gagal koneksi ke server', true);
         }
     });
 }
-
-
-
 
 // ================================================
 // FUNGSI CAPCUT DOWNLOADER
