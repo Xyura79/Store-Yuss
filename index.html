@@ -80,6 +80,12 @@
                 
                 
 <div class="sidebar-menu">
+    
+    <a href="owner/admin.html" class="sidebar-item" style="text-decoration: none;">
+    <i class="ri-shield-keyhole-line"></i> Admin Panel
+</a>
+    
+    
     <button class="sidebar-item" data-page="products">
         <i class="ri-store-line"></i> Produk
     </button>
@@ -2482,8 +2488,24 @@
 
 
 
-
-
+<script>
+    (function() {
+        // Simpan data untuk admin panel
+        if (typeof products !== 'undefined' && Array.isArray(products)) {
+            localStorage.setItem('yussxy_total_products', products.length);
+            console.log('✅ Total produk disimpan:', products.length);
+        } else {
+            console.warn('⚠️ products belum tersedia saat penyimpanan');
+        }
+        
+        if (typeof APP_VERSION !== 'undefined') {
+            localStorage.setItem('yussxy_app_version', APP_VERSION);
+            console.log('✅ Versi aplikasi disimpan:', APP_VERSION);
+        } else {
+            console.warn('⚠️ APP_VERSION belum tersedia');
+        }
+    })();
+</script>
 
 
 
@@ -2505,4 +2527,4 @@
 <script src="music.js"></script>
     
 </body>
-    </html>
+            </html>
