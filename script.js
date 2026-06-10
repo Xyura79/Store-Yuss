@@ -3557,30 +3557,37 @@ async function performYtSearch(query) {
     
     try {
         const encodedQuery = encodeURIComponent(query);
-        const apiUrl = `https://kyzznekoo.zone.id/api/search/youtube?q=${encodedQuery}`;
+        // API BARU: siputzx.my.id
+        const apiUrl = `https://api.siputzx.my.id/api/s/youtube?query=${encodedQuery}`;
         const response = await fetch(apiUrl);
         const data = await response.json();
         
-        if (data.status === true && data.results && data.results.length > 0) {
-            const videos = data.results;
+        if (data.status === true && data.data && data.data.length > 0) {
+            const videos = data.data;
             
-            let html = `<div style="margin-bottom: 12px; font-size: 12px; color: var(--text-secondary);">🎬 Ditemukan ${data.totalResults || videos.length} video untuk "${escapeHtml(query)}"</div>`;
+            let html = `<div style="margin-bottom: 12px; font-size: 12px; color: var(--text-secondary);"><i class="ri-youtube-line"></i> Ditemukan ${videos.length} video untuk "${escapeHtml(query)}"</div>`;
             
             videos.forEach(video => {
                 // Format views
-                let viewText = video.views ? (video.views.includes('views') ? video.views : `${video.views} views`) : '-';
+                let viewText = video.views ? (video.views >= 1000 ? (video.views / 1000).toFixed(1) + ' rb' : video.views.toString()) : '-';
+                if (video.views >= 1000000) viewText = (video.views / 1000000).toFixed(1) + ' jt';
+                viewText = viewText + ' views';
+                
+                // Format author name
+                const authorName = video.author?.name || 'Unknown Channel';
                 
                 html += `
                     <div class="yt-video-card">
-                        <img src="${video.thumbnail}" class="yt-thumbnail" alt="Thumbnail" onerror="this.src='https://placehold.co/100x56/333/white?text=Error'">
+                        <img src="${video.thumbnail || video.image}" class="yt-thumbnail" alt="Thumbnail" onerror="this.src='https://placehold.co/100x56/333/white?text=Error'">
                         <div class="yt-video-info">
                             <div class="yt-video-title">${escapeHtml(video.title)}</div>
                             <div class="yt-video-channel">
-                                <i class="ri-user-line"></i> ${escapeHtml(video.channel || 'Unknown')}
+                                <i class="ri-user-line"></i> ${escapeHtml(authorName)}
                             </div>
                             <div class="yt-video-meta">
-                                <span><i class="ri-time-line"></i> ${video.duration || '-'}</span>
+                                <span><i class="ri-time-line"></i> ${video.duration?.timestamp || video.timestamp || '-'}</span>
                                 <span><i class="ri-eye-line"></i> ${viewText}</span>
+                                <span><i class="ri-calendar-line"></i> ${video.ago || '-'}</span>
                             </div>
                             <div class="yt-video-buttons">
                                 <button class="yt-btn yt-btn-watch" onclick="window.open('${video.url}', '_blank')">
@@ -3601,13 +3608,64 @@ async function performYtSearch(query) {
             ytSearchResult.innerHTML = `<div class="yt-error">❌ ${escapeHtml(data.error)}</div>`;
             showToast(`❌ ${data.error}`, true);
         } else {
-            ytSearchResult.innerHTML = '<div class="yt-empty">🎬 Tidak ada video ditemukan. Coba kata kunci lain.</div>';
+            ytSearchResult.innerHTML = '<div class="yt-empty"><i class="ri-youtube-line"></i> Tidak ada video ditemukan. Coba kata kunci lain.</div>';
             showToast('❌ Tidak ada hasil', true);
         }
     } catch(e) {
         console.error('Error:', e);
         ytSearchResult.innerHTML = `<div class="yt-error">❌ Error: ${e.message}</div>`;
         showToast('❌ Gagal koneksi ke server', true);
+    }
+}
+
+// Fungsi untuk download video YouTube (opsional)
+async function downloadYtVideo(videoId, title) {
+    if (!videoId) {
+        showToast('❌ Video ID tidak ditemukan', true);
+        return;
+    }
+    
+    showToast('⏳ Mendapatkan link download...', false);
+    
+    try {
+        // Gunakan API download YouTube (contoh, bisa disesuaikan)
+        const apiUrl = `https://api.siputzx.my.id/api/download/youtube?url=https://youtube.com/watch?v=${videoId}`;
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        
+        if (data.status === true && data.result && data.result.media) {
+            // Cari format audio terbaik (biasanya format terakhir atau yang mp4)
+            const media = data.result.media;
+            let downloadUrl = null;
+            
+            if (media.mp4 && media.mp4[0]) {
+                downloadUrl = media.mp4[0].url;
+            } else if (media['3gp'] && media['3gp'][0]) {
+                downloadUrl = media['3gp'][0].url;
+            } else if (media.video && media.video[0]) {
+                downloadUrl = media.video[0].url;
+            }
+            
+            if (downloadUrl) {
+                const cleanTitle = title.replace(/[^a-z0-9]/gi, '_').substring(0, 40);
+                const fileName = `YussXy-YouTube-${cleanTitle}.mp4`;
+                
+                const a = document.createElement('a');
+                a.href = downloadUrl;
+                a.download = fileName;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                showToast('⏬ Download video dimulai...');
+            } else {
+                showToast('❌ Tidak ada link download tersedia', true);
+            }
+        } else {
+            showToast('❌ Gagal mendapatkan link download', true);
+        }
+    } catch(e) {
+        console.error('Download error:', e);
+        showToast('❌ Gagal download video', true);
     }
 }
 
@@ -3861,7 +3919,8 @@ async function performSpotifySearch(query) {
     
     try {
         const encodedQuery = encodeURIComponent(query);
-        const apiUrl = `https://api.nexray.eu.cc/search/spotify?q=${encodedQuery}`;
+        // API BARU: kyzznekoo.zone.id
+        const apiUrl = `https://kyzznekoo.zone.id/api/search/spotify?q=${encodedQuery}`;
         const response = await fetch(apiUrl);
         const data = await response.json();
         
@@ -3871,37 +3930,61 @@ async function performSpotifySearch(query) {
             let html = `<div style="margin-bottom: 12px; font-size: 12px; color: var(--text-secondary);">🎵 Ditemukan ${tracks.length} lagu</div>`;
             
             tracks.forEach((track, index) => {
-                // Format tanggal rilis
+                // Format tanggal rilis (dari API baru, release_date mungkin tidak ada)
                 let releaseDate = '';
-                if (track.release_date) {
-                    const date = new Date(track.release_date);
+                if (track.album && track.album.release_date) {
+                    const date = new Date(track.album.release_date);
                     if (!isNaN(date.getTime())) {
                         releaseDate = date.toLocaleDateString('id-ID', { year: 'numeric', month: 'short', day: 'numeric' });
-                    } else {
-                        releaseDate = track.release_date;
                     }
                 }
                 
+                // Ambil thumbnail dari album.images (API baru)
+                let thumbnail = '';
+                if (track.album && track.album.images && track.album.images.length) {
+                    const img = track.album.images.find(i => i.width === 300) || track.album.images[0];
+                    thumbnail = img.url;
+                } else {
+                    thumbnail = track.thumbnail || '';
+                }
+                
+                // Ambil artist name dari array artists (API baru)
+                let artistName = '';
+                if (track.artists && track.artists.length) {
+                    artistName = track.artists.map(a => a.name).join(', ');
+                } else {
+                    artistName = track.artist || 'Unknown';
+                }
+                
+                // Ambil album name (API baru)
+                let albumName = track.album?.name || track.album_name || '-';
+                
+                // Format durasi dari ms (API baru)
+                let duration = track.duration_ms ? formatDuration(track.duration_ms) : (track.duration || '-');
+                
+                // Popularitas (API baru mungkin tidak ada)
+                let popularity = track.popularity || 0;
+                
                 html += `
-                    <div class="spotify-track-card" data-track-url="${escapeHtml(track.url)}">
-                        <img src="${track.thumbnail}" class="spotify-thumbnail" alt="Thumbnail" onerror="this.src='https://placehold.co/60x60/333/white?text=🎵'">
+                    <div class="spotify-track-card" data-track-url="${escapeHtml(track.url || track.uri)}">
+                        <img src="${thumbnail}" class="spotify-thumbnail" alt="Thumbnail" onerror="this.src='https://placehold.co/60x60/333/white?text=🎵'">
                         <div class="spotify-track-info">
-                            <div class="spotify-track-title">${escapeHtml(track.title)}</div>
-                            <div class="spotify-track-artist">${escapeHtml(track.artist)}</div>
+                            <div class="spotify-track-title">${escapeHtml(track.name || track.title)}</div>
+                            <div class="spotify-track-artist">${escapeHtml(artistName)}</div>
                             <div class="spotify-track-meta">
-                                <span><i class="ri-time-line"></i> ${track.duration || '-'}</span>
-                                <span><i class="ri-album-line"></i> ${escapeHtml(track.album || '-')}</span>
+                                <span><i class="ri-time-line"></i> ${duration}</span>
+                                <span><i class="ri-album-line"></i> ${escapeHtml(albumName)}</span>
                                 ${releaseDate ? `<span><i class="ri-calendar-line"></i> ${releaseDate}</span>` : ''}
-                                <span class="spotify-popularity"><i class="ri-heart-line"></i> ${track.popularity || 0}%</span>
+                                <span class="spotify-popularity"><i class="ri-heart-line"></i> ${popularity}%</span>
                             </div>
                             <div class="spotify-track-buttons">
-                                <button class="spotify-btn spotify-btn-copy" onclick="copySpotifyLink('${escapeHtml(track.url)}')">
+                                <button class="spotify-btn spotify-btn-copy" onclick="copySpotifyLink('${escapeHtml(track.url || track.uri)}')">
                                     <i class="ri-file-copy-line"></i> Salin Link
                                 </button>
-                                <button class="spotify-btn spotify-btn-open" onclick="window.open('${escapeHtml(track.url)}', '_blank')">
+                                <button class="spotify-btn spotify-btn-open" onclick="window.open('${escapeHtml(track.url || track.uri)}', '_blank')">
                                     <i class="ri-external-link-line"></i> Buka di Spotify
                                 </button>
-                                <button class="spotify-btn spotify-btn-other" onclick="searchOtherVersions('${escapeHtml(track.title)}', '${escapeHtml(track.artist)}')">
+                                <button class="spotify-btn spotify-btn-other" onclick="searchOtherVersions('${escapeHtml(track.name || track.title)}', '${escapeHtml(artistName)}')">
                                     <i class="ri-music-line"></i> Cari Lagu Lain
                                 </button>
                             </div>
@@ -3922,6 +4005,17 @@ async function performSpotifySearch(query) {
         showToast('❌ Gagal koneksi ke server', true);
     }
 }
+
+// Helper function untuk format durasi dari milliseconds
+function formatDuration(ms) {
+    if (!ms) return '-';
+    const minutes = Math.floor(ms / 60000);
+    const seconds = Math.floor((ms % 60000) / 1000);
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+}
+
+
+
 
 // Fungsi copy link Spotify
 function copySpotifyLink(url) {
@@ -4884,6 +4978,7 @@ const downloadCapcutBtn = document.getElementById('downloadCapcutBtn');
 const capcutUrlInput = document.getElementById('capcutUrl');
 const capcutResult = document.getElementById('capcutResult');
 
+
 if (downloadCapcutBtn) {
     downloadCapcutBtn.addEventListener('click', async function() {
         let url = capcutUrlInput.value.trim();
@@ -4897,16 +4992,18 @@ if (downloadCapcutBtn) {
 
         try {
             const encodedUrl = encodeURIComponent(url);
-            const apiUrl = `https://api.nexray.eu.cc/downloader/v1/capcut?url=${encodedUrl}`;
+            // API BARU: api.siputzx.my.id
+            const apiUrl = `https://api.siputzx.my.id/api/d/capcut?url=${encodedUrl}`;
             const response = await fetch(apiUrl);
             const data = await response.json();
 
-            if (data.status && data.result && data.result.url) {
-                const res = data.result;
-                const videoUrl = res.url;
-                const thumbnail = res.thumbnail;
+            // Response baru: { status: true, data: { code, title, originalVideoUrl, coverUrl, authorName } }
+            if (data.status === true && data.data && data.data.originalVideoUrl) {
+                const res = data.data;
+                const videoUrl = res.originalVideoUrl;
+                const thumbnail = res.coverUrl;
                 const title = res.title || 'CapCut_Video';
-                const author = res.author || 'Unknown';
+                const author = res.authorName || 'Unknown';
 
                 // Bersihkan judul untuk nama file
                 const cleanTitle = title.replace(/[^a-z0-9]/gi, '_').substring(0, 40);
@@ -4917,8 +5014,8 @@ if (downloadCapcutBtn) {
                         <div class="capcut-info">
                             ${thumbnail ? `<img src="${thumbnail}" class="capcut-thumb" onerror="this.style.display='none'">` : '<i class="ri-video-line" style="font-size: 40px; color: var(--accent);"></i>'}
                             <div class="capcut-details">
-                                <p><strong>${title.substring(0, 60)}</strong></p>
-                                <p>👤 ${author}</p>
+                                <p><strong>${escapeHtml(title.substring(0, 60))}</strong></p>
+                                <p><i class="ri-user-line"></i> ${escapeHtml(author)}</p>
                             </div>
                         </div>
                         <button class="direct-download-btn" id="capcutDirectDownloadBtn">
@@ -4944,11 +5041,13 @@ if (downloadCapcutBtn) {
                 showToast('❌ Gagal download, cek URL CapCut', true);
             }
         } catch(e) {
+            console.error('CapCut download error:', e);
             capcutResult.innerHTML = `<div class="result-error">❌ Error: ${e.message}</div>`;
             showToast('❌ Gagal koneksi ke server', true);
         }
     });
 }
+
 
 
 
@@ -4974,17 +5073,19 @@ if (downloadFacebookBtn) {
 
         try {
             const encodedUrl = encodeURIComponent(url);
-            const apiUrl = `https://api.nexray.eu.cc/downloader/facebook?url=${encodedUrl}`;
+            // API BARU: api-faa.my.id
+            const apiUrl = `https://api-faa.my.id/faa/fbdownload?url=${encodedUrl}`;
             const response = await fetch(apiUrl);
             const data = await response.json();
 
-            if (data.status && data.result) {
-                const res = data.result;
+            // Response baru: { status: true, creator: "Faa", result: { media: { video_sd, video_hd } } }
+            if (data.status === true && data.result && data.result.media) {
+                const media = data.result.media;
                 
                 // Pilih kualitas video (prioritas HD, lalu SD)
-                let videoUrl = res.video_hd || res.video_sd;
-                let quality = res.video_hd ? 'HD' : 'SD';
-                const title = res.title || 'Facebook_Video';
+                let videoUrl = media.video_hd || media.video_sd;
+                let quality = media.video_hd ? 'HD' : 'SD';
+                const title = `Facebook_Video_${Date.now()}`;
                 
                 // Bersihkan judul untuk nama file
                 const cleanTitle = title.replace(/[^a-z0-9]/gi, '_').substring(0, 40);
@@ -4995,8 +5096,8 @@ if (downloadFacebookBtn) {
                         <div class="facebook-info">
                             <i class="ri-facebook-line" style="font-size: 40px; color: #1877F2;"></i>
                             <div class="facebook-details">
-                                <p><strong>${title.substring(0, 60)}</strong></p>
-                                <p>🎬 Kualitas: ${quality}</p>
+                                <p><strong>Video Facebook</strong></p>
+                                <p><i class="ri-video-line"></i> Kualitas: ${quality}</p>
                             </div>
                         </div>
                         <div class="result-buttons">
@@ -5006,15 +5107,6 @@ if (downloadFacebookBtn) {
                         </div>
                     </div>
                 `;
-                
-                // Jika ada audio, tambahkan tombol download audio
-                if (res.audio) {
-                    html += `
-                        <button class="mp3-only-btn" id="fbAudioDownloadBtn" style="margin-top: 10px;">
-                            <i class="ri-music-line"></i> Download Audio (MP3)
-                        </button>
-                    `;
-                }
                 
                 facebookResult.innerHTML = html;
 
@@ -5031,20 +5123,6 @@ if (downloadFacebookBtn) {
                         showToast(`⏬ Download ${quality} dimulai...`);
                     });
                 }
-                
-                // Download audio
-                const fbAudioBtn = document.getElementById('fbAudioDownloadBtn');
-                if (fbAudioBtn && res.audio) {
-                    fbAudioBtn.addEventListener('click', function() {
-                        const link = document.createElement('a');
-                        link.href = res.audio;
-                        link.download = `YussXy-FB-Audio-${cleanTitle}.mp3`;
-                        document.body.appendChild(link);
-                        link.click();
-                        document.body.removeChild(link);
-                        showToast('⏬ Download audio dimulai...');
-                    });
-                }
 
                 showToast('✅ Video siap di download!');
             } else {
@@ -5052,14 +5130,12 @@ if (downloadFacebookBtn) {
                 showToast('❌ Gagal download, cek URL Facebook', true);
             }
         } catch(e) {
+            console.error('Facebook download error:', e);
             facebookResult.innerHTML = `<div class="result-error">❌ Error: ${e.message}</div>`;
             showToast('❌ Gagal koneksi ke server', true);
         }
     });
 }
-
-
-
 
 
 
@@ -5072,6 +5148,7 @@ if (downloadFacebookBtn) {
 const downloadSpotifyBtn = document.getElementById('downloadSpotifyBtn');
 const spotifyUrlInput = document.getElementById('spotifyUrl');
 const spotifyResult = document.getElementById('spotifyResult');
+
 
 if (downloadSpotifyBtn) {
     downloadSpotifyBtn.addEventListener('click', async function() {
@@ -5086,13 +5163,15 @@ if (downloadSpotifyBtn) {
 
         try {
             const encodedUrl = encodeURIComponent(url);
-            const apiUrl = `https://api.nexray.eu.cc/downloader/spotify?url=${encodedUrl}`;
+            // API BARU: kyzznekoo.zone.id
+            const apiUrl = `https://kyzznekoo.zone.id/api/downloader/spotify?url=${encodedUrl}`;
             const response = await fetch(apiUrl);
             const data = await response.json();
 
-            if (data.status && data.result && data.result.url) {
+            // Response baru: { status: true, result: { download: { url }, title, artist, image } }
+            if (data.status && data.result && data.result.download && data.result.download.url) {
                 const result = data.result;
-                const audioUrl = result.url;
+                const audioUrl = result.download.url;
                 const title = result.title || 'Spotify_Track';
                 const artist = result.artist || 'Unknown Artist';
 
@@ -5105,8 +5184,8 @@ if (downloadSpotifyBtn) {
                         <div class="spotify-info">
                             <i class="ri-spotify-line" style="font-size: 40px; color: #1DB954;"></i>
                             <div class="spotify-details">
-                                <p><strong>${title}</strong></p>
-                                <p>🎤 ${artist}</p>
+                                <p><strong>${escapeHtml(title)}</strong></p>
+                                <p><i class="ri-mic-line"></i> ${escapeHtml(artist)}</p>
                             </div>
                         </div>
                         <button class="direct-download-btn" id="spotifyDirectDownloadBtn">
@@ -5132,12 +5211,12 @@ if (downloadSpotifyBtn) {
                 showToast('❌ Gagal download, cek URL Spotify', true);
             }
         } catch(e) {
+            console.error('Download error:', e);
             spotifyResult.innerHTML = `<div class="result-error">❌ Error: ${e.message}</div>`;
             showToast('❌ Gagal koneksi ke server', true);
         }
     });
 }
-
 
 
 //🤩😎😁😎😎😉
@@ -5149,7 +5228,6 @@ if (downloadSpotifyBtn) {
 const downloadInstagramBtn = document.getElementById('downloadInstagramBtn');
 const instagramUrlInput = document.getElementById('instagramUrl');
 const instagramResult = document.getElementById('instagramResult');
-
 if (downloadInstagramBtn) {
     downloadInstagramBtn.addEventListener('click', async function() {
         let url = instagramUrlInput.value.trim();
@@ -5163,33 +5241,38 @@ if (downloadInstagramBtn) {
 
         try {
             const encodedUrl = encodeURIComponent(url);
-            const apiUrl = `https://api.nexray.eu.cc/downloader/instagram?url=${encodedUrl}`;
+            // API BARU: api-faa.my.id
+            const apiUrl = `https://api-faa.my.id/faa/igdl?url=${encodedUrl}`;
             const response = await fetch(apiUrl);
             const data = await response.json();
 
-            if (data.status && data.result && data.result.length > 0) {
-                // Ambil item pertama (bisa video atau foto)
-                const item = data.result[0];
-                const mediaUrl = item.url;
-                const mediaType = item.type;
-                const thumbnail = item.thumbnail;
+            // Response baru: { status: true, creator: "Faa", result: { url: [...], metadata } }
+            if (data.status === true && data.result && data.result.url && data.result.url.length > 0) {
+                // Ambil URL media pertama (bisa video atau foto)
+                const mediaUrl = data.result.url[0];
+                const metadata = data.result.metadata;
+                const isVideo = metadata?.isVideo === true;
+                const username = metadata?.username || 'Unknown';
+                const caption = metadata?.caption || 'Instagram Media';
                 
                 let html = '';
                 
-                if (mediaType === 'video') {
-                    const fileName = `YussXy-IG-Video-${Date.now()}.mp4`;
+                if (isVideo) {
+                    const fileName = `YussXy-IG-Video-${username}-${Date.now()}.mp4`;
                     
                     html = `
                         <div class="instagram-result">
                             <div class="instagram-info">
-                                ${thumbnail ? `<img src="${thumbnail}" class="instagram-thumb" onerror="this.style.display='none'">` : '<i class="ri-instagram-line" style="font-size: 40px; color: #E4405F;"></i>'}
+                                <i class="ri-instagram-line" style="font-size: 40px; color: #E4405F;"></i>
                                 <div class="instagram-details">
-                                    <p><strong>Instagram ${mediaType === 'video' ? 'Video' : 'Foto'}</strong></p>
-                                    <p>Tipe: ${mediaType === 'video' ? '🎬 Video' : '🖼️ Foto'}</p>
+                                    <p><strong>Instagram Video</strong></p>
+                                    <p><i class="ri-user-line"></i> @${escapeHtml(username)}</p>
+                                    <p><i class="ri-heart-line"></i> ${metadata?.like?.toLocaleString() || 0} likes</p>
+                                    ${caption ? `<p><i class="ri-chat-1-line"></i> ${escapeHtml(caption.substring(0, 50))}${caption.length > 50 ? '...' : ''}</p>` : ''}
                                 </div>
                             </div>
                             <button class="direct-download-btn" id="igDirectDownloadBtn">
-                                <i class="ri-download-line"></i> Download ${mediaType === 'video' ? 'Video' : 'Foto'} (MP4)
+                                <i class="ri-download-line"></i> Download Video (MP4)
                             </button>
                         </div>
                     `;
@@ -5203,12 +5286,12 @@ if (downloadInstagramBtn) {
                         document.body.appendChild(link);
                         link.click();
                         document.body.removeChild(link);
-                        showToast(`⏬ Download ${mediaType} dimulai...`);
+                        showToast(`⏬ Download video dimulai...`);
                     });
                     
                 } else {
                     // Untuk foto (image)
-                    const fileName = `YussXy-IG-Photo-${Date.now()}.jpg`;
+                    const fileName = `YussXy-IG-Photo-${username}-${Date.now()}.jpg`;
                     
                     html = `
                         <div class="instagram-result">
@@ -5216,7 +5299,9 @@ if (downloadInstagramBtn) {
                                 <img src="${mediaUrl}" class="instagram-photo" onerror="this.src='https://placehold.co/300x300/333/white?text=Error'">
                                 <div class="instagram-details">
                                     <p><strong>Instagram Foto</strong></p>
-                                    <p>Klik download untuk menyimpan</p>
+                                    <p><i class="ri-user-line"></i> @${escapeHtml(username)}</p>
+                                    <p><i class="ri-heart-line"></i> ${metadata?.like?.toLocaleString() || 0} likes</p>
+                                    ${caption ? `<p><i class="ri-chat-1-line"></i> ${escapeHtml(caption.substring(0, 50))}${caption.length > 50 ? '...' : ''}</p>` : ''}
                                 </div>
                             </div>
                             <button class="direct-download-btn" id="igDirectDownloadBtn">
@@ -5244,13 +5329,12 @@ if (downloadInstagramBtn) {
                 showToast('❌ Gagal download, cek URL Instagram', true);
             }
         } catch(e) {
+            console.error('Instagram download error:', e);
             instagramResult.innerHTML = `<div class="result-error">❌ Error: ${e.message}</div>`;
             showToast('❌ Gagal koneksi ke server', true);
         }
     });
 }
-
-
 
 
 
@@ -5280,12 +5364,12 @@ if (processYoutubeBtn) {
 
         try {
             const encodedUrl = encodeURIComponent(url);
-            // Ambil info video pake API MP4 (ambil thumbnail & judul)
-            const apiUrl = `https://api.nexray.eu.cc/downloader/ytmp4?url=${encodedUrl}&resolusi=720`;
+            // API BARU: Ambil info video pake API MP3 (dapat title & thumbnail)
+            const apiUrl = `https://api-faa.my.id/faa/ytmp3?url=${encodedUrl}`;
             const response = await fetch(apiUrl);
             const data = await response.json();
 
-            if (data.status && data.result) {
+            if (data.status === true && data.result) {
                 currentYoutubeData = {
                     title: data.result.title,
                     thumbnail: data.result.thumbnail,
@@ -5293,15 +5377,14 @@ if (processYoutubeBtn) {
                     url: url
                 };
 
-                const durationMin = Math.floor(data.result.duration / 60);
-                const durationSec = data.result.duration % 60;
+                let durationText = data.result.duration || 'Unknown';
 
                 let html = `
                     <div class="youtube-thumb">
                         <img src="${data.result.thumbnail}" alt="Thumbnail" onerror="this.src='https://placehold.co/100x56/333/white?text=YouTube'">
                         <div class="youtube-info-small">
-                            <p><strong>${data.result.title.substring(0, 50)}</strong></p>
-                            <p>⏱️ Durasi: ${durationMin}:${durationSec.toString().padStart(2, '0')}</p>
+                            <p><strong>${escapeHtml(data.result.title.substring(0, 50))}</strong></p>
+                            <p><i class="ri-time-line"></i> Durasi: ${durationText}</p>
                         </div>
                     </div>
                 `;
@@ -5313,13 +5396,14 @@ if (processYoutubeBtn) {
                 showToast('❌ Gagal memproses URL', true);
             }
         } catch(e) {
+            console.error('Youtube process error:', e);
             youtubeResult.innerHTML = `<div class="result-error">❌ Error: ${e.message}</div>`;
             showToast('❌ Gagal koneksi ke server', true);
         }
     });
 }
 
-// Fungsi download MP4 dengan resolusi tertentu
+// Fungsi download MP4 dengan resolusi tertentu (menggunakan API ytmp4)
 async function downloadYoutubeMP4(resolusi) {
     if (!currentYoutubeData) return;
     
@@ -5327,28 +5411,31 @@ async function downloadYoutubeMP4(resolusi) {
     
     try {
         const encodedUrl = encodeURIComponent(currentYoutubeData.url);
-        const apiUrl = `https://api.nexray.eu.cc/downloader/ytmp4?url=${encodedUrl}&resolusi=${resolusi}`;
+        // API BARU: ytmp4 dengan parameter url
+        const apiUrl = `https://api-faa.my.id/faa/ytmp4?url=${encodedUrl}`;
         const response = await fetch(apiUrl);
         const data = await response.json();
         
-        if (data.status && data.result && data.result.url) {
-            const fileName = `YussXy-YT-${currentYoutubeData.title.replace(/[^a-z0-9]/gi, '_').substring(0, 40)}_${resolusi}p.mp4`;
+        // Response: { status: true, result: { download_url, format } }
+        if (data.status === true && data.result && data.result.download_url) {
+            const fileName = `YussXy-YT-${currentYoutubeData.title.replace(/[^a-z0-9]/gi, '_').substring(0, 40)}.mp4`;
             const link = document.createElement('a');
-            link.href = data.result.url;
+            link.href = data.result.download_url;
             link.download = fileName;
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-            showToast(`⏬ Download ${resolusi}p dimulai...`);
+            showToast(`⏬ Download video dimulai...`);
         } else {
             showToast('❌ Gagal mengambil video', true);
         }
     } catch(e) {
+        console.error('MP4 download error:', e);
         showToast('❌ Error: ' + e.message, true);
     }
 }
 
-// Fungsi download MP3
+// Fungsi download MP3 (menggunakan API ytmp3)
 async function downloadYoutubeMP3() {
     if (!currentYoutubeData) return;
     
@@ -5356,14 +5443,16 @@ async function downloadYoutubeMP3() {
     
     try {
         const encodedUrl = encodeURIComponent(currentYoutubeData.url);
-        const apiUrl = `https://api.nexray.eu.cc/downloader/v1/ytmp3?url=${encodedUrl}`;
+        // API BARU: ytmp3
+        const apiUrl = `https://api-faa.my.id/faa/ytmp3?url=${encodedUrl}`;
         const response = await fetch(apiUrl);
         const data = await response.json();
         
-        if (data.status && data.result && data.result.url) {
+        // Response: { status: true, result: { mp3, title, thumbnail } }
+        if (data.status === true && data.result && data.result.mp3) {
             const fileName = `YussXy-YT-${currentYoutubeData.title.replace(/[^a-z0-9]/gi, '_').substring(0, 40)}.mp3`;
             const link = document.createElement('a');
-            link.href = data.result.url;
+            link.href = data.result.mp3;
             link.download = fileName;
             document.body.appendChild(link);
             link.click();
@@ -5373,6 +5462,7 @@ async function downloadYoutubeMP3() {
             showToast('❌ Gagal mengambil audio', true);
         }
     } catch(e) {
+        console.error('MP3 download error:', e);
         showToast('❌ Error: ' + e.message, true);
     }
 }
@@ -5390,7 +5480,6 @@ const downloadMp3Only = document.getElementById('downloadMp3Only');
 if (downloadMp3Only) {
     downloadMp3Only.addEventListener('click', downloadYoutubeMP3);
 }
-
 
 
 
@@ -8629,6 +8718,7 @@ function playFromLibrary(index) {
     }
 }
 
+
 async function searchSpotifyTracks(query) {
     if (!query.trim()) return;
     
@@ -8638,12 +8728,39 @@ async function searchSpotifyTracks(query) {
     
     try {
         const encodedQuery = encodeURIComponent(query);
-        const searchUrl = `https://api.nexray.eu.cc/search/spotify?q=${encodedQuery}`;
+        // API BARU: kyzznekoo.zone.id
+        const searchUrl = `https://kyzznekoo.zone.id/api/search/spotify?q=${encodedQuery}`;
         const response = await fetch(searchUrl);
         const data = await response.json();
         
-        if (data.status && data.result && data.result.length > 0) {
-            searchResults = data.result;
+        // Response baru: { status: true, result: [{ name, artists, album, url, ... }] }
+        if (data.status === true && data.result && data.result.length > 0) {
+            // Konversi data dari API baru ke format yang diharapkan oleh fungsi lama
+            const convertedResults = data.result.map(item => {
+                // Ambil nama artis dari array artists
+                let artistName = 'Unknown';
+                if (item.artists && item.artists.length > 0) {
+                    artistName = item.artists.map(a => a.name).join(', ');
+                }
+                
+                // Ambil thumbnail dari album images
+                let thumbnail = '';
+                if (item.album && item.album.images && item.album.images.length > 0) {
+                    const img = item.album.images.find(i => i.width === 300) || item.album.images[0];
+                    thumbnail = img.url;
+                }
+                
+                return {
+                    title: item.name || 'Unknown Title',
+                    artist: artistName,
+                    thumbnail: thumbnail,
+                    url: item.url || item.uri,
+                    id: item.id || item.uri?.split(':')[2],
+                    duration: item.duration_ms ? formatDuration(item.duration_ms) : ''
+                };
+            });
+            
+            searchResults = convertedResults;
             
             resultsContainer.innerHTML = `
                 <div class="search-header">Hasil pencarian "${escapeHtml(query)}"</div>
@@ -8664,13 +8781,18 @@ async function searchSpotifyTracks(query) {
             resultsContainer.innerHTML = '<div class="search-empty">Tidak ada hasil</div>';
         }
     } catch(e) {
+        console.error('Search error:', e);
         resultsContainer.innerHTML = '<div class="search-error">Gagal mencari lagu</div>';
     }
 }
 
-
-
-
+// Helper function untuk format durasi dari milliseconds
+function formatDuration(ms) {
+    if (!ms) return '';
+    const minutes = Math.floor(ms / 60000);
+    const seconds = Math.floor((ms % 60000) / 1000);
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+}
 
 async function downloadAndAddToLibrary(index) {
     if (index < 0 || index >= searchResults.length) return;
@@ -8717,19 +8839,21 @@ async function downloadAndAddToLibrary(index) {
     
     try {
         const encodedUrl = encodeURIComponent(track.url);
-        const downloadUrl = `https://api.nexray.eu.cc/downloader/spotify?url=${encodedUrl}`;
+        // API BARU: kyzznekoo.zone.id/downloader/spotify
+        const downloadUrl = `https://kyzznekoo.zone.id/api/downloader/spotify?url=${encodedUrl}`;
         const response = await fetch(downloadUrl);
         const data = await response.json();
         
         removeLoadingOverlay();
         
-        if (data.status && data.result && data.result.url) {
+        // Response baru: { status: true, result: { download: { url: "..." }, title, artist, image } }
+        if (data.status === true && data.result && data.result.download && data.result.download.url) {
             const trackData = {
                 id: track.id || Date.now(),
-                title: track.title,
-                artist: track.artist,
-                thumbnail: track.thumbnail,
-                audioUrl: data.result.url
+                title: data.result.title || track.title,
+                artist: data.result.artist || track.artist,
+                thumbnail: data.result.image || track.thumbnail,
+                audioUrl: data.result.download.url
             };
             
             addToLibrary(trackData);
