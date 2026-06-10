@@ -1,11 +1,20 @@
+
+
 // ═══════════════════════════════════════════════
 //  YsPlayer — yuss xy
 //  Fitur: rekomendasi personal, list vertikal, titik tiga
-//  (tanpa long press / multi-select)
+//  API: kyzznekoo.zone.id
 // ═══════════════════════════════════════════════
 
-const API_SEARCH = 'https://api.nexray.eu.cc/search/spotify?q=';
-const API_PLAY   = 'https://api.nexray.eu.cc/downloader/spotifyplay?q=';
+// API Endpoints baru
+const API_SEARCH = 'https://kyzznekoo.zone.id/api/search/spotify?q=';
+const API_PLAY   = 'https://kyzznekoo.zone.id/api/play/spotify?url=';
+
+// Rate limiting cooldown (ms)
+let lastSearchTime = 0;
+let lastRecLoadTime = 0;
+const SEARCH_COOLDOWN = 3000;    // 3 detik antar pencarian
+const REC_COOLDOWN = 90000;      // 90 detik (1.5 menit) untuk acak rekomendasi
 
 const aud = document.getElementById('aud');
 aud.volume = 0.8;
@@ -17,6 +26,7 @@ let prevVol = 0.8, muted = false;
 let ctxTrack = null, atpTrack = null;
 let sleepTimer = null, sleepEnd = 0;
 let mediaSession = 'mediaSession' in navigator;
+let recLoading = false; // cegah spam load rekomendasi
 
 // LOCALSTORAGE
 const LS = {
@@ -48,6 +58,40 @@ function addSearchQuery(query) {
   LS.set('searchHistory', searchHistory);
 }
 
+// Helper untuk format durasi dari ms ke mm:ss
+function formatDuration(ms) {
+  if (!ms) return '';
+  const minutes = Math.floor(ms / 60000);
+  const seconds = Math.floor((ms % 60000) / 1000);
+  return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+}
+
+// Helper untuk mengambil artist name dari array artists
+function getArtistName(artists) {
+  if (!artists || !artists.length) return 'Unknown';
+  return artists.map(a => a.name).join(', ');
+}
+
+// Helper untuk mengambil thumbnail terbaik dari album.images
+function getThumbnail(album) {
+  if (!album || !album.images || !album.images.length) return null;
+  // cari gambar ukuran sedang (300px) atau yang pertama
+  const img = album.images.find(i => i.width === 300) || album.images[0];
+  return img.url;
+}
+
+// Konversi response API ke format track yang konsisten
+function convertToTrack(item) {
+  return {
+    title: item.name || 'Unknown Title',
+    artist: getArtistName(item.artists),
+    thumbnail: getThumbnail(item.album),
+    duration: formatDuration(item.duration_ms),
+    url: item.url || item.uri,
+    source: 'spotify'
+  };
+}
+
 // RESTORE SESSION
 window.addEventListener('load', () => {
   aud.volume = savedVol;
@@ -74,7 +118,7 @@ window.addEventListener('load', () => {
   updateHistUI();
 });
 
-// ========== REKOMENDASI PERSONAL ==========
+// ========== REKOMENDASI PERSONAL dengan cooldown ==========
 const STATIC_QUERIES = [
   'Hindia Secukupnya', 'Hindia Evaluasi', 'Iwan Fals Bento', 'Iwan Fals Aku Sayang Kamu',
   'Nadin Amizah Rumpang', 'Nadin Amizah Taruh', 'Kunto Aji Pilu Membiru', 'Kunto Aji Terlalu Lama Sendiri',
@@ -98,6 +142,19 @@ const STATIC_QUERIES = [
 ];
 
 async function loadRecs() {
+  // Cek cooldown
+  const now = Date.now();
+  if (now - lastRecLoadTime < REC_COOLDOWN && lastRecLoadTime !== 0) {
+    const remaining = Math.ceil((REC_COOLDOWN - (now - lastRecLoadTime)) / 1000);
+    toast(`Tunggu ${remaining} detik lagi untuk mengacak ulang rekomendasi`, 'err');
+    return;
+  }
+  if (recLoading) {
+    toast('Rekomendasi sedang dimuat, tunggu sebentar', 'err');
+    return;
+  }
+  
+  recLoading = true;
   const el = document.getElementById('rec-list');
   el.innerHTML = `<div class="spin-box"><div class="spinner"></div><p>Memuat rekomendasi personal...</p></div>`;
 
@@ -135,22 +192,29 @@ async function loadRecs() {
       const r = await fetch(API_SEARCH + encodeURIComponent(q));
       const j = await r.json();
       if (j.status && j.result?.length) {
-        j.result.slice(0, 2).forEach(t => {
-          if (!allTracks.find(x => x.title === t.title && x.artist === t.artist)) {
-            allTracks.push(t);
+        j.result.slice(0, 2).forEach(item => {
+          const track = convertToTrack(item);
+          if (!allTracks.find(x => x.title === track.title && x.artist === track.artist)) {
+            allTracks.push(track);
           }
         });
       }
-    } catch(e) {}
+    } catch(e) {
+      console.warn(`Gagal fetch rekomendasi untuk: ${q}`, e);
+    }
   }));
 
   if (!allTracks.length) {
     el.innerHTML = `<div class="state-box"><i class="ri-wifi-off-line"></i><p>Gagal memuat rekomendasi</p><small>Periksa koneksi</small></div>`;
+    recLoading = false;
     return;
   }
 
   allTracks.sort(() => Math.random() - 0.5);
   renderVerticalList(el, allTracks.slice(0, 40), 'rec');
+  lastRecLoadTime = Date.now();
+  recLoading = false;
+  toast('Rekomendasi diperbarui!', 'ok');
 }
 
 // Fungsi render LIST VERTIKAL (rekomendasi & hasil pencarian)
@@ -189,7 +253,7 @@ function renderVerticalList(container, tracks, type = 'rec') {
   container.appendChild(wrapper);
 }
 
-// ========== PENCARIAN ==========
+// ========== PENCARIAN dengan cooldown ==========
 document.getElementById('srch').addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
 
 function qs(q) {
@@ -198,9 +262,19 @@ function qs(q) {
 }
 
 async function doSearch() {
+  // Cek cooldown pencarian
+  const now = Date.now();
+  if (now - lastSearchTime < SEARCH_COOLDOWN) {
+    const remaining = Math.ceil((SEARCH_COOLDOWN - (now - lastSearchTime)) / 1000);
+    toast(`Tunggu ${remaining} detik sebelum mencari lagi`, 'err');
+    return;
+  }
+  
   const q = document.getElementById('srch').value.trim();
   if (!q) return;
-  addSearchQuery(q); // simpan riwayat pencarian
+  addSearchQuery(q);
+  lastSearchTime = Date.now();
+  
   showPage('home');
   document.getElementById('chips-wrap').style.display = 'none';
   document.getElementById('rec-section').style.display = 'none';
@@ -216,9 +290,12 @@ async function doSearch() {
       document.getElementById('results-lbl').textContent = `"${q}" — 0 lagu`;
       return;
     }
-    document.getElementById('results-lbl').textContent = `"${q}" — ${j.result.length} lagu`;
-    renderVerticalList(document.getElementById('results-box'), j.result, 'search');
+    // Konversi hasil pencarian ke format track
+    const tracks = j.result.map(item => convertToTrack(item));
+    document.getElementById('results-lbl').textContent = `"${q}" — ${tracks.length} lagu`;
+    renderVerticalList(document.getElementById('results-box'), tracks, 'search');
   } catch(e) {
+    console.error('Search error:', e);
     document.getElementById('results-box').innerHTML = `<div class="state-box"><i class="ri-error-warning-line" style="opacity:1;color:#f59e0b"></i><p>Gagal terhubung</p><small>Periksa koneksi</small></div>`;
     toast('Gagal terhubung ke server', 'err');
   }
@@ -231,7 +308,7 @@ function clearSearch() {
   document.getElementById('rec-section').style.display = '';
 }
 
-// ========== PLAY ==========
+// ========== PLAY dengan API baru ==========
 async function playFromSearch(track, cardEl) {
   let qIdx = queue.findIndex(x => x.url === track.url);
   if (qIdx === -1) {
@@ -267,21 +344,27 @@ async function startPlay(idx, cardEl) {
   toast('Memuat audio…');
 
   try {
-    const q = `${t.title} ${t.artist}`;
-    const r = await fetch(API_PLAY + encodeURIComponent(q));
+    // Gunakan API play dengan parameter url
+    const url = encodeURIComponent(t.url);
+    const r = await fetch(API_PLAY + url);
     const j = await r.json();
-    if (!j.status || !j.result?.download_url) throw new Error('no url');
-    queue[idx].audioUrl = j.result.download_url;
-    if (j.result.title) queue[idx].title = j.result.title;
-    if (j.result.artist) queue[idx].artist = j.result.artist;
-    if (j.result.thumbnail) queue[idx].thumbnail = j.result.thumbnail;
+    
+    if (!j.status || !j.songs || !j.songs.length) throw new Error('no audio url');
+    
+    const songData = j.songs[0];
+    queue[idx].audioUrl = songData.url;
+    if (songData.title) queue[idx].title = songData.title;
+    if (songData.artist) queue[idx].artist = songData.artist;
+    if (songData.thumbnail) queue[idx].thumbnail = songData.thumbnail;
     saveQueue();
+    
     if (curIdx === idx) {
       updateNowPlaying(queue[idx]);
       playAudio(queue[idx].audioUrl);
       toast('▶ ' + queue[idx].title, 'ok');
     }
   } catch(e) {
+    console.error('Play error:', e);
     toast('Gagal memuat audio', 'err');
   } finally {
     document.getElementById(`cl-${idx}`)?.remove();
@@ -604,6 +687,33 @@ function renderHistList() {
 }
 function clearHist() { if (!confirm('Hapus semua riwayat?')) return; history = []; LS.set('history', history); updateHistUI(); toast('Riwayat dihapus'); }
 
+// ========== DOWNLOAD (perbaiki dengan API baru) ==========
+async function downloadTrack(track) {
+  closeModal('ctx-modal');
+  toast('Menyiapkan download…');
+  try {
+    let url = track.audioUrl;
+    if (!url) {
+      const encodedUrl = encodeURIComponent(track.url);
+      const r = await fetch(API_PLAY + encodedUrl);
+      const j = await r.json();
+      if (!j.status || !j.songs || !j.songs.length) throw new Error('no url');
+      url = j.songs[0].url;
+    }
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${track.title} - ${track.artist}.mp3`;
+    a.target = '_blank';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    toast('Download dimulai', 'ok');
+  } catch(e) {
+    console.error('Download error:', e);
+    toast('Gagal download', 'err');
+  }
+}
+
 // ========== CONTEXT MENU ==========
 function openCtxMenu(track) {
   ctxTrack = track;
@@ -639,31 +749,6 @@ function openCtxMenu(track) {
 }
 function updateNowPlayingIfMatch() { if (queue[curIdx] && ctxTrack && queue[curIdx].url === ctxTrack.url) updateNowPlaying(queue[curIdx]); }
 function addToQueueOnly(track) { if (queue.find(q => q.url === track.url)) { toast('Sudah ada di antrian'); return; } queue.push({ ...track }); saveQueue(); updateQueueUI(); toast('Ditambahkan ke antrian', 'ok'); }
-
-// ========== DOWNLOAD ==========
-async function downloadTrack(track) {
-  closeModal('ctx-modal');
-  toast('Menyiapkan download…');
-  try {
-    let url = track.audioUrl;
-    if (!url) {
-      const r = await fetch(API_PLAY + encodeURIComponent(`${track.title} ${track.artist}`));
-      const j = await r.json();
-      if (!j.status || !j.result?.download_url) throw new Error('no url');
-      url = j.result.download_url;
-    }
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${track.title} - ${track.artist}.mp3`;
-    a.target = '_blank';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    toast('Download dimulai', 'ok');
-  } catch(e) {
-    toast('Gagal download', 'err');
-  }
-}
 
 // ========== SLEEP TIMER ==========
 function openSleepModal() {
