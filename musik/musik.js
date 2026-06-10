@@ -1,11 +1,8 @@
-
-
-
-
 // ═══════════════════════════════════════════════
 //  YsPlayer — yuss xy
 //  Fitur: rekomendasi personal, list vertikal, titik tiga
 //  API: kyzznekoo.zone.id (downloader)
+//  + Auto-play playlist & titik tiga di antrian
 // ═══════════════════════════════════════════════
 
 // API Endpoints
@@ -29,6 +26,10 @@ let ctxTrack = null, atpTrack = null;
 let sleepTimer = null, sleepEnd = 0;
 let mediaSession = 'mediaSession' in navigator;
 let recLoading = false;
+let currentPlaylistSource = 'queue'; // 'queue' atau 'playlist'
+let currentPlaylistTracks = [];
+let currentPlaylistId = null;
+let currentPlaylistIndex = -1;
 
 // LOCALSTORAGE
 const LS = {
@@ -112,6 +113,33 @@ window.addEventListener('load', () => {
   updatePlUI();
   updateHistUI();
 });
+
+// ========== CUSTOM CONFIRM MODAL ==========
+function showConfirmDialog(message, onConfirm, onCancel) {
+  const modal = document.createElement('div');
+  modal.className = 'custom-confirm-modal';
+  modal.innerHTML = `
+    <div class="custom-confirm-content">
+      <div class="custom-confirm-icon">
+        <i class="ri-question-line"></i>
+      </div>
+      <div class="custom-confirm-message">${message}</div>
+      <div class="custom-confirm-buttons">
+        <button class="confirm-btn cancel-btn">Batal</button>
+        <button class="confirm-btn ok-btn">Ya, Hapus</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+  
+  const okBtn = modal.querySelector('.ok-btn');
+  const cancelBtn = modal.querySelector('.cancel-btn');
+  const closeModal = () => modal.remove();
+  
+  okBtn.onclick = () => { closeModal(); if (onConfirm) onConfirm(); };
+  cancelBtn.onclick = () => { closeModal(); if (onCancel) onCancel(); };
+  modal.onclick = (e) => { if (e.target === modal) closeModal(); };
+}
 
 // ========== REKOMENDASI ==========
 const STATIC_QUERIES = [
@@ -294,8 +322,14 @@ function clearSearch() {
   document.getElementById('rec-section').style.display = '';
 }
 
-// ========== PLAY dengan API DOWNLOADER ==========
+// ========== PLAY ==========
 async function playFromSearch(track, cardEl) {
+  // Reset mode playlist
+  currentPlaylistSource = 'queue';
+  currentPlaylistTracks = [];
+  currentPlaylistId = null;
+  currentPlaylistIndex = -1;
+  
   let qIdx = queue.findIndex(x => x.url === track.url);
   if (qIdx === -1) {
     queue.push({ ...track });
@@ -304,6 +338,83 @@ async function playFromSearch(track, cardEl) {
     updateQueueUI();
   }
   await startPlay(qIdx, cardEl);
+}
+
+// Fungsi untuk memutar lagu dari playlist (auto-play playlist)
+async function playFromPlaylist(playlistId, trackIndex) {
+  const playlist = playlists.find(p => p.id === playlistId);
+  if (!playlist || !playlist.tracks || !playlist.tracks.length) {
+    toast('Playlist tidak ditemukan atau kosong', 'err');
+    return;
+  }
+  
+  const track = playlist.tracks[trackIndex];
+  if (!track) return;
+  
+  // Set mode playlist
+  currentPlaylistSource = 'playlist';
+  currentPlaylistTracks = playlist.tracks;
+  currentPlaylistId = playlistId;
+  currentPlaylistIndex = trackIndex;
+  
+  // Cari di queue atau tambahkan
+  let qIdx = queue.findIndex(x => x.url === track.url);
+  if (qIdx === -1) {
+    queue.push({ ...track });
+    qIdx = queue.length - 1;
+    saveQueue();
+    updateQueueUI();
+  }
+  
+  curIdx = qIdx;
+  updateNowPlaying(track);
+  highlightQueue(qIdx);
+  saveQueue();
+  addHistory(track);
+  
+  if (track.audioUrl) {
+    playAudio(track.audioUrl);
+    // Update tampilan playlist
+    const plIndex = playlists.findIndex(p => p.id === playlistId);
+    if (plIndex !== -1 && document.getElementById('pl-detail').style.display !== 'none') {
+      openPlDetail(plIndex);
+    }
+    return;
+  }
+  
+  toast('Memuat audio…');
+  
+  try {
+    const url = encodeURIComponent(track.url);
+    const r = await fetch(API_PLAY + url);
+    const j = await r.json();
+    
+    if (!j.status || !j.result || !j.result.download || !j.result.download.url) {
+      throw new Error('no audio url from API');
+    }
+    
+    const audioDownloadUrl = j.result.download.url;
+    queue[qIdx].audioUrl = audioDownloadUrl;
+    if (j.result.title) queue[qIdx].title = j.result.title;
+    if (j.result.artist) queue[qIdx].artist = j.result.artist;
+    if (j.result.image) queue[qIdx].thumbnail = j.result.image;
+    saveQueue();
+    
+    if (curIdx === qIdx) {
+      updateNowPlaying(queue[qIdx]);
+      playAudio(audioDownloadUrl);
+      toast('▶ ' + queue[qIdx].title, 'ok');
+    }
+    
+    // Update tampilan playlist
+    const plIndex = playlists.findIndex(p => p.id === playlistId);
+    if (plIndex !== -1 && document.getElementById('pl-detail').style.display !== 'none') {
+      openPlDetail(plIndex);
+    }
+  } catch(e) {
+    console.error('Play error:', e);
+    toast('Gagal memuat audio: ' + (e.message || 'cek koneksi'), 'err');
+  }
 }
 
 async function startPlay(idx, cardEl) {
@@ -334,15 +445,12 @@ async function startPlay(idx, cardEl) {
     const r = await fetch(API_PLAY + url);
     const j = await r.json();
     
-    console.log('Downloader API response:', j);
-    
     if (!j.status || !j.result || !j.result.download || !j.result.download.url) {
       throw new Error('no audio url from API');
     }
     
     const audioDownloadUrl = j.result.download.url;
     queue[idx].audioUrl = audioDownloadUrl;
-    
     if (j.result.title) queue[idx].title = j.result.title;
     if (j.result.artist) queue[idx].artist = j.result.artist;
     if (j.result.image) queue[idx].thumbnail = j.result.image;
@@ -382,7 +490,6 @@ aud.addEventListener('timeupdate', () => {
 });
 aud.addEventListener('ended', () => {
   if (repeat === 'one') { aud.play(); return; }
-  if (repeat === 'all' && curIdx === queue.length - 1) { startPlay(0); return; }
   playNext();
 });
 aud.addEventListener('volumechange', () => {
@@ -392,8 +499,49 @@ aud.addEventListener('volumechange', () => {
 
 function setPlayUI(playing) { const ic = playing ? 'ri-pause-fill' : 'ri-play-fill'; document.getElementById('mini-pp-icon').className = ic; document.getElementById('po-pp-icon').className = ic; }
 function togglePlay() { if (!aud.src) return; aud.paused ? aud.play() : aud.pause(); }
-function playNext() { if (!queue.length) return; const n = shuffle ? Math.floor(Math.random() * queue.length) : (curIdx + 1) % queue.length; startPlay(n); }
-function playPrev() { if (!queue.length) return; if (aud.currentTime > 3) { aud.currentTime = 0; return; } startPlay((curIdx - 1 + queue.length) % queue.length); }
+
+function playNext() {
+  if (currentPlaylistSource === 'playlist' && currentPlaylistTracks.length > 0) {
+    const nextIndex = currentPlaylistIndex + 1;
+    if (nextIndex < currentPlaylistTracks.length) {
+      playFromPlaylist(currentPlaylistId, nextIndex);
+    } else if (repeat === 'all') {
+      playFromPlaylist(currentPlaylistId, 0);
+    } else {
+      currentPlaylistSource = 'queue';
+      currentPlaylistTracks = [];
+      currentPlaylistId = null;
+      if (queue.length) {
+        const n = shuffle ? Math.floor(Math.random() * queue.length) : (curIdx + 1) % queue.length;
+        startPlay(n);
+      }
+    }
+  } else {
+    if (!queue.length) return;
+    const n = shuffle ? Math.floor(Math.random() * queue.length) : (curIdx + 1) % queue.length;
+    startPlay(n);
+  }
+}
+
+function playPrev() {
+  if (currentPlaylistSource === 'playlist' && currentPlaylistTracks.length > 0) {
+    const prevIndex = currentPlaylistIndex - 1;
+    if (prevIndex >= 0) {
+      playFromPlaylist(currentPlaylistId, prevIndex);
+    } else if (repeat === 'all') {
+      playFromPlaylist(currentPlaylistId, currentPlaylistTracks.length - 1);
+    } else {
+      if (!queue.length) return;
+      if (aud.currentTime > 3) { aud.currentTime = 0; return; }
+      startPlay((curIdx - 1 + queue.length) % queue.length);
+    }
+  } else {
+    if (!queue.length) return;
+    if (aud.currentTime > 3) { aud.currentTime = 0; return; }
+    startPlay((curIdx - 1 + queue.length) % queue.length);
+  }
+}
+
 function toggleShuffle() { shuffle = !shuffle; document.getElementById('po-shuf').classList.toggle('active', shuffle); toast(shuffle ? 'Acak aktif' : 'Acak nonaktif'); }
 function toggleRepeat() {
   const m = ['none', 'all', 'one'];
@@ -469,7 +617,7 @@ function updateMediaSession() {
   navigator.mediaSession.setActionHandler('seekto', d => { if (d.seekTime) aud.currentTime = d.seekTime; });
 }
 
-// ========== QUEUE ==========
+// ========== QUEUE dengan titik tiga ==========
 function saveQueue() { LS.set('queue', queue.map(t => ({ ...t, audioUrl: null }))); LS.set('curIdx', curIdx); }
 function updateQueueUI() {
   const n = queue.length;
@@ -494,8 +642,11 @@ function renderQueueList() {
       ${t.thumbnail ? `<img class="q-thumb" src="${t.thumbnail}" alt=""/>` : `<div class="q-thumb-ph"><i class="ri-music-line" style="font-size:16px"></i></div>`}
       <div class="q-meta"><div class="q-title">${esc(t.title)}</div><div class="q-artist">${esc(t.artist)}</div></div>
       <span class="q-dur">${t.duration || ''}</span>
+      <button class="q-menu-btn" onclick="event.stopPropagation();openCtxMenu(${JSON.stringify(t).replace(/"/g, '&quot;')})">
+        <i class="ri-more-2-fill"></i>
+      </button>
     `;
-    li.onclick = () => startPlay(i);
+    li.onclick = (e) => { if (!e.target.closest('.q-menu-btn')) startPlay(i); };
     list.appendChild(li);
   });
 }
@@ -505,7 +656,15 @@ function highlightQueue(idx) {
   if (el) { el.classList.add('active'); el.scrollIntoView({ block: 'nearest' }); }
   renderQueueList();
 }
-function clearQueue() { if (!confirm('Hapus semua antrian?')) return; queue = []; curIdx = -1; saveQueue(); updateQueueUI(); toast('Antrian dihapus'); }
+function clearQueue() { 
+  showConfirmDialog('Hapus semua lagu dari antrian?', () => {
+    queue = []; 
+    curIdx = -1; 
+    saveQueue(); 
+    updateQueueUI(); 
+    toast('Antrian dihapus', 'ok');
+  }); 
+}
 
 // ========== FAVORIT ==========
 function toggleFav(track) {
@@ -548,7 +707,7 @@ function renderFavList() {
   });
 }
 
-// ========== PLAYLIST ==========
+// ========== PLAYLIST dengan efek sedang memutar ==========
 function updatePlUI() {
   const n = playlists.length;
   document.getElementById('pl-ct').textContent = n ? `(${n})` : '';
@@ -578,14 +737,22 @@ function createPlaylist() {
   const name = document.getElementById('npl-name').value.trim();
   if (!name) { toast('Masukkan nama playlist', 'err'); return; }
   if (playlists.find(p => p.name === name)) { toast('Nama sudah digunakan', 'err'); return; }
-  playlists.unshift({ name, tracks: [], created: Date.now() });
+  playlists.unshift({ id: Date.now(), name, tracks: [], created: Date.now() });
   LS.set('playlists', playlists);
   updatePlUI();
   closeModal('npl-modal');
   toast('Playlist "' + name + '" dibuat', 'ok');
   if (atpTrack) { setTimeout(() => addToPlaylist(0), 100); }
 }
-function deletePl(i) { if (!confirm(`Hapus playlist "${playlists[i].name}"?`)) return; playlists.splice(i, 1); LS.set('playlists', playlists); updatePlUI(); toast('Playlist dihapus'); }
+function deletePl(i) { 
+  const playlistName = playlists[i].name;
+  showConfirmDialog(`Hapus playlist "${playlistName}"?`, () => {
+    playlists.splice(i, 1); 
+    LS.set('playlists', playlists); 
+    updatePlUI(); 
+    toast('Playlist dihapus');
+  }); 
+}
 function openPlDetail(i) {
   document.getElementById('pl-cards').style.display = 'none';
   document.getElementById('pl-empty').style.display = 'none';
@@ -594,19 +761,25 @@ function openPlDetail(i) {
   document.getElementById('pl-detail-name').textContent = playlists[i].name;
   const list = document.getElementById('pl-detail-list');
   list.innerHTML = '';
+  
   if (!playlists[i].tracks.length) {
     list.innerHTML = '<div class="state-box"><i class="ri-music-line"></i><p>Playlist kosong</p><small>Tambahkan lagu dari menu opsi</small></div>';
     return;
   }
+  
   playlists[i].tracks.forEach((t, j) => {
+    const isPlaying = (currentPlaylistSource === 'playlist' && currentPlaylistId === playlists[i].id && currentPlaylistIndex === j);
     const d = document.createElement('div');
-    d.className = 'fav-item';
+    d.className = 'fav-item' + (isPlaying ? ' playing' : '');
     d.innerHTML = `
       ${t.thumbnail ? `<img class="fav-thumb" src="${t.thumbnail}" alt=""/>` : `<div class="fav-thumb-ph"><i class="ri-music-line"></i></div>`}
-      <div class="fav-meta"><div class="fav-title">${esc(t.title)}</div><div class="fav-artist">${esc(t.artist)}</div></div>
+      <div class="fav-meta">
+        <div class="fav-title">${esc(t.title)}${isPlaying ? ' <span style="color:var(--accent);font-size:10px;">(sedang diputar)</span>' : ''}</div>
+        <div class="fav-artist">${esc(t.artist)}</div>
+      </div>
       <button class="fav-del" onclick="event.stopPropagation();removePlTrack(${i},${j})"><i class="ri-delete-bin-line"></i></button>
     `;
-    d.onclick = () => playFromSearch(t, null);
+    d.onclick = () => playFromPlaylist(playlists[i].id, j);
     list.appendChild(d);
   });
 }
@@ -675,7 +848,14 @@ function renderHistList() {
     el.appendChild(d);
   });
 }
-function clearHist() { if (!confirm('Hapus semua riwayat?')) return; history = []; LS.set('history', history); updateHistUI(); toast('Riwayat dihapus'); }
+function clearHist() { 
+  showConfirmDialog('Hapus semua riwayat putar?', () => {
+    history = []; 
+    LS.set('history', history); 
+    updateHistUI(); 
+    toast('Riwayat dihapus', 'ok');
+  }); 
+}
 
 // ========== DOWNLOAD ==========
 async function downloadTrack(track) {
