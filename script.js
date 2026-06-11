@@ -1,6 +1,3 @@
-
-
-
 // ================================================
 // DATA PRODUK
 // ================================================
@@ -537,7 +534,7 @@ const socialMediaServices = [
         id: 5,
         name: "TikTok Follower",
         price: 70000,
-        unit: "1.000 Like",
+        unit: "1.000 Follower",
         status: "available",
         description: "Menambah Follower ke akun TikTok",
         minQuantity: 20
@@ -2707,27 +2704,65 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // ================================================
-    // CEK BANNED & UNBAN (DI PALING ATAS)
-    // ================================================
+
+
+
+
+
+
+
+(async () => {
+
     const deviceId = localStorage.getItem('device_fingerprint');
-    
-    if (deviceId && typeof BANNED_DEVICE_IDS !== 'undefined' && BANNED_DEVICE_IDS.length > 0) {
-        if (BANNED_DEVICE_IDS.includes(deviceId)) {
-            localStorage.setItem('was_banned', 'true');
-            window.location.href = 'ban/ban.html';
+    if (!deviceId) return;
+
+    try {
+
+        const res = await fetch(
+            `https://backend-delta-steel-38.vercel.app/api/cekban?device_id=${encodeURIComponent(deviceId)}`,
+            { cache: "no-store" }
+        );
+
+        const data = await res.json();
+
+        const isBanned = data?.banned === true;
+
+        // ================= BANNED =================
+        if (isBanned) {
+
+            localStorage.setItem("ban_state", "banned");
+
+            if (!location.pathname.includes("ban/ban.html")) {
+                location.replace("ban/ban.html");
+            }
+
             return;
         }
-    }
-    
-    const wasBanned = localStorage.getItem('was_banned') === 'true';
-    if (wasBanned && deviceId && typeof BANNED_DEVICE_IDS !== 'undefined') {
-        if (!BANNED_DEVICE_IDS.includes(deviceId)) {
-            localStorage.removeItem('was_banned');
-            window.location.href = 'ban/unban.html';
+
+        // ================= NOT BANNED =================
+        const lastState = localStorage.getItem("ban_state");
+
+        if (lastState === "banned" && !isBanned) {
+
+            localStorage.setItem("ban_state", "unbanned");
+
+            if (!location.pathname.includes("ban/unban.html")) {
+                location.replace("ban/unban.html");
+            }
+
             return;
         }
+
+        // reset kalau normal
+        localStorage.setItem("ban_state", "ok");
+
+    } catch (err) {
+        console.error("cekban error:", err);
     }
+
+})();
+
+
 
     // ================================================
     // BANNER & ACTION BUTTONS
