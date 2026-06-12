@@ -1327,7 +1327,7 @@ function showSoldOutMessage(productId) {
     if (product && product.soldOutMessage) {
         showToast(product.soldOutMessage, true);
     } else {
-        showToast('Maaf, produk ini sedang habis. Akan tersedia lagi dalam beberapa hari.', true);
+        showToast('Maaf, produk ini sedang habis.', true);
     }
 }
 
