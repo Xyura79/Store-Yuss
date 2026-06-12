@@ -5,7 +5,7 @@
 // Menyimpan informasi versi aplikasi
 // ================================================
 
-const APP_VERSION = "3.9.9";
+const APP_VERSION = "4.0.0";
 
 const APP_RELEASE_DATE = "8 juni 2026";
 
