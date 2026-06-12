@@ -142,7 +142,7 @@ let products = [
     name: "Reaction 1000 emoji",
     description: "Kirim 1000 reaction emoji ke pesan saluran WhatsApp anda",
     price: 1500,
-    image: "image/produk/produk20.jpg",
+    image: "image/produk/produk28.jpg",
     category: "jasa",
     isNegotiable: false,
     type: "hot",
