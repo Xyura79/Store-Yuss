@@ -135,9 +135,32 @@ let products = [
     
     
     
+    
+    
+{
+    id: 30,
+    name: "Reaction 1000 emoji",
+    description: "Kirim 1000 reaction emoji ke pesan saluran WhatsApp anda",
+    price: 1500,
+    image: "image/produk/produk20.jpg",
+    category: "jasa",
+    isNegotiable: false,
+    type: "hot",
+    isReaction1000Service: true,
+    benefits: [
+        "1000 reaction sekaligus",
+        "Pesan saluran mu banjir reaksi",
+        "Cocok untuk pamer ke teman"
+    ]
+},
+    
+    
+    
+    
+    
         {
     id: 19,
-    name: "Reaction Pesan Saluran",
+    name: "Reaction 90+ emoji",
     description: "Memberikan 100+ Reaksi emoji ke pesan di saluran WhatsApp anda",
     price: 800,
     image: "image/produk/produk20.jpg",
@@ -1702,6 +1725,17 @@ function buyNow(productId) {
         return;
     }
     
+    if (product.id === 30 || product.name === "Reaction 1000 emoji") {
+    showReaction1000Modal(product);
+    return;
+}
+    
+    
+    
+    
+    
+    
+    
     
     // KHUSUS PRODUK WEBSITE STORE (ID 29)
 if (product.id === 29 || product.name === "Website Store") {
@@ -2239,10 +2273,27 @@ function closeSidebar() {
 
 
 
+
 function confirmPayment() {
     if (window.pendingOrder) {
-        // Cek apakah ini pesanan website store
-        if (window.pendingOrder.isWebsiteOrder && window.pendingOrder.websiteData) {
+        if (window.pendingOrder.isDeposit) {
+            const nominal = window.pendingOrder.depositNominal;
+            const { jam, tanggal, tahun } = getCurrentDateTime();
+            const deviceId = localStorage.getItem('device_fingerprint') || 'Tidak tersedia';
+            
+            let message = `Halo Yuss Xy 👋%0A%0A`;
+            message += `Saya ingin melakukan konfirmasi pembelian Saldo *YussXy*.%0A%0A`;
+            message += `📦 Detail:%0A`;
+            message += `• Deposit Saldo Rp ${nominal.toLocaleString('id-ID')} %0A`;
+            message += `• Waktu: ${jam} • ${tanggal} ${tahun}%0A`;
+            message += `• ID: ${deviceId}%0A%0A`;
+            message += `✅ Pembayaran sudah saya lakukan.%0A%0A`;
+            message += `Mohon segera diproses untuk layanan yang telah saya pesan.%0A`;
+            message += `Terima kasih 🙏`;
+            
+            window.open(`https://wa.me/${ADMIN_PHONE_NUMBER}?text=${message}`, '_blank');
+        }
+        else if (window.pendingOrder.isWebsiteOrder && window.pendingOrder.websiteData) {
             const data = window.pendingOrder.websiteData;
             const { jam, tanggal, tahun } = getCurrentDateTime();
             
@@ -2263,7 +2314,6 @@ function confirmPayment() {
             
             window.open(`https://wa.me/${ADMIN_PHONE_NUMBER}?text=${message}`, '_blank');
         }
-        // Cek apakah ini pesanan bug service
         else if (window.pendingOrder.isBugService || (window.pendingBugTarget && !window.pendingOrder.bugTarget)) {
             if (window.pendingBugTarget && !window.pendingOrder.bugTarget) {
                 window.pendingOrder.bugTarget = window.pendingBugTarget;
@@ -2271,35 +2321,26 @@ function confirmPayment() {
             }
             sendWhatsAppConfirmation(window.pendingOrder);
         }
-        // Pesanan biasa
         else {
             sendWhatsAppConfirmation(window.pendingOrder);
         }
         
-        // Reset cart
         cart = [];
         saveCart();
         renderCart();
         
-        // Tutup modal QRIS
         const modal = document.getElementById('qrisModal');
         if (modal) modal.classList.remove('active');
         
-        // Kembali ke halaman produk
         navigateToPage('products');
         
         showToast('✅ Pesanan berhasil dikonfirmasi!');
         
-        // Reset semua data pending
         window.pendingOrder = null;
         window.pendingBugTarget = null;
         window.websiteOrderData = null;
     }
 }
-
-
-
-
 
 
 
@@ -9299,6 +9340,194 @@ document.addEventListener('DOMContentLoaded', function() {
 //🟡🟡🟡🟡🟡🟡🟡
 
 
+function normalizeEmoji(input) {
+    return input
+        .replace(/\s/g, ",")          // spasi → koma
+        .split(",")                   // pecah
+        .map(e => e.trim())
+        .filter(Boolean)
+        .join(",");
+}
+
+// =============================
+// VALID LINK CHANNEL MESSAGE
+// =============================
+function isValidChannelLink(url) {
+    return /^https:\/\/whatsapp\.com\/channel\/[a-zA-Z0-9]+\/\d+$/.test(url);
+}
+
+function showReaction1000Modal(product) {
+    const modal = document.createElement('div');
+    modal.className = 'modal active';
+    modal.style.display = 'flex';
+
+    modal.innerHTML = `
+        <div class="modal-content" style="max-width: 360px;">
+            <div class="modal-header">
+                <h3><i class="ri-whatsapp-line"></i> ${product.name}</h3>
+                <button class="modal-close" onclick="this.closest('.modal').remove()">
+                    <i class="ri-close-line"></i>
+                </button>
+            </div>
+
+            <div class="modal-body" id="reactionBody" style="text-align:left;">
+
+                <p style="font-size:13px;color:var(--text-secondary);margin-bottom:10px;">
+                    ${product.description}
+                </p>
+
+                <p style="font-size:13px;color:var(--accent);margin-bottom:10px;">
+                    Harga: Rp ${product.price.toLocaleString('id-ID')}
+                </p>
+
+                <label style="font-size:12px;">Link Channel Message</label>
+                <input id="reactionLinkInput"
+                    placeholder="https://whatsapp.com/channel/xxxxx/1234"
+                    style="width:100%;padding:10px;border-radius:10px;margin-bottom:10px;">
+
+                <label style="font-size:12px;">Emoji (WAJIB KOMMA)</label>
+                <input id="reactionEmojiInput"
+                    placeholder="😄,🔥,😍"
+                    style="width:100%;padding:10px;border-radius:10px;font-size:18px;margin-bottom:10px;">
+
+                <div style="font-size:12px;margin-bottom:10px;">
+                    Saldo akan dipotong <b>Rp ${product.price.toLocaleString('id-ID')}</b>
+                </div>
+
+                <button id="processReaction1000Btn"
+                    style="width:100%;padding:12px;border-radius:10px;background:#e53935;color:#fff;font-weight:700;">
+                    Proses Reaction
+                </button>
+
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    const btn = document.getElementById('processReaction1000Btn');
+
+    btn.addEventListener('click', async () => {
+        const link = document.getElementById('reactionLinkInput').value.trim();
+        let emoji = document.getElementById('reactionEmojiInput').value.trim();
+        const deviceId = localStorage.getItem('device_fingerprint');
+
+        if (!link || !emoji) return showToast("Isi link & emoji", true);
+        if (!deviceId) return showToast("Device ID tidak ditemukan", true);
+
+        if (!isValidChannelLink(link)) {
+            return showToast("Link harus format channel message", true);
+        }
+
+        if (!emoji.includes(",")) {
+            return showToast("Emoji wajib dipisah koma", true);
+        }
+
+        emoji = normalizeEmoji(emoji);
+
+        btn.disabled = true;
+        btn.innerText = "Memproses...";
+
+        try {
+
+            // =========================
+            // CEK SALDO
+            // =========================
+            const cek = await fetch("https://backend-delta-steel-38.vercel.app/api/balance", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-api-key": "sb_secret_Ok9VVXILGV6zybDzN0zVpA_U5k___GF"
+                },
+                body: JSON.stringify({
+                    action: "get",
+                    device_id: deviceId
+                })
+            });
+
+            const cekData = await cek.json();
+            if (!cekData.success) throw new Error("Gagal cek saldo");
+
+            if (cekData.data.balance < product.price) {
+                showToast("Saldo tidak cukup", true);
+                btn.disabled = false;
+                btn.innerText = "Proses Reaction";
+                return;
+            }
+
+            // =========================
+            // KIRIM RCWA
+            // =========================
+            const rcRes = await fetch("https://backend-delta-steel-38.vercel.app/api/rc", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-api-key": "sb_secret_Ok9VVXILGV6zybDzN0zVpA_U5k___GF"
+                },
+                body: JSON.stringify({
+                    type: "send",
+                    target: "6283140731769@s.whatsapp.net",
+                    message: `.chreact ${link} ${emoji}`
+                })
+            });
+
+            const rcData = await rcRes.json();
+            if (!rcData.success) throw new Error("Gagal kirim bot");
+
+            // =========================
+            // POTONG SALDO
+            // =========================
+            const sub = await fetch("https://backend-delta-steel-38.vercel.app/api/balance", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-api-key": "sb_secret_Ok9VVXILGV6zybDzN0zVpA_U5k___GF"
+                },
+                body: JSON.stringify({
+                    action: "sub",
+                    device_id: deviceId,
+                    amount: product.price
+                })
+            });
+
+            const subData = await sub.json();
+            if (!subData.success) throw new Error("Gagal potong saldo");
+
+            // =========================
+            // RESULT UI (TIDAK CLOSE MODAL)
+            // =========================
+            document.getElementById("reactionBody").innerHTML = `
+                <div style="background:#111;padding:12px;border-radius:10px;color:#fff;font-size:12px;line-height:1.6">
+
+                    <b>✅ TRANSAKSI BERHASIL</b><br><br>
+
+                    🆔 Device ID:<br>
+                    ${deviceId}<br><br>
+
+                    💳 Harga:<br>
+                    Rp ${product.price.toLocaleString('id-ID')}<br><br>
+
+                    💰 Sisa Saldo:<br>
+                    Rp ${subData.data.balance.toLocaleString('id-ID')}<br><br>
+
+                    📡 Status:<br>
+                    REACTION SENT<br><br>
+
+
+                </div>
+            `;
+
+        } catch (err) {
+            console.error(err);
+            showToast("Error: " + err.message, true);
+        }
+
+        btn.disabled = false;
+        btn.innerText = "Proses Reaction";
+    });
+}
+
+
 
 
 //🟡🟡🟡🟡🟡🟡🟡
@@ -10028,7 +10257,171 @@ function closeZoomModalWithAnimation(modal) {
 
 
 
+// Tampilkan modal deposit dari bawah (bottom sheet)
+function showDepositBottomSheet() {
+    // Buat overlay
+    const overlay = document.createElement('div');
+    overlay.className = 'deposit-overlay';
+    overlay.innerHTML = `
+        <div class="deposit-bottom-sheet">
+            <div class="deposit-handle"></div>
+            <div class="deposit-header">
+                <i class="ri-wallet-3-line"></i>
+                <h3>Deposit Saldo</h3>
+                <button class="deposit-close-btn" id="closeDepositSheet">
+                    <i class="ri-close-line"></i>
+                </button>
+            </div>
+            <div class="deposit-body">
+                <div class="deposit-info">
+                    <i class="ri-information-line"></i>
+                    <span>Minimal deposit <strong>Rp1.000</strong></span>
+                </div>
+                <div class="deposit-input-group">
+                    <label><i class="ri-money-dollar-circle-line"></i> Jumlah Deposit</label>
+                    <input type="number" id="depositAmount" placeholder="Contoh: 50000" min="1000" step="1000">
+                </div>
+                <div class="deposit-suggest">
+                    <button class="suggest-btn" data-nominal="10000">Rp10.000</button>
+                    <button class="suggest-btn" data-nominal="25000">Rp25.000</button>
+                    <button class="suggest-btn" data-nominal="50000">Rp50.000</button>
+                    <button class="suggest-btn" data-nominal="100000">Rp100.000</button>
+                </div>
+                <button class="deposit-bayar-btn" id="depositBayarBtn">
+                    <i class="ri-qr-code-line"></i> Bayar Sekarang
+                </button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(overlay);
+    
+    // Animasi muncul
+    setTimeout(() => {
+        overlay.classList.add('show');
+    }, 10);
+    
+    // Tombol close
+    const closeBtn = document.getElementById('closeDepositSheet');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            closeDepositSheet(overlay);
+        });
+    }
+    
+    // Klik overlay (luar sheet) untuk tutup
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+            closeDepositSheet(overlay);
+        }
+    });
+    
+    // Tombol saran nominal
+    document.querySelectorAll('.suggest-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const nominal = btn.dataset.nominal;
+            const inputAmount = document.getElementById('depositAmount');
+            if (inputAmount) inputAmount.value = nominal;
+        });
+    });
+    
+    // Tombol bayar
+    const bayarBtn = document.getElementById('depositBayarBtn');
+    if (bayarBtn) {
+        bayarBtn.addEventListener('click', () => {
+            const inputAmount = document.getElementById('depositAmount');
+            let nominal = parseInt(inputAmount.value);
+            
+            // Validasi
+            if (isNaN(nominal) || nominal < 1000) {
+                showToast('❌ Minimal deposit Rp1.000!', true);
+                return;
+            }
+            
+            // Tutup bottom sheet
+            closeDepositSheet(overlay);
+            
+            // Simpan data deposit
+            window.pendingDeposit = {
+                nominal: nominal
+            };
+            
+            // Tampilkan QRIS
+            const qrTotal = document.getElementById('qrTotal');
+            if (qrTotal) qrTotal.textContent = `Rp ${nominal.toLocaleString('id-ID')}`;
+            
+            showQrisModalWithButton();
+            
+            window.pendingOrder = {
+                items: [{ name: `Deposit Saldo Rp ${nominal.toLocaleString('id-ID')}`, quantity: 1 }],
+                totalItems: 1,
+                totalPrice: nominal,
+                isDeposit: true,
+                depositNominal: nominal
+            };
+        });
+    }
+}
 
+// Fungsi tutup bottom sheet dengan animasi
+function closeDepositSheet(overlay) {
+    overlay.classList.remove('show');
+    setTimeout(() => {
+        overlay.remove();
+    }, 300);
+}
+
+// Event listener tombol deposit
+document.addEventListener('DOMContentLoaded', function() {
+    const depositBtn = document.getElementById('depositBtn');
+    if (depositBtn) {
+        depositBtn.addEventListener('click', showDepositBottomSheet);
+    }
+});
+
+
+
+
+
+async function getSaldo() {
+    try {
+        let deviceId = localStorage.getItem("device_fingerprint");
+
+        if (!deviceId) {
+            deviceId = await generateDeviceCode();
+            localStorage.setItem("device_fingerprint", deviceId);
+        }
+
+        const res = await fetch("https://backend-delta-steel-38.vercel.app/api/balance", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "x-api-key": "sb_secret_Ok9VVXILGV6zybDzN0zVpA_U5k___GF"
+            },
+            body: JSON.stringify({
+                action: "get",
+                device_id: deviceId
+            })
+        });
+
+        const data = await res.json();
+
+        console.log("DEBUG SALDO:", data);
+
+        const balance = data?.data?.balance ?? 0;
+
+        document.getElementById("userSaldoAmount").innerText =
+            "Rp " + balance.toLocaleString("id-ID");
+
+    } catch (err) {
+        console.log("error:", err.message);
+        document.getElementById("userSaldoAmount").innerText = "Rp 0";
+    }
+}
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    getSaldo();
+});
 
 
 //😛😛😛😛😛😛😛😛😛😛😛
