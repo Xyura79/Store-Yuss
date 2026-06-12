@@ -138,9 +138,67 @@
 
 
 
+/* =========================
+   PRIMARY ACTION BUTTON (PROSES)
+========================= */
+.btn-primary {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: none;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 8px 20px rgba(34,197,94,0.25);
+}
 
+/* hover lebih hidup */
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(34,197,94,0.35);
+}
 
+/* klik */
+.btn-primary:active {
+    transform: scale(0.98);
+}
 
+/* disabled state */
+.btn-primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+    background: #166534;
+}
+
+/* loading state (kalau nanti mau pakai) */
+.btn-primary.loading {
+    position: relative;
+    color: transparent;
+}
+
+.btn-primary.loading::after {
+    content: "";
+    width: 18px;
+    height: 18px;
+    border: 2px solid #fff;
+    border-top-color: transparent;
+    border-radius: 50%;
+    position: absolute;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
 
 
 
@@ -9686,3 +9744,449 @@ img.allow-touch {
     -webkit-user-select: auto !important;
     user-select: auto !important;
 }
+
+
+
+
+/* ================================================
+   SALDO & DEPOSIT BAR - VERSI PREMIUM
+   ================================================ */
+.saldo-deposit-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    border-radius: 12px;
+    padding: 8px 8px 8px 20px;
+    margin: 12px 0 16px 0;
+    border: none;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    gap: 12px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Efek garis gradien di tepi */
+.saldo-deposit-bar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #f59e0b, #ef4444, #8b5cf6, #06b6d4, #f59e0b);
+    background-size: 200% 100%;
+    animation: borderShine 3s linear infinite;
+}
+
+@keyframes borderShine {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 200% 0%; }
+}
+
+/* Efek bintang/kristal di background */
+.saldo-deposit-bar::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 40%, rgba(255,215,0,0.08) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.saldo-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex: 1;
+    position: relative;
+    z-index: 2;
+}
+
+.saldo-icon {
+    width: 52px;
+    height: 52px;
+    background: linear-gradient(145deg, rgba(239, 68, 68, 0.2), rgba(239, 68, 68, 0.05));
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.saldo-icon i {
+    font-size: 28px;
+    color: #f59e0b;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+/* Animasi icon wallet */
+@keyframes walletShake {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-8deg); }
+    75% { transform: rotate(8deg); }
+}
+
+.saldo-card:hover .saldo-icon i {
+    animation: walletShake 0.5s ease;
+}
+
+.saldo-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.saldo-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: #94a3b8;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.saldo-amount {
+    font-size: 24px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #fbbf24, #f59e0b, #ef4444);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 10px rgba(245, 158, 11, 0.3);
+    line-height: 1.2;
+}
+
+.deposit-btn {
+    background: linear-gradient(135deg, #10b981, #059669, #047857);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 50px;
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+
+/* Efek ripple pada tombol deposit */
+.deposit-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.deposit-btn:active::before {
+    width: 200px;
+    height: 200px;
+}
+
+.deposit-btn:active {
+    transform: scale(0.96);
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
+}
+
+.deposit-btn i {
+    font-size: 18px;
+    transition: transform 0.2s;
+}
+
+.deposit-btn:hover i {
+    transform: rotate(180deg);
+}
+
+/* Efek gemerlap pada tombol deposit */
+.deposit-btn::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #10b981, #34d399, #059669, #10b981);
+    background-size: 400% 400%;
+    border-radius: 50px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.deposit-btn:hover::after {
+    opacity: 0.5;
+    animation: gradientShift 2s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ========== LIGHT MODE ========== */
+body.light-mode .saldo-deposit-bar {
+    background: linear-gradient(135deg, #ffffff, #f1f5f9);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255,255,255,0.8);
+}
+
+body.light-mode .saldo-icon {
+    background: linear-gradient(145deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.02));
+    border-color: rgba(239, 68, 68, 0.2);
+}
+
+body.light-mode .saldo-label {
+    color: #64748b;
+}
+
+body.light-mode .saldo-amount {
+    background: linear-gradient(135deg, #ef4444, #f59e0b, #eab308);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+/* ========== RESPONSIVE HP KECIL ========== */
+@media (max-width: 450px) {
+    .saldo-deposit-bar {
+        padding: 6px 6px 6px 16px;
+    }
+    
+    .saldo-icon {
+        width: 44px;
+        height: 44px;
+    }
+    
+    .saldo-icon i {
+        font-size: 24px;
+    }
+    
+    .saldo-amount {
+        font-size: 18px;
+    }
+    
+    .deposit-btn {
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+    
+    .deposit-btn i {
+        font-size: 14px;
+    }
+}
+
+
+
+
+
+/* ================================================
+   DEPOSIT BOTTOM SHEET
+   ================================================ */
+.deposit-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 2100;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.deposit-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.deposit-bottom-sheet {
+    background: var(--bg-card);
+    width: 100%;
+    max-width: 480px;
+    border-radius: 24px 24px 0 0;
+    padding: 12px 20px 24px;
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+}
+
+.deposit-overlay.show .deposit-bottom-sheet {
+    transform: translateY(0);
+}
+
+.deposit-handle {
+    width: 40px;
+    height: 4px;
+    background: var(--border);
+    border-radius: 4px;
+    margin: 0 auto 16px;
+}
+
+.deposit-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.deposit-header i {
+    font-size: 28px;
+    color: var(--accent);
+}
+
+.deposit-header h3 {
+    flex: 1;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.deposit-close-btn {
+    width: 32px;
+    height: 32px;
+    background: var(--bg-secondary);
+    border: none;
+    border-radius: 50%;
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.deposit-close-btn:active {
+    transform: scale(0.95);
+}
+
+.deposit-info {
+    background: rgba(245, 158, 11, 0.1);
+    border-radius: 12px;
+    padding: 10px 12px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #f59e0b;
+}
+
+.deposit-info i {
+    font-size: 16px;
+}
+
+.deposit-input-group {
+    margin-bottom: 16px;
+}
+
+.deposit-input-group label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-secondary);
+}
+
+.deposit-input-group input {
+    width: 100%;
+    padding: 14px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.deposit-input-group input:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.deposit-suggest {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+}
+
+.suggest-btn {
+    flex: 1;
+    padding: 10px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    color: var(--text-primary);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.suggest-btn:active {
+    background: var(--accent);
+    color: white;
+    transform: scale(0.96);
+}
+
+.deposit-bayar-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(90deg, #10b981, #059669);
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.deposit-bayar-btn:active {
+    transform: scale(0.97);
+}
+
+/* Light mode */
+body.light-mode .deposit-bottom-sheet {
+    background: #ffffff;
+}
+
+body.light-mode .deposit-close-btn {
+    background: #f1f5f9;
+}
+
+
+
+.loading-spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    display: inline-block;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+   }
