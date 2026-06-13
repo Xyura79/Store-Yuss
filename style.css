@@ -11158,7 +11158,7 @@ body.light-mode .pagination-info {
    ================================================ */
 
 .saldo-label {
-    font-size: 18px;        /* DIPERBESAR dari 12px jadi 18px */
+    font-size: 11px;        /* DIPERBESAR dari 12px jadi 18px */
     font-weight: 700;
     letter-spacing: 1.5px;
     
@@ -11221,32 +11221,3 @@ body.light-mode .saldo-label {
     font-size: 18px;
 }
 
-/* ================================================
-   DESAIN ANGKA SALDO
-   ================================================ */
-
-.saldo-amount {
-    font-size: 28px;        /* DIPERBESAR dari 24px jadi 28px */
-    font-weight: 800;
-    color: #ffffff;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-    letter-spacing: 1px;
-}
-
-body.light-mode .saldo-amount {
-    color: #1e293b;
-    text-shadow: none;
-    font-size: 28px;
-}
-
-/* Responsif HP kecil */
-@media (max-width: 450px) {
-    .saldo-label {
-        font-size: 14px;    /* HP: 14px (tetap besar) */
-        letter-spacing: 1px;
-    }
-    
-    .saldo-amount {
-        font-size: 22px;    /* HP: 22px */
-    }
-   }
