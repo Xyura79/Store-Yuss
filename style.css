@@ -113,6 +113,8 @@
 
 
 
+
+
 /* ================================================
    STATISTIK 3 GRID (Jumlah User, Top User, Top Pembelian)
    ================================================ */
@@ -11147,4 +11149,104 @@ body.light-mode .pagination-info {
     .pagination-info span {
         font-size: 15px;
     }
-       }
+}
+
+
+
+/* ================================================
+   HIASAN TEKS "SALDO KAMU" - ELEGAN & MODERN
+   ================================================ */
+
+.saldo-label {
+    font-size: 18px;        /* DIPERBESAR dari 12px jadi 18px */
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    
+    /* Gradient warna emas ke merah */
+    background: linear-gradient(135deg, #fbbf24, #f59e0b, #ef4444);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    
+    /* Efek shadow lembut */
+    text-shadow: 0 0 8px rgba(245, 158, 11, 0.3);
+    
+    /* Animasi gradient bergerak */
+    animation: labelGradient 3s ease infinite;
+    
+    /* Efek hover */
+    transition: all 0.3s ease;
+}
+
+.saldo-label:hover {
+    letter-spacing: 3px;
+    transform: scale(1.02);
+}
+
+/* Animasi gradient bergerak */
+@keyframes labelGradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Efek kedip lembut (opsional) */
+@keyframes labelPulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.85;
+    }
+}
+
+.saldo-label {
+    animation: labelGradient 3s ease infinite, labelPulse 4s ease infinite;
+}
+
+/* Light mode - tetap kelihatan bagus */
+body.light-mode .saldo-label {
+    background: linear-gradient(135deg, #d97706, #ea580c, #dc2626);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 4px rgba(217, 119, 6, 0.2);
+    font-size: 18px;
+}
+
+/* ================================================
+   DESAIN ANGKA SALDO
+   ================================================ */
+
+.saldo-amount {
+    font-size: 28px;        /* DIPERBESAR dari 24px jadi 28px */
+    font-weight: 800;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    letter-spacing: 1px;
+}
+
+body.light-mode .saldo-amount {
+    color: #1e293b;
+    text-shadow: none;
+    font-size: 28px;
+}
+
+/* Responsif HP kecil */
+@media (max-width: 450px) {
+    .saldo-label {
+        font-size: 14px;    /* HP: 14px (tetap besar) */
+        letter-spacing: 1px;
+    }
+    
+    .saldo-amount {
+        font-size: 22px;    /* HP: 22px */
+    }
+   }
