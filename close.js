@@ -1,7 +1,3 @@
-// ================================================
-// STORE CLOSE / MAINTENANCE MODE (PREMIUM)
-// Ambil data dari API Vercel
-// ================================================
 
 let storeStatus = {
     is_closed: false,
@@ -10,6 +6,8 @@ let storeStatus = {
     open_time: "13.00",
     title: ""
 };
+
+let isInitialized = false;
 
 const API_STATUS_URL = "https://backend-delta-steel-38.vercel.app/api/store-setting";
 
@@ -199,9 +197,11 @@ function observeModalAppearance() {
     observerBody.observe(document.body, { childList: true, subtree: true });
 }
 
-function showStoreClosedInfo() {
+async function showStoreClosedInfo() {
+    // Selalu cek ulang dari API
+    await fetchStoreStatusFromAPI();
+    
     if (!storeStatus.is_closed) return;
-    if (sessionStorage.getItem('store_closed_modal_shown') === 'true') return;
     
     const modal = document.createElement('div');
     modal.id = 'storeClosedInfoModal';
@@ -241,16 +241,16 @@ function showStoreClosedInfo() {
     `;
     document.body.appendChild(modal);
     
-    sessionStorage.setItem('store_closed_modal_shown', 'true');
-    
     document.getElementById('closeStoreModalBtn').addEventListener('click', function() {
         modal.remove();
     });
 }
 
-function showStoreOpenInfo() {
+async function showStoreOpenInfo() {
+    // Selalu cek ulang dari API
+    await fetchStoreStatusFromAPI();
+    
     if (storeStatus.is_closed) return;
-    if (sessionStorage.getItem('store_open_modal_seen') === 'true') return;
     
     const modal = document.createElement('div');
     modal.id = 'storeOpenInfoModal';
@@ -284,8 +284,6 @@ function showStoreOpenInfo() {
         </div>
     `;
     document.body.appendChild(modal);
-    
-    sessionStorage.setItem('store_open_modal_seen', 'true');
     
     document.getElementById('closeStoreOpenModalBtn').addEventListener('click', function() {
         modal.remove();
@@ -370,19 +368,39 @@ async function initStoreStatus() {
         window.originalShowProductDetail = window.showProductDetail;
     }
     
+    // Selalu ambil dari API, tidak pernah pakai cache
     const success = await fetchStoreStatusFromAPI();
     
     if (success && storeStatus.is_closed === true) {
-        sessionStorage.removeItem('store_open_modal_seen');
         disablePurchaseFeatures();
-        showStoreClosedInfo();
+        await showStoreClosedInfo();
         observeModalAppearance();
     } else {
-        sessionStorage.removeItem('store_closed_modal_shown');
         enablePurchaseFeatures();
-        showStoreOpenInfo();
+        await showStoreOpenInfo();
     }
+    
+    isInitialized = true;
 }
+
+// Refresh status setiap 30 detik (tanpa reload halaman)
+setInterval(async () => {
+    if (isInitialized) {
+        const oldStatus = storeStatus.is_closed;
+        await fetchStoreStatusFromAPI();
+        
+        if (oldStatus !== storeStatus.is_closed) {
+            console.log("🔄 Status toko berubah, refresh UI...");
+            if (storeStatus.is_closed === true) {
+                disablePurchaseFeatures();
+                await showStoreClosedInfo();
+            } else {
+                enablePurchaseFeatures();
+                await showStoreOpenInfo();
+            }
+        }
+    }
+}, 30000);
 
 document.addEventListener('DOMContentLoaded', function() {
     initStoreStatus();
