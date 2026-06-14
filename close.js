@@ -3,8 +3,6 @@
 // Ambil data dari API Vercel
 // ================================================
 
-
-// Variabel global untuk status toko
 let storeStatus = {
     is_closed: false,
     reason: "",
@@ -13,42 +11,43 @@ let storeStatus = {
     title: ""
 };
 
-// ========== FUNGSI AMBIL STATUS DARI API ==========
+const API_STATUS_URL = "https://backend-delta-steel-38.vercel.app/api/store-setting";
+
 async function fetchStoreStatusFromAPI() {
     try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000);
+        
         const response = await fetch(API_STATUS_URL, {
-            cache: "no-store"
+            cache: "no-store",
+            signal: controller.signal
         });
+        clearTimeout(timeoutId);
+        
         const data = await response.json();
-
-        console.log("📦 Store status dari API:", data);
-
+        
         if (data.success === true) {
             storeStatus = {
                 is_closed: data.is_closed || false,
                 reason: data.reason || "",
-                message: data.message || "Layanan sedang tutup",
+                message: data.message || "",
                 open_time: data.open_time || "13.00",
                 title: data.title || ""
             };
             return true;
-        } else {
-            console.error("API response error:", data);
-            return false;
         }
+        return false;
     } catch (error) {
-        console.error("❌ Gagal ambil status toko:", error);
+        console.error("Gagal ambil status toko:", error);
         return false;
     }
 }
 
-// ========== FUNGSI CEK APAKAH TOKO TUTUP ==========
 async function isStoreClosed() {
     await fetchStoreStatusFromAPI();
     return storeStatus.is_closed === true;
 }
 
-// ========== GETTER UNTUK DATA ==========
 function getCloseReason() {
     return storeStatus.reason || "Sedang maintenance";
 }
@@ -61,17 +60,9 @@ function getEstimatedOpenTime() {
     return storeStatus.open_time || "13.00";
 }
 
-// ========== TOAST NOTIFIKASI ==========
-// ========== TOAST NOTIFIKASI (UKURAN KECIL) ==========
-
-
-
-// ========== TEKS TOAST (BUATAN SENDIRI, BUKAN DARI API) ==========
 const TOAST_TEXT = "Layanan sedang tutup, tidak bisa memesan";
 
-// ========== TOAST NOTIFIKASI UKURAN KECIL ==========
 function showStoreClosedToast() {
-    // Hapus toast yang sudah ada sebelumnya
     const existingToast = document.querySelector('.custom-toast-closed');
     if (existingToast) existingToast.remove();
     
@@ -110,9 +101,6 @@ function showStoreClosedToast() {
     }, 2000);
 }
 
-
-
-// ========== NONAKTIFKAN TOMBOL DI MODAL ==========
 function disableModalButtons() {
     const orderNowBtn = document.getElementById('orderNowBtn');
     const addToCartServiceBtn = document.getElementById('addToCartServiceBtn');
@@ -128,7 +116,7 @@ function disableModalButtons() {
         orderNowBtn.onclick = function(e) {
             e.preventDefault();
             e.stopPropagation();
-            showStoreClosedToast(getCloseMessage(), 'warning');
+            showStoreClosedToast();
             return false;
         };
     }
@@ -141,7 +129,7 @@ function disableModalButtons() {
         addToCartServiceBtn.onclick = function(e) {
             e.preventDefault();
             e.stopPropagation();
-            showStoreClosedToast(getCloseMessage(), 'warning');
+            showStoreClosedToast();
             return false;
         };
     }
@@ -155,7 +143,7 @@ function disableModalButtons() {
             btn.onclick = function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                showStoreClosedToast(getCloseMessage(), 'info');
+                showStoreClosedToast();
                 return false;
             };
         }
@@ -176,7 +164,6 @@ function disableModalButtons() {
     }
 }
 
-// ========== OBSERVER MODAL ==========
 function observeModalAppearance() {
     const observer = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutation) {
@@ -212,14 +199,8 @@ function observeModalAppearance() {
     observerBody.observe(document.body, { childList: true, subtree: true });
 }
 
-// ========== MODAL INFORMASI TOKO TUTUP ========
-
-
-
-
-// ========== MODAL INFORMASI TOKO TUTUP ==========
 function showStoreClosedInfo() {
-    // Cek apakah modal sudah pernah ditampilkan di session ini
+    if (!storeStatus.is_closed) return;
     if (sessionStorage.getItem('store_closed_modal_shown') === 'true') return;
     
     const modal = document.createElement('div');
@@ -267,14 +248,9 @@ function showStoreClosedInfo() {
     });
 }
 
-
-
-
-
-// ========== MODAL INFORMASI TOKO BUKA ==========
 function showStoreOpenInfo() {
-    const hasSeenOpenModal = sessionStorage.getItem('store_open_modal_seen');
-    if (hasSeenOpenModal === 'true') return;
+    if (storeStatus.is_closed) return;
+    if (sessionStorage.getItem('store_open_modal_seen') === 'true') return;
     
     const modal = document.createElement('div');
     modal.id = 'storeOpenInfoModal';
@@ -316,7 +292,6 @@ function showStoreOpenInfo() {
     });
 }
 
-// ========== NONAKTIFKAN FITUR PEMBELIAN ==========
 function disablePurchaseFeatures() {
     document.querySelectorAll('.btn-buy-now, .checkout-btn, .confirm-payment-btn, .app-buy-btn').forEach(btn => {
         btn.disabled = true;
@@ -326,24 +301,23 @@ function disablePurchaseFeatures() {
         btn.style.pointerEvents = 'none';
     });
     
-    // Override fungsi global
     window.buyNow = function(productId) {
-        showStoreClosedToast(getCloseMessage(), 'error');
+        showStoreClosedToast();
         return false;
     };
     
     window.checkout = function() {
-        showStoreClosedToast(getCloseMessage(), 'warning');
+        showStoreClosedToast();
         return false;
     };
     
     window.confirmPayment = function() {
-        showStoreClosedToast("Pembayaran tidak dapat diproses", 'error');
+        showStoreClosedToast();
         return false;
     };
     
     window.showProductDetail = function(productId) {
-        showStoreClosedToast(getCloseMessage(), 'info');
+        showStoreClosedToast();
         return false;
     };
     
@@ -352,7 +326,7 @@ function disablePurchaseFeatures() {
         card.style.cursor = 'not-allowed';
         card.onclick = (e) => {
             e.stopPropagation();
-            showStoreClosedToast(getCloseMessage(), 'info');
+            showStoreClosedToast();
             return false;
         };
     });
@@ -360,7 +334,6 @@ function disablePurchaseFeatures() {
     setTimeout(disableModalButtons, 100);
 }
 
-// ========== RESET FITUR PEMBELIAN (SAAT TOKO BUKA) ==========
 function enablePurchaseFeatures() {
     document.querySelectorAll('.btn-buy-now, .checkout-btn, .confirm-payment-btn, .app-buy-btn').forEach(btn => {
         btn.disabled = false;
@@ -372,11 +345,9 @@ function enablePurchaseFeatures() {
     document.querySelectorAll('.product-card').forEach(card => {
         card.style.opacity = '1';
         card.style.cursor = 'pointer';
-        // Hapus override onclick
         card.onclick = null;
     });
     
-    // Reload ulang fungsi asli dari script.js
     if (typeof window.originalBuyNow === 'function') {
         window.buyNow = window.originalBuyNow;
     }
@@ -388,9 +359,7 @@ function enablePurchaseFeatures() {
     }
 }
 
-// ========== INISIALISASI UTAMA ==========
 async function initStoreStatus() {
-    // Simpan fungsi asli
     if (typeof window.buyNow === 'function' && !window.originalBuyNow) {
         window.originalBuyNow = window.buyNow;
     }
@@ -401,29 +370,26 @@ async function initStoreStatus() {
         window.originalShowProductDetail = window.showProductDetail;
     }
     
-    // Ambil status dari API
     const success = await fetchStoreStatusFromAPI();
     
     if (success && storeStatus.is_closed === true) {
-        console.log("🔒 Toko dalam mode TUTUP");
+        sessionStorage.removeItem('store_open_modal_seen');
         disablePurchaseFeatures();
         showStoreClosedInfo();
         observeModalAppearance();
     } else {
-        console.log("🔓 Toko dalam mode BUKA");
+        sessionStorage.removeItem('store_closed_modal_shown');
         enablePurchaseFeatures();
         showStoreOpenInfo();
     }
 }
 
-// Jalankan saat DOM siap
 document.addEventListener('DOMContentLoaded', function() {
     initStoreStatus();
 });
 
-// Tambahkan animasi CSS jika belum ada
-const style = document.createElement('style');
-style.textContent = `
+const styleSheet = document.createElement('style');
+styleSheet.textContent = `
     @keyframes toastPremiumIn {
         0% { opacity: 0; transform: translateX(-50%) translateY(20px); }
         100% { opacity: 1; transform: translateX(-50%) translateY(0); }
@@ -448,11 +414,4 @@ style.textContent = `
         to { transform: rotate(360deg); }
     }
 `;
-document.head.appendChild(style);
-
-
-
-
-
-// API Endpoints (sama dengan admin panel)
-const API_STATUS_URL = "https://backend-delta-steel-38.vercel.app/api/store-setting";
+document.head.appendChild(styleSheet);
