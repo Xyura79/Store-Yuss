@@ -93,6 +93,9 @@
 
 
 
+
+
+
 /* ================================================
    STORE STATUS - COMPACT & RAMPING
    ================================================ */
@@ -12375,3 +12378,657 @@ body.light-mode .modal-body .confirm-btn.cancel:active {
         margin: 8px 12px 12px 12px;
     }
 }
+
+
+
+
+
+
+/* ================================================
+   INFO PAGE - TAB & PROFIL COMPACT
+   ================================================ */
+
+/* ===== TAB NAVIGASI ===== */
+.info-tabs {
+    display: flex;
+    gap: 6px;
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 4px;
+    margin-bottom: 14px;
+    border: 1px solid var(--border);
+}
+
+.info-tab {
+    flex: 1;
+    padding: 8px 10px;
+    border: none;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    transition: all 0.3s ease;
+}
+
+.info-tab i {
+    font-size: 14px;
+}
+
+.info-tab.active {
+    background: var(--accent);
+    color: white;
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.25);
+}
+
+.info-tab:active {
+    transform: scale(0.96);
+}
+
+.info-tab-content {
+    display: none;
+    animation: fadeInUp 0.3s ease;
+}
+
+.info-tab-content.active {
+    display: block;
+}
+
+/* ===== PROFIL CARD COMPACT ===== */
+.profile-card-modern {
+    background: var(--bg-card);
+    border-radius: 16px;
+    padding: 16px 14px;
+    border: 1px solid var(--border);
+}
+
+/* Avatar Section - LEBIH KECIL */
+.profile-avatar-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 14px;
+}
+
+.profile-avatar {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.profile-avatar img {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--accent);
+    background: var(--bg-secondary);
+}
+
+.profile-status-dot {
+    position: absolute;
+    bottom: 1px;
+    right: 1px;
+    width: 12px;
+    height: 12px;
+    background: #10b981;
+    border-radius: 50%;
+    border: 2px solid var(--bg-card);
+    animation: pulseDot 2s ease infinite;
+}
+
+@keyframes pulseDot {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.7; }
+}
+
+.profile-name-section h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 1px;
+}
+
+.profile-name-section h3 {
+    background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.profile-role {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--accent);
+    background: rgba(239, 68, 68, 0.1);
+    padding: 2px 10px;
+    border-radius: 16px;
+    display: inline-block;
+    -webkit-text-fill-color: var(--accent);
+}
+
+/* Info Grid - LEBIH PADAT */
+.profile-info-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 14px;
+}
+
+.profile-info-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    background: var(--bg-secondary);
+    border-radius: 10px;
+    transition: all 0.2s ease;
+}
+
+.profile-info-item.highlight {
+    background: rgba(16, 185, 129, 0.06);
+    border: 1px solid rgba(16, 185, 129, 0.15);
+}
+
+.profile-info-icon {
+    width: 28px;
+    height: 28px;
+    background: rgba(239, 68, 68, 0.08);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.profile-info-icon i {
+    font-size: 14px;
+    color: var(--accent);
+}
+
+.profile-info-text {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile-info-label {
+    font-size: 10px;
+    color: var(--text-secondary);
+}
+
+.profile-info-value {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-align: right;
+}
+
+.profile-info-value.balance {
+    font-size: 15px;
+    color: #10b981;
+    font-weight: 700;
+}
+
+.profile-info-value.mono {
+    font-family: monospace;
+    font-size: 10px;
+    letter-spacing: 0.3px;
+    color: #60a5fa;
+}
+
+/* Logout Button - LEBIH KECIL */
+.logout-btn {
+    width: 100%;
+    padding: 10px;
+    background: rgba(239, 68, 68, 0.08);
+    border: 1px solid rgba(239, 68, 68, 0.15);
+    border-radius: 10px;
+    color: #ef4444;
+    font-weight: 600;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+}
+
+.logout-btn:active {
+    transform: scale(0.97);
+    background: rgba(239, 68, 68, 0.15);
+}
+
+/* ===== STORE INFO CARD ===== */
+.store-info-card {
+    background: var(--bg-card);
+    border-radius: 16px;
+    padding: 16px 14px;
+    border: 1px solid var(--border);
+}
+
+.store-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 12px;
+}
+
+.store-logo {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    object-fit: cover;
+    border: 2px solid var(--accent);
+}
+
+.store-header h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 1px;
+}
+
+.store-header p {
+    font-size: 11px;
+    color: var(--text-secondary);
+}
+
+/* Store Stats - LEBIH KECIL */
+.store-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.store-stat-item {
+    background: var(--bg-secondary);
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+}
+
+.store-stat-number {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--accent);
+    display: block;
+}
+
+.store-stat-label {
+    font-size: 9px;
+    color: var(--text-secondary);
+}
+
+/* Store Description - LEBIH KECIL */
+.store-description {
+    font-size: 11px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+}
+
+.store-description p {
+    margin-bottom: 8px;
+}
+
+.store-description b {
+    color: var(--text-primary);
+}
+
+.highlight-blue { color: #60a5fa; font-weight: 600; }
+.highlight-green { color: #34d399; font-weight: 600; }
+.highlight-yellow { color: #facc15; font-weight: 600; }
+.highlight-purple { color: #c084fc; font-weight: 600; }
+.text-green { color: #34d399; }
+.text-blue { color: #60a5fa; }
+.text-orange { color: #fb923c; }
+.text-red { color: #f87171; }
+
+/* Store Contact - LEBIH KECIL */
+.store-contact {
+    display: flex;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.store-contact-btn {
+    flex: 1;
+    padding: 8px 10px;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 11px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+}
+
+.store-contact-btn:active {
+    transform: scale(0.97);
+}
+
+.store-contact-btn.wa {
+    background: #25D366;
+    color: white;
+}
+
+.store-contact-btn.info {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+}
+
+/* ===== ANIMASI ===== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== LIGHT MODE ===== */
+body.light-mode .profile-card-modern,
+body.light-mode .store-info-card {
+    background: #ffffff;
+}
+
+body.light-mode .profile-info-item {
+    background: #f8fafc;
+}
+
+body.light-mode .profile-info-item.highlight {
+    background: rgba(16, 185, 129, 0.05);
+}
+
+body.light-mode .store-stat-item {
+    background: #f8fafc;
+}
+
+body.light-mode .store-contact-btn.info {
+    background: #f1f5f9;
+}
+
+body.light-mode .info-tabs {
+    background: #ffffff;
+}
+
+body.light-mode .info-tab.active {
+    color: white;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 480px) {
+    .profile-avatar img {
+        width: 48px;
+        height: 48px;
+    }
+    
+    .profile-name-section h3 {
+        font-size: 14px;
+    }
+    
+    .profile-info-item {
+        padding: 6px 10px;
+    }
+    
+    .profile-info-value.balance {
+        font-size: 13px;
+    }
+    
+    .store-contact {
+        flex-direction: column;
+        gap: 6px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.logout-modal {
+    max-width: 320px;
+    width: 90%;
+    border-radius: 24px;
+    overflow: hidden;
+}
+
+/* Icon */
+.logout-icon-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.logout-icon {
+    width: 64px;
+    height: 64px;
+    background: rgba(239, 68, 68, 0.12);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid rgba(239, 68, 68, 0.2);
+    transition: all 0.3s ease;
+}
+
+.logout-icon i {
+    font-size: 32px;
+    color: #ef4444;
+}
+
+/* Judul */
+.logout-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+/* Pesan */
+.logout-message {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+.logout-message strong {
+    color: var(--accent);
+    font-weight: 700;
+}
+
+/* Tombol */
+.logout-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.logout-btn-cancel,
+.logout-btn-confirm {
+    flex: 1;
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+.logout-btn-cancel {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+}
+
+.logout-btn-cancel:active {
+    transform: scale(0.97);
+    background: var(--border);
+}
+
+.logout-btn-confirm {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+    box-shadow: 0 4px 16px rgba(239, 68, 68, 0.3);
+}
+
+.logout-btn-confirm:active {
+    transform: scale(0.97);
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2);
+}
+
+/* ===== ANIMASI ===== */
+.logout-modal .modal-body {
+    animation: logoutPop 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+}
+
+@keyframes logoutPop {
+    from {
+        opacity: 0;
+        transform: scale(0.85);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ===== LIGHT MODE ===== */
+body.light-mode .logout-btn-cancel {
+    background: #f1f5f9;
+    color: #1e293b;
+    border-color: #e2e8f0;
+}
+
+body.light-mode .logout-btn-cancel:active {
+    background: #e2e8f0;
+}
+
+body.light-mode .logout-icon {
+    background: rgba(239, 68, 68, 0.08);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 400px) {
+    .logout-modal {
+        max-width: 280px;
+    }
+    
+    .logout-icon {
+        width: 56px;
+        height: 56px;
+    }
+    
+    .logout-icon i {
+        font-size: 28px;
+    }
+    
+    .logout-title {
+        font-size: 16px;
+    }
+    
+    .logout-message {
+        font-size: 12px;
+    }
+    
+    .logout-btn-cancel,
+    .logout-btn-confirm {
+        padding: 10px 14px;
+        font-size: 13px;
+    }
+}
+
+
+
+.profile-password-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.password-value {
+    font-family: monospace;
+    font-size: 12px;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    min-width: 60px;
+}
+
+.password-value.show {
+    font-family: monospace;
+    letter-spacing: 0.5px;
+}
+
+.password-toggle-btn {
+    width: 28px;
+    height: 28px;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    font-size: 16px;
+}
+
+.password-toggle-btn:active {
+    transform: scale(0.9);
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--accent);
+}
+
+.password-toggle-btn:hover {
+    color: var(--text-primary);
+}
+
+
+
+.direct-download-btn.audio-btn {
+    background: linear-gradient(135deg, #1DB954, #1ed760);
+    margin-top: 8px;
+}
+
+.direct-download-btn.audio-btn:active {
+    transform: scale(0.97);
+}
+
+.result-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 12px;
+       }
