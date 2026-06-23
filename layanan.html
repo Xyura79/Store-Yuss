@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Ketentuan Layanan - YussXy Store</title>
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="app-container">
+        
+        <div class="header">
+            <div class="logo-area">
+                <img src="image/logo/logo.jpg" alt="Logo" class="logo-img" onerror="this.src='https://placehold.co/36x36/ef4444/white?text=Y'" />
+                <div class="logo-text">YussXy<span>Store</span></div>
+            </div>
+            <div class="header-icons">
+                <button class="icon-btn" id="homeBtn">
+                    <i class="ri-home-4-line"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            
+            <div class="terms-container">
+                
+                <div class="terms-header">
+                    <div class="terms-icon">
+                        <i class="ri-file-text-line"></i>
+                    </div>
+                    <h1>Ketentuan Layanan</h1>
+                    <p>Baca dengan seksama sebelum melakukan pembelian</p>
+                </div>
+
+                <div class="terms-card">
+                    <div class="terms-warning">
+                        <i class="ri-information-line"></i>
+                        <p>
+                            Dengan melakukan pembelian di <strong>YussXy Store</strong> maka Anda otomatis menyetujui semua ketentuan yang berlaku dibawah ini baik Anda baca maupun tidak.
+                        </p>
+                    </div>
+                    <div class="terms-note">
+                        <i class="ri-eye-line"></i>
+                        <p>
+                            Anda diharapkan membaca semua ketentuan layanan, petunjuk dan pengumuman yang ada di  sini sebelum melakukan pembelian untuk memastikan Anda mengikuti setiap perubahan pada ketentuan layanan kedepannya.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="terms-section">
+                    <div class="terms-section-header">
+                        <i class="ri-price-tag-3-line"></i>
+                        <h2>Harga</h2>
+                    </div>
+                    <div class="terms-section-body">
+                        <p>
+                            Harga yang berlaku pada <strong>YussXy Store</strong> dapat berubah sewaktu-waktu.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="terms-section">
+                    <div class="terms-section-header">
+                        <i class="ri-service-line"></i>
+                        <h2>Service</h2>
+                    </div>
+                    <div class="terms-section-body">
+                        <ul class="terms-list">
+                            <li>
+                                <i class="ri-check-line"></i>
+                                <span>Suntik Sosmed hanya digunakan untuk membuat akun Instagram / TikTok / Whatsapp / Facebook  Anda Terlihat popular saja.</span>
+                            </li>
+                            <li>
+                                <i class="ri-check-line"></i>
+                                <span>Kami tidak menjamin pengikut baru Anda berinteraksi dengan Anda, kami hanya menjamin bahwa Anda mendapat pengikut yang Anda beli.</span>
+                            </li>
+                            <li>
+                                <i class="ri-check-line"></i>
+                                <span>Kami tidak memberikan jaminan untuk setiap layanan akan bertahan selamanya</span>
+                            </li>
+                            <li>
+                                <i class="ri-check-line"></i>
+                                <span>Setiap pesanan tidak bisa dibatalkan begitu saja, kecuali dibatalkan oleh server. Pastikan link yang Anda masukkan sudah benar sesuai petunjuk.</span>
+                            </li>
+                            <li>
+                                <i class="ri-check-line"></i>
+                                <span>Jika tidak terjadi penambahan pada orderan Anda selama 24 jam silahkan menghubungi Admin dengan menyertakan <strong>ID Transaksi</strong>.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <button class="terms-back-btn" id="backToHome">
+                    <i class="ri-home-4-line"></i>
+                    Kembali ke Beranda
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <style>
+        .terms-container {
+            padding: 4px 0 20px 0;
+        }
+
+        .terms-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .terms-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(145deg, rgba(239,68,68,0.15), rgba(239,68,68,0.05));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            border: 1px solid rgba(239,68,68,0.2);
+        }
+
+        .terms-icon i {
+            font-size: 32px;
+            color: var(--accent);
+        }
+
+        .terms-header h1 {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 4px;
+            background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .terms-header p {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .terms-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 18px 20px;
+            margin-bottom: 16px;
+            border: 1px solid var(--border);
+        }
+
+        .terms-warning {
+            display: flex;
+            gap: 12px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 14px;
+        }
+
+        .terms-warning i {
+            font-size: 22px;
+            color: #f59e0b;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .terms-warning p {
+            font-size: 13px;
+            line-height: 1.6;
+            color: var(--text-primary);
+        }
+
+        .terms-warning p strong {
+            color: var(--accent);
+        }
+
+        .terms-note {
+            display: flex;
+            gap: 12px;
+        }
+
+        .terms-note i {
+            font-size: 22px;
+            color: #3b82f6;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .terms-note p {
+            font-size: 13px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        .terms-section {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 16px 20px;
+            margin-bottom: 14px;
+            border: 1px solid var(--border);
+        }
+
+        .terms-section-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 14px;
+        }
+
+        .terms-section-header i {
+            font-size: 22px;
+            color: var(--accent);
+        }
+
+        .terms-section-header h2 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .terms-section-body p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .terms-section-body p strong {
+            color: var(--accent);
+        }
+
+        .terms-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .terms-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .terms-list li i {
+            font-size: 18px;
+            color: #10b981;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .terms-list li strong {
+            color: var(--accent);
+        }
+
+        .terms-back-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+            border: none;
+            border-radius: 14px;
+            color: white;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 8px;
+            transition: transform 0.1s;
+        }
+
+        .terms-back-btn:active {
+            transform: scale(0.97);
+        }
+
+        body.light-mode .terms-card,
+        body.light-mode .terms-section {
+            background: #ffffff;
+        }
+
+        body.light-mode .terms-warning p {
+            color: #1e293b;
+        }
+
+        body.light-mode .terms-note p {
+            color: #475569;
+        }
+
+        body.light-mode .terms-section-body p {
+            color: #475569;
+        }
+
+        body.light-mode .terms-list li {
+            color: #475569;
+        }
+
+        @media (max-width: 480px) {
+            .terms-header h1 {
+                font-size: 19px;
+            }
+
+            .terms-card {
+                padding: 14px 16px;
+            }
+
+            .terms-section {
+                padding: 14px 16px;
+            }
+
+            .terms-warning p,
+            .terms-note p,
+            .terms-list li {
+                font-size: 12px;
+            }
+        }
+    </style>
+
+    <script>
+        document.getElementById('homeBtn')?.addEventListener('click', function() {
+            window.location.href = 'index.html';
+        });
+
+        document.getElementById('backToHome')?.addEventListener('click', function() {
+            window.location.href = 'index.html';
+        });
+    </script>
+
+</body>
+</html>
