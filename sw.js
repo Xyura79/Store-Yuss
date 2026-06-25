@@ -3,6 +3,8 @@ var CACHE_NAME = 'yussxy-store-v2';
 var urlsToCache = [
   '/Store-Yuss/',
   '/Store-Yuss/index.html',
+  '/Store-Yuss/yuss.html',
+  '/Store-Yuss/yuss.js',
   '/Store-Yuss/style.css',
   '/Store-Yuss/script.js',
   '/Store-Yuss/carabuy.html',
