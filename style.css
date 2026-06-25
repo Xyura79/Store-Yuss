@@ -93,6 +93,8 @@
 
 
 
+
+
 /* ================================================
    STORE STATUS - COMPACT & RAMPING
    ================================================ */
@@ -13865,5 +13867,112 @@ body.light-mode .user-page-btn {
 
 
 
-
+.auto-sosmed-sheet {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 100%;
+    background: var(--bg-card);
+    border-radius: 20px 20px 0 0;
+    animation: slideUp 0.25s ease;
+    border-top: 2px solid var(--accent);
+}
+@keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
+.modal.closing .auto-sosmed-sheet {
+    animation: slideDown 0.2s ease;
+}
+@keyframes slideDown {
+    from { transform: translateY(0); }
+    to { transform: translateY(100%); }
+}
+.auto-sosmed-sheet .bottom-sheet-handle {
+    width: 40px;
+    height: 4px;
+    background: var(--border);
+    border-radius: 4px;
+    margin: 10px auto 8px;
+}
+.auto-sosmed-sheet .sheet-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 16px 12px;
+    border-bottom: 1px solid rgba(239,68,68,0.15);
+}
+.auto-sosmed-sheet .sheet-header i {
+    font-size: 22px;
+    color: var(--accent);
+}
+.auto-sosmed-sheet .sheet-header h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0;
+    flex: 1;
+    text-align: center;
+}
+.auto-sosmed-sheet .sheet-close {
+    width: 32px;
+    height: 32px;
+    background: rgba(255,255,255,0.05);
+    border: none;
+    border-radius: 50%;
+    color: var(--text-primary);
+    font-size: 18px;
+    cursor: pointer;
+}
+.auto-sosmed-sheet .sheet-close:active {
+    background: var(--accent);
+    transform: scale(0.95);
+}
+.auto-sosmed-sheet .sheet-body {
+    padding: 16px;
+    max-height: 65vh;
+    overflow-y: auto;
+}
+.auto-sosmed-sheet .sheet-body::-webkit-scrollbar {
+    width: 3px;
+}
+.auto-sosmed-sheet .sheet-body::-webkit-scrollbar-track {
+    background: var(--border);
+}
+.auto-sosmed-sheet .sheet-body::-webkit-scrollbar-thumb {
+    background: var(--accent);
+}
+.auto-sosmed-sheet .premium-footer-stock {
+    padding: 10px 16px;
+    background: rgba(16, 185, 129, 0.08);
+    border-top: 1px solid rgba(239,68,68,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 10px;
+    color: #10b981;
+}
+.auto-sosmed-sheet .premium-footer-stock i {
+    font-size: 12px;
+}
+body.light-mode .auto-sosmed-sheet {
+    background: #ffffff;
+}
+body.light-mode .auto-sosmed-sheet .sheet-header {
+    border-bottom-color: #e2e8f0;
+}
+body.light-mode .auto-sosmed-sheet .sheet-close {
+    background: #f1f5f9;
+}
+@media (max-width: 480px) {
+    .auto-sosmed-sheet .sheet-body {
+        padding: 12px;
+        max-height: 70vh;
+    }
+    .auto-sosmed-sheet .sheet-header h3 {
+        font-size: 14px;
+    }
+}
 
