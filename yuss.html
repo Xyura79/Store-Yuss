@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>YussXy Store - Pembayaran</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background: var(--bg-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 16px;
+            transition: background 0.3s ease;
+        }
+
+        .payment-wrapper {
+            max-width: 420px;
+            width: 100%;
+            margin: 0 auto;
+            animation: paymentFadeIn 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
+        }
+
+        @keyframes paymentFadeIn {
+            from { opacity: 0; transform: translateY(30px) scale(0.96); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .payment-card {
+            background: var(--bg-card);
+            border-radius: 28px;
+            padding: 24px 20px 28px;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transition: background 0.3s ease, border-color 0.3s ease;
+        }
+
+        .payment-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #10b981, #f59e0b, #ef4444, #8b5cf6, #06b6d4, #10b981);
+            background-size: 300% 100%;
+            animation: borderShine 4s linear infinite;
+        }
+
+        @keyframes borderShine {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 300% 0%; }
+        }
+
+        .payment-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 20px;
+        }
+
+        .payment-header .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .payment-header .logo-img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .payment-header .logo-text {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .payment-header .logo-text span {
+            color: var(--accent);
+        }
+
+        .payment-header .header-status {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            background: var(--bg-secondary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .payment-header .header-status .dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            margin-right: 4px;
+            animation: dotPulse 1.5s ease infinite;
+        }
+
+        .payment-header .header-status .dot.active { background: #10b981; }
+        .payment-header .header-status .dot.inactive { background: #ef4444; }
+
+        @keyframes dotPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.8); }
+        }
+
+        .user-info-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--bg-secondary);
+            border-radius: 14px;
+            padding: 10px 14px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+            animation: slideUp 0.5s ease 0.1s both;
+            transition: background 0.3s ease, border-color 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .user-avatar {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .user-info-text {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .user-info-text .label {
+            font-size: 9px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .user-info-text .name {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .user-info-text .balance {
+            font-size: 12px;
+            color: #10b981;
+            font-weight: 600;
+        }
+
+        .user-info-text .balance.loading { color: var(--text-secondary); }
+
+        .amount-display {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.06), rgba(245, 158, 11, 0.02));
+            border-radius: 16px;
+            padding: 16px;
+            text-align: center;
+            margin-bottom: 16px;
+            border: 1px solid rgba(245, 158, 11, 0.12);
+            animation: slideUp 0.5s ease 0.2s both;
+            transition: background 0.3s ease, border-color 0.3s ease;
+        }
+
+        .amount-display .label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .amount-display .label i { font-size: 14px; }
+
+        .amount-display .total {
+            font-size: 34px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-top: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .amount-display .detail {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        .amount-display .detail strong { color: #f59e0b; font-weight: 700; }
+
+        .payment-note {
+            text-align: center;
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: -8px;
+            margin-bottom: 16px;
+            padding: 6px 12px;
+            background: rgba(59, 130, 246, 0.06);
+            border-radius: 20px;
+            display: inline-block;
+            width: auto;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .payment-note i {
+            margin-right: 4px;
+            color: #3b82f6;
+        }
+
+        .qris-container {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            animation: slideUp 0.5s ease 0.3s both;
+            position: relative;
+            min-height: 220px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        body.light-mode .qris-container {
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+        }
+
+        .qris-container .qr-loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            color: #64748b;
+        }
+
+        .qris-container .qr-loading i {
+            font-size: 36px;
+            animation: spin 0.8s linear infinite;
+            color: var(--accent);
+        }
+
+        .qris-container .qr-loading span { font-size: 12px; }
+
+        .qris-container img {
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
+            border-radius: 12px;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            opacity: 0;
+            transform: scale(0.9);
+            cursor: pointer;
+        }
+
+        .qris-container img.loaded {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .qris-container .qris-label {
+            font-size: 10px;
+            color: #64748b;
+            margin-top: 10px;
+        }
+
+        .qris-container .qris-label i { margin-right: 4px; }
+
+        .qris-container .qris-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .qris-container .qris-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            background: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .qris-container .qris-link:active { transform: scale(0.95); }
+
+        .qris-container .qris-download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            background: rgba(16, 185, 129, 0.12);
+            color: #10b981;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .qris-container .qris-download-btn:active { transform: scale(0.95); }
+
+        .qris-zoom-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(4px);
+        }
+
+        .qris-zoom-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .qris-zoom-overlay img {
+            max-width: 85%;
+            max-height: 85%;
+            object-fit: contain;
+            border-radius: 16px;
+            transform: scale(0.8);
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .qris-zoom-overlay.active img {
+            transform: scale(1);
+        }
+
+        .qris-zoom-overlay .zoom-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.12);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .qris-zoom-overlay .zoom-close:active {
+            transform: scale(0.9);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .qris-zoom-overlay .zoom-info {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .qris-zoom-overlay .zoom-info i { font-size: 14px; }
+
+        .status-box {
+            text-align: center;
+            padding: 12px 16px;
+            border-radius: 14px;
+            margin-bottom: 16px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.4s ease;
+            animation: slideUp 0.5s ease 0.4s both;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .status-box i { font-size: 20px; }
+
+        .status-box.pending {
+            background: rgba(245, 158, 11, 0.10);
+            color: #f59e0b;
+            border: 1px solid rgba(245, 158, 11, 0.15);
+        }
+
+        .status-box.pending i { animation: pulseIcon 1.5s ease infinite; }
+
+        .status-box.success {
+            background: rgba(16, 185, 129, 0.10);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.15);
+        }
+
+        .status-box.success i { animation: successBounce 0.6s ease; }
+
+        .status-box.expired {
+            background: rgba(239, 68, 68, 0.10);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.15);
+        }
+
+        @keyframes pulseIcon {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        @keyframes successBounce {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.4); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); }
+        }
+
+        .timer-box {
+            text-align: center;
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            animation: slideUp 0.5s ease 0.5s both;
+        }
+
+        .timer-box i { margin-right: 4px; }
+
+        .timer-box .time {
+            font-weight: 700;
+            font-size: 20px;
+            color: #f59e0b;
+            font-family: monospace;
+            transition: color 0.3s ease;
+        }
+
+        .timer-box .time.warning { color: #f59e0b; }
+        .timer-box .time.danger {
+            color: #ef4444;
+            animation: timerPulse 1s ease infinite;
+        }
+
+        @keyframes timerPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 4px;
+            animation: slideUp 0.5s ease 0.6s both;
+        }
+
+        .btn-group .btn {
+            flex: 1;
+            padding: 12px 16px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .btn-group .btn:active { transform: scale(0.96); }
+
+        .btn-check {
+            background: linear-gradient(90deg, #3b82f6, #2563eb);
+            color: white;
+            box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-check:active {
+            background: linear-gradient(90deg, #2563eb, #1d4ed8);
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+        }
+
+        .btn-check:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .btn-back {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-back:active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .btn-confirm {
+            background: linear-gradient(90deg, #10b981, #059669);
+            color: white;
+            box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-confirm:active {
+            background: linear-gradient(90deg, #059669, #047857);
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
+        }
+
+        .btn-confirm:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .btn-group-extra {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            animation: slideUp 0.5s ease 0.7s both;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .hidden { display: none !important; }
+
+        .toast-payment {
+            position: fixed;
+            bottom: 90px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+            border-radius: 12px;
+            padding: 10px 18px;
+            min-width: 280px;
+            max-width: 420px;
+            width: auto;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(239, 68, 68, 0.12);
+            z-index: 9999;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            backdrop-filter: blur(10px);
+        }
+
+        .toast-payment.show { transform: translateX(-50%) translateY(0); }
+        .toast-payment.hide {
+            transform: translateX(-50%) translateY(100px);
+            opacity: 0;
+        }
+
+        .toast-payment .toast-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .toast-payment .toast-icon i { font-size: 17px; color: #34d399; }
+
+        .toast-payment.error .toast-icon {
+            background: rgba(239, 68, 68, 0.12);
+            border-color: rgba(239, 68, 68, 0.2);
+        }
+
+        .toast-payment.error .toast-icon i { color: #f87171; }
+
+        .toast-payment .toast-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .toast-payment .toast-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #f1f5f9;
+        }
+
+        .toast-payment .toast-message {
+            font-size: 11px;
+            color: #94a3b8;
+        }
+
+        .toast-payment .toast-close {
+            width: 24px;
+            height: 24px;
+            border: none;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 50%;
+            color: #94a3b8;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .toast-payment .toast-close:hover {
+            background: rgba(239, 68, 68, 0.12);
+            color: #f87171;
+        }
+
+        .toast-payment .toast-close:active { transform: scale(0.9); }
+
+        .toast-payment .toast-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 2px;
+            border-radius: 0 0 12px 12px;
+            background: #3b82f6;
+            width: 100%;
+            animation: toastProgress 2.8s linear forwards;
+        }
+
+        .toast-payment.success .toast-progress { background: #10b981; }
+        .toast-payment.error .toast-progress { background: #ef4444; }
+
+        @keyframes toastProgress {
+            0% { width: 100%; }
+            100% { width: 0%; }
+        }
+
+        body.light-mode .toast-payment {
+            background: linear-gradient(145deg, #ffffff, #f1f5f9);
+            border-color: rgba(59, 130, 246, 0.15);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+        }
+
+        body.light-mode .toast-payment .toast-title { color: #0f172a; }
+        body.light-mode .toast-payment .toast-message { color: #475569; }
+
+        body.light-mode .toast-payment .toast-icon {
+            background: rgba(16, 185, 129, 0.08);
+            border-color: rgba(16, 185, 129, 0.15);
+        }
+
+        body.light-mode .toast-payment.error .toast-icon {
+            background: rgba(239, 68, 68, 0.08);
+            border-color: rgba(239, 68, 68, 0.15);
+        }
+
+        body.light-mode .toast-payment .toast-close { color: #64748b; }
+
+        body.light-mode .toast-payment .toast-close:hover {
+            background: rgba(239, 68, 68, 0.08);
+            color: #ef4444;
+        }
+
+        @media (max-width: 450px) {
+            .payment-card {
+                padding: 16px 14px 20px;
+                border-radius: 24px;
+            }
+
+            .amount-display .total { font-size: 28px; }
+
+            .qris-container img {
+                width: 160px;
+                height: 160px;
+            }
+
+            .qris-container {
+                padding: 16px;
+                min-height: 180px;
+            }
+
+            .btn-group { flex-direction: column; }
+            .btn-group-extra { flex-direction: column; }
+
+            .user-avatar {
+                width: 38px;
+                height: 38px;
+                font-size: 15px;
+            }
+
+            .user-info-text .name { font-size: 13px; }
+            .payment-header .logo-text { font-size: 16px; }
+            .payment-header .logo-img {
+                width: 30px;
+                height: 30px;
+            }
+
+            .toast-payment {
+                min-width: 240px;
+                max-width: 360px;
+                padding: 8px 14px;
+                bottom: 80px;
+            }
+
+            .toast-payment .toast-icon {
+                width: 28px;
+                height: 28px;
+            }
+
+            .toast-payment .toast-icon i { font-size: 15px; }
+            .toast-payment .toast-title { font-size: 12px; }
+            .toast-payment .toast-message { font-size: 10px; }
+        }
+
+        @media (max-width: 380px) {
+            .qris-container img {
+                width: 130px;
+                height: 130px;
+            }
+
+            .amount-display .total { font-size: 24px; }
+            .payment-card { padding: 12px 10px 16px; }
+            .qris-container { padding: 12px; min-height: 150px; }
+        }
+
+        .trx-id-box {
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            padding: 8px 12px;
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 11px;
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+        }
+
+        .trx-id-box i {
+            color: var(--accent);
+            font-size: 14px;
+        }
+
+        .trx-id-box strong {
+            color: var(--text-primary);
+            font-family: monospace;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .trx-id-box .copy-trx {
+            background: transparent;
+            border: none;
+            color: #60a5fa;
+            cursor: pointer;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .trx-id-box .copy-trx:active { transform: scale(0.9); }
+    </style>
+</head>
+<body>
+
+    <div class="payment-wrapper" id="app">
+
+        <div class="payment-card">
+
+            <div class="payment-header">
+                <div class="logo-area">
+                    <img src="image/logo/logo.jpg" alt="Logo" class="logo-img" onerror="this.src='https://placehold.co/36x36/ef4444/white?text=Y'">
+                    <div class="logo-text">YussXy<span>Store</span></div>
+                </div>
+                <div class="header-status">
+                    <span class="dot active" id="statusDot"></span>
+                    <span id="headerStatusText">Menunggu</span>
+                </div>
+            </div>
+
+            <div class="user-info-bar" id="userInfoBar">
+                <div class="user-avatar" id="userAvatar">Y</div>
+                <div class="user-info-text">
+                    <div class="label"><i class="ri-user-line"></i> Username</div>
+                    <div class="name" id="usernameDisplay">Memuat...</div>
+                    <div class="balance loading" id="balanceDisplay"><i class="ri-wallet-line"></i> Saldo: Rp 0</div>
+                </div>
+            </div>
+
+            <div class="amount-display">
+                <div class="label"><i class="ri-money-dollar-circle-line"></i> Total Pembayaran</div>
+                <div class="total" id="totalAmount">Rp 0</div>
+                <div class="detail">
+                    <i class="ri-price-tag-3-line"></i>
+                    (Rp <span id="amountBase">0</span> + fee <strong id="uniqueCodeDisplay">0</strong>)
+                </div>
+            </div>
+
+            <div class="payment-note">
+                <i class="ri-time-line"></i> Tunggu 1-3 menit setelah pembayaran
+            </div>
+
+            <div class="qris-container" id="qrisContainer">
+                <div class="qr-loading" id="qrLoading">
+                    <i class="ri-loader-4-line"></i>
+                    <span>Memuat QRIS...</span>
+                </div>
+                <img id="qrisImage" src="" alt="QRIS">
+                <div class="qris-label"><i class="ri-qr-code-line"></i> Scan QRIS menggunakan e-wallet atau mobile banking</div>
+                <div class="qris-actions">
+                    <a href="#" id="qrisLink" class="qris-link" target="_blank" rel="noopener noreferrer">
+                        <i class="ri-external-link-line"></i> Buka di Browser
+                    </a>
+                    <button class="qris-download-btn" id="downloadQrisBtn">
+                        <i class="ri-download-line"></i> Download QRIS
+                    </button>
+                </div>
+            </div>
+
+            <div class="trx-id-box" id="trxIdBox">
+                <i class="ri-qr-code-line"></i>
+                <span>ID Transaksi:</span>
+                <strong id="trxIdDisplay">-</strong>
+                <button class="copy-trx" id="copyTrxBtn" title="Salin ID Transaksi">
+                    <i class="ri-file-copy-line"></i>
+                </button>
+            </div>
+
+            <div class="status-box pending" id="statusBox">
+                <i class="ri-time-line"></i>
+                <span id="statusText">Menunggu pembayaran...</span>
+            </div>
+
+            <div class="timer-box">
+                <i class="ri-time-line"></i>
+                <span>Kadaluarsa dalam: </span>
+                <span class="time" id="timerDisplay">15:00</span>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-check" id="checkStatusBtn">
+                    <i class="ri-refresh-line"></i> Cek Status
+                </button>
+                <button class="btn btn-back" id="backToStoreBtn">
+                    <i class="ri-store-line"></i> Kembali
+                </button>
+            </div>
+
+            <div class="btn-group-extra">
+                <button class="btn btn-confirm hidden" id="manualConfirmBtn">
+                    <i class="ri-check-line"></i> Konfirmasi Manual
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="qris-zoom-overlay" id="qrisZoomOverlay" onclick="closeQrisZoom()">
+        <button class="zoom-close" onclick="closeQrisZoom()">
+            <i class="ri-close-line"></i>
+        </button>
+        <img id="qrisZoomImage" src="" alt="QRIS Zoom">
+        <div class="zoom-info">
+            <i class="ri-arrow-expand-diagonal-line"></i>
+            <span>Klik di luar gambar untuk menutup</span>
+        </div>
+    </div>
+
+    <script src="yuss.js"></script>
+
+</body>
+</html>
