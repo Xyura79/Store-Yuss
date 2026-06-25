@@ -93,8 +93,6 @@
 
 
 
-
-
 /* ================================================
    STORE STATUS - COMPACT & RAMPING
    ================================================ */
@@ -13976,3 +13974,432 @@ body.light-mode .auto-sosmed-sheet .sheet-close {
     }
 }
 
+
+
+
+
+
+
+
+
+
+/* ================================================
+   ACTIVITY WIDGET - AKTIVITAS TERBARU (COMPACT)
+   ================================================ */
+
+.activity-widget {
+    background: var(--bg-card);
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid rgba(10, 126, 140, 0.15);
+    margin-bottom: 14px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Header - LEBIH RAMPING */
+.activity-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: linear-gradient(135deg, rgba(10, 126, 140, 0.1), rgba(10, 126, 140, 0.03));
+    border-bottom: 1px solid var(--border);
+}
+
+.activity-header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.activity-icon {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, #f59e0b, #ef4444);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.activity-icon i {
+    font-size: 16px;
+    color: white;
+}
+
+.activity-title {
+    font-size: 13px;
+    font-weight: 700;
+    margin: 0;
+    color: var(--text-primary);
+    line-height: 1.2;
+}
+
+.activity-status {
+    font-size: 9px;
+    color: #10b981;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.activity-status i {
+    font-size: 6px;
+}
+
+.activity-refresh-btn {
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+    color: var(--text-primary);
+    font-size: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.activity-refresh-btn:active {
+    transform: scale(0.9);
+    background: #0a7e8c;
+    color: white;
+}
+
+.activity-refresh-btn.spinning i {
+    animation: spin 0.6s linear infinite;
+}
+
+/* Body - LEBIH PENDEK */
+.activity-body {
+    position: relative;
+    height: 280px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: var(--bg-primary);
+}
+
+.activity-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(10, 126, 140, 0.02), transparent);
+    z-index: 0;
+}
+
+/* Activity List - PADDING LEBIH KECIL */
+.activity-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 6px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    scroll-behavior: smooth;
+    position: relative;
+    z-index: 1;
+}
+
+.activity-list::-webkit-scrollbar {
+    width: 2px;
+}
+
+.activity-list::-webkit-scrollbar-thumb {
+    background: rgba(10, 126, 140, 0.4);
+    border-radius: 3px;
+}
+
+/* Activity Item - LEBIH KECIL */
+.activity-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    background: rgba(255,255,255,0.02);
+    border-radius: 8px;
+    border-left: 2px solid #f59e0b;
+    animation: activityIn 0.3s ease;
+    transition: all 0.15s;
+}
+
+.activity-item:active {
+    transform: scale(0.99);
+    background: rgba(255,255,255,0.04);
+}
+
+@keyframes activityIn {
+    from {
+        opacity: 0;
+        transform: translateX(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Avatar - LEBIH KECIL */
+.activity-item .activity-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 11px;
+    color: white;
+    flex-shrink: 0;
+}
+
+/* Content - FONT LEBIH KECIL */
+.activity-item .activity-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.activity-item .activity-user {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-primary);
+    flex-wrap: wrap;
+}
+
+.activity-item .activity-user i {
+    font-size: 12px;
+}
+
+.activity-item .activity-user span {
+    color: #f59e0b;
+}
+
+.activity-item .activity-action {
+    font-size: 10px;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    flex-wrap: wrap;
+}
+
+.activity-item .activity-product {
+    font-size: 10px;
+    font-weight: 600;
+    color: #10b981;
+}
+
+.activity-item .activity-time {
+    font-size: 8px;
+    color: var(--text-secondary);
+    opacity: 0.5;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+/* Loading State */
+.activity-list .loading-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    min-height: 100px;
+    flex: 1;
+}
+
+.activity-list .loading-dots {
+    display: flex;
+    gap: 6px;
+}
+
+.activity-list .loading-dots span {
+    width: 8px;
+    height: 8px;
+    background: #0a7e8c;
+    border-radius: 50%;
+    animation: dotBounce 1.4s ease-in-out infinite;
+}
+
+.activity-list .loading-dots span:nth-child(1) { animation-delay: 0s; }
+.activity-list .loading-dots span:nth-child(2) { animation-delay: 0.15s; }
+.activity-list .loading-dots span:nth-child(3) { animation-delay: 0.3s; }
+
+/* Empty State - LEBIH KECIL */
+.activity-list .empty-activity {
+    text-align: center;
+    padding: 30px 16px;
+    color: rgba(255,255,255,0.35);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.activity-list .empty-activity i {
+    font-size: 28px;
+    margin-bottom: 8px;
+    opacity: 0.4;
+}
+
+.activity-list .empty-activity p {
+    font-size: 12px;
+    margin: 2px 0;
+}
+
+/* Footer - LEBIH RAMPING */
+.activity-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 12px;
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border);
+    font-size: 9px;
+    color: var(--text-secondary);
+    flex-wrap: wrap;
+    gap: 4px;
+    position: relative;
+    z-index: 1;
+}
+
+.activity-footer i {
+    font-size: 10px;
+    color: #0a7e8c;
+}
+
+.activity-total {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+/* Light Mode */
+body.light-mode .activity-widget {
+    background: #ffffff;
+}
+
+body.light-mode .activity-header {
+    background: linear-gradient(135deg, rgba(10, 126, 140, 0.05), rgba(10, 126, 140, 0.01));
+}
+
+body.light-mode .activity-item {
+    background: rgba(0, 0, 0, 0.015);
+}
+
+body.light-mode .activity-item:active {
+    background: rgba(0, 0, 0, 0.03);
+}
+
+body.light-mode .activity-list .empty-activity {
+    color: rgba(0, 0, 0, 0.35);
+}
+
+body.light-mode .activity-footer {
+    background: #f8fafc;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .activity-body {
+        height: 240px;
+    }
+    
+    .activity-item {
+        padding: 5px 8px;
+        gap: 6px;
+    }
+    
+    .activity-item .activity-avatar {
+        width: 24px;
+        height: 24px;
+        font-size: 9px;
+    }
+    
+    .activity-item .activity-user {
+        font-size: 10px;
+    }
+    
+    .activity-item .activity-action,
+    .activity-item .activity-product {
+        font-size: 9px;
+    }
+    
+    .activity-item .activity-time {
+        font-size: 7px;
+    }
+    
+    .activity-title {
+        font-size: 12px;
+    }
+    
+    .activity-icon {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .activity-icon i {
+        font-size: 14px;
+    }
+    
+    .activity-header {
+        padding: 6px 10px;
+    }
+    
+    .activity-footer {
+        padding: 4px 10px;
+        font-size: 8px;
+    }
+}
+
+
+
+
+/* ================================================
+   ANIMASI SHAKE UNTUK TOMBOL REFRESH
+   ================================================ */
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10% { transform: translateX(-4px); }
+    20% { transform: translateX(4px); }
+    30% { transform: translateX(-4px); }
+    40% { transform: translateX(4px); }
+    50% { transform: translateX(-2px); }
+    60% { transform: translateX(2px); }
+    70% { transform: translateX(-2px); }
+    80% { transform: translateX(2px); }
+    90% { transform: translateX(-1px); }
+    100% { transform: translateX(0); }
+}
+
+@keyframes toastSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+@keyframes toastFadeOut {
+    from {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-20px);
+    }
+   }
