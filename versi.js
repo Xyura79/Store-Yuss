@@ -1,11 +1,7 @@
 
 
-// ================================================
-// FILE: version.js
-// Menyimpan informasi versi aplikasi
-// ================================================
 
-const APP_VERSION = "4.0.0";
+const APP_VERSION = "4.5.0";
 
 const APP_RELEASE_DATE = "8 juni 2026";
 
