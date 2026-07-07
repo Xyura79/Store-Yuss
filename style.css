@@ -14402,4 +14402,388 @@ body.light-mode .activity-footer {
         opacity: 0;
         transform: translateX(-50%) translateY(-20px);
     }
-   }
+}
+
+
+
+
+/* ================================================
+   STRUK BOTTOM SHEET - THEME APK YUSSXY (NO EMOJI)
+   ================================================ */
+
+/* OVERLAY */
+.struk-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 99999;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    animation: fadeInOverlay 0.3s ease;
+}
+
+/* BOTTOM SHEET */
+.struk-sheet {
+    background: linear-gradient(180deg, #1a1a2e, #0f0f1a);
+    border-radius: 24px 24px 0 0;
+    padding: 16px 20px 30px;
+    max-width: 420px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    border-top: 2px solid #ef4444;
+    animation: slideUp 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* HANDLE */
+.struk-handle {
+    width: 40px;
+    height: 4px;
+    background: #2a2a3a;
+    border-radius: 4px;
+    margin: 0 auto 16px;
+}
+
+/* HEADER */
+.struk-header {
+    text-align: center;
+    border-bottom: 1px solid #2a2a3a;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+}
+
+.struk-header .store-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ef4444;
+    letter-spacing: 2px;
+    background: linear-gradient(135deg, #ef4444, #f59e0b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.struk-header .status {
+    font-size: 14px;
+    color: #10b981;
+    font-weight: bold;
+    margin-top: 4px;
+    letter-spacing: 1px;
+}
+
+.struk-header .line {
+    font-size: 10px;
+    color: #475569;
+    margin: 6px 0 4px;
+}
+
+.struk-header .line i {
+    color: #475569;
+}
+
+/* INFO PEMBELI */
+.struk-info {
+    font-size: 11px;
+    color: #94a3b8;
+    margin-bottom: 6px;
+}
+
+.struk-info .row {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    border-bottom: 1px solid #1e1e32;
+}
+
+.struk-info .row:last-child {
+    border-bottom: none;
+}
+
+.struk-info .label {
+    color: #94a3b8;
+}
+
+.struk-info .label i {
+    color: #ef4444;
+    font-size: 12px;
+    margin-right: 4px;
+}
+
+.struk-info .value {
+    font-weight: bold;
+    color: #f1f5f9;
+}
+
+.struk-info .value.phone {
+    color: #60a5fa;
+}
+
+/* DIVIDER */
+.struk-divider {
+    border-top: 1px solid #2a2a3a;
+    padding-top: 8px;
+    margin-top: 4px;
+}
+
+/* PRODUK */
+.struk-section-title {
+    font-size: 10px;
+    color: #475569;
+    text-align: center;
+    margin: 4px 0;
+}
+
+.struk-section-title i {
+    color: #ef4444;
+    margin-right: 4px;
+}
+
+.struk-product {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    font-size: 12px;
+    border-bottom: 1px solid #1e1e32;
+}
+
+.struk-product .name {
+    color: #e2e8f0;
+}
+
+.struk-product .name i {
+    color: #ef4444;
+    font-size: 12px;
+    margin-right: 6px;
+}
+
+.struk-product .qty {
+    color: #94a3b8;
+}
+
+.struk-product .price {
+    font-weight: bold;
+    color: #f1f5f9;
+}
+
+/* TOTAL */
+.struk-total {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-top: 1px solid #ef4444;
+    border-bottom: 1px solid #ef4444;
+    margin: 6px 0;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.struk-total .label {
+    color: #f1f5f9;
+}
+
+.struk-total .label i {
+    color: #ef4444;
+    margin-right: 6px;
+}
+
+.struk-total .value {
+    color: #ef4444;
+}
+
+/* PEMBAYARAN */
+.struk-payment {
+    font-size: 11px;
+    color: #94a3b8;
+}
+
+.struk-payment .row {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    border-bottom: 1px solid #1e1e32;
+}
+
+.struk-payment .row:last-child {
+    border-bottom: none;
+    border-top: 1px solid #10b981;
+    padding-top: 6px;
+    margin-top: 2px;
+}
+
+.struk-payment .label {
+    color: #94a3b8;
+}
+
+.struk-payment .label i {
+    color: #f59e0b;
+    font-size: 12px;
+    margin-right: 4px;
+}
+
+.struk-payment .value {
+    font-weight: bold;
+    color: #f1f5f9;
+}
+
+.struk-payment .value.deducted {
+    color: #ef4444;
+}
+
+.struk-payment .value.balance {
+    color: #10b981;
+}
+
+/* INFO TAMBAHAN */
+.struk-extra {
+    font-size: 10px;
+    color: #94a3b8;
+}
+
+.struk-extra .row {
+    display: flex;
+    justify-content: space-between;
+    padding: 3px 0;
+}
+
+.struk-extra .label {
+    color: #94a3b8;
+}
+
+.struk-extra .label i {
+    color: #60a5fa;
+    font-size: 12px;
+    margin-right: 4px;
+}
+
+.struk-extra .value {
+    font-weight: bold;
+    color: #f1f5f9;
+}
+
+.struk-extra .value.trx {
+    color: #60a5fa;
+    font-size: 9px;
+}
+
+.struk-extra .value.status {
+    color: #10b981;
+}
+
+/* FOOTER */
+.struk-footer {
+    text-align: center;
+    border-top: 1px solid #2a2a3a;
+    padding-top: 12px;
+    margin-top: 10px;
+}
+
+.struk-footer .thanks {
+    font-size: 12px;
+    font-weight: bold;
+    color: #ef4444;
+}
+
+.struk-footer .thanks i {
+    color: #10b981;
+    margin-right: 4px;
+}
+
+.struk-footer .brand {
+    font-size: 9px;
+    color: #475569;
+}
+
+.struk-footer .brand i {
+    color: #ef4444;
+    margin-right: 4px;
+}
+
+.struk-footer .barcode {
+    font-size: 16px;
+    color: #334155;
+    margin-top: 6px;
+    letter-spacing: 2px;
+}
+
+/* TOMBOL */
+.struk-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.btn-download-struk {
+    flex: 1;
+    padding: 12px;
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    border: none;
+    border-radius: 30px;
+    color: #fff;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: transform 0.1s;
+}
+
+.btn-download-struk:active {
+    transform: scale(0.97);
+}
+
+.btn-download-struk i {
+    font-size: 16px;
+}
+
+.btn-close-struk {
+    flex: 1;
+    padding: 12px;
+    background: transparent;
+    border: 1px solid #2a2a3a;
+    border-radius: 30px;
+    color: #94a3b8;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-close-struk:active {
+    background: #2a2a3a;
+}
+
+/* SCROLLBAR */
+.struk-sheet::-webkit-scrollbar {
+    width: 3px;
+}
+
+.struk-sheet::-webkit-scrollbar-thumb {
+    background: #ef4444;
+    border-radius: 3px;
+}
+
+.struk-sheet::-webkit-scrollbar-track {
+    background: #1a1a2e;
+}
+
+/* ANIMASI */
+@keyframes fadeInOverlay {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
+
+@keyframes slideDown {
+    from { transform: translateY(0); }
+    to { transform: translateY(100%); }
+}
