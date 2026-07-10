@@ -17,6 +17,13 @@ const NOTIFICATION_DATA = {
             message: "Aplikasi YussXy telah diperbarui ke versi 3.0.0",
             image: "image/logo/logo.jpg",
             date: "20 Mei 2026"
+        },
+        {
+            id: 2,
+            title: "Mohon Bersabar",
+            message: "Hai User, untuk suntik sosmed, masuk nya bakal agak lama, soalnya dari server harus menunggu dahulu, tapi tenang, bakal masuk, cuman agak lama dari biasa nya.",
+            image: "image/logo/logo.jpg",
+            date: "10 juli 2026"
         }
         
             
