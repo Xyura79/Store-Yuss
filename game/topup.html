@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Topup FF - YussXy Store</title>
+    <link rel="stylesheet" href="topup.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        * {
+            -webkit-touch-callout: none !important;
+            -webkit-user-select: none !important;
+            -khtml-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+            user-select: none !important;
+        }
+        input, textarea, [contenteditable="true"] {
+            -webkit-user-select: text !important;
+            -moz-user-select: text !important;
+            -ms-user-select: text !important;
+            user-select: text !important;
+        }
+        img {
+            -webkit-user-drag: none !important;
+            -khtml-user-drag: none !important;
+            -moz-user-drag: none !important;
+            -o-user-drag: none !important;
+            user-drag: none !important;
+            pointer-events: none !important;
+        }
+        img.allow-click {
+            pointer-events: auto !important;
+        }
+        body {
+            -webkit-tap-highlight-color: transparent !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+
+        <header class="topup-header">
+            <div class="header-left">
+                <img src="../image/logo/logo.jpg" alt="Logo" class="header-logo" onerror="this.src='https://placehold.co/48x48/ef4444/white?text=Y'">
+                <span class="header-store-name">YussXy<span>Store</span></span>
+            </div>
+            <div class="header-right">
+                <button class="home-btn" onclick="window.location.href='../index.html'">
+                    <i class="ri-home-4-line"></i>
+                </button>
+            </div>
+        </header>
+
+        <main class="topup-main">
+
+            <!-- BANNER -->
+            <div class="banner-wrapper">
+                <img src="image/banner.jpg" alt="Banner Topup" class="banner-image" onerror="this.src='https://placehold.co/480x150/333/white?text=Banner+Topup+FF'">
+            </div>
+
+            <!-- BELI DIAMOND SECTION -->
+            <div class="beli-diamond-section">
+
+                <!-- FF LOGO + TITLE -->
+                <div class="ff-logo-wrapper">
+                    <img src="image/ff.jpg" alt="Free Fire" class="ff-logo-image" onerror="this.src='https://placehold.co/80x80/333/white?text=FF'">
+                    <div>
+                        <div class="ff-badge">TOP UP</div>
+                        <span class="ff-title"><i class="ri-diamond-line"></i> Diamond Free Fire</span>
+                        <span class="ff-subtitle"><i class="ri-shield-check-line"></i> Murah Dan Aman</span>
+                    </div>
+                </div>
+
+                <hr id="hr1">
+                <br>
+
+                <!-- BELI DIAMOND HEADER -->
+                <div class="beli-header">
+                    <div class="beli-header-left">
+                        <div class="beli-icon-wrapper">
+                            <img src="image/diamond.png" alt="Diamond" class="beli-icon-img">
+                        </div>
+                        <div>
+                            <h3 class="beli-title">Beli Diamond</h3>
+                            <p class="beli-subtitle">Topup diamond Free Fire murah & aman</p>
+                        </div>
+                    </div>
+                    <div class="beli-status">
+                        <span class="status-dot"></span>
+                    </div>
+                </div>
+
+                <!-- INPUT ID (TANPA TOMBOL CEK) -->
+                <div class="input-id-wrapper">
+                    <label class="input-id-label">
+                        <i class="ri-user-search-line"></i> ID Akun Free Fire
+                    </label>
+                    
+                    <input type="text" id="ffUidInput" class="input-id-field" placeholder="Masukkan ID FF kamu...">
+
+                    <!-- USER INFO CARD -->
+                    <div class="user-info-card" id="userInfoCard">
+                        <div class="user-info-loading" id="userInfoLoading">
+                            <div class="loading-spinner"></div>
+                            <span>Memuat data akun...</span>
+                        </div>
+                        <div class="user-info-content" id="userInfoContent" style="display: none;">
+                            <div class="user-info-header">
+                                <div class="user-avatar" id="userAvatar">Y</div>
+                                <div class="user-name-wrapper">
+                                    <span class="user-name" id="userNameDisplay">-</span>
+                                </div>
+                            </div>
+                            <div class="user-info-divider"></div>
+                            <div class="user-balance-wrapper">
+                                <div class="balance-item">
+                                    <i class="ri-wallet-3-line"></i>
+                                    <span class="balance-label">Saldo Yuss Xy</span>
+                                    <span class="balance-value" id="userBalanceDisplay">Rp 0</span>
+                                </div>
+                            </div>
+                            <div class="user-info-divider"></div>
+                        </div>
+                    </div>
+
+                    <!-- PILIH NOMINAL -->
+                    <div class="pilih-nominal-wrapper">
+                        <div class="pilih-nominal-header">
+                            <i class="ri-diamond-line"></i>
+                            <span>Pilih Nominal</span>
+                        </div>
+                        <div class="diamond-grid" id="diamondGrid"></div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ORDER BOTTOM -->
+            <div class="order-bottom">
+                <div class="order-info">
+                    <div class="order-diamond">
+                        <img src="image/diamond.png" alt="Diamond" class="order-icon" onerror="this.src='https://placehold.co/44x44/333/white?text=💎'">
+                        <div>
+                            <div class="order-price" id="orderPrice">Rp 0</div>
+                            <div class="order-amount" id="orderAmount">Pilih nominal</div>
+                            <div class="order-method">Saldo Yuss Xy</div>
+                        </div>
+                    </div>
+                    <button class="order-btn" id="orderBtn" disabled>
+                        Beli Sekarang
+                    </button>
+                </div>
+            </div>
+
+        </main>
+
+    </div>
+
+    <script src="topup.js"></script>
+</body>
+</html>
