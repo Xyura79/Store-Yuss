@@ -19,11 +19,11 @@ const NOTIFICATION_DATA = {
             date: "20 Mei 2026"
         },
         {
-            id: 2,
-            title: "Mohon Bersabar",
-            message: "Hai User, untuk suntik sosmed, masuk nya bakal agak lama, soalnya dari server harus menunggu dahulu, tapi tenang, bakal masuk, cuman agak lama dari biasa nya.",
+            id: 3,
+            title: "Halo Semua nya",
+            message: "Selamat Bergabung di aplikasi YussXy Semoga Kalian terbantu dengan ada nya aplikasi ini, gunakan dengan bijak ya, mohon bantuan nya juga, kalau ada error atau bug tolong langsung kasih tau admin.",
             image: "image/logo/logo.jpg",
-            date: "10 juli 2026"
+            date: "18 juli 2026"
         }
         
             
