@@ -1,9 +1,9 @@
 
 
 
-const APP_VERSION = "4.5.0";
+const APP_VERSION = "4.5.1";
 
-const APP_RELEASE_DATE = "27 juni 2026";
+const APP_RELEASE_DATE = "20 juli 2026";
 
 const APP_UPDATE_INFO = "Jangan Lupa Follow Saluran Resmi Kami Agar Tidak Ketinggalan Info update, promo, dan informasi penting lainnya.";
 
