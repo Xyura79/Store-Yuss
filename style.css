@@ -48,207 +48,32 @@
 
 
 
-
-
-
-
-
-
-
-
-
 /* ================================================
-   KALKULATOR MODAL
+   ANIMASI SMOOTH SAAT SALDO MUNCUL
    ================================================ */
 
-.calc-modal-content {
-    max-width: 360px;
-    width: 92%;
-    border-radius: 20px;
-    overflow: hidden;
-    background: var(--bg-card);
-}
-
-.calc-modal-body {
-    padding: 0 !important;
-}
-
-/* Display */
-.calc-display {
-    padding: 16px 20px 12px;
-    background: var(--bg-secondary);
-    min-height: 80px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: flex-end;
-    border-bottom: 1px solid var(--border);
-}
-
-.calc-expression {
-    font-size: 13px;
-    color: var(--text-secondary);
-    min-height: 20px;
-    word-break: break-all;
-    text-align: right;
-    width: 100%;
-}
-
-.calc-result {
-    font-size: 32px;
-    font-weight: 800;
-    color: var(--text-primary);
-    transition: all 0.2s;
-    text-align: right;
-    width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.calc-result.animate {
-    animation: calcPop 0.15s ease;
-}
-
-@keyframes calcPop {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-}
-
-/* Tombol Grid */
-.calc-buttons {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-    padding: 12px;
-}
-
-.calc-btn {
-    padding: 16px 8px;
-    border: none;
-    border-radius: 14px;
-    font-size: 18px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.1s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-}
-
-.calc-btn:active {
-    transform: scale(0.94);
-}
-
-/* Number buttons */
-.calc-btn-number {
-    background: var(--bg-secondary);
-    color: var(--text-primary);
-    border: 1px solid var(--border);
-}
-
-.calc-btn-number:active {
-    background: var(--accent);
-    color: white;
-    border-color: var(--accent);
-}
-
-/* Operator buttons */
-.calc-btn-operator {
-    background: rgba(239, 68, 68, 0.1);
-    color: var(--accent);
-    border: 1px solid rgba(239, 68, 68, 0.15);
-}
-
-.calc-btn-operator:active {
-    background: var(--accent);
-    color: white;
-}
-
-/* Clear button */
-.calc-btn-clear {
-    background: rgba(239, 68, 68, 0.15);
-    color: #ef4444;
-    border: 1px solid rgba(239, 68, 68, 0.2);
-}
-
-.calc-btn-clear:active {
-    background: #ef4444;
-    color: white;
-}
-
-/* Backspace */
-.calc-btn-backspace {
-    background: rgba(245, 158, 11, 0.12);
-    color: #f59e0b;
-    border: 1px solid rgba(245, 158, 11, 0.15);
-}
-
-.calc-btn-backspace:active {
-    background: #f59e0b;
-    color: white;
-}
-
-/* Equals button */
-.calc-btn-equals {
-    background: linear-gradient(135deg, var(--accent), var(--accent-hover));
-    color: white;
-    border: none;
-    box-shadow: 0 4px 16px rgba(239, 68, 68, 0.3);
-}
-
-.calc-btn-equals:active {
-    transform: scale(0.94);
-    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2);
-}
-
-/* Light mode */
-body.light-mode .calc-modal-content {
-    background: #ffffff;
-}
-
-body.light-mode .calc-display {
-    background: #f8fafc;
-}
-
-body.light-mode .calc-btn-number {
-    background: #f1f5f9;
-    border-color: #e2e8f0;
-}
-
-body.light-mode .calc-btn-number:active {
-    background: var(--accent);
-    color: white;
-}
-
-body.light-mode .calc-btn-operator {
-    background: rgba(239, 68, 68, 0.06);
-}
-
-/* Responsive */
-@media (max-width: 480px) {
-    .calc-btn {
-        padding: 14px 4px;
-        font-size: 16px;
-        border-radius: 12px;
+@keyframes saldoSmooth {
+    0% {
+        opacity: 0;
+        transform: translateY(8px) scale(0.97);
     }
-    
-    .calc-result {
-        font-size: 28px;
-    }
-    
-    .calc-display {
-        padding: 12px 16px 8px;
-        min-height: 70px;
-    }
-    
-    .calc-buttons {
-        gap: 6px;
-        padding: 10px;
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
     }
 }
+
+.saldo-smooth {
+    animation: saldoSmooth 0.5s cubic-bezier(0.2, 0.9, 0.4, 1) forwards !important;
+    display: inline-block;
+}
+
+ 
+
+
+
+
+
 
 
 /* ================================================
@@ -15706,4 +15531,4 @@ body.light-mode .activity-footer {
 @keyframes slideDown {
     from { transform: translateY(0); }
     to { transform: translateY(100%); }
-}
+   }
