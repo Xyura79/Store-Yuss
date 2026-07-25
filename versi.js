@@ -1,7 +1,7 @@
 
 
 
-const APP_VERSION = "4.5.1";
+const APP_VERSION = "4.6.0";
 
 const APP_RELEASE_DATE = "20 juli 2026";
 
