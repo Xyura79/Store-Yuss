@@ -26,9 +26,9 @@ const NOTIFICATION_DATA = {
             date: "18 juli 2026"
         },
         {
-            id: 4,
-            title: "sistem deposit otomatis lagi maintenance",
-            message: "Halo user, untuk malam ini sampai besok, deposit otomatis maintenance, kalau mau isi saldo gunakan yang manual dulu.",
+            id: 5,
+            title: "sistem deposit Sudah Normal",
+            message: "Halo user, Sistem Deposit Sudah Normal Kembali.",
             image: "image/logo/logo.jpg",
             date: "26 juli 2026"
         },
