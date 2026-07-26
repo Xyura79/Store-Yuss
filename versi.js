@@ -24,7 +24,14 @@ const NOTIFICATION_DATA = {
             message: "Selamat Bergabung di aplikasi YussXy Semoga Kalian terbantu dengan ada nya aplikasi ini, gunakan dengan bijak ya, mohon bantuan nya juga, kalau ada error atau bug tolong langsung kasih tau admin.",
             image: "image/logo/logo.jpg",
             date: "18 juli 2026"
-        }
+        },
+        {
+            id: 4,
+            title: "sistem deposit otomatis lagi maintenance",
+            message: "Halo user, untuk malam ini sampai besok, deposit otomatis maintenance, kalau mau isi saldo gunakan yang manual dulu.",
+            image: "image/logo/logo.jpg",
+            date: "26 juli 2026"
+        },
         
             
 
