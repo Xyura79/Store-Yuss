@@ -33,6 +33,13 @@ const NOTIFICATION_DATA = {
             date: "26 juli 2026"
         },
         
+        {
+            id: 4,
+            title: "Maintenance Suntik Sosmed",
+            message: " Halo All, untuk hari ini 2 Agustus 2026 suntik sosmed maintenance dulu dan akan bisa kembali  besok nya tanggal 3 Agustus 2026. mohon maaf jika mengganggu",
+            image: "image/logo/logo.jpg",
+            date: "02 Agustus 2026"
+        },
             
 
 
