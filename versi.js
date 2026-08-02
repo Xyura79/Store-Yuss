@@ -25,13 +25,7 @@ const NOTIFICATION_DATA = {
             image: "image/logo/logo.jpg",
             date: "18 juli 2026"
         },
-        {
-            id: 5,
-            title: "sistem deposit Sudah Normal",
-            message: "Halo user, Sistem Deposit Sudah Normal Kembali.",
-            image: "image/logo/logo.jpg",
-            date: "26 juli 2026"
-        },
+        
         
         {
             id: 4,
