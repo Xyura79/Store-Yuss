@@ -35,7 +35,14 @@ const NOTIFICATION_DATA = {
             date: "02 Agustus 2026"
         },
             
-
+     {
+            id: 5,
+            title: "Layanan Suntik Sosmed Sudah Normal",
+            message: "Sekarang layanan suntik sosmed sudah normal kembali, dan bisa di gunakan",
+            image: "image/logo/logo.jpg",
+            date: "03 Agustus 2026"
+        },
+            
 
 
         
