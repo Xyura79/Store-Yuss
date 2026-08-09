@@ -17852,32 +17852,6 @@ body.light-mode .activity-footer {
     }
 }
 
-@media (min-width: 1024px) {
-    #globalSuccessOverlay .success-container,
-    #globalErrorOverlay .success-container {
-        max-width: 600px;
-        padding: 40px 48px 50px;
-        border-radius: 32px;
-        margin: 40px auto;
-        min-height: auto;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
-        border: 1px solid rgba(56, 189, 248, 0.06);
-    }
-
-    #globalSuccessOverlay,
-    #globalErrorOverlay {
-        background: rgba(10, 14, 23, 0.92);
-        backdrop-filter: blur(8px);
-        display: flex !important;
-        align-items: center;
-        justify-content: center;
-        padding: 40px;
-    }
-
-    #globalSuccessOverlay:not([style*="display: none"]),
-    #globalErrorOverlay:not([style*="display: none"]) {
-        display: flex !important;
-    }
 
     #globalSuccessOverlay .banner-overlay .order-title,
     #globalErrorOverlay .banner-overlay .order-title {
