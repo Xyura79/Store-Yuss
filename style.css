@@ -17133,807 +17133,15 @@ body.light-mode .activity-footer {
 
 
 
-/* ================================================
-   GLOBAL OVERLAY SUKSES & ERROR
-   ================================================ */
 
-#globalSuccessOverlay,
-#globalErrorOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #0a0e17;
-    z-index: 99999;
-    overflow-y: auto;
-    padding: 0;
-    display: none;
-    animation: overlayFadeIn 0.3s ease forwards;
-}
+  
 
-#globalSuccessOverlay.closing,
-#globalErrorOverlay.closing {
-    animation: overlayFadeOut 0.25s ease forwards;
-}
 
-#globalSuccessOverlay .success-container,
-#globalErrorOverlay .success-container {
-    max-width: 440px;
-    width: 100%;
-    margin: 0 auto;
-    min-height: 100vh;
-    background: linear-gradient(180deg, #0d1520 0%, #0a0e17 100%);
-    padding: 20px 20px 30px;
-    animation: containerSlideUp 0.35s cubic-bezier(0.2, 0.9, 0.4, 1) forwards;
-}
 
-#globalSuccessOverlay .success-header,
-#globalErrorOverlay .success-header {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 8px 0 18px;
-    border-bottom: 1px solid rgba(56, 189, 248, 0.08);
-}
 
-#globalSuccessOverlay .success-header .back-btn,
-#globalErrorOverlay .success-header .back-btn {
-    background: rgba(56, 189, 248, 0.06);
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    color: #94a3b8;
-    font-size: 20px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.25s ease;
-}
 
-#globalSuccessOverlay .success-header .back-btn:hover,
-#globalErrorOverlay .success-header .back-btn:hover {
-    background: rgba(56, 189, 248, 0.15);
-    color: #38bdf8;
-}
 
-#globalSuccessOverlay .success-header .back-btn:active,
-#globalErrorOverlay .success-header .back-btn:active {
-    transform: scale(0.92);
-}
 
-#globalSuccessOverlay .success-header .title,
-#globalErrorOverlay .success-header .title {
-    font-size: 17px;
-    font-weight: 700;
-    color: #f1f5f9;
-    letter-spacing: 0.3px;
-}
-
-#globalSuccessOverlay .banner-wrapper,
-#globalErrorOverlay .banner-wrapper {
-    margin: 16px 0 18px 0;
-    border-radius: 14px;
-    overflow: hidden;
-    border: 1px solid rgba(56, 189, 248, 0.08);
-    position: relative;
-    background: linear-gradient(135deg, #0d1a2b, #162033);
-    animation: bannerZoomIn 0.5s cubic-bezier(0.2, 0.9, 0.4, 1) 0.1s both;
-}
-
-#globalSuccessOverlay .banner-wrapper img,
-#globalErrorOverlay .banner-wrapper img {
-    width: 100%;
-    height: auto;
-    display: block;
-    object-fit: cover;
-    opacity: 0.9;
-}
-
-#globalSuccessOverlay .banner-overlay,
-#globalErrorOverlay .banner-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 16px 18px 18px 18px;
-    background: linear-gradient(0deg, rgba(10,14,23,0.85) 0%, rgba(10,14,23,0.3) 60%, transparent 100%);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-start;
-}
-
-#globalSuccessOverlay .banner-overlay .order-title,
-#globalErrorOverlay .banner-overlay .order-title {
-    font-family: 'Rock Salt', cursive;
-    font-size: 22px;
-    font-weight: 400;
-    color: #ffffff;
-    text-shadow: 0 2px 20px rgba(0,0,0,0.6);
-    letter-spacing: 1.5px;
-    margin-bottom: 2px;
-}
-
-#globalSuccessOverlay .banner-overlay .order-sub,
-#globalErrorOverlay .banner-overlay .order-sub {
-    font-family: 'Sora', sans-serif;
-    font-size: 11px;
-    font-weight: 500;
-    color: #fbbf24;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    text-shadow: 0 1px 10px rgba(0,0,0,0.4);
-}
-
-#globalSuccessOverlay .status-card,
-#globalErrorOverlay .status-card {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 16px 20px;
-    margin: 18px 0 20px;
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(56, 189, 248, 0.04));
-    border-radius: 16px;
-    border: 1px solid rgba(16, 185, 129, 0.12);
-    animation: statusSlideIn 0.4s cubic-bezier(0.2, 0.9, 0.4, 1) 0.15s both;
-}
-
-#globalErrorOverlay .status-card {
-    border-color: rgba(239, 68, 68, 0.12);
-    background: linear-gradient(135deg, rgba(239, 68, 68, 0.08), rgba(239, 68, 68, 0.04));
-}
-
-#globalSuccessOverlay .status-card .status-left,
-#globalErrorOverlay .status-card .status-left {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-#globalSuccessOverlay .status-card .status-text {
-    font-size: 15px;
-    font-weight: 700;
-    color: #34d399;
-    letter-spacing: 0.2px;
-}
-
-#globalErrorOverlay .status-card .status-text {
-    font-size: 15px;
-    font-weight: 700;
-    color: #ef4444;
-    letter-spacing: 0.2px;
-}
-
-#globalSuccessOverlay .status-card .status-text small,
-#globalErrorOverlay .status-card .status-text small {
-    display: block;
-    font-size: 11px;
-    font-weight: 400;
-    color: #64748b;
-    margin-top: 1px;
-}
-
-#globalSuccessOverlay .product-card,
-#globalErrorOverlay .product-card {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.02), rgba(56, 189, 248, 0.02));
-    border-radius: 14px;
-    padding: 14px 16px;
-    margin-bottom: 16px;
-    border: 1px solid rgba(56, 189, 248, 0.06);
-    transition: all 0.3s ease;
-    animation: productFadeIn 0.35s ease 0.2s both;
-}
-
-#globalErrorOverlay .product-card {
-    border-color: rgba(239, 68, 68, 0.06);
-}
-
-#globalSuccessOverlay .product-card .product-row,
-#globalErrorOverlay .product-card .product-row {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-}
-
-#globalSuccessOverlay .product-card .product-logo,
-#globalErrorOverlay .product-card .product-logo {
-    width: 48px;
-    height: 48px;
-    background: linear-gradient(135deg, rgba(56, 189, 248, 0.08), rgba(16, 185, 129, 0.04));
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    border: 1px solid rgba(56, 189, 248, 0.06);
-}
-
-#globalErrorOverlay .product-card .product-logo {
-    background: linear-gradient(135deg, rgba(239, 68, 68, 0.08), rgba(239, 68, 68, 0.04));
-    border-color: rgba(239, 68, 68, 0.06);
-}
-
-#globalSuccessOverlay .product-card .product-logo img,
-#globalErrorOverlay .product-card .product-logo img {
-    width: 28px;
-    height: 28px;
-    object-fit: contain;
-}
-
-#globalErrorOverlay .product-card .product-logo i {
-    font-size: 28px;
-    color: #ef4444;
-}
-
-#globalSuccessOverlay .product-card .product-name,
-#globalErrorOverlay .product-card .product-name {
-    font-size: 14px;
-    font-weight: 700;
-    color: #f1f5f9;
-    display: block;
-    letter-spacing: 0.2px;
-}
-
-#globalErrorOverlay .product-card .product-name {
-    color: #ef4444;
-}
-
-#globalSuccessOverlay .product-card .product-price,
-#globalErrorOverlay .product-card .product-price {
-    font-size: 13px;
-    font-weight: 600;
-    color: #38bdf8;
-}
-
-#globalErrorOverlay .product-card .product-price {
-    color: #ef4444;
-}
-
-#globalSuccessOverlay .product-card .target-row,
-#globalErrorOverlay .product-card .target-row {
-    margin-top: 10px;
-    padding-top: 10px;
-    border-top: 1px solid rgba(56, 189, 248, 0.06);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-#globalErrorOverlay .product-card .target-row {
-    border-top-color: rgba(239, 68, 68, 0.06);
-}
-
-#globalSuccessOverlay .product-card .target-row i,
-#globalErrorOverlay .product-card .target-row i {
-    font-size: 14px;
-    color: #fbbf24;
-}
-
-#globalErrorOverlay .product-card .target-row i {
-    color: #ef4444;
-}
-
-#globalSuccessOverlay .product-card .target-row .label,
-#globalErrorOverlay .product-card .target-row .label {
-    font-size: 12px;
-    color: #94a3b8;
-}
-
-#globalErrorOverlay .product-card .target-row .label {
-    color: #ef4444;
-}
-
-#globalSuccessOverlay .product-card .target-row .value,
-#globalErrorOverlay .product-card .target-row .value {
-    font-size: 12px;
-    font-weight: 500;
-    color: #fbbf24;
-    word-break: break-all;
-    flex: 1;
-}
-
-#globalErrorOverlay .product-card .target-row .value {
-    color: #ef4444;
-}
-
-#globalSuccessOverlay .detail-card,
-#globalErrorOverlay .detail-card {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.015), rgba(56, 189, 248, 0.015));
-    border-radius: 14px;
-    padding: 14px 16px;
-    border: 1px solid rgba(56, 189, 248, 0.04);
-    animation: detailFadeIn 0.35s ease 0.25s both;
-}
-
-#globalErrorOverlay .detail-card {
-    border-color: rgba(239, 68, 68, 0.04);
-}
-
-#globalSuccessOverlay .detail-card .detail-title,
-#globalErrorOverlay .detail-card .detail-title {
-    font-size: 11px;
-    font-weight: 600;
-    color: #64748b;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    margin-bottom: 12px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid rgba(56, 189, 248, 0.04);
-}
-
-#globalErrorOverlay .detail-card .detail-title {
-    color: #ef4444;
-    border-bottom-color: rgba(239, 68, 68, 0.04);
-}
-
-#globalSuccessOverlay .detail-card .detail-row,
-#globalErrorOverlay .detail-card .detail-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 7px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.02);
-}
-
-#globalSuccessOverlay .detail-card .detail-row:last-child,
-#globalErrorOverlay .detail-card .detail-row:last-child {
-    border-bottom: none;
-}
-
-#globalSuccessOverlay .detail-card .detail-row .label,
-#globalErrorOverlay .detail-card .detail-row .label {
-    font-size: 12px;
-    color: #94a3b8;
-}
-
-#globalSuccessOverlay .detail-card .detail-row .label i,
-#globalErrorOverlay .detail-card .detail-row .label i {
-    font-size: 13px;
-    margin-right: 4px;
-    color: #38bdf8;
-}
-
-#globalErrorOverlay .detail-card .detail-row .label i {
-    color: #ef4444;
-}
-
-#globalSuccessOverlay .detail-card .detail-row .value,
-#globalErrorOverlay .detail-card .detail-row .value {
-    font-size: 12px;
-    font-weight: 600;
-    color: #f1f5f9;
-    text-align: right;
-    max-width: 55%;
-    word-break: break-word;
-}
-
-#globalSuccessOverlay .detail-card .detail-row .value.trx {
-    color: #38bdf8;
-    font-family: monospace;
-    font-size: 11px;
-    letter-spacing: 0.5px;
-}
-
-#globalSuccessOverlay .detail-card .detail-row .value.total {
-    color: #34d399;
-    font-size: 14px;
-}
-
-#globalSuccessOverlay .detail-card .detail-row .value.target,
-#globalErrorOverlay .detail-card .detail-row .value.target {
-    color: #fbbf24;
-    font-size: 11px;
-}
-
-#globalErrorOverlay .detail-card .detail-row .value.target {
-    color: #ef4444;
-}
-
-#globalSuccessOverlay .detail-card .detail-row .value.method {
-    color: #f59e0b;
-}
-
-#globalSuccessOverlay .detail-card .detail-row .value.date,
-#globalErrorOverlay .detail-card .detail-row .value.date {
-    color: #e2e8f0;
-}
-
-#globalSuccessOverlay .btn-success-close,
-#globalErrorOverlay .btn-success-close {
-    width: 100%;
-    margin-top: 22px;
-    padding: 14px;
-    background: linear-gradient(135deg, #10b981, #059669);
-    border: none;
-    border-radius: 30px;
-    color: white;
-    font-weight: 700;
-    font-size: 15px;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    box-shadow: 0 4px 20px rgba(16, 185, 129, 0.2);
-    animation: btnFadeIn 0.3s ease 0.3s both;
-}
-
-#globalErrorOverlay .btn-success-close {
-    background: linear-gradient(135deg, #ef4444, #dc2626);
-    box-shadow: 0 4px 20px rgba(239, 68, 68, 0.2);
-}
-
-#globalSuccessOverlay .btn-success-close:hover,
-#globalErrorOverlay .btn-success-close:hover {
-    transform: translateY(-1px);
-}
-
-#globalSuccessOverlay .btn-success-close:active,
-#globalErrorOverlay .btn-success-close:active {
-    transform: scale(0.97);
-}
-
-#globalSuccessOverlay .btn-success-close i,
-#globalErrorOverlay .btn-success-close i {
-    margin-right: 8px;
-}
-
-#globalSuccessOverlay .status-icon-emoji {
-    background: linear-gradient(135deg, #fbbf24, #f59e0b);
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    box-shadow: 0 4px 16px rgba(251, 191, 36, 0.3);
-}
-
-#globalSuccessOverlay .status-icon-emoji img {
-    width: 28px;
-    height: 28px;
-}
-
-/* ========== ANIMASI ========== */
-@keyframes overlayFadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.96);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-@keyframes overlayFadeOut {
-    from {
-        opacity: 1;
-        transform: scale(1);
-    }
-    to {
-        opacity: 0;
-        transform: scale(0.96);
-    }
-}
-
-@keyframes containerSlideUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes containerSlideDown {
-    from {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    to {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-}
-
-@keyframes bannerZoomIn {
-    from {
-        opacity: 0;
-        transform: scale(0.92);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-@keyframes statusSlideIn {
-    from {
-        opacity: 0;
-        transform: translateX(-15px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-@keyframes productFadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes detailFadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes btnFadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(8px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-#globalSuccessOverlay.closing .success-container,
-#globalErrorOverlay.closing .success-container {
-    animation: containerSlideDown 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-/* ========== RESPONSIVE ========== */
-@media (max-width: 480px) {
-    #globalSuccessOverlay .success-container,
-    #globalErrorOverlay .success-container {
-        padding: 14px 14px 24px;
-    }
-    #globalSuccessOverlay .success-header .title,
-    #globalErrorOverlay .success-header .title {
-        font-size: 15px;
-    }
-    #globalSuccessOverlay .status-card,
-    #globalErrorOverlay .status-card {
-        padding: 12px 14px;
-    }
-    #globalSuccessOverlay .status-card .status-text,
-    #globalErrorOverlay .status-card .status-text {
-        font-size: 13px;
-    }
-    #globalSuccessOverlay .product-card .product-name,
-    #globalErrorOverlay .product-card .product-name {
-        font-size: 12px;
-    }
-    #globalSuccessOverlay .product-card .product-logo,
-    #globalErrorOverlay .product-card .product-logo {
-        width: 40px;
-        height: 40px;
-    }
-    #globalSuccessOverlay .product-card .product-logo img,
-    #globalErrorOverlay .product-card .product-logo img {
-        width: 22px;
-        height: 22px;
-    }
-    #globalSuccessOverlay .detail-card .detail-row .value,
-    #globalErrorOverlay .detail-card .detail-row .value {
-        max-width: 60%;
-        font-size: 11px;
-    }
-    #globalSuccessOverlay .detail-card .detail-row .value.trx,
-    #globalErrorOverlay .detail-card .detail-row .value.trx {
-        font-size: 10px;
-    }
-    #globalSuccessOverlay .btn-success-close,
-    #globalErrorOverlay .btn-success-close {
-        padding: 12px;
-        font-size: 14px;
-    }
-    #globalSuccessOverlay .banner-overlay .order-title,
-    #globalErrorOverlay .banner-overlay .order-title {
-        font-size: 18px;
-    }
-    #globalSuccessOverlay .banner-overlay .order-sub,
-    #globalErrorOverlay .banner-overlay .order-sub {
-        font-size: 9px;
-        letter-spacing: 1.5px;
-    }
-    #globalSuccessOverlay .banner-overlay,
-    #globalErrorOverlay .banner-overlay {
-        padding: 12px 14px 14px 14px;
-    }
-}
-
-@media (max-width: 380px) {
-    #globalSuccessOverlay .success-container,
-    #globalErrorOverlay .success-container {
-        padding: 10px 10px 20px;
-    }
-    #globalSuccessOverlay .success-header .title,
-    #globalErrorOverlay .success-header .title {
-        font-size: 13px;
-    }
-    #globalSuccessOverlay .success-header .back-btn,
-    #globalErrorOverlay .success-header .back-btn {
-        width: 32px;
-        height: 32px;
-        font-size: 16px;
-    }
-    #globalSuccessOverlay .status-card,
-    #globalErrorOverlay .status-card {
-        padding: 10px 12px;
-    }
-    #globalSuccessOverlay .status-card .status-text,
-    #globalErrorOverlay .status-card .status-text {
-        font-size: 12px;
-    }
-    #globalSuccessOverlay .product-card,
-    #globalErrorOverlay .product-card {
-        padding: 10px 12px;
-    }
-    #globalSuccessOverlay .product-card .product-name,
-    #globalErrorOverlay .product-card .product-name {
-        font-size: 11px;
-    }
-    #globalSuccessOverlay .product-card .product-logo,
-    #globalErrorOverlay .product-card .product-logo {
-        width: 34px;
-        height: 34px;
-    }
-    #globalSuccessOverlay .product-card .product-logo img,
-    #globalErrorOverlay .product-card .product-logo img {
-        width: 18px;
-        height: 18px;
-    }
-    #globalSuccessOverlay .detail-card,
-    #globalErrorOverlay .detail-card {
-        padding: 10px 12px;
-    }
-    #globalSuccessOverlay .detail-card .detail-row .value,
-    #globalErrorOverlay .detail-card .detail-row .value {
-        font-size: 10px;
-    }
-    #globalSuccessOverlay .detail-card .detail-row .value.trx,
-    #globalErrorOverlay .detail-card .detail-row .value.trx {
-        font-size: 9px;
-    }
-    #globalSuccessOverlay .btn-success-close,
-    #globalErrorOverlay .btn-success-close {
-        padding: 10px;
-        font-size: 13px;
-    }
-    #globalSuccessOverlay .banner-overlay .order-title,
-    #globalErrorOverlay .banner-overlay .order-title {
-        font-size: 15px;
-    }
-    #globalSuccessOverlay .banner-overlay .order-sub,
-    #globalErrorOverlay .banner-overlay .order-sub {
-        font-size: 8px;
-    }
-}
-
-@media (min-width: 481px) and (max-width: 768px) {
-    #globalSuccessOverlay .success-container,
-    #globalErrorOverlay .success-container {
-        padding: 24px 28px 30px;
-    }
-    #globalSuccessOverlay .banner-overlay .order-title,
-    #globalErrorOverlay .banner-overlay .order-title {
-        font-size: 24px;
-    }
-}
-
-@media (min-width: 769px) {
-    #globalSuccessOverlay .success-container,
-    #globalErrorOverlay .success-container {
-        padding: 30px 32px 36px;
-        max-width: 480px;
-    }
-    #globalSuccessOverlay .banner-overlay .order-title,
-    #globalErrorOverlay .banner-overlay .order-title {
-        font-size: 28px;
-    }
-}
-
-
-    #globalSuccessOverlay .banner-overlay .order-title,
-    #globalErrorOverlay .banner-overlay .order-title {
-        font-size: 32px;
-    }
-
-    #globalSuccessOverlay .banner-overlay .order-sub,
-    #globalErrorOverlay .banner-overlay .order-sub {
-        font-size: 14px;
-    }
-
-    #globalSuccessOverlay .banner-wrapper,
-    #globalErrorOverlay .banner-wrapper {
-        margin: 20px 0 24px;
-    }
-
-    #globalSuccessOverlay .status-card,
-    #globalErrorOverlay .status-card {
-        padding: 20px 24px;
-        margin: 20px 0 24px;
-    }
-
-    #globalSuccessOverlay .status-card .status-text,
-    #globalErrorOverlay .status-card .status-text {
-        font-size: 18px;
-    }
-
-    #globalSuccessOverlay .product-card,
-    #globalErrorOverlay .product-card {
-        padding: 18px 20px;
-    }
-
-    #globalSuccessOverlay .product-card .product-name,
-    #globalErrorOverlay .product-card .product-name {
-        font-size: 16px;
-    }
-
-    #globalSuccessOverlay .product-card .product-price,
-    #globalErrorOverlay .product-card .product-price {
-        font-size: 15px;
-    }
-
-    #globalSuccessOverlay .product-card .product-logo,
-    #globalErrorOverlay .product-card .product-logo {
-        width: 56px;
-        height: 56px;
-    }
-
-    #globalSuccessOverlay .product-card .product-logo img,
-    #globalErrorOverlay .product-card .product-logo img {
-        width: 32px;
-        height: 32px;
-    }
-
-    #globalSuccessOverlay .detail-card,
-    #globalErrorOverlay .detail-card {
-        padding: 18px 20px;
-    }
-
-    #globalSuccessOverlay .detail-card .detail-row .value,
-    #globalErrorOverlay .detail-card .detail-row .value {
-        font-size: 14px;
-        max-width: 65%;
-    }
-
-    #globalSuccessOverlay .detail-card .detail-row .value.trx,
-    #globalErrorOverlay .detail-card .detail-row .value.trx {
-        font-size: 13px;
-    }
-
-    #globalSuccessOverlay .detail-card .detail-row .value.total,
-    #globalErrorOverlay .detail-card .detail-row .value.total {
-        font-size: 16px;
-    }
-
-    #globalSuccessOverlay .btn-success-close,
-    #globalErrorOverlay .btn-success-close {
-        padding: 16px;
-        font-size: 17px;
-        margin-top: 28px;
-    }
-}
 
 
 
@@ -18479,14 +17687,13 @@ body.light-mode .activity-footer {
     #premiumAppOverlay {
         background: rgba(10, 14, 23, 0.92);
         backdrop-filter: blur(8px);
-        display: flex !important;
         align-items: center;
         justify-content: center;
         padding: 40px;
     }
 
     #premiumAppOverlay:not([style*="display: none"]) {
-        display: flex !important;
+       
     }
 
     #premiumAppOverlay .banner-overlay .order-title {
@@ -19357,7 +18564,806 @@ body.light-mode .riwayat-overlay h2 {
 
 
 
+/* ================================================
+   GLOBAL OVERLAY SUKSES & ERROR
+   ================================================ */
 
+#globalSuccessOverlay,
+#globalErrorOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0a0e17;
+    z-index: 99999;
+    overflow-y: auto;
+    padding: 0;
+    display: none;
+    animation: overlayFadeIn 0.3s ease forwards;
+}
+
+#globalSuccessOverlay.closing,
+#globalErrorOverlay.closing {
+    animation: overlayFadeOut 0.25s ease forwards;
+}
+
+#globalSuccessOverlay .success-container,
+#globalErrorOverlay .success-container {
+    max-width: 440px;
+    width: 100%;
+    margin: 0 auto;
+    min-height: 100vh;
+    background: linear-gradient(180deg, #0d1520 0%, #0a0e17 100%);
+    padding: 20px 20px 30px;
+    animation: containerSlideUp 0.35s cubic-bezier(0.2, 0.9, 0.4, 1) forwards;
+}
+
+#globalSuccessOverlay .success-header,
+#globalErrorOverlay .success-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 8px 0 18px;
+    border-bottom: 1px solid rgba(56, 189, 248, 0.08);
+}
+
+#globalSuccessOverlay .success-header .back-btn,
+#globalErrorOverlay .success-header .back-btn {
+    background: rgba(56, 189, 248, 0.06);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    color: #94a3b8;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+}
+
+#globalSuccessOverlay .success-header .title,
+#globalErrorOverlay .success-header .title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #f1f5f9;
+    letter-spacing: 0.3px;
+}
+
+#globalSuccessOverlay .banner-wrapper,
+#globalErrorOverlay .banner-wrapper {
+    margin: 16px 0 18px 0;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid rgba(56, 189, 248, 0.08);
+    position: relative;
+    background: linear-gradient(135deg, #0d1a2b, #162033);
+    animation: bannerZoomIn 0.5s cubic-bezier(0.2, 0.9, 0.4, 1) 0.1s both;
+}
+
+#globalSuccessOverlay .banner-wrapper img,
+#globalErrorOverlay .banner-wrapper img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    opacity: 0.9;
+}
+
+#globalSuccessOverlay .banner-overlay,
+#globalErrorOverlay .banner-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 16px 18px 18px 18px;
+    background: linear-gradient(0deg, rgba(10,14,23,0.85) 0%, rgba(10,14,23,0.3) 60%, transparent 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+
+#globalSuccessOverlay .banner-overlay .order-title,
+#globalErrorOverlay .banner-overlay .order-title {
+    font-family: 'Rock Salt', cursive;
+    font-size: 22px;
+    font-weight: 400;
+    color: #ffffff;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.6);
+    letter-spacing: 1.5px;
+    margin-bottom: 2px;
+}
+
+#globalSuccessOverlay .banner-overlay .order-sub,
+#globalErrorOverlay .banner-overlay .order-sub {
+    font-family: 'Sora', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    color: #fbbf24;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-shadow: 0 1px 10px rgba(0,0,0,0.4);
+}
+
+#globalSuccessOverlay .status-card,
+#globalErrorOverlay .status-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    margin: 18px 0 20px;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(56, 189, 248, 0.04));
+    border-radius: 16px;
+    border: 1px solid rgba(16, 185, 129, 0.12);
+    animation: statusSlideIn 0.4s cubic-bezier(0.2, 0.9, 0.4, 1) 0.15s both;
+}
+
+#globalErrorOverlay .status-card {
+    border-color: rgba(239, 68, 68, 0.12);
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.08), rgba(239, 68, 68, 0.04));
+}
+
+#globalSuccessOverlay .status-card .status-left,
+#globalErrorOverlay .status-card .status-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+#globalSuccessOverlay .status-card .status-text {
+    font-size: 15px;
+    font-weight: 700;
+    color: #34d399;
+    letter-spacing: 0.2px;
+}
+
+#globalErrorOverlay .status-card .status-text {
+    font-size: 15px;
+    font-weight: 700;
+    color: #ef4444;
+    letter-spacing: 0.2px;
+}
+
+#globalSuccessOverlay .status-card .status-text small,
+#globalErrorOverlay .status-card .status-text small {
+    display: block;
+    font-size: 11px;
+    font-weight: 400;
+    color: #64748b;
+    margin-top: 1px;
+}
+
+#globalSuccessOverlay .product-card,
+#globalErrorOverlay .product-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.02), rgba(56, 189, 248, 0.02));
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+    border: 1px solid rgba(56, 189, 248, 0.06);
+    transition: all 0.3s ease;
+    animation: productFadeIn 0.35s ease 0.2s both;
+}
+
+#globalErrorOverlay .product-card {
+    border-color: rgba(239, 68, 68, 0.06);
+}
+
+#globalSuccessOverlay .product-card .product-row,
+#globalErrorOverlay .product-card .product-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+#globalSuccessOverlay .product-card .product-logo,
+#globalErrorOverlay .product-card .product-logo {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.08), rgba(16, 185, 129, 0.04));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 1px solid rgba(56, 189, 248, 0.06);
+}
+
+#globalErrorOverlay .product-card .product-logo {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.08), rgba(239, 68, 68, 0.04));
+    border-color: rgba(239, 68, 68, 0.06);
+}
+
+#globalSuccessOverlay .product-card .product-logo img,
+#globalErrorOverlay .product-card .product-logo img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+#globalErrorOverlay .product-card .product-logo i {
+    font-size: 28px;
+    color: #ef4444;
+}
+
+#globalSuccessOverlay .product-card .product-name,
+#globalErrorOverlay .product-card .product-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #f1f5f9;
+    display: block;
+    letter-spacing: 0.2px;
+}
+
+#globalErrorOverlay .product-card .product-name {
+    color: #ef4444;
+}
+
+#globalSuccessOverlay .product-card .product-price,
+#globalErrorOverlay .product-card .product-price {
+    font-size: 13px;
+    font-weight: 600;
+    color: #38bdf8;
+}
+
+#globalErrorOverlay .product-card .product-price {
+    color: #ef4444;
+}
+
+#globalSuccessOverlay .product-card .target-row,
+#globalErrorOverlay .product-card .target-row {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(56, 189, 248, 0.06);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#globalErrorOverlay .product-card .target-row {
+    border-top-color: rgba(239, 68, 68, 0.06);
+}
+
+#globalSuccessOverlay .product-card .target-row i,
+#globalErrorOverlay .product-card .target-row i {
+    font-size: 14px;
+    color: #fbbf24;
+}
+
+#globalErrorOverlay .product-card .target-row i {
+    color: #ef4444;
+}
+
+#globalSuccessOverlay .product-card .target-row .label,
+#globalErrorOverlay .product-card .target-row .label {
+    font-size: 12px;
+    color: #94a3b8;
+}
+
+#globalErrorOverlay .product-card .target-row .label {
+    color: #ef4444;
+}
+
+#globalSuccessOverlay .product-card .target-row .value,
+#globalErrorOverlay .product-card .target-row .value {
+    font-size: 12px;
+    font-weight: 500;
+    color: #fbbf24;
+    word-break: break-all;
+    flex: 1;
+}
+
+#globalErrorOverlay .product-card .target-row .value {
+    color: #ef4444;
+}
+
+#globalSuccessOverlay .detail-card,
+#globalErrorOverlay .detail-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.015), rgba(56, 189, 248, 0.015));
+    border-radius: 14px;
+    padding: 14px 16px;
+    border: 1px solid rgba(56, 189, 248, 0.04);
+    animation: detailFadeIn 0.35s ease 0.25s both;
+}
+
+#globalErrorOverlay .detail-card {
+    border-color: rgba(239, 68, 68, 0.04);
+}
+
+#globalSuccessOverlay .detail-card .detail-title,
+#globalErrorOverlay .detail-card .detail-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(56, 189, 248, 0.04);
+}
+
+#globalErrorOverlay .detail-card .detail-title {
+    color: #ef4444;
+    border-bottom-color: rgba(239, 68, 68, 0.04);
+}
+
+#globalSuccessOverlay .detail-card .detail-row,
+#globalErrorOverlay .detail-card .detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+#globalSuccessOverlay .detail-card .detail-row:last-child,
+#globalErrorOverlay .detail-card .detail-row:last-child {
+    border-bottom: none;
+}
+
+#globalSuccessOverlay .detail-card .detail-row .label,
+#globalErrorOverlay .detail-card .detail-row .label {
+    font-size: 12px;
+    color: #94a3b8;
+}
+
+#globalSuccessOverlay .detail-card .detail-row .label i,
+#globalErrorOverlay .detail-card .detail-row .label i {
+    font-size: 13px;
+    margin-right: 4px;
+    color: #38bdf8;
+}
+
+#globalErrorOverlay .detail-card .detail-row .label i {
+    color: #ef4444;
+}
+
+#globalSuccessOverlay .detail-card .detail-row .value,
+#globalErrorOverlay .detail-card .detail-row .value {
+    font-size: 12px;
+    font-weight: 600;
+    color: #f1f5f9;
+    text-align: right;
+    max-width: 55%;
+    word-break: break-word;
+}
+
+#globalSuccessOverlay .detail-card .detail-row .value.trx {
+    color: #38bdf8;
+    font-family: monospace;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+}
+
+#globalSuccessOverlay .detail-card .detail-row .value.total {
+    color: #34d399;
+    font-size: 14px;
+}
+
+#globalSuccessOverlay .detail-card .detail-row .value.target,
+#globalErrorOverlay .detail-card .detail-row .value.target {
+    color: #fbbf24;
+    font-size: 11px;
+}
+
+#globalErrorOverlay .detail-card .detail-row .value.target {
+    color: #ef4444;
+}
+
+#globalSuccessOverlay .detail-card .detail-row .value.method {
+    color: #f59e0b;
+}
+
+#globalSuccessOverlay .detail-card .detail-row .value.date,
+#globalErrorOverlay .detail-card .detail-row .value.date {
+    color: #e2e8f0;
+}
+
+#globalSuccessOverlay .btn-success-close,
+#globalErrorOverlay .btn-success-close {
+    width: 100%;
+    margin-top: 22px;
+    padding: 14px;
+    background: linear-gradient(135deg, #10b981, #059669);
+    border: none;
+    border-radius: 30px;
+    color: white;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 20px rgba(16, 185, 129, 0.2);
+    animation: btnFadeIn 0.3s ease 0.3s both;
+}
+
+#globalErrorOverlay .btn-success-close {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    box-shadow: 0 4px 20px rgba(239, 68, 68, 0.2);
+}
+
+#globalSuccessOverlay .btn-success-close i,
+#globalErrorOverlay .btn-success-close i {
+    margin-right: 8px;
+}
+
+#globalSuccessOverlay .status-icon-emoji {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 16px rgba(251, 191, 36, 0.3);
+}
+
+#globalSuccessOverlay .status-icon-emoji img {
+    width: 28px;
+    height: 28px;
+}
+
+/* ========== ANIMASI ========== */
+@keyframes overlayFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes overlayFadeOut {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.96);
+    }
+}
+
+@keyframes containerSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes containerSlideDown {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+}
+
+@keyframes bannerZoomIn {
+    from {
+        opacity: 0;
+        transform: scale(0.92);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes statusSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes productFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes detailFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes btnFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#globalSuccessOverlay.closing .success-container,
+#globalErrorOverlay.closing .success-container {
+    animation: containerSlideDown 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 480px) {
+    #globalSuccessOverlay .success-container,
+    #globalErrorOverlay .success-container {
+        padding: 14px 14px 24px;
+    }
+    #globalSuccessOverlay .success-header .title,
+    #globalErrorOverlay .success-header .title {
+        font-size: 15px;
+    }
+    #globalSuccessOverlay .status-card,
+    #globalErrorOverlay .status-card {
+        padding: 12px 14px;
+    }
+    #globalSuccessOverlay .status-card .status-text,
+    #globalErrorOverlay .status-card .status-text {
+        font-size: 13px;
+    }
+    #globalSuccessOverlay .product-card .product-name,
+    #globalErrorOverlay .product-card .product-name {
+        font-size: 12px;
+    }
+    #globalSuccessOverlay .product-card .product-logo,
+    #globalErrorOverlay .product-card .product-logo {
+        width: 40px;
+        height: 40px;
+    }
+    #globalSuccessOverlay .product-card .product-logo img,
+    #globalErrorOverlay .product-card .product-logo img {
+        width: 22px;
+        height: 22px;
+    }
+    #globalSuccessOverlay .detail-card .detail-row .value,
+    #globalErrorOverlay .detail-card .detail-row .value {
+        max-width: 60%;
+        font-size: 11px;
+    }
+    #globalSuccessOverlay .detail-card .detail-row .value.trx,
+    #globalErrorOverlay .detail-card .detail-row .value.trx {
+        font-size: 10px;
+    }
+    #globalSuccessOverlay .btn-success-close,
+    #globalErrorOverlay .btn-success-close {
+        padding: 12px;
+        font-size: 14px;
+    }
+    #globalSuccessOverlay .banner-overlay .order-title,
+    #globalErrorOverlay .banner-overlay .order-title {
+        font-size: 18px;
+    }
+    #globalSuccessOverlay .banner-overlay .order-sub,
+    #globalErrorOverlay .banner-overlay .order-sub {
+        font-size: 9px;
+        letter-spacing: 1.5px;
+    }
+    #globalSuccessOverlay .banner-overlay,
+    #globalErrorOverlay .banner-overlay {
+        padding: 12px 14px 14px 14px;
+    }
+}
+
+@media (max-width: 380px) {
+    #globalSuccessOverlay .success-container,
+    #globalErrorOverlay .success-container {
+        padding: 10px 10px 20px;
+    }
+    #globalSuccessOverlay .success-header .title,
+    #globalErrorOverlay .success-header .title {
+        font-size: 13px;
+    }
+    #globalSuccessOverlay .success-header .back-btn,
+    #globalErrorOverlay .success-header .back-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
+    }
+    #globalSuccessOverlay .status-card,
+    #globalErrorOverlay .status-card {
+        padding: 10px 12px;
+    }
+    #globalSuccessOverlay .status-card .status-text,
+    #globalErrorOverlay .status-card .status-text {
+        font-size: 12px;
+    }
+    #globalSuccessOverlay .product-card,
+    #globalErrorOverlay .product-card {
+        padding: 10px 12px;
+    }
+    #globalSuccessOverlay .product-card .product-name,
+    #globalErrorOverlay .product-card .product-name {
+        font-size: 11px;
+    }
+    #globalSuccessOverlay .product-card .product-logo,
+    #globalErrorOverlay .product-card .product-logo {
+        width: 34px;
+        height: 34px;
+    }
+    #globalSuccessOverlay .product-card .product-logo img,
+    #globalErrorOverlay .product-card .product-logo img {
+        width: 18px;
+        height: 18px;
+    }
+    #globalSuccessOverlay .detail-card,
+    #globalErrorOverlay .detail-card {
+        padding: 10px 12px;
+    }
+    #globalSuccessOverlay .detail-card .detail-row .value,
+    #globalErrorOverlay .detail-card .detail-row .value {
+        font-size: 10px;
+    }
+    #globalSuccessOverlay .detail-card .detail-row .value.trx,
+    #globalErrorOverlay .detail-card .detail-row .value.trx {
+        font-size: 9px;
+    }
+    #globalSuccessOverlay .btn-success-close,
+    #globalErrorOverlay .btn-success-close {
+        padding: 10px;
+        font-size: 13px;
+    }
+    #globalSuccessOverlay .banner-overlay .order-title,
+    #globalErrorOverlay .banner-overlay .order-title {
+        font-size: 15px;
+    }
+    #globalSuccessOverlay .banner-overlay .order-sub,
+    #globalErrorOverlay .banner-overlay .order-sub {
+        font-size: 8px;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    #globalSuccessOverlay .success-container,
+    #globalErrorOverlay .success-container {
+        padding: 24px 28px 30px;
+    }
+    #globalSuccessOverlay .banner-overlay .order-title,
+    #globalErrorOverlay .banner-overlay .order-title {
+        font-size: 24px;
+    }
+}
+
+@media (min-width: 769px) {
+    #globalSuccessOverlay .success-container,
+    #globalErrorOverlay .success-container {
+        padding: 30px 32px 36px;
+        max-width: 480px;
+    }
+    #globalSuccessOverlay .banner-overlay .order-title,
+    #globalErrorOverlay .banner-overlay .order-title {
+        font-size: 28px;
+    }
+}
+
+@media (min-width: 1024px) {
+    #globalSuccessOverlay .success-container,
+    #globalErrorOverlay .success-container {
+        max-width: 600px;
+        padding: 40px 48px 50px;
+        border-radius: 32px;
+        margin: 40px auto;
+        min-height: auto;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+        border: 1px solid rgba(56, 189, 248, 0.06);
+    }
+
+    #globalSuccessOverlay,
+    #globalErrorOverlay {
+        background: rgba(10, 14, 23, 0.92);
+        backdrop-filter: blur(8px);
+        align-items: center;
+        justify-content: center;
+        padding: 40px;
+    }
+
+    #globalSuccessOverlay .banner-overlay .order-title,
+    #globalErrorOverlay .banner-overlay .order-title {
+        font-size: 32px;
+    }
+
+    #globalSuccessOverlay .banner-overlay .order-sub,
+    #globalErrorOverlay .banner-overlay .order-sub {
+        font-size: 14px;
+    }
+
+    #globalSuccessOverlay .banner-wrapper,
+    #globalErrorOverlay .banner-wrapper {
+        margin: 20px 0 24px;
+    }
+
+    #globalSuccessOverlay .status-card,
+    #globalErrorOverlay .status-card {
+        padding: 20px 24px;
+        margin: 20px 0 24px;
+    }
+
+    #globalSuccessOverlay .status-card .status-text,
+    #globalErrorOverlay .status-card .status-text {
+        font-size: 18px;
+    }
+
+    #globalSuccessOverlay .product-card,
+    #globalErrorOverlay .product-card {
+        padding: 18px 20px;
+    }
+
+    #globalSuccessOverlay .product-card .product-name,
+    #globalErrorOverlay .product-card .product-name {
+        font-size: 16px;
+    }
+
+    #globalSuccessOverlay .product-card .product-price,
+    #globalErrorOverlay .product-card .product-price {
+        font-size: 15px;
+    }
+
+    #globalSuccessOverlay .product-card .product-logo,
+    #globalErrorOverlay .product-card .product-logo {
+        width: 56px;
+        height: 56px;
+    }
+
+    #globalSuccessOverlay .product-card .product-logo img,
+    #globalErrorOverlay .product-card .product-logo img {
+        width: 32px;
+        height: 32px;
+    }
+
+    #globalSuccessOverlay .detail-card,
+    #globalErrorOverlay .detail-card {
+        padding: 18px 20px;
+    }
+
+    #globalSuccessOverlay .detail-card .detail-row .value,
+    #globalErrorOverlay .detail-card .detail-row .value {
+        font-size: 14px;
+        max-width: 65%;
+    }
+
+    #globalSuccessOverlay .detail-card .detail-row .value.trx,
+    #globalErrorOverlay .detail-card .detail-row .value.trx {
+        font-size: 13px;
+    }
+
+    #globalSuccessOverlay .detail-card .detail-row .value.total,
+    #globalErrorOverlay .detail-card .detail-row .value.total {
+        font-size: 16px;
+    }
+
+    #globalSuccessOverlay .btn-success-close,
+    #globalErrorOverlay .btn-success-close {
+        padding: 16px;
+        font-size: 17px;
+        margin-top: 28px;
+    }
+}
 
 
 
