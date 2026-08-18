@@ -20671,3 +20671,2208 @@ body.light-mode #avatarInfoBox {
 .activity-item .activity-avatar img[src=""] {
     display: none;
 }
+
+
+
+
+
+
+
+
+
+.deposit-overlay {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: rgba(0, 0, 0, 0.6) !important;
+    z-index: 2100 !important;
+    display: flex !important;
+    align-items: flex-end !important;
+    justify-content: center !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transition: all 0.3s ease !important;
+}
+
+.deposit-overlay.show {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.transfer-sheet {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    border-radius: 24px 24px 0 0 !important;
+    background: var(--bg-card) !important;
+    border-top: 2px solid var(--accent) !important;
+    animation: slideUp 0.35s cubic-bezier(0.2, 0.9, 0.4, 1) !important;
+    max-height: 90vh !important;
+    overflow-y: auto !important;
+}
+
+@media (min-width: 768px) {
+    .deposit-overlay {
+        padding: 0 !important;
+    }
+    .transfer-sheet {
+        max-width: 100% !important;
+        width: 100% !important;
+        border-radius: 24px 24px 0 0 !important;
+    }
+}
+
+@media (min-width: 1024px) {
+    .transfer-sheet {
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+}
+
+@media (min-width: 1400px) {
+    .transfer-sheet {
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+}
+
+.transfer-sheet::-webkit-scrollbar {
+    width: 3px !important;
+}
+
+.transfer-sheet::-webkit-scrollbar-thumb {
+    background: var(--accent) !important;
+    border-radius: 3px !important;
+}
+
+.transfer-sheet::-webkit-scrollbar-track {
+    background: var(--border) !important;
+}
+
+.transfer-sheet .deposit-handle {
+    width: 40px !important;
+    height: 4px !important;
+    background: var(--border) !important;
+    border-radius: 4px !important;
+    margin: 10px auto 8px !important;
+    opacity: 0.5 !important;
+}
+
+.transfer-sheet .deposit-header {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 8px 20px 12px !important;
+    border-bottom: 1px solid rgba(239,68,68,0.12) !important;
+    position: sticky !important;
+    top: 0 !important;
+    background: var(--bg-card) !important;
+    z-index: 5 !important;
+}
+
+.transfer-sheet-icon {
+    width: 40px !important;
+    height: 40px !important;
+    background: rgba(239,68,68,0.1) !important;
+    border-radius: 12px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+}
+
+.transfer-sheet-icon i {
+    font-size: 22px !important;
+    color: var(--accent) !important;
+}
+
+.transfer-sheet .deposit-header h3 {
+    flex: 1 !important;
+    font-size: 17px !important;
+    font-weight: 700 !important;
+    margin: 0 !important;
+}
+
+.transfer-sheet .deposit-close-btn {
+    width: 32px !important;
+    height: 32px !important;
+    background: rgba(255,255,255,0.05) !important;
+    border: none !important;
+    border-radius: 50% !important;
+    color: var(--text-primary) !important;
+    font-size: 18px !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+    transition: all 0.2s !important;
+}
+
+.transfer-sheet .deposit-close-btn:active {
+    background: var(--accent) !important;
+    color: white !important;
+    transform: scale(0.9) !important;
+}
+
+.transfer-sheet .deposit-body {
+    padding: 16px 20px 24px !important;
+}
+
+.transfer-balance-card {
+    background: rgba(239,68,68,0.06) !important;
+    border-radius: 12px !important;
+    padding: 12px 16px !important;
+    margin-bottom: 16px !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    border: 1px solid rgba(239,68,68,0.1) !important;
+}
+
+.transfer-balance-label {
+    font-size: 13px !important;
+    color: var(--text-secondary) !important;
+}
+
+.transfer-balance-label i {
+    margin-right: 6px !important;
+    color: var(--accent) !important;
+}
+
+.transfer-balance-value {
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    color: var(--accent) !important;
+}
+
+.transfer-form-group {
+    margin-bottom: 14px !important;
+}
+
+.transfer-form-group label {
+    display: block !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    margin-bottom: 6px !important;
+    color: var(--text-secondary) !important;
+}
+
+.transfer-form-group label i {
+    margin-right: 6px !important;
+    color: var(--accent) !important;
+}
+
+.transfer-sheet-input {
+    width: 100% !important;
+    padding: 10px 14px !important;
+    background: var(--bg-secondary) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 10px !important;
+    color: var(--text-primary) !important;
+    font-size: 13px !important;
+    outline: none !important;
+    transition: all 0.2s !important;
+    box-sizing: border-box !important;
+}
+
+.transfer-sheet-input:focus {
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 0 3px rgba(239,68,68,0.1) !important;
+}
+
+.transfer-sheet-input::placeholder {
+    color: var(--text-secondary) !important;
+    font-size: 12px !important;
+}
+
+.transfer-hint {
+    display: block !important;
+    font-size: 10px !important;
+    color: var(--text-secondary) !important;
+    margin-top: 4px !important;
+}
+
+.transfer-total-card {
+    background: var(--bg-secondary) !important;
+    border-radius: 12px !important;
+    padding: 10px 14px !important;
+    margin-bottom: 16px !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    border: 1px solid var(--border) !important;
+}
+
+.transfer-total-card span:first-child {
+    font-size: 13px !important;
+    color: var(--text-secondary) !important;
+}
+
+.transfer-total-card span:last-child {
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    color: var(--accent) !important;
+}
+
+.transfer-sheet-submit {
+    width: 100% !important;
+    padding: 14px !important;
+    background: linear-gradient(135deg, var(--accent), var(--accent-hover)) !important;
+    border: none !important;
+    border-radius: 12px !important;
+    color: white !important;
+    font-weight: 700 !important;
+    font-size: 14px !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    transition: all 0.2s !important;
+    box-shadow: 0 4px 16px rgba(239,68,68,0.25) !important;
+    box-sizing: border-box !important;
+}
+
+.transfer-sheet-submit:active {
+    transform: scale(0.97) !important;
+}
+
+.transfer-sheet-submit:disabled {
+    opacity: 0.6 !important;
+    cursor: not-allowed !important;
+}
+
+.transfer-sheet-submit .loading-spinner {
+    width: 20px !important;
+    height: 20px !important;
+    border: 2px solid rgba(255,255,255,0.3) !important;
+    border-top-color: white !important;
+    border-radius: 50% !important;
+    animation: spin 0.8s linear infinite !important;
+}
+
+.transfer-sheet-status {
+    display: none !important;
+    padding: 10px 14px !important;
+    border-radius: 10px !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    text-align: center !important;
+    margin-bottom: 12px !important;
+    animation: statusFade 0.3s ease !important;
+}
+
+.transfer-sheet-status.success {
+    display: block !important;
+    background: rgba(16,185,129,0.1) !important;
+    color: #10b981 !important;
+    border: 1px solid rgba(16,185,129,0.15) !important;
+}
+
+.transfer-sheet-status.error {
+    display: block !important;
+    background: rgba(239,68,68,0.1) !important;
+    color: var(--accent) !important;
+    border: 1px solid rgba(239,68,68,0.15) !important;
+}
+
+@keyframes statusFade {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.modal.closing .transfer-sheet {
+    animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards !important;
+}
+
+@keyframes slideDown {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(100%); opacity: 0; }
+}
+
+body.light-mode .transfer-sheet {
+    background: #ffffff !important;
+}
+
+body.light-mode .transfer-balance-card {
+    background: rgba(239,68,68,0.04) !important;
+}
+
+body.light-mode .transfer-sheet-input {
+    background: #f8fafc !important;
+    color: #1e293b !important;
+}
+
+body.light-mode .transfer-total-card {
+    background: #f8fafc !important;
+}
+
+body.light-mode .transfer-sheet .deposit-close-btn {
+    background: #f1f5f9 !important;
+}
+
+body.light-mode .transfer-sheet .deposit-header {
+    border-bottom-color: rgba(239,68,68,0.12) !important;
+}
+
+@media (max-width: 480px) {
+    .transfer-sheet .deposit-body {
+        padding: 12px 16px 20px !important;
+    }
+    .transfer-sheet .deposit-header {
+        padding: 8px 16px 12px !important;
+    }
+    .transfer-sheet .deposit-header h3 {
+        font-size: 15px !important;
+    }
+    .transfer-sheet-input {
+        font-size: 12px !important;
+        padding: 8px 12px !important;
+    }
+    .transfer-balance-card {
+        padding: 10px 12px !important;
+    }
+    .transfer-balance-value {
+        font-size: 14px !important;
+    }
+    .transfer-total-card span:last-child {
+        font-size: 14px !important;
+    }
+    .transfer-sheet-submit {
+        padding: 12px !important;
+        font-size: 13px !important;
+    }
+    .transfer-sheet-icon {
+        width: 36px !important;
+        height: 36px !important;
+    }
+    .transfer-sheet-icon i {
+        font-size: 18px !important;
+    }
+}
+
+@media (max-width: 380px) {
+    .transfer-sheet .deposit-body {
+        padding: 10px 12px 16px !important;
+    }
+    .transfer-sheet .deposit-header {
+        padding: 6px 12px 10px !important;
+    }
+    .transfer-sheet .deposit-header h3 {
+        font-size: 14px !important;
+    }
+    .transfer-sheet-input {
+        font-size: 11px !important;
+        padding: 6px 10px !important;
+    }
+    .transfer-balance-card {
+        padding: 8px 10px !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 4px !important;
+    }
+    .transfer-balance-value {
+        font-size: 13px !important;
+    }
+    .transfer-total-card {
+        padding: 8px 10px !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 4px !important;
+    }
+    .transfer-total-card span:last-child {
+        font-size: 13px !important;
+    }
+    .transfer-sheet-submit {
+        padding: 10px !important;
+        font-size: 12px !important;
+    }
+    .transfer-sheet-icon {
+        width: 32px !important;
+        height: 32px !important;
+    }
+    .transfer-sheet-icon i {
+        font-size: 16px !important;
+    }
+}
+
+
+
+
+
+
+
+
+
+.kalkulator-sheet {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    border-radius: 24px 24px 0 0 !important;
+    background: var(--bg-card) !important;
+    border-top: 2px solid var(--accent) !important;
+    animation: slideUp 0.35s cubic-bezier(0.2, 0.9, 0.4, 1) !important;
+    max-height: 95vh !important;
+    overflow-y: auto !important;
+}
+
+.kalkulator-sheet .deposit-handle {
+    width: 40px !important;
+    height: 4px !important;
+    background: var(--border) !important;
+    border-radius: 4px !important;
+    margin: 10px auto 8px !important;
+    opacity: 0.5 !important;
+}
+
+.kalkulator-sheet .deposit-header {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 8px 20px 12px !important;
+    border-bottom: 1px solid rgba(239,68,68,0.12) !important;
+    position: sticky !important;
+    top: 0 !important;
+    background: var(--bg-card) !important;
+    z-index: 5 !important;
+}
+
+.kalkulator-sheet-icon {
+    width: 40px !important;
+    height: 40px !important;
+    background: rgba(239,68,68,0.1) !important;
+    border-radius: 12px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+}
+
+.kalkulator-sheet-icon i {
+    font-size: 22px !important;
+    color: var(--accent) !important;
+}
+
+.kalkulator-sheet .deposit-header h3 {
+    flex: 1 !important;
+    font-size: 17px !important;
+    font-weight: 700 !important;
+    margin: 0 !important;
+}
+
+.kalkulator-sheet .deposit-close-btn {
+    width: 32px !important;
+    height: 32px !important;
+    background: rgba(255,255,255,0.05) !important;
+    border: none !important;
+    border-radius: 50% !important;
+    color: var(--text-primary) !important;
+    font-size: 18px !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+    transition: all 0.2s !important;
+}
+
+.kalkulator-sheet .deposit-close-btn:active {
+    background: var(--accent) !important;
+    color: white !important;
+    transform: scale(0.9) !important;
+}
+
+.kalkulator-sheet .deposit-body {
+    padding: 16px 20px 24px !important;
+}
+
+.kalkulator-display {
+    background: var(--bg-secondary) !important;
+    border-radius: 16px !important;
+    padding: 16px 20px !important;
+    margin-bottom: 20px !important;
+    min-height: 80px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-end !important;
+    align-items: flex-end !important;
+    border: 1px solid var(--border) !important;
+    overflow: hidden !important;
+}
+
+.kalkulator-expression {
+    font-size: 14px !important;
+    color: var(--text-secondary) !important;
+    min-height: 24px !important;
+    word-break: break-all !important;
+    text-align: right !important;
+    width: 100% !important;
+}
+
+.kalkulator-result {
+    font-size: 32px !important;
+    font-weight: 700 !important;
+    color: var(--text-primary) !important;
+    word-break: break-all !important;
+    text-align: right !important;
+    width: 100% !important;
+    transition: all 0.2s !important;
+}
+
+.kalkulator-buttons {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 10px !important;
+}
+
+.kalkulator-btn {
+    padding: 16px !important;
+    border: none !important;
+    border-radius: 12px !important;
+    font-size: 20px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: all 0.1s !important;
+    text-align: center !important;
+}
+
+.kalkulator-btn:active {
+    transform: scale(0.94) !important;
+}
+
+.kalkulator-btn.number {
+    background: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border) !important;
+}
+
+.kalkulator-btn.number:active {
+    background: var(--accent) !important;
+    color: white !important;
+}
+
+.kalkulator-btn.operator {
+    background: rgba(239,68,68,0.1) !important;
+    color: var(--accent) !important;
+    border: 1px solid rgba(239,68,68,0.15) !important;
+}
+
+.kalkulator-btn.operator:active {
+    background: var(--accent) !important;
+    color: white !important;
+}
+
+.kalkulator-btn.clear {
+    background: rgba(239,68,68,0.15) !important;
+    color: var(--accent) !important;
+    border: 1px solid rgba(239,68,68,0.2) !important;
+}
+
+.kalkulator-btn.clear:active {
+    background: var(--accent) !important;
+    color: white !important;
+}
+
+.kalkulator-btn.equals {
+    background: var(--accent) !important;
+    color: white !important;
+    border: none !important;
+    box-shadow: 0 4px 16px rgba(239,68,68,0.25) !important;
+}
+
+.kalkulator-btn.equals:active {
+    transform: scale(0.94) !important;
+}
+
+.kalkulator-btn.zero {
+    grid-column: span 1 !important;
+}
+
+@media (max-width: 480px) {
+    .kalkulator-sheet .deposit-body {
+        padding: 12px 16px 20px !important;
+    }
+    .kalkulator-sheet .deposit-header {
+        padding: 8px 16px 12px !important;
+    }
+    .kalkulator-sheet .deposit-header h3 {
+        font-size: 15px !important;
+    }
+    .kalkulator-btn {
+        padding: 14px !important;
+        font-size: 18px !important;
+    }
+    .kalkulator-result {
+        font-size: 28px !important;
+    }
+    .kalkulator-display {
+        padding: 12px 16px !important;
+        min-height: 70px !important;
+    }
+}
+
+@media (max-width: 380px) {
+    .kalkulator-sheet .deposit-body {
+        padding: 10px 12px 16px !important;
+    }
+    .kalkulator-btn {
+        padding: 12px !important;
+        font-size: 16px !important;
+    }
+    .kalkulator-result {
+        font-size: 24px !important;
+    }
+    .kalkulator-display {
+        padding: 10px 12px !important;
+        min-height: 60px !important;
+    }
+    .kalkulator-expression {
+        font-size: 12px !important;
+    }
+    .kalkulator-buttons {
+        gap: 8px !important;
+    }
+}
+
+body.light-mode .kalkulator-sheet {
+    background: #ffffff !important;
+}
+
+body.light-mode .kalkulator-display {
+    background: #f8fafc !important;
+}
+
+body.light-mode .kalkulator-btn.number {
+    background: #f1f5f9 !important;
+}
+
+body.light-mode .kalkulator-sheet .deposit-close-btn {
+    background: #f1f5f9 !important;
+}
+
+body.light-mode .kalkulator-sheet .deposit-header {
+    border-bottom-color: rgba(239,68,68,0.12) !important;
+}
+
+
+
+
+
+
+
+
+
+.library-item-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: var(--bg-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 1px solid var(--border);
+}
+
+.library-item-icon i {
+    font-size: 18px;
+    color: var(--accent);
+}
+
+.library-item.active .library-item-icon {
+    background: var(--accent);
+}
+
+.library-item.active .library-item-icon i {
+    color: white;
+}
+
+.library-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.library-item:hover {
+    background: rgba(255,255,255,0.03);
+    border-radius: 8px;
+}
+
+.library-item.active {
+    background: rgba(239,68,68,0.08);
+    border-radius: 8px;
+}
+
+.library-item-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.library-item-title {
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.library-item-artist {
+    font-size: 10px;
+    color: var(--text-secondary);
+}
+
+.library-play-btn, .library-delete-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+    border: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.library-play-btn:hover {
+    background: var(--accent);
+    color: white;
+}
+
+.library-delete-btn:hover {
+    background: #ef4444;
+    color: white;
+}
+
+.library-play-btn:active, .library-delete-btn:active {
+    transform: scale(0.9);
+}
+
+.empty-library {
+    text-align: center;
+    padding: 30px 20px;
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+
+.empty-library i {
+    font-size: 36px;
+    margin-bottom: 10px;
+    display: block;
+    opacity: 0.4;
+}
+
+.empty-library span {
+    font-size: 11px;
+    opacity: 0.6;
+}
+
+.history-header {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.history-list {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.history-list::-webkit-scrollbar {
+    width: 3px;
+}
+
+.history-list::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 3px;
+}
+
+.history-list::-webkit-scrollbar-track {
+    background: var(--border);
+}
+
+body.light-mode .library-item {
+    border-bottom-color: rgba(0,0,0,0.05);
+}
+
+body.light-mode .library-item:hover {
+    background: rgba(0,0,0,0.02);
+}
+
+body.light-mode .library-item.active {
+    background: rgba(239,68,68,0.06);
+}
+
+body.light-mode .library-play-btn, 
+body.light-mode .library-delete-btn {
+    background: rgba(0,0,0,0.04);
+}
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+.music-player-sheet {
+    max-width: 480px;
+    width: 100%;
+    margin: 0 auto;
+    border-radius: 24px 24px 0 0;
+    background: var(--bg-card);
+    border-top: 2px solid var(--accent);
+    animation: slideUp 0.35s cubic-bezier(0.2, 0.9, 0.4, 1);
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+@media (min-width: 768px) {
+    .music-player-sheet {
+        max-width: 100%;
+        width: 100%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .music-player-sheet {
+        max-width: 100%;
+        width: 100%;
+    }
+}
+
+.music-player-sheet::-webkit-scrollbar {
+    width: 3px;
+}
+
+.music-player-sheet::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 3px;
+}
+
+.music-player-sheet .deposit-handle {
+    width: 40px;
+    height: 4px;
+    background: var(--border);
+    border-radius: 4px;
+    margin: 10px auto 8px;
+    opacity: 0.5;
+}
+
+.music-player-sheet .deposit-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 20px 12px;
+    border-bottom: 1px solid rgba(239,68,68,0.12);
+}
+
+.music-sheet-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.music-sheet-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.music-player-sheet .deposit-header h3 {
+    flex: 1;
+    font-size: 17px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.music-player-sheet .deposit-close-btn {
+    width: 32px;
+    height: 32px;
+    background: rgba(255,255,255,0.05);
+    border: none;
+    border-radius: 50%;
+    color: var(--text-primary);
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.music-player-sheet .deposit-close-btn:active {
+    background: var(--accent);
+    color: white;
+    transform: scale(0.9);
+}
+
+.music-player-sheet .deposit-body {
+    padding: 16px 20px 24px;
+}
+
+.import-music-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+    border: none;
+    border-radius: 14px;
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    transition: all 0.2s;
+}
+
+.import-music-btn:active {
+    transform: scale(0.97);
+}
+
+.music-player {
+    background-image: url('https://i.postimg.cc/j2k7wZ08/b8f968af5fea2c58ac88ca5d9f53039f.jpg');
+    background-size: cover;
+    background-position: center;
+    border-radius: 16px;
+    padding: 24px 20px;
+    margin-bottom: 16px;
+    border: 1px solid var(--border);
+    display: none;
+    position: relative;
+}
+
+.music-player::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 16px;
+    pointer-events: none;
+}
+
+.music-player > * {
+    position: relative;
+    z-index: 1;
+}
+
+.music-player .player-cover {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: 0 auto 12px;
+    position: relative;
+    overflow: hidden;
+}
+
+.music-player .player-cover-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.3);
+    display: block;
+}
+
+.music-player .player-cover-skeleton {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%);
+    background-size: 200% 100%;
+    animation: skeletonShimmer 1.5s infinite;
+    display: none;
+}
+
+.music-player .player-cover-img.loading + .player-cover-skeleton {
+    display: block;
+}
+
+.music-player .player-cover-img.loaded + .player-cover-skeleton {
+    display: none;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.music-player .player-cover-img.spinning {
+    animation: spin 4s linear infinite;
+}
+
+.music-player .player-info {
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.music-player .player-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+.music-player .player-artist {
+    font-size: 12px;
+    color: rgba(255,255,255,0.7);
+    text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+
+.music-player .player-controls {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.music-player .player-play-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: none;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    box-shadow: 0 4px 16px rgba(239,68,68,0.3);
+}
+
+.music-player .player-play-btn:active {
+    transform: scale(0.9);
+}
+
+.music-player .player-progress-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.music-player .player-time {
+    font-size: 11px;
+    color: rgba(255,255,255,0.7);
+    font-family: monospace;
+    min-width: 36px;
+}
+
+.music-player .player-progress {
+    flex: 1;
+    height: 4px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.music-player .player-progress-bar {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 4px;
+    width: 0%;
+    transition: width 0.1s linear;
+}
+
+.music-library .library-header {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+}
+
+.music-library .library-list {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.music-library .library-list::-webkit-scrollbar {
+    width: 3px;
+}
+
+.music-library .library-list::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 3px;
+}
+
+.music-library .library-list::-webkit-scrollbar-track {
+    background: var(--border);
+}
+
+.library-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 8px;
+}
+
+.library-item:hover {
+    background: rgba(255,255,255,0.03);
+}
+
+.library-item.active {
+    background: rgba(239,68,68,0.08);
+}
+
+.library-item-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.library-item-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.library-item-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.library-item-title {
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.library-item-artist {
+    font-size: 10px;
+    color: var(--text-secondary);
+}
+
+.library-delete-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(239,68,68,0.08);
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.library-delete-btn:hover {
+    background: #ef4444;
+    color: white;
+}
+
+.library-delete-btn:active {
+    transform: scale(0.9);
+}
+
+.empty-library {
+    text-align: center;
+    padding: 30px 20px;
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+
+.empty-library i {
+    font-size: 36px;
+    margin-bottom: 10px;
+    display: block;
+    opacity: 0.4;
+}
+
+.empty-library span {
+    font-size: 11px;
+    opacity: 0.6;
+}
+
+@keyframes skeletonShimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.deposit-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 2100;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.deposit-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.deposit-overlay.closing {
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.deposit-overlay.closing .music-player-sheet {
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body.light-mode .library-item {
+    border-bottom-color: rgba(0,0,0,0.04);
+}
+
+body.light-mode .library-item:hover {
+    background: rgba(0,0,0,0.02);
+}
+
+body.light-mode .library-item.active {
+    background: rgba(239,68,68,0.06);
+}
+
+body.light-mode .library-delete-btn {
+    background: rgba(239,68,68,0.06);
+}
+
+body.light-mode .music-player {
+    border-color: rgba(255,255,255,0.2);
+}
+
+body.light-mode .music-player-sheet .deposit-close-btn {
+    background: #f1f5f9;
+}
+
+
+
+
+
+
+.musik-mini-widget {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 16px;
+    margin: 12px 0;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.musik-mini-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+}
+
+.musik-mini-icon {
+    width: 32px;
+    height: 32px;
+    background: rgba(239, 68, 68, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.musik-mini-icon i {
+    font-size: 16px;
+    color: var(--accent);
+}
+
+.musik-mini-header span {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.musik-mini-expand {
+    width: 30px;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.05);
+    border: none;
+    border-radius: 50%;
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.musik-mini-expand:hover {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--accent);
+}
+
+.musik-mini-expand:active {
+    transform: scale(0.9);
+}
+
+/* ===== COVER ===== */
+.musik-mini-cover {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin: 0 auto 12px;
+    position: relative;
+    overflow: hidden;
+}
+
+.mini-cover-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid rgba(239, 68, 68, 0.2);
+}
+
+.mini-cover-skeleton {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: linear-gradient(90deg, var(--border) 25%, var(--bg-secondary) 50%, var(--border) 75%);
+    background-size: 200% 100%;
+    animation: skeletonShimmer 1.5s infinite;
+    display: none;
+}
+
+.mini-cover-img.loading + .mini-cover-skeleton {
+    display: block;
+}
+
+.mini-cover-img.loaded + .mini-cover-skeleton {
+    display: none;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.mini-cover-img.spinning {
+    animation: spin 4s linear infinite;
+}
+
+/* ===== INFO ===== */
+.musik-mini-info {
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.mini-track-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mini-track-artist {
+    font-size: 11px;
+    color: var(--text-secondary);
+}
+
+/* ===== CONTROLS ===== */
+.musik-mini-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 10px;
+}
+
+.mini-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.mini-btn:active {
+    transform: scale(0.9);
+}
+
+.mini-prev, .mini-next {
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+}
+
+.mini-prev:hover, .mini-next:hover {
+    background: rgba(239, 68, 68, 0.08);
+    color: var(--accent);
+    border-color: rgba(239, 68, 68, 0.2);
+}
+
+.mini-play {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+    color: white;
+    font-size: 20px;
+    box-shadow: 0 4px 16px rgba(239, 68, 68, 0.25);
+}
+
+.mini-play:hover {
+    box-shadow: 0 4px 24px rgba(239, 68, 68, 0.35);
+    transform: scale(1.05);
+}
+
+/* ===== PROGRESS ===== */
+.musik-mini-progress {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.mini-time {
+    font-size: 10px;
+    color: var(--text-secondary);
+    font-family: monospace;
+    min-width: 32px;
+}
+
+.mini-progress-bar {
+    flex: 1;
+    height: 3px;
+    background: var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.mini-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), #f59e0b);
+    border-radius: 4px;
+    width: 0%;
+    transition: width 0.1s linear;
+}
+
+/* ===== IMPORT ===== */
+.musik-mini-import {
+    width: 100%;
+    padding: 10px;
+    background: rgba(239, 68, 68, 0.06);
+    border: 1px solid rgba(239, 68, 68, 0.1);
+    border-radius: 10px;
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: all 0.2s;
+}
+
+.musik-mini-import:hover {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.2);
+}
+
+.musik-mini-import:active {
+    transform: scale(0.97);
+}
+
+/* ===== LIGHT MODE ===== */
+body.light-mode .musik-mini-widget {
+    background: #ffffff;
+}
+
+body.light-mode .musik-mini-icon {
+    background: rgba(239, 68, 68, 0.06);
+}
+
+body.light-mode .mini-prev, .mini-next {
+    background: #f1f5f9;
+}
+
+body.light-mode .mini-prev:hover, .mini-next:hover {
+    background: rgba(239, 68, 68, 0.06);
+}
+
+body.light-mode .musik-mini-expand {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+body.light-mode .musik-mini-expand:hover {
+    background: rgba(239, 68, 68, 0.06);
+}
+
+body.light-mode .musik-mini-import {
+    background: rgba(239, 68, 68, 0.04);
+}
+
+body.light-mode .musik-mini-import:hover {
+    background: rgba(239, 68, 68, 0.08);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 480px) {
+    .musik-mini-widget {
+        padding: 12px;
+    }
+    
+    .musik-mini-cover {
+        width: 64px;
+        height: 64px;
+    }
+    
+    .mini-play {
+        width: 38px;
+        height: 38px;
+        font-size: 17px;
+    }
+    
+    .mini-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
+    }
+    
+    .musik-mini-controls {
+        gap: 12px;
+    }
+    
+    .mini-track-title {
+        font-size: 12px;
+    }
+}
+
+
+
+
+
+/* ================================================
+   WIDGET MUSIK MINI - TOMBOL EXPAND SVG
+   ================================================ */
+
+.musik-mini-expand {
+    width: 30px !important;
+    height: 30px !important;
+    background: rgba(239, 68, 68, 0.1) !important;
+    border: none !important;
+    border-radius: 50% !important;
+    color: var(--accent) !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.2s !important;
+    flex-shrink: 0 !important;
+    padding: 0 !important;
+}
+
+.musik-mini-expand svg {
+    width: 18px !important;
+    height: 18px !important;
+    stroke: currentColor !important;
+}
+
+.musik-mini-expand:hover {
+    background: rgba(239, 68, 68, 0.2) !important;
+    transform: scale(1.05) !important;
+}
+
+.musik-mini-expand:active {
+    transform: scale(0.9) !important;
+}
+
+body.light-mode .musik-mini-expand {
+    background: rgba(239, 68, 68, 0.06) !important;
+}
+
+body.light-mode .musik-mini-expand:hover {
+    background: rgba(239, 68, 68, 0.12) !important;
+}
+
+
+
+
+/* ================================================
+   MINI LIBRARY - DAFTAR LAGU
+   ================================================ */
+
+.mini-library {
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+}
+
+.mini-library-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.mini-library-header span {
+    margin-left: auto;
+    font-weight: 600;
+    color: var(--accent);
+}
+
+.mini-library-list {
+    max-height: 120px;
+    overflow-y: auto;
+}
+
+.mini-library-list::-webkit-scrollbar {
+    width: 2px;
+}
+
+.mini-library-list::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 3px;
+}
+
+.mini-library-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 2px;
+}
+
+.mini-library-item:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.mini-library-item.active {
+    background: rgba(239, 68, 68, 0.08);
+}
+
+.mini-library-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.mini-library-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.mini-library-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.mini-library-title {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mini-library-artist {
+    font-size: 9px;
+    color: var(--text-secondary);
+}
+
+.mini-empty-library {
+    text-align: center;
+    padding: 20px;
+    color: var(--text-secondary);
+    font-size: 12px;
+}
+
+.mini-empty-library i {
+    font-size: 28px;
+    margin-bottom: 6px;
+    display: block;
+    opacity: 0.4;
+}
+
+
+
+.musik-mini-widget {
+    border: none !important;
+}
+
+.musik-mini-cover {
+    width: 100px !important;
+    height: 100px !important;
+    border-radius: 50%;
+    margin: 0 auto 16px;
+    position: relative;
+    overflow: hidden;
+}
+
+
+
+
+
+
+ 
+.polling-sheet {
+    max-width: 480px;
+    width: 100%;
+    margin: 0 auto;
+    border-radius: 24px 24px 0 0;
+    background: var(--bg-card);
+    border-top: 2px solid var(--accent);
+    animation: slideUp 0.35s cubic-bezier(0.2, 0.9, 0.4, 1);
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.polling-sheet::-webkit-scrollbar {
+    width: 3px;
+}
+
+.polling-sheet::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 3px;
+}
+
+.polling-sheet .deposit-handle {
+    width: 40px;
+    height: 4px;
+    background: var(--border);
+    border-radius: 4px;
+    margin: 10px auto 8px;
+    opacity: 0.5;
+}
+
+.polling-sheet .deposit-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 20px 12px;
+    border-bottom: 1px solid rgba(239,68,68,0.12);
+}
+
+.polling-sheet-icon {
+    width: 36px;
+    height: 36px;
+    background: rgba(239,68,68,0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.polling-sheet-icon i {
+    font-size: 20px;
+    color: var(--accent);
+}
+
+.polling-sheet .deposit-header h3 {
+    flex: 1;
+    font-size: 17px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.polling-sheet .deposit-close-btn {
+    width: 32px;
+    height: 32px;
+    background: rgba(255,255,255,0.05);
+    border: none;
+    border-radius: 50%;
+    color: var(--text-primary);
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.polling-sheet .deposit-close-btn:active {
+    background: var(--accent);
+    color: white;
+    transform: scale(0.9);
+}
+
+.polling-sheet .deposit-body {
+    padding: 16px 20px 24px;
+}
+
+.polling-info {
+    background: rgba(16,185,129,0.08);
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #10b981;
+    border: 1px solid rgba(16,185,129,0.1);
+}
+
+.polling-info i {
+    font-size: 16px;
+}
+
+.polling-form-group {
+    margin-bottom: 14px;
+}
+
+.polling-form-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--text-secondary);
+}
+
+.polling-form-group label i {
+    margin-right: 6px;
+    color: var(--accent);
+}
+
+.polling-input {
+    width: 100%;
+    padding: 10px 14px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text-primary);
+    font-size: 13px;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.polling-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(239,68,68,0.08);
+}
+
+.polling-input::placeholder {
+    color: var(--text-secondary);
+    font-size: 12px;
+}
+
+.polling-hint {
+    display: block;
+    font-size: 10px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+}
+
+.polling-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.polling-option-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 14px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+}
+
+.polling-option-btn:active {
+    transform: scale(0.97);
+}
+
+.polling-option-btn.active {
+    border-color: var(--accent);
+    background: rgba(239,68,68,0.08);
+    box-shadow: 0 0 0 3px rgba(239,68,68,0.08);
+}
+
+.polling-option-letter {
+    width: 24px;
+    height: 24px;
+    background: var(--bg-card);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--text-secondary);
+    flex-shrink: 0;
+}
+
+.polling-option-btn.active .polling-option-letter {
+    background: var(--accent);
+    color: white;
+}
+
+.polling-option-text {
+    flex: 1;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.polling-option-price {
+    font-size: 9px;
+    color: var(--text-secondary);
+    margin-left: auto;
+    background: var(--bg-secondary);
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+
+.polling-option-btn.active .polling-option-price {
+    color: var(--accent);
+    background: rgba(239,68,68,0.08);
+}
+
+.polling-check {
+    font-size: 16px;
+    color: var(--accent);
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.2s;
+}
+
+.polling-option-btn.active .polling-check {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.polling-quantity {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.polling-qty-btn {
+    width: 36px;
+    height: 36px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text-primary);
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.polling-qty-btn:active {
+    background: var(--accent);
+    color: white;
+    transform: scale(0.95);
+}
+
+.polling-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    margin-bottom: 16px;
+    border: 1px solid var(--border);
+}
+
+.polling-total span:first-child {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.polling-total span:last-child {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.polling-submit-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+    box-shadow: 0 4px 16px rgba(239,68,68,0.25);
+}
+
+.polling-submit-btn:active {
+    transform: scale(0.97);
+}
+
+.polling-submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.polling-status {
+    display: none;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 12px;
+    animation: statusFade 0.3s ease;
+}
+
+.polling-status.success {
+    display: block;
+    background: rgba(16,185,129,0.1);
+    color: #10b981;
+    border: 1px solid rgba(16,185,129,0.15);
+}
+
+.polling-status.error {
+    display: block;
+    background: rgba(239,68,68,0.1);
+    color: #ef4444;
+    border: 1px solid rgba(239,68,68,0.15);
+}
+
+@keyframes statusFade {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+body.light-mode .polling-sheet {
+    background: #ffffff;
+}
+
+body.light-mode .polling-input {
+    background: #f8fafc;
+    color: #1e293b;
+}
+
+body.light-mode .polling-option-btn {
+    background: #f8fafc;
+}
+
+body.light-mode .polling-option-btn.active {
+    background: rgba(239,68,68,0.06);
+}
+
+body.light-mode .polling-total {
+    background: #f8fafc;
+}
+
+body.light-mode .polling-sheet .deposit-close-btn {
+    background: #f1f5f9;
+}
+
+
+
+
+.polling-select {
+    width: 100%;
+    padding: 10px 14px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text-primary);
+    font-size: 13px;
+    outline: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%239ca3af' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+}
+
+.polling-select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(239,68,68,0.08);
+}
+
+.polling-select option {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+}
