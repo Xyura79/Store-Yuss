@@ -35,14 +35,14 @@ const NOTIFICATION_DATA = {
             date: "02 Agustus 2026"
         },
             
-     {
-            id: 5,
-            title: "Layanan Suntik Sosmed Sudah Normal",
-            message: "Sekarang layanan suntik sosmed sudah normal kembali, dan bisa di gunakan",
+        {
+            id: 6,
+            title: "Maintenance Deposit Otomatis",
+            message: "Halo, jika deposit otomatis error, atau pas udah scan qris malah pembayaran gagal, mohon gunakan dulu deposit manual, tapi tes on dulu admin nya",
             image: "image/logo/logo.jpg",
-            date: "03 Agustus 2026"
+            date: "19 Agustus 2026"
         },
-            
+        
 
 
         
