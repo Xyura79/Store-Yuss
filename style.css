@@ -2001,7 +2001,7 @@ body.light-mode .preview-example-btn {
     }
 }
 
-/* Light mode */
+
 body.light-mode .ai-card {
     background: #ffffff;
 }
@@ -2009,295 +2009,67 @@ body.light-mode .ai-card {
 
 
 
-/* ================================================
-   RANDOM QUOTE WIDGET
-   ================================================ */
+
 
 .quote-widget {
     background: linear-gradient(135deg, var(--bg-secondary), var(--bg-card));
-    border-radius: 20px;
-    padding: 16px 18px;
-    margin-top: 20px;
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin-top: 12px;
     border: 1px solid var(--border);
     transition: all 0.3s ease;
+    text-align: center;
 }
 
 .quote-icon {
-    flex-shrink: 0;
+    margin-bottom: 6px;
 }
 
 .quote-icon i {
-    font-size: 28px;
+    font-size: 22px;
     color: var(--accent);
-    opacity: 0.7;
+    opacity: 0.4;
 }
 
 .quote-content {
-    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .quote-text {
-    font-size: 14px;
-    line-height: 1.5;
-    color: var(--text-primary);
-    margin-bottom: 12px;
-    font-style: italic;
-    min-height: 60px;
-}
-
-.quote-refresh {
-    background: transparent;
-    border: 1px solid var(--border);
-    border-radius: 30px;
-    padding: 6px 14px;
-    font-size: 11px;
-    color: var(--text-secondary);
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    transition: all 0.2s;
-}
-
-.quote-refresh:active {
-    transform: scale(0.95);
-    background: var(--accent);
-    color: white;
-    border-color: var(--accent);
-}
-
-/* Light Mode */
-body.light-mode .quote-widget {
-    background: linear-gradient(135deg, #f8fafc, #ffffff);
-}
-
-body.light-mode .quote-refresh {
-    background: #f1f5f9;
-}
-
-
-
-
-
-
-
-/* ================================================
-   JADWAL SHOLAT WIDGET - MODERN & COMPACT
-   ================================================ */
-
-.sholat-widget {
-    background: var(--bg-card);
-    border-radius: 28px;
-    padding: 18px;
-    border: 1px solid var(--border);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-}
-
-/* Search Bar */
-.sholat-search-bar {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: var(--bg-secondary);
-    border-radius: 60px;
-    padding: 4px 6px 4px 16px;
-    margin-bottom: 20px;
-    border: 1px solid var(--border);
-}
-
-.sholat-search-bar i {
-    font-size: 18px;
-    color: #ffffff !important;  /* Icon kaca pembesar putih */
-}
-
-.sholat-search-input {
-    flex: 1;
-    background: transparent;
-    border: none;
-    padding: 12px 0;
-    color: var(--text-primary);
-    font-size: 14px;
-    outline: none;
-}
-
-.sholat-search-input::placeholder {
-    color: var(--text-secondary);
     font-size: 13px;
-}
-
-.sholat-refresh {
-    width: 42px;
-    height: 42px;
-    background: var(--accent);
-    border: none;
-    border-radius: 40px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-}
-
-.sholat-refresh:active {
-    transform: scale(0.94);
-}
-
-.sholat-refresh i {
-    color: #ffffff !important;  /* Icon refresh putih */
-    font-size: 18px;
-}
-
-/* Loading Dots */
-.sholat-loading {
-    display: flex;
-    justify-content: center;
-    padding: 30px;
-}
-
-.loading-dots {
-    display: flex;
-    gap: 8px;
-}
-
-.loading-dots span {
-    width: 8px;
-    height: 8px;
-    background: var(--accent);
-    border-radius: 50%;
-    animation: dotBounce 1.4s ease-in-out infinite;
-}
-
-.loading-dots span:nth-child(1) { animation-delay: 0s; }
-.loading-dots span:nth-child(2) { animation-delay: 0.2s; }
-.loading-dots span:nth-child(3) { animation-delay: 0.4s; }
-
-@keyframes dotBounce {
-    0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
-    40% { transform: scale(1); opacity: 1; }
-}
-
-/* Location */
-.sholat-location {
-    display: flex;
-    align-items: baseline;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-bottom: 18px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid var(--border);
-}
-
-.sholat-location i {
-    font-size: 18px;
-    color: var(--accent);
-}
-
-.sholat-location span:first-of-type {
-    font-size: 16px;
-    font-weight: 700;
+    line-height: 1.6;
     color: var(--text-primary);
+    margin-bottom: 4px;
+    font-weight: 500;
 }
 
-.sholat-date {
+.quote-text .arabic {
+    font-size: 14px;
+    color: var(--text-primary);
+    font-weight: 500;
+    display: block;
+    margin-bottom: 2px;
+    font-family: 'Amiri', 'Traditional Arabic', serif;
+    direction: rtl;
+}
+
+.quote-divider {
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--border);
+    margin: 4px auto 4px auto;
+}
+
+.quote-text .indonesian {
     font-size: 11px;
     color: var(--text-secondary);
-    margin-left: auto;
+    display: block;
+    font-style: italic;
 }
 
-/* Grid Waktu Sholat - 4 kolom */
-.sholat-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    margin-bottom: 16px;
-}
-
-@media (max-width: 450px) {
-    .sholat-grid {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 8px;
-    }
-}
-
-/* SEMUA CARD SAMA - TIDAK ADA HIGHLIGHT MERAH */
-.sholat-time-card {
-    background: var(--bg-secondary);
-    border-radius: 16px;
-    padding: 10px 6px;
-    text-align: center;
-    transition: all 0.2s;
-}
-
-/* Hapus efek highlight merah */
-.sholat-time-card.highlight {
-    background: var(--bg-secondary);
-}
-
-.sholat-time-card.highlight .time-label,
-.sholat-time-card.highlight .time-value {
-    color: var(--text-primary);
-}
-
-.sholat-time-card.highlight .time-value {
-    color: var(--accent);
-}
-
-.time-label {
-    font-size: 10px;
-    font-weight: 500;
-    color: var(--text-secondary);
-    margin-bottom: 6px;
-    letter-spacing: 0.3px;
-}
-
-.time-value {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--accent);
-    font-family: monospace;
-    letter-spacing: 0.5px;
-}
-
-/* Footer */
-.sholat-footer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    padding-top: 12px;
-    border-top: 1px solid var(--border);
-    font-size: 10px;
-    color: var(--text-secondary);
-}
-
-.sholat-footer i {
-    font-size: 12px;
-}
-
-/* Light Mode */
-body.light-mode .sholat-widget {
-    background: #ffffff;
-}
-
-body.light-mode .sholat-time-card {
-    background: #f1f5f9;
-}
-
-body.light-mode .sholat-time-card.highlight {
-    background: #f1f5f9;
-}
-
-body.light-mode .sholat-time-card.highlight .time-value {
-    color: #ef4444;
-}
-
-/* Light mode icon search bar */
-body.light-mode .sholat-search-bar i {
-    color: #ffffff !important;
-}
 
 
 
@@ -22875,4 +22647,666 @@ body.light-mode .polling-sheet .deposit-close-btn {
 .polling-select option {
     background: var(--bg-secondary);
     color: var(--text-primary);
+}
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+.bugmantax-sheet {
+    max-width: 480px;
+    width: 100%;
+    margin: 0 auto;
+    border-radius: 28px 28px 0 0;
+    background: var(--bg-card);
+    border-top: 3px solid var(--accent);
+    animation: slideUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    max-height: 92vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.bugmantax-sheet .deposit-handle {
+    width: 44px;
+    height: 4px;
+    background: var(--border);
+    border-radius: 4px;
+    margin: 12px auto 10px;
+    opacity: 0.4;
+}
+
+.bugmantax-sheet .deposit-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 4px 24px 16px 24px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.bugmantax-icon {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, rgba(239,68,68,0.15), rgba(239,68,68,0.05));
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 1px solid rgba(239,68,68,0.15);
+    animation: iconPulse 2s ease infinite;
+}
+
+@keyframes iconPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.bugmantax-icon i {
+    font-size: 22px;
+    color: var(--accent);
+}
+
+.bugmantax-sheet .deposit-header h3 {
+    flex: 1;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: -0.3px;
+}
+
+.bugmantax-sheet .deposit-header h3 small {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--text-secondary);
+    display: block;
+    margin-top: 2px;
+}
+
+.bugmantax-sheet .deposit-close-btn {
+    width: 36px;
+    height: 36px;
+    background: rgba(255,255,255,0.04);
+    border: none;
+    border-radius: 50%;
+    color: var(--text-secondary);
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.bugmantax-sheet .deposit-close-btn:hover {
+    background: rgba(239,68,68,0.1);
+    color: var(--accent);
+    transform: rotate(90deg);
+}
+
+.bugmantax-sheet .deposit-close-btn:active {
+    transform: scale(0.9) rotate(90deg);
+    background: var(--accent);
+    color: white;
+}
+
+.bugmantax-sheet .deposit-body {
+    padding: 20px 20px 28px;
+}
+
+.bugmantax-section-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.bugmantax-section-title span {
+    background: var(--accent);
+    color: white;
+    font-size: 10px;
+    padding: 1px 10px;
+    border-radius: 20px;
+}
+
+.bugmantax-variants {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.bugmantax-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--bg-secondary);
+    border-radius: 16px;
+    padding: 12px 16px;
+    border: 2px solid var(--border);
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.bugmantax-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, var(--accent), rgba(239,68,68,0));
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.bugmantax-card:active {
+    transform: scale(0.97);
+}
+
+.bugmantax-card.active {
+    border-color: var(--accent);
+    background: rgba(239,68,68,0.06);
+    box-shadow: 0 0 0 4px rgba(239,68,68,0.08), 0 8px 24px rgba(239,68,68,0.12);
+    transform: translateX(4px);
+}
+
+.bugmantax-card.active::before {
+    opacity: 0.05;
+}
+
+.bugmantax-card-image {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    transition: transform 0.4s ease;
+}
+
+.bugmantax-card.active .bugmantax-card-image {
+    transform: scale(1.05);
+}
+
+.bugmantax-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.bugmantax-card-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.bugmantax-card-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.bugmantax-card-title .badge {
+    font-size: 9px;
+    font-weight: 600;
+    color: #10b981;
+    background: rgba(16,185,129,0.12);
+    padding: 1px 10px;
+    border-radius: 20px;
+    margin-left: 6px;
+}
+
+.bugmantax-card-desc {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-top: 2px;
+}
+
+.bugmantax-card-price {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--accent);
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.bugmantax-card.active .bugmantax-card-price {
+    transform: scale(1.05);
+}
+
+.bugmantax-card-check {
+    display: none;
+    width: 24px;
+    height: 24px;
+    background: var(--accent);
+    border-radius: 50%;
+    color: white;
+    font-size: 13px;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(239,68,68,0.3);
+    animation: checkPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes checkPop {
+    0% { transform: scale(0); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.bugmantax-card.active .bugmantax-card-check {
+    display: flex;
+}
+
+.bugmantax-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 4px 0 18px 0;
+    opacity: 0.4;
+}
+
+.bugmantax-detail-box {
+    background: var(--bg-secondary);
+    border-radius: 16px;
+    padding: 18px 20px 20px;
+    border: 1px solid var(--border);
+    animation: fadeSlideUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform-origin: top center;
+}
+
+@keyframes fadeSlideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.97);
     }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.bugmantax-detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+}
+
+.bugmantax-detail-header .selected {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.bugmantax-detail-header .price {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.bugmantax-input-group {
+    margin-bottom: 14px;
+}
+
+.bugmantax-input-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 5px;
+}
+
+.bugmantax-input-group label i {
+    margin-right: 6px;
+    color: var(--accent);
+}
+
+.bugmantax-input {
+    width: 100%;
+    padding: 12px 16px;
+    background: var(--bg-card);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.bugmantax-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(239,68,68,0.08);
+    transform: scale(1.01);
+}
+
+.bugmantax-input::placeholder {
+    color: var(--text-secondary);
+    font-size: 12px;
+}
+
+.bugmantax-pay-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 4px;
+}
+
+.bugmantax-pay-btn {
+    padding: 14px 12px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: none;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.bugmantax-pay-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.bugmantax-pay-btn:active::after {
+    width: 300px;
+    height: 300px;
+}
+
+.bugmantax-pay-btn:active {
+    transform: scale(0.94);
+}
+
+.bugmantax-pay-btn.saldo {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    box-shadow: 0 4px 16px rgba(16,185,129,0.25);
+}
+
+.bugmantax-pay-btn.saldo:hover {
+    box-shadow: 0 6px 24px rgba(16,185,129,0.35);
+    transform: translateY(-2px);
+}
+
+.bugmantax-pay-btn.qris {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+    box-shadow: 0 4px 16px rgba(245,158,11,0.25);
+}
+
+.bugmantax-pay-btn.qris:hover {
+    box-shadow: 0 6px 24px rgba(245,158,11,0.35);
+    transform: translateY(-2px);
+}
+
+.bugmantax-pay-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.bugmantax-pay-btn .spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.bugmantax-status {
+    margin-top: 12px;
+    font-size: 12px;
+    text-align: center;
+    display: none;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-weight: 500;
+    animation: statusPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes statusPop {
+    0% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.bugmantax-status.error {
+    display: block;
+    background: rgba(239,68,68,0.08);
+    color: #ef4444;
+    border: 1px solid rgba(239,68,68,0.12);
+}
+
+.bugmantax-status.success {
+    display: block;
+    background: rgba(16,185,129,0.08);
+    color: #10b981;
+    border: 1px solid rgba(16,185,129,0.12);
+}
+
+.bugmantax-loading-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(4px);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.bugmantax-loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(255,255,255,0.1);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+body.light-mode .bugmantax-sheet {
+    background: #ffffff;
+}
+
+body.light-mode .bugmantax-card {
+    background: #f8fafc;
+}
+
+body.light-mode .bugmantax-card.active {
+    background: rgba(239,68,68,0.04);
+}
+
+body.light-mode .bugmantax-input {
+    background: #ffffff;
+    color: #1e293b;
+    border-color: #e2e8f0;
+}
+
+body.light-mode .bugmantax-input:focus {
+    border-color: var(--accent);
+}
+
+body.light-mode .bugmantax-detail-box {
+    background: #f8fafc;
+}
+
+body.light-mode .bugmantax-sheet .deposit-close-btn {
+    background: rgba(0,0,0,0.03);
+}
+
+body.light-mode .bugmantax-sheet .deposit-close-btn:hover {
+    background: rgba(239,68,68,0.06);
+}
+
+@media (max-width: 480px) {
+    .bugmantax-sheet .deposit-body {
+        padding: 16px 16px 24px;
+    }
+    .bugmantax-sheet .deposit-header {
+        padding: 4px 16px 12px;
+    }
+    .bugmantax-sheet .deposit-header h3 {
+        font-size: 16px;
+    }
+    .bugmantax-card {
+        padding: 10px 12px;
+        gap: 10px;
+    }
+    .bugmantax-card-image {
+        width: 48px;
+        height: 48px;
+    }
+    .bugmantax-card-title {
+        font-size: 13px;
+    }
+    .bugmantax-card-price {
+        font-size: 13px;
+    }
+    .bugmantax-pay-btn {
+        font-size: 12px;
+        padding: 12px 10px;
+    }
+    .bugmantax-detail-box {
+        padding: 14px 16px 16px;
+    }
+    .bugmantax-input {
+        padding: 10px 14px;
+        font-size: 13px;
+    }
+    .bugmantax-detail-header .selected {
+        font-size: 13px;
+    }
+    .bugmantax-detail-header .price {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 380px) {
+    .bugmantax-pay-group {
+        grid-template-columns: 1fr;
+    }
+    .bugmantax-card-image {
+        width: 40px;
+        height: 40px;
+    }
+    .bugmantax-card-title {
+        font-size: 12px;
+    }
+    .bugmantax-card-desc {
+        font-size: 10px;
+    }
+    .bugmantax-card-price {
+        font-size: 12px;
+    }
+}
+
+
+@keyframes slideUp {
+    0% {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    0% {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+
+.bugmantax-info-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: rgba(59,130,246,0.06);
+    border: 1px solid rgba(59,130,246,0.12);
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 16px;
+}
+
+.bugmantax-info-box i {
+    color: #3b82f6;
+    font-size: 16px;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.bugmantax-info-box span {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
