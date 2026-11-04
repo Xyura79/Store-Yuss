@@ -1566,3 +1566,42 @@ body {
         font-size: 9px;
     }
 }
+
+
+
+
+
+
+body,
+.payment-wrapper,
+.header,
+.deposit-card,
+.status-badge,
+.deposit-instruction,
+.qris-container,
+.user-info-card,
+.deposit-amount-info,
+.payment-method,
+.payment-details,
+.detail-row,
+.transaction-date,
+.cancel-section,
+.modal,
+.toast-payment {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+input,
+textarea,
+select {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+        }
