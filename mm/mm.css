@@ -1209,4 +1209,120 @@ input::selection, textarea::selection {
     -moz-user-select: text;
     -ms-user-select: text;
     user-select: text;
-    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.forgot-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(6px, 0.8vw, 10px);
+    width: 100%;
+    padding: clamp(10px, 1.2vw, 13px);
+    background: transparent;
+    border: clamp(2px, 0.3vw, 3px) dashed #000000;
+    border-radius: var(--radius-md);
+    color: #000000;
+    font-size: clamp(12px, 1.3vw, 14px);
+    font-weight: 800;
+    font-family: inherit;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.15s ease;
+    margin-top: 4px;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.forgot-link i {
+    font-size: clamp(15px, 1.7vw, 18px);
+    flex-shrink: 0;
+}
+
+.forgot-link:hover {
+    background: var(--yellow-light);
+    border-style: solid;
+}
+
+.forgot-link:active {
+    background: var(--orange-light);
+    transform: scale(0.97);
+}
+
+/* ================================================
+   MODAL LUPA SANDI
+   ================================================ */
+
+.forgot-modal {
+    max-width: min(340px, 92%);
+}
+
+.forgot-modal .modal-header {
+    padding: 10px 14px;
+}
+
+.forgot-modal .modal-header h3 {
+    font-size: 13px;
+}
+
+.forgot-modal .modal-close {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+}
+
+.forgot-modal .modal-body {
+    padding: 14px 16px 16px;
+}
+
+.forgot-desc {
+    font-size: 11px;
+    color: var(--text-secondary);
+    text-align: center;
+    line-height: 1.5;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.forgot-modal .form-group {
+    gap: 5px;
+}
+
+.forgot-modal .form-group label {
+    font-size: 10px;
+}
+
+.forgot-modal .form-group input {
+    padding: 10px 12px;
+    font-size: 12px;
+}
+
+.forgot-modal .login-status {
+    font-size: 10px;
+    padding: 8px 10px;
+}
+
+.forgot-modal .contact-admin-btn {
+    padding: 11px 14px;
+    font-size: 12px;
+    box-shadow: 2px 2px 0px #000000;
+    margin-top: 12px;
+}
+
+.forgot-modal .contact-admin-btn:hover {
+    box-shadow: 3px 3px 0px #000000;
+}
+
+
